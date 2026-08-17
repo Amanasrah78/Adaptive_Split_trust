@@ -5,6 +5,10 @@ version = 4
 [[package]]
 name = "astra-authority"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+ "astra-dprf",
+]
 
 [[package]]
 name = "astra-common"
@@ -13,19 +17,38 @@ version = "0.1.0"
 [[package]]
 name = "astra-dprf"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+]
 
 [[package]]
 name = "astra-gateway"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+ "astra-dprf",
+ "astra-synthesizer",
+]
 
 [[package]]
 name = "astra-governance"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+]
 
 [[package]]
 name = "astra-synthesizer"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+]
 
 [[package]]
 name = "astra-testkit"
 version = "0.1.0"
+dependencies = [
+ "astra-common",
+ "astra-dprf",
+ "astra-synthesizer",
+]
