@@ -1,0 +1,8 @@
+/target
+.env
+*.key
+*.pem
+*.secret
+/results/raw/
+/config/generated/
+.DS_Store
