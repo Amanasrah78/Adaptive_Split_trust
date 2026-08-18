@@ -113,7 +113,9 @@ dependencies = [
  "astra-governance",
  "astra-pqcrypto",
  "astra-synthesizer",
+ "serde",
  "serde_json",
+ "zeroize",
 ]
 
 [[package]]
