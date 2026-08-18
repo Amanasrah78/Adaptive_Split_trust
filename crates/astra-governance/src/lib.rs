@@ -236,6 +236,53 @@ pub struct CheckpointCandidate<'a> {
     pub now: u64,
 }
 
+/// Serializable off-path governance bundle distributed to protocol nodes.
+///
+/// The bundle contains public data only. Nodes must still validate every field,
+/// RPC observation, transition, and governance signature before activation.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct GovernanceBundle {
+    /// Bundle schema version.
+    pub schema_version: u16,
+    /// Downloaded governance checkpoint.
+    pub checkpoint: GovernanceCheckpoint,
+    /// IOTA shared-object anchor for the checkpoint.
+    pub anchor: LedgerAnchor,
+    /// Independently obtained full-node observations.
+    pub observations: Vec<RpcObservation>,
+    /// Expected IOTA deployment binding.
+    pub profile: GovernanceProfile,
+    /// Governance-actor verification-key set.
+    pub key_set: GovernanceKeySet,
+    /// Detached governance-actor signatures.
+    pub signatures: Vec<GovernanceSignature>,
+}
+
+/// Validates and activates a serialized governance bundle off the session path.
+pub fn validate_bundle(
+    provider: &PqProvider,
+    current: &LocalGovernanceState,
+    bundle: &GovernanceBundle,
+    now: u64,
+) -> Result<LocalGovernanceState, GovernanceError> {
+    if bundle.schema_version != 1 {
+        return Err(GovernanceError::InvalidCheckpoint);
+    }
+    validate_and_activate(
+        provider,
+        CheckpointCandidate {
+            current,
+            checkpoint: &bundle.checkpoint,
+            anchor: &bundle.anchor,
+            observations: &bundle.observations,
+            profile: &bundle.profile,
+            key_set: &bundle.key_set,
+            signatures: &bundle.signatures,
+            now,
+        },
+    )
+}
+
 /// Computes the canonical checkpoint digest committed on IOTA.
 pub fn checkpoint_hash(checkpoint: &GovernanceCheckpoint) -> Result<Digest32, GovernanceError> {
     let encoded = checkpoint.encode_canonical()?;
