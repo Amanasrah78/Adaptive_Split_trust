@@ -1,0 +1,109 @@
+{
+  "clause_count": 4,
+  "clauses": [
+    {
+      "authorities": [
+        "a2"
+      ],
+      "clause_id": "destination",
+      "epoch": 1,
+      "exact_coalition": true,
+      "purpose": "destination",
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213075,
+          "file_hash": "fa43c1321e35cb6e45efb75dee8e62e7130b3df4cd26b9ddad6ad579e732f81c",
+          "relative_path": "destination/a2.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "clause_id": "risk-floor",
+      "epoch": 1,
+      "exact_coalition": true,
+      "purpose": "risk-floor",
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213082,
+          "file_hash": "6d6b6ada7324946ae7f93411aba58155f67fd8eb2bf0ffffc812baa40814c466",
+          "relative_path": "risk-floor/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213082,
+          "file_hash": "e4f7f86bc5eb808f68e3f1549d6185b4da2bc1e39c16f72619f84ff97a6de508",
+          "relative_path": "risk-floor/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213082,
+          "file_hash": "9ca0387c5eb4ba905cd151cc66104112c4ccb938a8dfbf2003ba7345fe61adfc",
+          "relative_path": "risk-floor/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1"
+      ],
+      "clause_id": "source",
+      "epoch": 1,
+      "exact_coalition": true,
+      "purpose": "source",
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213070,
+          "file_hash": "866694d0480adfbc202f12f030623fc5cd50c89efa6c831abb36802ed270e61b",
+          "relative_path": "source/a1.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a3"
+      ],
+      "clause_id": "safety",
+      "epoch": 1,
+      "exact_coalition": true,
+      "purpose": "safety",
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213070,
+          "file_hash": "8c192d1a4bed92986a15b8626c07c013af0acaea48982ee298042c3c74be2319",
+          "relative_path": "safety/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    }
+  ],
+  "encrypted_at_rest": false,
+  "integrity_mechanism": "SHAKE256 embedded checksum plus domain-separated SHA3-256 manifest hash",
+  "lab_only": true,
+  "risk_class": "R3",
+  "schema": "astra-pq-r3-session-share-provisioning-v1",
+  "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
+  "share_file_count": 6,
+  "single_share_t_of_n": false
+}

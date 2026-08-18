@@ -1,0 +1,50 @@
+{
+  "schema": "astra-pq-distributed-session-responder-summary-v1",
+  "samples": 100,
+  "successful_sessions": 100,
+  "total": {
+    "samples": 100,
+    "minimum_us": 3956,
+    "median_us": 5440,
+    "p95_us": 7600,
+    "p99_us": 7726,
+    "maximum_us": 7994,
+    "mean_us": 5996.51
+  },
+  "request_verification": {
+    "samples": 100,
+    "minimum_us": 224,
+    "median_us": 252,
+    "p95_us": 280,
+    "p99_us": 291,
+    "maximum_us": 354,
+    "mean_us": 253.35
+  },
+  "kem_decapsulation": {
+    "samples": 100,
+    "minimum_us": 10,
+    "median_us": 11,
+    "p95_us": 14,
+    "p99_us": 20,
+    "maximum_us": 20,
+    "mean_us": 11.4
+  },
+  "session_establishment": {
+    "samples": 100,
+    "minimum_us": 436,
+    "median_us": 481,
+    "p95_us": 518,
+    "p99_us": 533,
+    "maximum_us": 568,
+    "mean_us": 483.7
+  },
+  "finish_verification": {
+    "samples": 100,
+    "minimum_us": 737,
+    "median_us": 2618,
+    "p95_us": 2926,
+    "p99_us": 3317,
+    "maximum_us": 3427,
+    "mean_us": 2499.57
+  }
+}

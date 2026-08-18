@@ -1,0 +1,117 @@
+{
+  "schema": "astra-pq-distributed-session-summary-v1",
+  "samples": 100,
+  "successful_sessions": 100,
+  "risk_classes": [
+    "R3"
+  ],
+  "clause_counts": [
+    4
+  ],
+  "evidence_counts": [
+    6
+  ],
+  "session_key_exported_values": [
+    false
+  ],
+  "confirmation_values": [
+    true
+  ],
+  "contributors": [
+    {
+      "destination": [
+        "a2"
+      ],
+      "risk-floor": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "safety": [
+        "a3"
+      ],
+      "source": [
+        "a1"
+      ]
+    }
+  ],
+  "total": {
+    "samples": 100,
+    "minimum_us": 10306,
+    "median_us": 13304,
+    "p95_us": 15782,
+    "p99_us": 15913,
+    "maximum_us": 18271,
+    "mean_us": 13261.07
+  },
+  "authority_collection": {
+    "samples": 100,
+    "minimum_us": 1714,
+    "median_us": 2286,
+    "p95_us": 3207,
+    "p99_us": 4816,
+    "maximum_us": 5543,
+    "mean_us": 2385.46
+  },
+  "responder_handshake": {
+    "samples": 100,
+    "minimum_us": 4635,
+    "median_us": 6991,
+    "p95_us": 8955,
+    "p99_us": 9161,
+    "maximum_us": 9294,
+    "mean_us": 7260.89
+  },
+  "initiator_session_establishment": {
+    "samples": 100,
+    "minimum_us": 424,
+    "median_us": 472,
+    "p95_us": 521,
+    "p99_us": 535,
+    "maximum_us": 540,
+    "mean_us": 474.59
+  },
+  "authority_request_signing": {
+    "samples": 100,
+    "minimum_us": 913,
+    "median_us": 1767,
+    "p95_us": 2618,
+    "p99_us": 2926,
+    "maximum_us": 3830,
+    "mean_us": 1852.23
+  },
+  "evidence_verification": {
+    "samples": 100,
+    "minimum_us": 352,
+    "median_us": 398,
+    "p95_us": 434,
+    "p99_us": 441,
+    "maximum_us": 457,
+    "mean_us": 397.07
+  },
+  "kem_encapsulation": {
+    "samples": 100,
+    "minimum_us": 9,
+    "median_us": 12,
+    "p95_us": 23,
+    "p99_us": 23,
+    "maximum_us": 26,
+    "mean_us": 12.93
+  },
+  "policy_synthesis": {
+    "samples": 100,
+    "minimum_us": 1,
+    "median_us": 2,
+    "p95_us": 4,
+    "p99_us": 7,
+    "maximum_us": 8,
+    "mean_us": 2.26
+  },
+  "gateway_session_request_bytes": {
+    "samples": 100,
+    "minimum": 93837,
+    "median": 94117,
+    "maximum": 94382,
+    "mean": 94119.54
+  }
+}

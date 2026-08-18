@@ -1,0 +1,18 @@
+{
+  "encrypted_at_rest": false,
+  "generation_self_test": true,
+  "kem_algorithm": "ML-KEM-768",
+  "kem_implementation": "FIPS203",
+  "kem_nist_level": 3,
+  "lab_only": true,
+  "public_key_bytes": 1184,
+  "public_key_hash": "5eef0abe1b79309fe95d2f1cffdd1bc64d454752247085d91430f5bf8e202ba1",
+  "public_key_relative_path": "encapsulation.pk",
+  "responder_host": "astra-domain-b",
+  "responder_id": "gateway-b",
+  "role": "session-responder-decapsulation",
+  "role_separated_from_request_signing": true,
+  "schema": "astra-pq-responder-kem-keys-v1",
+  "secret_key_bytes": 2400,
+  "secret_key_relative_path": "decapsulation.sk"
+}

@@ -1,0 +1,109 @@
+ASTRA-PQ distributed dual-gate session evaluation
+Captured:
+2026-08-18T19:34:37+00:00
+
+Repository:
+d5763367cca013f0d08839e69aa4c17cb26caaa2
+feature/distributed-session-establishment
+concurrent-authorities-v0.6.0-9-gd576336
+?? results/distributed-session-100-environment.txt
+?? results/distributed-session-100-summary.json
+?? results/distributed-session-100.jsonl
+?? results/distributed-session-responder-100-summary.json
+?? results/distributed-session-responder-100.jsonl
+
+Cryptographic profile:
+KEM=ML-KEM-768
+signature=ML-DSA-65
+DPRF=lwr-n1024-q64-q1-42-p10-x26-static-semi-honest
+risk_class=R3
+clauses=destination,risk-floor,safety,source
+evidence_items=6
+bidirectional_key_confirmation=true
+session_key_exported=false
+live_iota_claim=false
+
+Controller:
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       462Mi       605Mi        68Ki       2.0Gi       2.4Gi
+Swap:          1.8Gi       5.5Mi       1.8Gi
+
+Provisioning manifests:
+2e52a5937c586f59a569ffc1c084b3594c60685dc069e252f33e2bfce171bf0a  /home/astraadmin/astra-provisioning/r3-session-shares-v1/manifest.json
+f81f3837a55251cd2cbcfaa864eea16f98310e3ebb707a021400bf35314b8628  /home/astraadmin/astra-provisioning/responder-kem-v1/manifest.json
+
+Local release binaries:
+84ece6e2365721139073a7c5cca2aadb0626cc8aaf9d33d962d2e077f306dffc  target/release/astra-session-client
+f28daab13f05252d448d1cfc4a28d779af3c2ba0743621ed7e7b2b901a62d6f0  target/release/astra-session-responder
+
+Datasets:
+01add9f7592278f17a4ff58ce24c557504b7e123d43835a59f24a62e0cdb9cd2  results/distributed-session-100.jsonl
+1ad14e85a31952e788098dea411df225eaf667827b703999de288dac1f1ad4fd  results/distributed-session-100-summary.json
+af6d0746959abd6da7e1d58c38e4ca76fad6e3180aecdc4765d36e5fccda0aee  results/distributed-session-responder-100.jsonl
+212369ed61022f91add01711f69fc8038ec12da0d63c2c7a1d17ef238d5a491d  results/distributed-session-responder-100-summary.json
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.11/24 
+enp26s0          UP             172.16.64.11/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.12/24 
+enp26s0          UP             172.16.64.12/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+astra-domain-a | CHANGED | rc=0 >>
+84ece6e2365721139073a7c5cca2aadb0626cc8aaf9d33d962d2e077f306dffc  /home/astraadmin/astra-pq/bin/astra-session-client
+astra-domain-b | CHANGED | rc=0 >>
+active
+f28daab13f05252d448d1cfc4a28d779af3c2ba0743621ed7e7b2b901a62d6f0  /home/astraadmin/astra-pq/bin/astra-session-responder
+d850fda5c224318614f73edfdca0c2aebd7e5b5543653a5805542010df7d5dba  /home/astraadmin/astra-pq/config/responder-kem/gateway-b.pk

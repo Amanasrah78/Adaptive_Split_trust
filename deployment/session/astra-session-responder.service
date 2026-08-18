@@ -1,0 +1,33 @@
+[Unit]
+Description=ASTRA-PQ dual-gate session responder
+After=network-online.target astra-authority.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=astraadmin
+Group=astraadmin
+EnvironmentFile=/home/astraadmin/astra-pq/config/service/session-responder.env
+ExecStart=/home/astraadmin/astra-pq/bin/astra-session-responder
+Restart=on-failure
+RestartSec=1s
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_INET AF_INET6
+LimitNOFILE=1024
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
