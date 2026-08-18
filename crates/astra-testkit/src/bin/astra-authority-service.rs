@@ -27,11 +27,15 @@ use std::fs;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::{Arc, Mutex};
+use std::thread;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use zeroize::Zeroizing;
 
 const WIRE_SCHEMA: &str = "astra-pq-authority-wire-v1";
 const MAX_FRAME_BYTES: usize = 1_048_576;
+const MAX_CONCURRENT_CONNECTIONS: usize = 32;
 const IO_TIMEOUT: Duration = Duration::from_secs(5);
 const KEY_SELF_TEST_MESSAGE: &[u8] = b"ASTRA-PQ authority signing-key startup self-test v1";
 
@@ -59,6 +63,16 @@ struct ServiceState {
     gateway_public_keys: BTreeMap<String, Vec<u8>>,
     shares: BTreeMap<String, LwrExactCoalitionShare>,
     completed_sessions: BTreeSet<String>,
+}
+
+struct ConnectionPermit {
+    active_connections: Arc<AtomicUsize>,
+}
+
+impl Drop for ConnectionPermit {
+    fn drop(&mut self) {
+        self.active_connections.fetch_sub(1, Ordering::AcqRel);
+    }
 }
 
 impl ServiceState {
@@ -212,7 +226,8 @@ impl ServiceState {
 
 fn main() -> anyhow::Result<()> {
     let bind_address = required_environment("ASTRA_AUTHORITY_BIND")?;
-    let mut state = ServiceState::load()?;
+    let state = ServiceState::load()?;
+    let authority_id = state.authority_id.clone();
     let provisioned_thresholds: BTreeSet<u16> = state
         .shares
         .keys()
@@ -232,19 +247,51 @@ fn main() -> anyhow::Result<()> {
             "share_version": state.share_version,
             "gateway_authentication": "ML-DSA-65",
             "evidence_signature": "ML-DSA-65",
-            "replay_state": "in-memory"
+            "replay_state": "in-memory",
+            "connection_model": "bounded-thread-per-connection",
+            "maximum_concurrent_connections": MAX_CONCURRENT_CONNECTIONS,
+            "request_state_serialization": "mutex-protected"
         })
     );
+
+    let shared_state = Arc::new(Mutex::new(state));
+    let active_connections = Arc::new(AtomicUsize::new(0));
 
     for connection in listener.incoming() {
         match connection {
             Ok(mut stream) => {
-                if let Err(error) = handle_connection(&mut stream, &mut state) {
+                let Some(connection_permit) = reserve_connection(&active_connections) else {
                     eprintln!(
                         "{}",
                         json!({
-                            "schema": "astra-pq-authority-service-error-v1",
-                            "authority_id": state.authority_id,
+                            "schema": "astra-pq-authority-capacity-rejection-v1",
+                            "authority_id": authority_id,
+                            "maximum_concurrent_connections": MAX_CONCURRENT_CONNECTIONS
+                        })
+                    );
+                    continue;
+                };
+                let connection_state = Arc::clone(&shared_state);
+                let connection_authority = authority_id.clone();
+                let thread_name = format!("astra-{connection_authority}-connection");
+                if let Err(error) = thread::Builder::new().name(thread_name).spawn(move || {
+                    let _connection_permit = connection_permit;
+                    if let Err(error) = handle_connection(&mut stream, &connection_state) {
+                        eprintln!(
+                            "{}",
+                            json!({
+                                "schema": "astra-pq-authority-service-error-v1",
+                                "authority_id": connection_authority,
+                                "error": error.to_string()
+                            })
+                        );
+                    }
+                }) {
+                    eprintln!(
+                        "{}",
+                        json!({
+                            "schema": "astra-pq-authority-thread-error-v1",
+                            "authority_id": authority_id,
                             "error": error.to_string()
                         })
                     );
@@ -254,7 +301,7 @@ fn main() -> anyhow::Result<()> {
                 "{}",
                 json!({
                     "schema": "astra-pq-authority-accept-error-v1",
-                    "authority_id": state.authority_id,
+                    "authority_id": authority_id,
                     "error": error.to_string()
                 })
             ),
@@ -263,7 +310,10 @@ fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow::Result<()> {
+fn handle_connection(
+    stream: &mut TcpStream,
+    state: &Arc<Mutex<ServiceState>>,
+) -> anyhow::Result<()> {
     stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
@@ -274,12 +324,19 @@ fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow
         let signed: SignedAuthorityRequest =
             serde_json::from_slice(&encoded_request).context("decode signed authority request")?;
         let start = Instant::now();
-        let result = state.process(&signed);
+        let (authority_id, result) = {
+            let mut locked_state = state
+                .lock()
+                .map_err(|_| anyhow::anyhow!("authority state mutex is poisoned"))?;
+            let authority_id = locked_state.authority_id.clone();
+            let result = locked_state.process(&signed);
+            (authority_id, result)
+        };
         let processing_us = start.elapsed().as_micros();
         let response = match result {
             Ok(evidence) => AuthorityWireResponse {
                 schema: WIRE_SCHEMA.to_owned(),
-                authority_id: state.authority_id.clone(),
+                authority_id: authority_id.clone(),
                 success: true,
                 evidence: Some(evidence),
                 error: None,
@@ -287,7 +344,7 @@ fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow
             },
             Err(error) => AuthorityWireResponse {
                 schema: WIRE_SCHEMA.to_owned(),
-                authority_id: state.authority_id.clone(),
+                authority_id,
                 success: false,
                 evidence: None,
                 error: Some(error.to_string()),
@@ -297,6 +354,17 @@ fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow
         let encoded_response = serde_json::to_vec(&response)?;
         write_frame(stream, &encoded_response)?;
     }
+}
+
+fn reserve_connection(active_connections: &Arc<AtomicUsize>) -> Option<ConnectionPermit> {
+    active_connections
+        .fetch_update(Ordering::AcqRel, Ordering::Acquire, |current| {
+            (current < MAX_CONCURRENT_CONNECTIONS).then_some(current + 1)
+        })
+        .ok()?;
+    Some(ConnectionPermit {
+        active_connections: Arc::clone(active_connections),
+    })
 }
 
 fn read_frame_or_eof(stream: &mut TcpStream) -> anyhow::Result<Option<Vec<u8>>> {
@@ -475,5 +543,20 @@ mod tests {
         ] {
             assert!(parse_coalition_clause(clause_id).is_err(), "{clause_id}");
         }
+    }
+
+    #[test]
+    fn connection_limit_is_enforced_and_released() {
+        let active_connections = Arc::new(AtomicUsize::new(0));
+        let permits: Vec<ConnectionPermit> = (0..MAX_CONCURRENT_CONNECTIONS)
+            .map(|_| reserve_connection(&active_connections).unwrap())
+            .collect();
+        assert_eq!(
+            active_connections.load(Ordering::Acquire),
+            MAX_CONCURRENT_CONNECTIONS
+        );
+        assert!(reserve_connection(&active_connections).is_none());
+        drop(permits);
+        assert_eq!(active_connections.load(Ordering::Acquire), 0);
     }
 }
