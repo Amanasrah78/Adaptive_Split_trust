@@ -13,7 +13,7 @@ use astra_authority::{
     AuthorityConfig, AuthorityEngine, SignedAuthorityRequest, SignedPartialEvidence,
     verify_authority_request, verify_evidence,
 };
-use astra_common::Digest32;
+use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::{LwrExactCoalitionBackend, LwrExactCoalitionShare};
 use astra_governance::{
     GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
@@ -181,9 +181,11 @@ impl ServiceState {
         verify_authority_request(&self.provider, gateway_public_key, signed)
             .context("gateway request authentication failed")?;
         let request = &signed.request;
+        let risk_key = risk_share_key(request.context.risk, &request.evaluation.clause_id);
         let share = self
             .shares
-            .get(&request.evaluation.clause_id)
+            .get(&risk_key)
+            .or_else(|| self.shares.get(&request.evaluation.clause_id))
             .context("authority is not provisioned for this exact coalition")?;
         let replay_key = format!(
             "{}:{}:{}",
@@ -231,7 +233,7 @@ fn main() -> anyhow::Result<()> {
     let provisioned_thresholds: BTreeSet<u16> = state
         .shares
         .keys()
-        .filter_map(|clause_id| parse_threshold(clause_id).ok())
+        .filter_map(|storage_key| parse_storage_threshold(storage_key).ok())
         .collect();
     let listener = TcpListener::bind(&bind_address)
         .with_context(|| format!("bind authority service to {bind_address}"))?;
@@ -417,16 +419,17 @@ fn load_shares(
             "provisioned LWR share belongs to another authority"
         );
         let clause_id = share.clause_id().to_owned();
-        let (_, clause_members) = parse_supported_clause(&clause_id)
+        let (_, clause_members) = parse_provisioned_clause(&path, &clause_id)
             .context("provisioned LWR share has an unsupported clause")?;
         let share_members: Vec<&str> = share.coalition().iter().map(String::as_str).collect();
         anyhow::ensure!(
             clause_members == share_members,
             "provisioned LWR share coalition differs from its clause identifier"
         );
+        let storage_key = provisioned_share_key(&path, &clause_id);
         anyhow::ensure!(
-            shares.insert(clause_id.clone(), share).is_none(),
-            "duplicate provisioned coalition clause {clause_id}"
+            shares.insert(storage_key.clone(), share).is_none(),
+            "duplicate provisioned coalition share {storage_key}"
         );
     }
     Ok(shares)
@@ -450,6 +453,85 @@ fn collect_share_paths(root: &Path, paths: &mut Vec<PathBuf>) -> anyhow::Result<
         }
     }
     Ok(())
+}
+
+fn risk_share_key(risk: RiskClass, clause_id: &str) -> String {
+    format!("r{}:{clause_id}", risk.wire_value())
+}
+
+fn provisioned_share_key(path: &Path, clause_id: &str) -> String {
+    provisioned_risk(path).map_or_else(
+        || clause_id.to_owned(),
+        |risk| risk_share_key(risk, clause_id),
+    )
+}
+
+fn provisioned_risk(path: &Path) -> Option<RiskClass> {
+    path.components().rev().find_map(|component| {
+        let value = component.as_os_str().to_str()?;
+        parse_risk_directory(value)
+    })
+}
+
+fn parse_risk_directory(value: &str) -> Option<RiskClass> {
+    match value {
+        "r0" => Some(RiskClass::R0),
+        "r1" => Some(RiskClass::R1),
+        "r2" => Some(RiskClass::R2),
+        "r3" => Some(RiskClass::R3),
+        "r4" => Some(RiskClass::R4),
+        _ => None,
+    }
+}
+
+fn parse_provisioned_clause(
+    path: &Path,
+    clause_id: &str,
+) -> anyhow::Result<(u16, Vec<&'static str>)> {
+    match provisioned_risk(path) {
+        Some(risk) => parse_risk_clause(risk, clause_id),
+        None => {
+            let (threshold, members) = parse_supported_clause(clause_id)?;
+            let members = members
+                .into_iter()
+                .map(|member| match member {
+                    "a1" => "a1",
+                    "a2" => "a2",
+                    "a3" => "a3",
+                    "a4" => "a4",
+                    "a5" => "a5",
+                    "a6" => "a6",
+                    "a7" => "a7",
+                    _ => unreachable!("validated authority identifier"),
+                })
+                .collect();
+            Ok((threshold, members))
+        }
+    }
+}
+
+fn parse_risk_clause(risk: RiskClass, clause_id: &str) -> anyhow::Result<(u16, Vec<&'static str>)> {
+    match (risk, clause_id) {
+        (RiskClass::R0, "destination") => Ok((1, vec!["a2"])),
+        (RiskClass::R1, "destination") | (RiskClass::R2, "destination") => Ok((1, vec!["a2"])),
+        (RiskClass::R1, "risk-floor") | (RiskClass::R2, "risk-floor") => Ok((2, vec!["a1", "a2"])),
+        (RiskClass::R2, "source-or-oversight") => Ok((1, vec!["a1"])),
+        (RiskClass::R3, "destination") | (RiskClass::R4, "destination") => Ok((1, vec!["a2"])),
+        (RiskClass::R3, "risk-floor") => Ok((3, vec!["a1", "a2", "a3"])),
+        (RiskClass::R3, "source") | (RiskClass::R4, "source") => Ok((1, vec!["a1"])),
+        (RiskClass::R3, "safety") | (RiskClass::R4, "safety") => Ok((1, vec!["a3"])),
+        (RiskClass::R4, "risk-floor") => Ok((4, vec!["a1", "a2", "a3", "a4"])),
+        (RiskClass::R4, "human-confirmation") => Ok((1, vec!["a4"])),
+        _ => anyhow::bail!("clause is not valid for the provisioned risk class"),
+    }
+}
+
+fn parse_storage_threshold(storage_key: &str) -> anyhow::Result<u16> {
+    if let Some((risk, clause_id)) = storage_key.split_once(':') {
+        let risk = parse_risk_directory(risk).context("invalid risk-qualified share key")?;
+        return Ok(parse_risk_clause(risk, clause_id)?.0);
+    }
+    parse_threshold(storage_key)
 }
 
 fn parse_supported_clause(clause_id: &str) -> anyhow::Result<(u16, Vec<&str>)> {
@@ -558,6 +640,39 @@ mod tests {
         assert_eq!(parse_supported_clause("safety").unwrap(), (1, vec!["a3"]));
         assert!(parse_supported_clause("unsupported-session-clause").is_err());
     }
+
+    #[test]
+    fn adaptive_share_keys_are_risk_qualified() {
+        let path = Path::new("/lab/adaptive-session/r4/risk-floor/a4.lwr");
+        assert_eq!(provisioned_share_key(path, "risk-floor"), "r4:risk-floor");
+        assert_eq!(
+            parse_provisioned_clause(path, "risk-floor").unwrap(),
+            (4, vec!["a1", "a2", "a3", "a4"])
+        );
+        assert_eq!(parse_storage_threshold("r4:risk-floor").unwrap(), 4);
+    }
+
+    #[test]
+    fn adaptive_risk_clauses_are_strictly_scoped() {
+        assert_eq!(
+            parse_risk_clause(RiskClass::R1, "risk-floor").unwrap(),
+            (2, vec!["a1", "a2"])
+        );
+        assert_eq!(
+            parse_risk_clause(RiskClass::R2, "source-or-oversight").unwrap(),
+            (1, vec!["a1"])
+        );
+        assert!(parse_risk_clause(RiskClass::R1, "source").is_err());
+        assert!(parse_risk_clause(RiskClass::R3, "human-confirmation").is_err());
+    }
+
+    #[test]
+    fn generic_share_keys_remain_backward_compatible() {
+        let path = Path::new("/lab/session-policy/risk-floor.lwr");
+        assert_eq!(provisioned_share_key(path, "risk-floor"), "risk-floor");
+        assert_eq!(parse_storage_threshold("risk-floor").unwrap(), 3);
+    }
+
     #[test]
     fn coalition_clause_parser_rejects_noncanonical_identifiers() {
         for clause_id in [
