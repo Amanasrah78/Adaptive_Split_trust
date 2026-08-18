@@ -1,7 +1,7 @@
 //! Gateway B service for the distributed ASTRA-PQ dual-gate handshake.
 //!
 //! The service verifies an ML-DSA-authenticated Gateway A request, validates
-//! all canonical R3 authorization evidence, decapsulates ML-KEM-768, derives
+//! all governed risk-adaptive authorization evidence, decapsulates ML-KEM-768, derives
 //! the session key locally, and completes explicit bidirectional key
 //! confirmation. Session keys and intermediate secrets are never serialized.
 
@@ -9,13 +9,14 @@
 #![warn(missing_docs)]
 
 use anyhow::Context;
-use astra_common::Digest32;
+use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::LwrExactCoalitionBackend;
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
     GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
 };
 use astra_pqcrypto::{ConfirmationRole, PqProvider, SecretBytes, derive_session_confirmation_tag};
+use astra_testkit::adaptive_lab_synthesis;
 use astra_testkit::session_wire::{
     MAX_GATEWAY_MESSAGE_BYTES, SESSION_COMPLETION_SCHEMA, SESSION_FINISH_SCHEMA,
     SESSION_RESPONSE_SCHEMA, SessionHandshakeCompletion, SessionHandshakeFinish,
@@ -134,7 +135,7 @@ impl ResponderState {
 
         let initiator_verification_key = fs::read(&initiator_public_path)
             .with_context(|| format!("read {}", initiator_public_path.display()))?;
-        let authority_verification_keys = ["a1", "a2", "a3"]
+        let authority_verification_keys = ["a1", "a2", "a3", "a4"]
             .into_iter()
             .map(|authority| {
                 let path = authority_key_root.join(format!("{authority}.pk"));
@@ -172,8 +173,8 @@ fn main() -> anyhow::Result<()> {
             "bind": bind_address,
             "kem": metadata.kem_algorithm,
             "signature": metadata.signature_algorithm,
-            "authorization_policy": "canonical-R3-four-clause",
-            "required_evidence_items": 6,
+            "authorization_policy": "risk-adaptive-exact-coalition-R0-through-R4",
+            "evidence_items_by_risk": {"R0": 1, "R1": 3, "R2": 4, "R3": 6, "R4": 8},
             "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
             "live_iota_claim": false,
             "connection_model": "bounded-thread-per-connection",
@@ -264,6 +265,12 @@ fn handle_connection(
             unix_time()?
         ),
         "cached governance checkpoint is stale"
+    );
+    let expected_synthesis = adaptive_lab_synthesis(&signed_request.request.context)
+        .context("synthesize expected risk-adaptive policy")?;
+    anyhow::ensure!(
+        signed_request.request.synthesis == expected_synthesis,
+        "initiator supplied a noncanonical adaptive policy"
     );
 
     let decapsulation_start = Instant::now();
@@ -362,9 +369,9 @@ fn handle_connection(
             "schema": "astra-pq-session-responder-result-v1",
             "success": true,
             "session_id": session_id.to_string(),
-            "risk_class": "R3",
-            "clause_count": 4,
-            "evidence_count": 6,
+            "risk_class": risk_label(signed_request.request.context.risk),
+            "clause_count": signed_request.request.synthesis.structure.clauses.len(),
+            "evidence_count": signed_request.request.evidence.len(),
             "kem": "ML-KEM-768",
             "signature": "ML-DSA-65",
             "session_key_exported": false,
@@ -382,6 +389,16 @@ fn handle_connection(
         })
     );
     Ok(())
+}
+
+const fn risk_label(risk: RiskClass) -> &'static str {
+    match risk {
+        RiskClass::R0 => "R0",
+        RiskClass::R1 => "R1",
+        RiskClass::R2 => "R2",
+        RiskClass::R3 => "R3",
+        RiskClass::R4 => "R4",
+    }
 }
 
 fn configure_stream(stream: &TcpStream) -> anyhow::Result<()> {

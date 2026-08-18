@@ -1,7 +1,7 @@
 //! Gateway A client for the distributed ASTRA-PQ dual-gate handshake.
 //!
-//! The client obtains every canonical R3 authorization clause from the three
-//! lab authorities, verifies and combines the six signed partials locally,
+//! The client obtains every governed risk-adaptive authorization clause from
+//! the eligible lab authorities, verifies and combines the signed partials locally,
 //! encapsulates ML-KEM-768 to Gateway B, and completes explicit bidirectional
 //! key confirmation without exporting the derived session key.
 
@@ -28,10 +28,12 @@ use astra_testkit::session_wire::{
     SignedSessionHandshakeCompletion, SignedSessionHandshakeResponse, request_transcript_hash,
     sign_session_finish, sign_session_request, verify_session_completion, verify_session_response,
 };
-use astra_testkit::{SESSION_EPOCH, SESSION_SHARE_VERSION, r3_lab_synthesis};
+use astra_testkit::{
+    SESSION_EPOCH, SESSION_SHARE_VERSION, adaptive_lab_authorities, adaptive_lab_synthesis,
+};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::env;
 use std::fs;
 use std::io::{Read, Write};
@@ -75,6 +77,12 @@ struct NetworkEvidence {
 fn main() -> anyhow::Result<()> {
     let repetitions = required_usize("ASTRA_SESSION_REPETITIONS")?;
     anyhow::ensure!(repetitions >= 1, "session repetitions must be positive");
+    let configured_risk = env::var("ASTRA_SESSION_RISK").ok();
+    let risk = parse_session_risk(configured_risk.as_deref())?;
+    let required_authorities = adaptive_lab_authorities(risk)
+        .into_iter()
+        .map(|authority| authority.id)
+        .collect::<Vec<_>>();
     let governance_path = required_path("ASTRA_GOVERNANCE_BUNDLE")?;
     let initiator_secret_path = required_path("ASTRA_INITIATOR_SIGNING_KEY")?;
     let initiator_public_path = required_path("ASTRA_INITIATOR_SIGNING_PUBLIC_KEY")?;
@@ -85,10 +93,10 @@ fn main() -> anyhow::Result<()> {
     let responder_endpoint = required_environment("ASTRA_SESSION_RESPONDER_ENDPOINT")?
         .parse::<SocketAddr>()
         .context("parse session responder endpoint")?;
-    for required in ["a1", "a2", "a3"] {
+    for required in &required_authorities {
         anyhow::ensure!(
             authority_endpoints.contains_key(required),
-            "missing endpoint for required R3 authority {required}"
+            "missing endpoint for required adaptive authority {required}"
         );
     }
 
@@ -131,21 +139,21 @@ fn main() -> anyhow::Result<()> {
         .with_context(|| format!("read {}", responder_public_path.display()))?;
     let responder_kem_public = fs::read(&responder_kem_public_path)
         .with_context(|| format!("read {}", responder_kem_public_path.display()))?;
-    let authority_verification_keys = ["a1", "a2", "a3"]
-        .into_iter()
+    let authority_verification_keys = required_authorities
+        .iter()
         .map(|authority| {
             let path = authority_key_root.join(format!("{authority}.pk"));
             let key = fs::read(&path)
                 .with_context(|| format!("read authority key {}", path.display()))?;
-            Ok((authority.to_owned(), key))
+            Ok((authority.clone(), key))
         })
         .collect::<anyhow::Result<AuthorityVerificationKeys>>()?;
 
     let mut connections = BTreeMap::new();
-    for authority in ["a1", "a2", "a3"] {
+    for authority in &required_authorities {
         let endpoint = authority_endpoints[authority];
         let connection = connect_authority(authority, endpoint)?;
-        connections.insert(authority.to_owned(), connection);
+        connections.insert(authority.clone(), connection);
     }
     let backend = LwrExactCoalitionBackend;
 
@@ -165,10 +173,11 @@ fn main() -> anyhow::Result<()> {
             .encapsulate(&responder_kem_public)
             .context("encapsulate to Gateway B")?;
         let kem_encapsulation_us = kem_start.elapsed().as_micros();
-        let context = experiment_context(run, checkpoint, encapsulation.ciphertext());
+        let context = experiment_context(run, checkpoint, encapsulation.ciphertext(), risk);
 
         let synthesis_start = Instant::now();
-        let synthesis = r3_lab_synthesis(&context).context("synthesize canonical R3 policy")?;
+        let synthesis =
+            adaptive_lab_synthesis(&context).context("synthesize risk-adaptive policy")?;
         let synthesis_us = synthesis_start.elapsed().as_micros();
         let input = authorization_input(&context, &synthesis.policy_hash)?;
 
@@ -214,9 +223,15 @@ fn main() -> anyhow::Result<()> {
         })?;
         let authority_collection_us = collection_start.elapsed().as_micros();
         let network_results = network_batches.into_iter().flatten().collect::<Vec<_>>();
+        let expected_evidence = synthesis
+            .structure
+            .clauses
+            .iter()
+            .map(|clause| clause.members.len())
+            .sum::<usize>();
         anyhow::ensure!(
-            network_results.len() == 6,
-            "canonical R3 collection did not return six evidence items"
+            network_results.len() == expected_evidence,
+            "adaptive collection returned an unexpected evidence count"
         );
 
         let verification_start = Instant::now();
@@ -349,7 +364,7 @@ fn main() -> anyhow::Result<()> {
                 "success": true,
                 "run": run,
                 "session_id": context.session_id.to_string(),
-                "risk_class": "R3",
+                "risk_class": risk_label(risk),
                 "clause_count": synthesis.structure.clauses.len(),
                 "evidence_count": signed_session_request.request.evidence.len(),
                 "contributors": established.contributors,
@@ -416,13 +431,26 @@ fn build_authority_request_plan(
                 .push(serde_json::to_vec(&signed)?);
         }
     }
+    let expected_authorities = synthesis
+        .structure
+        .clauses
+        .iter()
+        .flat_map(|clause| clause.members.iter())
+        .map(|member| member.authority_id.as_str())
+        .collect::<BTreeSet<_>>();
     anyhow::ensure!(
-        plan.keys().map(String::as_str).eq(["a1", "a2", "a3"]),
-        "canonical R3 request plan has unexpected authorities"
+        plan.keys().map(String::as_str).eq(expected_authorities),
+        "adaptive request plan has unexpected authorities"
     );
+    let expected_evaluations = synthesis
+        .structure
+        .clauses
+        .iter()
+        .map(|clause| clause.members.len())
+        .sum::<usize>();
     anyhow::ensure!(
-        plan.values().map(Vec::len).sum::<usize>() == 6,
-        "canonical R3 request plan must contain six evaluations"
+        plan.values().map(Vec::len).sum::<usize>() == expected_evaluations,
+        "adaptive request plan has an unexpected evaluation count"
     );
     Ok(plan)
 }
@@ -476,12 +504,19 @@ fn request_evidence(
     })
 }
 
-fn experiment_context(run: usize, checkpoint: Digest32, ciphertext: &[u8]) -> SessionContext {
+fn experiment_context(
+    run: usize,
+    checkpoint: Digest32,
+    ciphertext: &[u8],
+    risk: RiskClass,
+) -> SessionContext {
     let run_bytes = (run as u64).to_be_bytes();
-    let session_digest = hash_domain_separated(SESSION_ID_LABEL, &[ciphertext, &run_bytes]);
+    let risk_byte = [risk.wire_value()];
+    let session_digest =
+        hash_domain_separated(SESSION_ID_LABEL, &[ciphertext, &run_bytes, &risk_byte]);
     let prehandshake_hash = hash_domain_separated(
         PREHANDSHAKE_LABEL,
-        &[ciphertext, checkpoint.as_bytes(), &run_bytes],
+        &[ciphertext, checkpoint.as_bytes(), &run_bytes, &risk_byte],
     );
     SessionContext {
         protocol_version: PROTOCOL_VERSION,
@@ -492,9 +527,30 @@ fn experiment_context(run: usize, checkpoint: Digest32, ciphertext: &[u8]) -> Se
         subject: "synthetic-operator:17".to_owned(),
         resource: "synthetic-plc:4".to_owned(),
         action: "synthetic-safety-actuation".to_owned(),
-        risk: RiskClass::R3,
+        risk,
         gateway_transcript_hash: prehandshake_hash,
         checkpoint_hash: checkpoint,
+    }
+}
+
+fn parse_session_risk(value: Option<&str>) -> anyhow::Result<RiskClass> {
+    match value.map(str::trim).map(str::to_ascii_uppercase).as_deref() {
+        None | Some("") | Some("R3") => Ok(RiskClass::R3),
+        Some("R0") => Ok(RiskClass::R0),
+        Some("R1") => Ok(RiskClass::R1),
+        Some("R2") => Ok(RiskClass::R2),
+        Some("R4") => Ok(RiskClass::R4),
+        Some(_) => anyhow::bail!("ASTRA_SESSION_RISK must be R0, R1, R2, R3, or R4"),
+    }
+}
+
+const fn risk_label(risk: RiskClass) -> &'static str {
+    match risk {
+        RiskClass::R0 => "R0",
+        RiskClass::R1 => "R1",
+        RiskClass::R2 => "R2",
+        RiskClass::R3 => "R3",
+        RiskClass::R4 => "R4",
     }
 }
 
@@ -607,17 +663,30 @@ mod tests {
     }
 
     #[test]
-    fn session_context_is_r3_and_ciphertext_bound() {
+    fn session_context_is_risk_and_ciphertext_bound() {
         let checkpoint = Digest32::from_bytes([7; 32]);
-        let first = experiment_context(1, checkpoint, &[1; 32]);
-        let repeated = experiment_context(1, checkpoint, &[1; 32]);
-        let changed = experiment_context(1, checkpoint, &[2; 32]);
+        let first = experiment_context(1, checkpoint, &[1; 32], RiskClass::R3);
+        let repeated = experiment_context(1, checkpoint, &[1; 32], RiskClass::R3);
+        let changed = experiment_context(1, checkpoint, &[2; 32], RiskClass::R3);
+        let changed_risk = experiment_context(1, checkpoint, &[1; 32], RiskClass::R4);
         assert_eq!(first, repeated);
         assert_ne!(first.session_id, changed.session_id);
+        assert_ne!(first.session_id, changed_risk.session_id);
         assert_ne!(
             first.gateway_transcript_hash,
             changed.gateway_transcript_hash
         );
         assert_eq!(first.risk, RiskClass::R3);
+    }
+
+    #[test]
+    fn session_risk_parser_defaults_to_r3_and_accepts_all_classes() {
+        assert_eq!(parse_session_risk(None).unwrap(), RiskClass::R3);
+        assert_eq!(parse_session_risk(Some("r0")).unwrap(), RiskClass::R0);
+        assert_eq!(parse_session_risk(Some("R1")).unwrap(), RiskClass::R1);
+        assert_eq!(parse_session_risk(Some("r2")).unwrap(), RiskClass::R2);
+        assert_eq!(parse_session_risk(Some("R3")).unwrap(), RiskClass::R3);
+        assert_eq!(parse_session_risk(Some("r4")).unwrap(), RiskClass::R4);
+        assert!(parse_session_risk(Some("R5")).is_err());
     }
 }
