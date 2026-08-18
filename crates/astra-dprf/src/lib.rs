@@ -12,6 +12,9 @@ use std::collections::{BTreeMap, BTreeSet};
 use thiserror::Error;
 use zeroize::Zeroize;
 
+/// LWR-based exact-coalition backend for the static semi-honest profile.
+pub mod lwr;
+
 const MAX_PARTIAL_BYTES: usize = 65_536;
 const MAX_PROOF_BYTES: usize = 65_536;
 
