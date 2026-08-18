@@ -1,0 +1,15 @@
+[package]
+name = "astra-pqcrypto"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+astra-common = { version = "0.1.0", path = "../astra-common" }
+oqs = { version = "0.11.0", default-features = false, features = ["std", "ml_kem", "ml_dsa", "vendored"] }
+thiserror = "2.0.20"
+zeroize = { version = "1.9.0", features = ["derive"] }
+
+[lints]
+workspace = true
