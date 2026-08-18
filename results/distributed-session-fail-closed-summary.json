@@ -1,0 +1,39 @@
+{
+  "schema": "astra-pq-distributed-session-fail-closed-summary-v1",
+  "all_cases_rejected": true,
+  "cases": [
+    {
+      "case": "missing-mandatory-authority",
+      "fault": "a3 endpoint redirected to an unreachable TCP port",
+      "expected_result": "session establishment rejected",
+      "observed_error": "Connection refused",
+      "client_exit_code": 1,
+      "artifact": "session-missing-a3-fail-closed.txt",
+      "sha256": "ba9882d7ed30f8cfe26fbe63f83c83739c6bad13ad9a856ede5675594fa662a2"
+    },
+    {
+      "case": "tampered-governance-checkpoint",
+      "fault": "checkpoint epoch modified without valid governance reconstruction",
+      "expected_result": "governance bundle rejected",
+      "observed_error": "invalid checkpoint predecessor link",
+      "client_exit_code": 1,
+      "artifact": "session-tampered-governance-fail-closed.txt",
+      "sha256": "528f914a4c35d533bd083a58a47eb1c2c50546f8f699a5e237c606e3928753d9"
+    },
+    {
+      "case": "incorrect-responder-verification-key",
+      "fault": "initiator configured with a non-responder ML-DSA public key",
+      "expected_result": "responder authentication rejected",
+      "observed_error": "ML-DSA signature verification failed",
+      "client_exit_code": 1,
+      "artifact": "session-wrong-responder-key-fail-closed.txt",
+      "sha256": "e2eeb1af74aa90dbcef9900381726333363a79d55f20e171aaad995d0705f516"
+    }
+  ],
+  "claim_scope": [
+    "runtime fail-closed behavior in the isolated eight-VM laboratory",
+    "mandatory authority availability enforcement",
+    "off-path governance integrity enforcement",
+    "post-quantum responder authentication enforcement"
+  ]
+}

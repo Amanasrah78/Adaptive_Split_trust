@@ -1,0 +1,6 @@
+Error: validate off-path governance bundle
+
+Caused by:
+    invalid checkpoint predecessor link
+
+client_exit_code=1

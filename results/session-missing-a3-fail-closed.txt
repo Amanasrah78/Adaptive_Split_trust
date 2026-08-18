@@ -1,0 +1,6 @@
+Error: connect to authority a3 at 172.16.64.13:7999
+
+Caused by:
+    Connection refused (os error 111)
+
+client_exit_code=1

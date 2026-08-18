@@ -1,0 +1,6 @@
+Error: verify session response
+
+Caused by:
+    ML-DSA signature verification failed
+
+client_exit_code=1
