@@ -18,6 +18,7 @@ use thiserror::Error;
 
 const EVIDENCE_LABEL: &[u8] = b"ASTRA-PQ-EVIDENCE-v1";
 const PARTIAL_LABEL: &[u8] = b"ASTRA-PQ-PARTIAL-v1";
+const GATEWAY_REQUEST_LABEL: &[u8] = b"ASTRA-PQ-GATEWAY-AUTHORITY-REQUEST-v1";
 
 /// Validated input delivered to one authorization authority.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -30,6 +31,17 @@ pub struct AuthorityRequest {
     pub evaluation: EvaluationRequest,
 }
 
+/// An authority request authenticated by an enrolled gateway using ML-DSA-65.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct SignedAuthorityRequest {
+    /// Stable identifier of the requesting gateway.
+    pub gateway_id: String,
+    /// Session-bound authorization request.
+    pub request: AuthorityRequest,
+    /// Gateway ML-DSA-65 signature over the canonical request commitment.
+    pub signature: Vec<u8>,
+}
+
 /// Signed, session-bound evidence returned by one authority.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct SignedPartialEvidence {
@@ -39,6 +51,37 @@ pub struct SignedPartialEvidence {
     pub partial: PartialEvaluation,
     /// ML-DSA-65 signature over the evidence commitment.
     pub signature: Vec<u8>,
+}
+
+/// Signs a canonical, session-bound request for delivery to an authority.
+pub fn sign_authority_request(
+    provider: &PqProvider,
+    gateway_id: &str,
+    gateway_signing_key: &SecretBytes,
+    request: AuthorityRequest,
+) -> Result<SignedAuthorityRequest, AuthorityError> {
+    validate_gateway_id(gateway_id)?;
+    validate_request_binding(&request)?;
+    let message = gateway_request_message(gateway_id, &request)?;
+    let signature = provider.sign(gateway_signing_key, &message)?;
+    Ok(SignedAuthorityRequest {
+        gateway_id: gateway_id.to_owned(),
+        request,
+        signature,
+    })
+}
+
+/// Verifies a gateway-authenticated authority request against its enrolled key.
+pub fn verify_authority_request(
+    provider: &PqProvider,
+    gateway_public_key: &[u8],
+    signed: &SignedAuthorityRequest,
+) -> Result<(), AuthorityError> {
+    validate_gateway_id(&signed.gateway_id)?;
+    validate_request_binding(&signed.request)?;
+    let message = gateway_request_message(&signed.gateway_id, &signed.request)?;
+    provider.verify(gateway_public_key, &message, &signed.signature)?;
+    Ok(())
 }
 
 /// Non-secret authority configuration for the active governance state.
@@ -223,6 +266,47 @@ fn evidence_message(
     .to_vec())
 }
 
+fn gateway_request_message(
+    gateway_id: &str,
+    request: &AuthorityRequest,
+) -> Result<Vec<u8>, AuthorityError> {
+    let encoded_context = request.context.encode_canonical()?;
+    let epoch = request.evaluation.epoch.to_be_bytes();
+    let share_version = request.evaluation.share_version.to_be_bytes();
+    Ok(hash_domain_separated(
+        GATEWAY_REQUEST_LABEL,
+        &[
+            gateway_id.as_bytes(),
+            &encoded_context,
+            request.policy_hash.as_bytes(),
+            request.evaluation.clause_id.as_bytes(),
+            &epoch,
+            &share_version,
+            request.evaluation.input.as_bytes(),
+        ],
+    )
+    .as_bytes()
+    .to_vec())
+}
+
+fn validate_request_binding(request: &AuthorityRequest) -> Result<(), AuthorityError> {
+    request.context.validate()?;
+    request.evaluation.validate()?;
+    if request.context.epoch != request.evaluation.epoch
+        || authorization_input(&request.context, &request.policy_hash)? != request.evaluation.input
+    {
+        return Err(AuthorityError::AuthorizationInputMismatch);
+    }
+    Ok(())
+}
+
+fn validate_gateway_id(gateway_id: &str) -> Result<(), AuthorityError> {
+    if gateway_id.is_empty() || gateway_id.len() > 256 || gateway_id.chars().any(char::is_control) {
+        return Err(AuthorityError::InvalidGatewayId);
+    }
+    Ok(())
+}
+
 /// Fail-closed authority-processing errors.
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum AuthorityError {
@@ -235,6 +319,9 @@ pub enum AuthorityError {
     /// Post-quantum signing or verification failed.
     #[error(transparent)]
     Crypto(#[from] CryptoError),
+    /// The gateway identity is empty, oversized, or malformed.
+    #[error("invalid gateway identifier")]
+    InvalidGatewayId,
     /// The request does not use the authority's active epoch.
     #[error("authorization request uses an inactive epoch")]
     InactiveEpoch,
@@ -365,6 +452,26 @@ mod tests {
             engine.authorize(&request),
             Err(AuthorityError::ReplayDetected)
         );
+    }
+
+    #[test]
+    fn signed_gateway_request_verifies_and_rejects_tampering() {
+        let provider = PqProvider::new().unwrap();
+        let gateway_keys = provider.generate_signature_keypair().unwrap();
+        let signed =
+            sign_authority_request(&provider, "gateway-a", gateway_keys.secret_key(), request())
+                .unwrap();
+        verify_authority_request(&provider, gateway_keys.public_key(), &signed).unwrap();
+
+        let mut wrong_gateway = signed.clone();
+        wrong_gateway.gateway_id = "gateway-b".to_owned();
+        assert!(
+            verify_authority_request(&provider, gateway_keys.public_key(), &wrong_gateway).is_err()
+        );
+
+        let mut tampered = signed.clone();
+        tampered.request.context.action = "safety-actuation".to_owned();
+        assert!(verify_authority_request(&provider, gateway_keys.public_key(), &tampered).is_err());
     }
 
     #[test]
