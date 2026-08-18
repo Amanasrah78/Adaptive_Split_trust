@@ -86,6 +86,12 @@ impl LwrExactCoalitionShare {
         &self.authority_id
     }
 
+    /// Returns the governance clause and coalition identifier bound to this share.
+    #[must_use]
+    pub fn clause_id(&self) -> &str {
+        &self.clause_id
+    }
+
     /// Returns the number of protected key bytes held by this authority.
     #[must_use]
     pub const fn secret_size_bytes(&self) -> usize {
