@@ -22,7 +22,7 @@ use astra_governance::{
 use astra_pqcrypto::PqProvider;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::env;
 use std::fs;
 use std::io::{Read, Write};
@@ -35,6 +35,7 @@ const WIRE_SCHEMA: &str = "astra-pq-authority-wire-v1";
 const REPORT_SCHEMA: &str = "astra-pq-distributed-authorization-v1";
 const MAX_FRAME_BYTES: usize = 1_048_576;
 const IO_TIMEOUT: Duration = Duration::from_secs(5);
+const SELECTION_CONNECT_TIMEOUT: Duration = Duration::from_millis(500);
 const EPOCH: u64 = 1;
 const SHARE_VERSION: u64 = 1;
 const POLICY_LABEL: &[u8] = b"ASTRA-PQ-DISTRIBUTED-SCALE-POLICY-v1";
@@ -74,6 +75,13 @@ fn main() -> anyhow::Result<()> {
     let gateway_id = required_environment("ASTRA_GATEWAY_ID")?;
     let governance_path = PathBuf::from(required_environment("ASTRA_GOVERNANCE_BUNDLE")?);
     let endpoints = parse_endpoints(&required_environment("ASTRA_AUTHORITY_ENDPOINTS")?)?;
+    let excluded_authorities = optional_identifier_set("ASTRA_EXCLUDED_AUTHORITIES")?;
+    for authority in &excluded_authorities {
+        anyhow::ensure!(
+            endpoints.contains_key(authority),
+            "excluded authority {authority} is not configured"
+        );
+    }
     let gateway_secret_path = PathBuf::from(required_environment("ASTRA_GATEWAY_SIGNING_KEY")?);
     let gateway_public_path = PathBuf::from(required_environment("ASTRA_GATEWAY_PUBLIC_KEY")?);
     let authority_key_root =
@@ -108,17 +116,30 @@ fn main() -> anyhow::Result<()> {
         .verify(&gateway_public, self_test_message, &self_test_signature)
         .context("gateway request-signing key mismatch")?;
 
-    let authority_ids: Vec<String> = (1..=threshold).map(|index| format!("a{index}")).collect();
-    let selected_endpoints = authority_ids
-        .iter()
-        .map(|authority| {
-            let endpoint = endpoints
-                .get(authority)
-                .copied()
-                .with_context(|| format!("missing endpoint for {authority}"))?;
-            Ok((authority.clone(), endpoint))
-        })
-        .collect::<anyhow::Result<Vec<_>>>()?;
+    let selection_start = Instant::now();
+    let mut unreachable_authorities = Vec::new();
+    let mut reachable_authorities = Vec::new();
+    let mut connections = Vec::new();
+    for (authority, endpoint) in &endpoints {
+        if excluded_authorities.contains(authority) {
+            continue;
+        }
+        match connect_authority(authority, *endpoint, SELECTION_CONNECT_TIMEOUT) {
+            Ok(connection) => {
+                reachable_authorities.push(authority.clone());
+                connections.push(connection);
+            }
+            Err(_) => unreachable_authorities.push(authority.clone()),
+        }
+    }
+    anyhow::ensure!(
+        connections.len() >= threshold,
+        "no policy-compliant coalition is reachable: threshold={threshold}, reachable={}",
+        connections.len()
+    );
+    let authority_ids = select_coalition(&reachable_authorities, threshold)?;
+    connections.truncate(threshold);
+    let coalition_selection_us = selection_start.elapsed().as_micros();
     let authority_public_keys = authority_ids
         .iter()
         .map(|authority| {
@@ -136,11 +157,6 @@ fn main() -> anyhow::Result<()> {
         &[invocation_key.public_key()],
     );
     let backend = LwrExactCoalitionBackend;
-    let mut connections = selected_endpoints
-        .iter()
-        .map(|(authority, endpoint)| connect_authority(authority, *endpoint))
-        .collect::<anyhow::Result<Vec<_>>>()?;
-
     for run in 1..=repetitions {
         anyhow::ensure!(
             checkpoint_is_fresh(
@@ -236,7 +252,14 @@ fn main() -> anyhow::Result<()> {
             "success": true,
             "run": run,
             "threshold": threshold,
-            "eligible_authorities": threshold,
+            "configured_authorities": endpoints.len(),
+            "policy_eligible_authorities": endpoints.keys().collect::<Vec<_>>(),
+            "excluded_authorities": excluded_authorities,
+            "unreachable_authorities": unreachable_authorities,
+            "reachable_authorities": reachable_authorities,
+            "selected_coalition": authority_ids,
+            "coalition_clause_id": policy.clause_id,
+            "coalition_selection_us": coalition_selection_us,
             "exact_coalition": true,
             "gateway_id": gateway_id,
             "authority_ids": authority_ids,
@@ -274,8 +297,9 @@ fn main() -> anyhow::Result<()> {
 fn connect_authority(
     authority_id: &str,
     endpoint: SocketAddr,
+    connect_timeout: Duration,
 ) -> anyhow::Result<AuthorityConnection> {
-    let stream = TcpStream::connect_timeout(&endpoint, IO_TIMEOUT)
+    let stream = TcpStream::connect_timeout(&endpoint, connect_timeout)
         .with_context(|| format!("connect to {authority_id} at {endpoint}"))?;
     stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
@@ -324,8 +348,12 @@ fn request_evidence(
 }
 
 fn exact_policy(threshold: usize, authorities: &[String]) -> anyhow::Result<ClausePolicy> {
+    anyhow::ensure!(
+        authorities.len() == threshold,
+        "selected coalition size differs from threshold"
+    );
     Ok(ClausePolicy {
-        clause_id: format!("distributed-t{threshold}"),
+        clause_id: format!("distributed-t{threshold}-c-{}", authorities.join("-")),
         threshold: u16::try_from(threshold).context("threshold does not fit u16")?,
         members: authorities
             .iter()
@@ -334,6 +362,24 @@ fn exact_policy(threshold: usize, authorities: &[String]) -> anyhow::Result<Clau
             .collect(),
         require_distinct_organizations: true,
     })
+}
+
+fn select_coalition(
+    reachable_authorities: &[String],
+    threshold: usize,
+) -> anyhow::Result<Vec<String>> {
+    anyhow::ensure!(threshold > 0, "coalition threshold must be positive");
+    anyhow::ensure!(
+        reachable_authorities.len() >= threshold,
+        "insufficient reachable authorities"
+    );
+    anyhow::ensure!(
+        reachable_authorities
+            .windows(2)
+            .all(|pair| pair[0] < pair[1]),
+        "reachable authority identifiers are duplicated or unsorted"
+    );
+    Ok(reachable_authorities[..threshold].to_vec())
 }
 
 fn scale_policy_hash(policy: &ClausePolicy) -> Digest32 {
@@ -383,18 +429,50 @@ fn experiment_context(
 }
 
 fn parse_endpoints(encoded: &str) -> anyhow::Result<BTreeMap<String, SocketAddr>> {
-    encoded
-        .split(',')
-        .map(|entry| {
-            let (authority, endpoint) = entry
-                .split_once('=')
-                .context("authority endpoint must use id=address:port")?;
-            let endpoint = endpoint
-                .parse::<SocketAddr>()
-                .with_context(|| format!("parse endpoint for {authority}"))?;
-            Ok((authority.to_owned(), endpoint))
-        })
-        .collect()
+    let mut endpoints = BTreeMap::new();
+    for entry in encoded.split(',') {
+        let (authority, endpoint) = entry
+            .split_once('=')
+            .context("authority endpoint must use id=address:port")?;
+        anyhow::ensure!(
+            !authority.is_empty()
+                && authority.len() <= 256
+                && !authority.chars().any(char::is_control),
+            "invalid authority endpoint identifier"
+        );
+        let endpoint = endpoint
+            .parse::<SocketAddr>()
+            .with_context(|| format!("parse endpoint for {authority}"))?;
+        anyhow::ensure!(
+            endpoints.insert(authority.to_owned(), endpoint).is_none(),
+            "duplicate endpoint for {authority}"
+        );
+    }
+    anyhow::ensure!(!endpoints.is_empty(), "authority endpoint set is empty");
+    Ok(endpoints)
+}
+
+fn optional_identifier_set(name: &str) -> anyhow::Result<BTreeSet<String>> {
+    let Some(encoded) = env::var(name).ok() else {
+        return Ok(BTreeSet::new());
+    };
+    if encoded.trim().is_empty() {
+        return Ok(BTreeSet::new());
+    }
+    let mut identifiers = BTreeSet::new();
+    for identifier in encoded.split(',') {
+        anyhow::ensure!(
+            !identifier.is_empty()
+                && identifier.len() <= 256
+                && !identifier.chars().any(char::is_control),
+            "invalid identifier in {name}"
+        );
+        anyhow::ensure!(
+            identifiers.insert(identifier.to_owned()),
+            "duplicate identifier in {name}"
+        );
+    }
+    Ok(identifiers)
 }
 
 fn read_frame(stream: &mut TcpStream) -> anyhow::Result<Vec<u8>> {
@@ -442,4 +520,38 @@ fn unix_time() -> anyhow::Result<u64> {
         .duration_since(UNIX_EPOCH)
         .context("system clock precedes Unix epoch")?
         .as_secs())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn reachable_coalition_selection_is_deterministic() {
+        let reachable = vec![
+            "a2".to_owned(),
+            "a3".to_owned(),
+            "a5".to_owned(),
+            "a7".to_owned(),
+        ];
+        assert_eq!(
+            select_coalition(&reachable, 3).unwrap(),
+            vec!["a2".to_owned(), "a3".to_owned(), "a5".to_owned()]
+        );
+        assert!(select_coalition(&reachable, 5).is_err());
+    }
+
+    #[test]
+    fn exact_policy_binds_selected_coalition() {
+        let authorities = vec!["a1".to_owned(), "a4".to_owned(), "a7".to_owned()];
+        let policy = exact_policy(3, &authorities).unwrap();
+        assert_eq!(policy.clause_id, "distributed-t3-c-a1-a4-a7");
+        assert_eq!(policy.threshold, 3);
+        assert_eq!(policy.members.len(), 3);
+    }
+
+    #[test]
+    fn duplicate_endpoint_identifier_is_rejected() {
+        assert!(parse_endpoints("a1=127.0.0.1:1,a1=127.0.0.1:2").is_err());
+    }
 }
