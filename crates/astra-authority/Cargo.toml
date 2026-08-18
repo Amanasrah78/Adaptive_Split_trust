@@ -7,4 +7,5 @@ edition = "2024"
 astra-common = { version = "0.1.0", path = "../astra-common" }
 astra-dprf = { version = "0.1.0", path = "../astra-dprf" }
 astra-pqcrypto = { version = "0.1.0", path = "../astra-pqcrypto" }
+serde = { version = "1.0.229", features = ["derive"] }
 thiserror = "2.0.20"

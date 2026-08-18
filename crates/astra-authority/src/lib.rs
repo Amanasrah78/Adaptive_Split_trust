@@ -12,6 +12,7 @@ use astra_common::{
 };
 use astra_dprf::{DprfBackend, DprfError, EvaluationRequest, PartialEvaluation};
 use astra_pqcrypto::{CryptoError, PqProvider, SecretBytes};
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 use thiserror::Error;
 
@@ -19,7 +20,7 @@ const EVIDENCE_LABEL: &[u8] = b"ASTRA-PQ-EVIDENCE-v1";
 const PARTIAL_LABEL: &[u8] = b"ASTRA-PQ-PARTIAL-v1";
 
 /// Validated input delivered to one authorization authority.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct AuthorityRequest {
     /// Complete session context, including the epoch and governance checkpoint.
     pub context: SessionContext,
@@ -30,7 +31,7 @@ pub struct AuthorityRequest {
 }
 
 /// Signed, session-bound evidence returned by one authority.
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct SignedPartialEvidence {
     /// Hash of the policy approved by the authority.
     pub policy_hash: Digest32,

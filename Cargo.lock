@@ -24,6 +24,7 @@ dependencies = [
  "astra-common",
  "astra-dprf",
  "astra-pqcrypto",
+ "serde",
  "thiserror",
 ]
 

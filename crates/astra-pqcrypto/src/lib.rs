@@ -237,6 +237,21 @@ impl PqProvider {
         })
     }
 
+    /// Imports a provisioned ML-DSA-65 secret key into zeroizing storage.
+    ///
+    /// The caller must obtain the bytes through an authenticated provisioning
+    /// channel. Invalid lengths are rejected by the configured provider.
+    pub fn import_signature_secret_key(
+        &self,
+        mut bytes: Vec<u8>,
+    ) -> Result<SecretBytes, CryptoError> {
+        if self.signature.secret_key_from_bytes(&bytes).is_none() {
+            bytes.zeroize();
+            return Err(CryptoError::InvalidLength("ML-DSA secret key"));
+        }
+        Ok(SecretBytes::new(bytes))
+    }
+
     /// Signs a bounded, already domain-separated protocol message with ML-DSA-65.
     pub fn sign(&self, secret_key: &SecretBytes, message: &[u8]) -> Result<Vec<u8>, CryptoError> {
         validate_message(message)?;
@@ -392,6 +407,19 @@ mod tests {
             encapsulation.shared_secret().expose_secret(),
             decapsulated.expose_secret()
         );
+    }
+
+    #[test]
+    fn provisioned_signature_key_can_sign() {
+        let provider = PqProvider::new().unwrap();
+        let keypair = provider.generate_signature_keypair().unwrap();
+        let provisioned = keypair.secret_key().expose_secret().to_vec();
+        let imported = provider.import_signature_secret_key(provisioned).unwrap();
+        let message = b"ASTRA-PQ provisioned signing-key test";
+        let signature = provider.sign(&imported, message).unwrap();
+        provider
+            .verify(keypair.public_key(), message, &signature)
+            .unwrap();
     }
 
     #[test]
