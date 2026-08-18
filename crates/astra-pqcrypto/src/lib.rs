@@ -225,6 +225,18 @@ impl PqProvider {
         Ok(SecretBytes::new(shared_secret.as_ref().to_vec()))
     }
 
+    /// Imports a provisioned ML-KEM-768 secret key into zeroizing storage.
+    ///
+    /// The caller must obtain the bytes through an authenticated provisioning
+    /// channel. Invalid lengths are rejected by the configured provider.
+    pub fn import_kem_secret_key(&self, mut bytes: Vec<u8>) -> Result<SecretBytes, CryptoError> {
+        if self.kem.secret_key_from_bytes(&bytes).is_none() {
+            bytes.zeroize();
+            return Err(CryptoError::InvalidLength("ML-KEM secret key"));
+        }
+        Ok(SecretBytes::new(bytes))
+    }
+
     /// Generates a long-term ML-DSA-65 signing key pair.
     pub fn generate_signature_keypair(&self) -> Result<SignatureKeyPair, CryptoError> {
         let (public_key, secret_key) = self
@@ -406,6 +418,26 @@ mod tests {
         assert_eq!(
             encapsulation.shared_secret().expose_secret(),
             decapsulated.expose_secret()
+        );
+    }
+
+    #[test]
+    fn provisioned_kem_secret_key_can_decapsulate() {
+        let provider = PqProvider::new().unwrap();
+        let keypair = provider.generate_kem_keypair().unwrap();
+        let provisioned = keypair.secret_key().expose_secret().to_vec();
+        let imported = provider.import_kem_secret_key(provisioned).unwrap();
+        let encapsulation = provider.encapsulate(keypair.public_key()).unwrap();
+        let decapsulated = provider
+            .decapsulate(&imported, encapsulation.ciphertext())
+            .unwrap();
+        assert_eq!(
+            encapsulation.shared_secret().expose_secret(),
+            decapsulated.expose_secret()
+        );
+        assert_eq!(
+            provider.import_kem_secret_key(vec![0_u8; 1]).unwrap_err(),
+            CryptoError::InvalidLength("ML-KEM secret key")
         );
     }
 
