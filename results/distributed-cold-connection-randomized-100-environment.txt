@@ -1,0 +1,45 @@
+ASTRA-PQ distributed cold-connection benchmark provenance
+
+Dataset:
+results/distributed-cold-connection-randomized-100.jsonl
+
+Summary:
+results/distributed-cold-connection-randomized-100-summary.json
+
+Source commit used for the experiment:
+0748a4f Eliminate delayed TCP framing in distributed transport
+
+Measurement profile:
+Each authorization measurement established fresh TCP authority connections.
+TCP connection establishment was therefore included in the measured path.
+TCP_NODELAY and single-frame writes were enabled.
+The source preceded commit 0d7a4a2, which introduced persistent preconnected
+authority channels.
+
+Samples:
+700 successful measurements.
+100 measurements for each threshold t=1 through t=7.
+Threshold execution order was randomized.
+
+Raw-data SHA-256:
+aef6b6131e8d090159b173dba92182e80c8801011569bc0ac1b86a8209cfc891
+
+Summary SHA-256:
+53bf4613986aa05d5fd3dc45a5d634e97d6d8d25a124df676cd7277d8becdbca
+
+Record limitation:
+The astra-pq-distributed-authorization-v1 records did not yet contain an
+explicit connection_mode field. Classification as the cold-connection
+profile is based on the source commit and recorded experimental workflow.
+
+Environment limitation:
+A contemporaneous environment snapshot was not captured with this run.
+The experiment used the same eight-VM ARM64 laboratory later documented in
+distributed-persistent-randomized-100-environment.txt. That later snapshot
+is supporting configuration evidence, not a contemporaneous measurement.
+
+Observed artifact:
+Threshold t=2 showed elevated cold-connection latency. Authority processing
+time remained comparatively stable while network round-trip time increased.
+The persistent-channel experiment should be used to distinguish steady-state
+protocol cost from connection-establishment and VM scheduling effects.
