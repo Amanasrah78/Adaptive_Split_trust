@@ -1,0 +1,149 @@
+ASTRA-PQ adaptive distributed-session evaluation
+Captured:
+2026-08-18T22:47:48+00:00
+
+Repository:
+2b9ede9a42a1f2f6d4a6d3c39ed0dae003704df5
+distributed-session-v0.7.0-7-g2b9ede9
+?? results/adaptive-session-balanced-100-environment.txt
+?? results/adaptive-session-balanced-100-resource.txt
+?? results/adaptive-session-balanced-100-responder-summary.json
+?? results/adaptive-session-balanced-100-responder.jsonl
+?? results/adaptive-session-balanced-100-stdout.txt
+?? results/adaptive-session-balanced-100-summary.json
+?? results/adaptive-session-balanced-100.jsonl
+?? scripts/run-adaptive-session-benchmark.sh
+?? scripts/summarize-adaptive-responder.jq
+?? scripts/summarize-adaptive-session.jq
+
+Benchmark design:
+risk_classes=R0,R1,R2,R3,R4
+blocks=5
+sessions_per_risk=100
+total_sessions=500
+order=cyclically-rotated
+authority_connection_setup_in_timing=false
+responder_connection_setup_in_timing=true
+
+Security profile:
+kem=ML-KEM-768
+signature=ML-DSA-65
+dprf=LWR-n1024-q64-q1-42-p10-x26
+corruption=static
+authority_model=semi-honest
+malicious_robust=false
+proactive_refresh=false
+governance=synthetic-not-live-IOTA
+transport=isolated-lab-TCP-without-confidentiality
+
+Controller:
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   11G  5.7G  65% /
+
+Source and provisioning artifacts:
+12d6ec70d8fdcf396943e22101765d55b3dd3eef092ec15200d10f710b150495  target/release/astra-session-client
+4e4964543ba9140ccc90946dd2e80211499f12e014cbfcb8e746ce4b4858c617  target/release/astra-session-responder
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  target/release/astra-authority-service
+5a8e21d8e341c513f2ec0e522a23626dad6c9e97308f57c3cfccbe79231e61da  scripts/run-adaptive-session-benchmark.sh
+9955f6196ffa676d6db6be639e0a6206035439667646599c5a5fbe626c2df5c6  scripts/summarize-adaptive-session.jq
+df3f3196f037515886904fa685182b918733cf8c9fe07bd54450a5946212d83b  scripts/summarize-adaptive-responder.jq
+0b4ceb405fcfda59878645b3f1b3796ed744e715b4e2f9483e37e625ed536ed6  results/adaptive-session-shares-v2-manifest.json
+
+Evaluation artifacts:
+ad9a4059431cd530b3573a27deaf77656d2bce607c3970b09e48a5814001c0d3  results/adaptive-session-balanced-100.jsonl
+4467fbe42eb2da9342ecc92507fa8287030a6369da55b23d1ab70ea4e25329ab  results/adaptive-session-balanced-100-summary.json
+bb012bf547f6a1f83b8d453e79739a6bca058835547793b66dc027b0619c3518  results/adaptive-session-balanced-100-responder.jsonl
+23ce5f8a0f07ba309818ca8017dfac445b6a3c499612c8482247278862bcbe65  results/adaptive-session-balanced-100-responder-summary.json
+319f3fbc5d7b9a1b72771eac8e6b52a9de69b1d9cb980aaf2b23fdf474045169  results/adaptive-session-balanced-100-resource.txt
+9396f532cc37a0459f6ff5789a13533945cc7010f3df7be393cdd8a363c91435  results/adaptive-session-balanced-100-stdout.txt
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.11/24 
+enp26s0          UP             172.16.64.11/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.12/24 
+enp26s0          UP             172.16.64.12/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+Linux astra-authority-3 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.13/24 
+enp26s0          UP             172.16.64.13/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+Linux astra-authority-4 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+enp2s0           UP             172.16.201.14/24 
+enp26s0          UP             172.16.64.14/24 
+docker0          DOWN           172.17.0.1/16 
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+astra-domain-a | CHANGED | rc=0 >>
+12d6ec70d8fdcf396943e22101765d55b3dd3eef092ec15200d10f710b150495  /home/astraadmin/astra-pq/bin/astra-session-client
+astra-domain-b | CHANGED | rc=0 >>
+active
+4e4964543ba9140ccc90946dd2e80211499f12e014cbfcb8e746ce4b4858c617  /home/astraadmin/astra-pq/bin/astra-session-responder

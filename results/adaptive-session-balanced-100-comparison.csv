@@ -1,0 +1,6 @@
+"risk_class","authority_count","clause_count","evidence_count","total_median_us","total_p95_us","total_p99_us","authority_collection_median_us","authority_signing_median_us","evidence_verification_median_us","initiator_establishment_median_us","responder_handshake_median_us","responder_total_median_us","responder_establishment_median_us","session_request_bytes_median"
+"R0",1,1,1,6448,11773,13603,971,267,67,94,4743,3970,85,29737
+"R1",2,2,3,11457,14778,15700,3318,828,199,237,6433,5659,225,55466
+"R2",2,3,4,11359,16434,19165,3125,1074,260,313,5508,4693,310,68397
+"R3",3,4,6,13560,16470,16913,2354,1800,407,482,7833,6088,476,94143
+"R4",4,5,8,16048,17929,18968,2928,2193,535,631,8536,7291,625,119911

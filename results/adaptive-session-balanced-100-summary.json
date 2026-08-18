@@ -1,0 +1,622 @@
+{
+  "schema": "astra-pq-adaptive-session-balanced-summary-v1",
+  "total_samples": 500,
+  "design": {
+    "risk_classes": [
+      "R0",
+      "R1",
+      "R2",
+      "R3",
+      "R4"
+    ],
+    "blocks": 5,
+    "samples_per_risk": 100,
+    "order": "cyclically rotated risk order across blocks",
+    "authority_connection_setup_in_timing": false,
+    "responder_connection_setup_in_timing": true
+  },
+  "risks": [
+    {
+      "risk_class": "R0",
+      "samples": 100,
+      "clause_count": 1,
+      "evidence_count": 1,
+      "authority_count": 1,
+      "contributors": [
+        {
+          "destination": [
+            "a2"
+          ]
+        }
+      ],
+      "total_us": {
+        "samples": 100,
+        "minimum": 4005,
+        "median": 6448,
+        "p95": 11773,
+        "p99": 13603,
+        "maximum": 14679,
+        "mean": 7740.04
+      },
+      "authority_collection_us": {
+        "samples": 100,
+        "minimum": 648,
+        "median": 971,
+        "p95": 2682,
+        "p99": 2907,
+        "maximum": 3563,
+        "mean": 1310.41
+      },
+      "authority_request_signing_us": {
+        "samples": 100,
+        "minimum": 122,
+        "median": 267,
+        "p95": 714,
+        "p99": 852,
+        "maximum": 1384,
+        "mean": 327.8
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 60,
+        "median": 67,
+        "p95": 84,
+        "p99": 90,
+        "maximum": 96,
+        "mean": 69.42
+      },
+      "initiator_session_establishment_us": {
+        "samples": 100,
+        "minimum": 77,
+        "median": 94,
+        "p95": 114,
+        "p99": 126,
+        "maximum": 127,
+        "mean": 94.26
+      },
+      "responder_handshake_us": {
+        "samples": 100,
+        "minimum": 2428,
+        "median": 4743,
+        "p95": 9052,
+        "p99": 9842,
+        "maximum": 11862,
+        "mean": 5540.21
+      },
+      "kem_encapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 12,
+        "p95": 16,
+        "p99": 24,
+        "maximum": 29,
+        "mean": 12.3
+      },
+      "policy_synthesis_us": {
+        "samples": 100,
+        "minimum": 0,
+        "median": 1,
+        "p95": 2,
+        "p99": 4,
+        "maximum": 20,
+        "mean": 1.17
+      },
+      "gateway_session_request_bytes": {
+        "samples": 100,
+        "minimum": 29622,
+        "median": 29737,
+        "p95": 29805,
+        "p99": 29831,
+        "maximum": 29838,
+        "mean": 29735.68
+      },
+      "authority_request_bytes_total": {
+        "samples": 100,
+        "minimum": 12670,
+        "median": 12776,
+        "p95": 12835,
+        "p99": 12852,
+        "maximum": 12862,
+        "mean": 12776.94
+      },
+      "authority_response_bytes_total": {
+        "samples": 100,
+        "minimum": 12816,
+        "median": 12900,
+        "p95": 12954,
+        "p99": 12962,
+        "maximum": 12963,
+        "mean": 12898.31
+      }
+    },
+    {
+      "risk_class": "R1",
+      "samples": 100,
+      "clause_count": 2,
+      "evidence_count": 3,
+      "authority_count": 2,
+      "contributors": [
+        {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2"
+          ]
+        }
+      ],
+      "total_us": {
+        "samples": 100,
+        "minimum": 6123,
+        "median": 11457,
+        "p95": 14778,
+        "p99": 15700,
+        "maximum": 16405,
+        "mean": 11275.85
+      },
+      "authority_collection_us": {
+        "samples": 100,
+        "minimum": 1471,
+        "median": 3318,
+        "p95": 4722,
+        "p99": 6420,
+        "maximum": 6673,
+        "mean": 3218.82
+      },
+      "authority_request_signing_us": {
+        "samples": 100,
+        "minimum": 398,
+        "median": 828,
+        "p95": 1302,
+        "p99": 1504,
+        "maximum": 1926,
+        "mean": 874.47
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 176,
+        "median": 199,
+        "p95": 228,
+        "p99": 241,
+        "maximum": 264,
+        "mean": 201.73
+      },
+      "initiator_session_establishment_us": {
+        "samples": 100,
+        "minimum": 216,
+        "median": 237,
+        "p95": 264,
+        "p99": 268,
+        "maximum": 285,
+        "mean": 236.61
+      },
+      "responder_handshake_us": {
+        "samples": 100,
+        "minimum": 3030,
+        "median": 6433,
+        "p95": 8722,
+        "p99": 9865,
+        "maximum": 9936,
+        "mean": 6156.01
+      },
+      "kem_encapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 13,
+        "p95": 18,
+        "p99": 25,
+        "maximum": 26,
+        "mean": 12.94
+      },
+      "policy_synthesis_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 1,
+        "p95": 3,
+        "p99": 3,
+        "maximum": 4,
+        "mean": 1.37
+      },
+      "gateway_session_request_bytes": {
+        "samples": 100,
+        "minimum": 55309,
+        "median": 55466,
+        "p95": 55590,
+        "p99": 55628,
+        "maximum": 55634,
+        "mean": 55473.45
+      },
+      "authority_request_bytes_total": {
+        "samples": 100,
+        "minimum": 38179,
+        "median": 38337,
+        "p95": 38434,
+        "p99": 38467,
+        "maximum": 38471,
+        "mean": 38332.85
+      },
+      "authority_response_bytes_total": {
+        "samples": 100,
+        "minimum": 38582,
+        "median": 38677,
+        "p95": 38798,
+        "p99": 38802,
+        "maximum": 38804,
+        "mean": 38681.02
+      }
+    },
+    {
+      "risk_class": "R2",
+      "samples": 100,
+      "clause_count": 3,
+      "evidence_count": 4,
+      "authority_count": 2,
+      "contributors": [
+        {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2"
+          ],
+          "source-or-oversight": [
+            "a1"
+          ]
+        }
+      ],
+      "total_us": {
+        "samples": 100,
+        "minimum": 7000,
+        "median": 11359,
+        "p95": 16434,
+        "p99": 19165,
+        "maximum": 19419,
+        "mean": 11708.66
+      },
+      "authority_collection_us": {
+        "samples": 100,
+        "minimum": 1391,
+        "median": 3125,
+        "p95": 4662,
+        "p99": 5465,
+        "maximum": 7999,
+        "mean": 3103.76
+      },
+      "authority_request_signing_us": {
+        "samples": 100,
+        "minimum": 550,
+        "median": 1074,
+        "p95": 1790,
+        "p99": 2268,
+        "maximum": 2586,
+        "mean": 1142.46
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 232,
+        "median": 260,
+        "p95": 294,
+        "p99": 304,
+        "maximum": 318,
+        "mean": 259.9
+      },
+      "initiator_session_establishment_us": {
+        "samples": 100,
+        "minimum": 285,
+        "median": 313,
+        "p95": 342,
+        "p99": 353,
+        "maximum": 366,
+        "mean": 312.83
+      },
+      "responder_handshake_us": {
+        "samples": 100,
+        "minimum": 3344,
+        "median": 5508,
+        "p95": 9786,
+        "p99": 12136,
+        "maximum": 12527,
+        "mean": 6229.39
+      },
+      "kem_encapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 12,
+        "p95": 16,
+        "p99": 21,
+        "maximum": 23,
+        "mean": 12.12
+      },
+      "policy_synthesis_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 2,
+        "p95": 3,
+        "p99": 5,
+        "maximum": 9,
+        "mean": 1.93
+      },
+      "gateway_session_request_bytes": {
+        "samples": 100,
+        "minimum": 68141,
+        "median": 68397,
+        "p95": 68530,
+        "p99": 68562,
+        "maximum": 68563,
+        "mean": 68394.52
+      },
+      "authority_request_bytes_total": {
+        "samples": 100,
+        "minimum": 51002,
+        "median": 51109,
+        "p95": 51206,
+        "p99": 51258,
+        "maximum": 51273,
+        "mean": 51110.99
+      },
+      "authority_response_bytes_total": {
+        "samples": 100,
+        "minimum": 51360,
+        "median": 51564,
+        "p95": 51703,
+        "p99": 51741,
+        "maximum": 51744,
+        "mean": 51571.61
+      }
+    },
+    {
+      "risk_class": "R3",
+      "samples": 100,
+      "clause_count": 4,
+      "evidence_count": 6,
+      "authority_count": 3,
+      "contributors": [
+        {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2",
+            "a3"
+          ],
+          "safety": [
+            "a3"
+          ],
+          "source": [
+            "a1"
+          ]
+        }
+      ],
+      "total_us": {
+        "samples": 100,
+        "minimum": 9193,
+        "median": 13560,
+        "p95": 16470,
+        "p99": 16913,
+        "maximum": 16937,
+        "mean": 13754.98
+      },
+      "authority_collection_us": {
+        "samples": 100,
+        "minimum": 1765,
+        "median": 2354,
+        "p95": 4479,
+        "p99": 4989,
+        "maximum": 6020,
+        "mean": 2583.38
+      },
+      "authority_request_signing_us": {
+        "samples": 100,
+        "minimum": 879,
+        "median": 1800,
+        "p95": 2652,
+        "p99": 3036,
+        "maximum": 3519,
+        "mean": 1846.22
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 362,
+        "median": 407,
+        "p95": 447,
+        "p99": 463,
+        "maximum": 479,
+        "mean": 408.08
+      },
+      "initiator_session_establishment_us": {
+        "samples": 100,
+        "minimum": 426,
+        "median": 482,
+        "p95": 527,
+        "p99": 555,
+        "maximum": 569,
+        "mean": 484.44
+      },
+      "responder_handshake_us": {
+        "samples": 100,
+        "minimum": 3916,
+        "median": 7833,
+        "p95": 9207,
+        "p99": 10062,
+        "maximum": 11098,
+        "mean": 7577.27
+      },
+      "kem_encapsulation_us": {
+        "samples": 100,
+        "minimum": 10,
+        "median": 14,
+        "p95": 18,
+        "p99": 21,
+        "maximum": 25,
+        "mean": 14.18
+      },
+      "policy_synthesis_us": {
+        "samples": 100,
+        "minimum": 2,
+        "median": 3,
+        "p95": 5,
+        "p99": 6,
+        "maximum": 13,
+        "mean": 3.39
+      },
+      "gateway_session_request_bytes": {
+        "samples": 100,
+        "minimum": 93876,
+        "median": 94143,
+        "p95": 94283,
+        "p99": 94306,
+        "maximum": 94327,
+        "mean": 94146.01
+      },
+      "authority_request_bytes_total": {
+        "samples": 100,
+        "minimum": 76479,
+        "median": 76674,
+        "p95": 76825,
+        "p99": 76855,
+        "maximum": 76894,
+        "mean": 76678.58
+      },
+      "authority_response_bytes_total": {
+        "samples": 100,
+        "minimum": 77181,
+        "median": 77406,
+        "p95": 77508,
+        "p99": 77553,
+        "maximum": 77654,
+        "mean": 77402.43
+      }
+    },
+    {
+      "risk_class": "R4",
+      "samples": 100,
+      "clause_count": 5,
+      "evidence_count": 8,
+      "authority_count": 4,
+      "contributors": [
+        {
+          "destination": [
+            "a2"
+          ],
+          "human-confirmation": [
+            "a4"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "safety": [
+            "a3"
+          ],
+          "source": [
+            "a1"
+          ]
+        }
+      ],
+      "total_us": {
+        "samples": 100,
+        "minimum": 13300,
+        "median": 16048,
+        "p95": 17929,
+        "p99": 18968,
+        "maximum": 19837,
+        "mean": 16117.27
+      },
+      "authority_collection_us": {
+        "samples": 100,
+        "minimum": 2094,
+        "median": 2928,
+        "p95": 4743,
+        "p99": 4880,
+        "maximum": 5294,
+        "mean": 3089.02
+      },
+      "authority_request_signing_us": {
+        "samples": 100,
+        "minimum": 1405,
+        "median": 2193,
+        "p95": 3149,
+        "p99": 3387,
+        "maximum": 3611,
+        "mean": 2312.29
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 466,
+        "median": 535,
+        "p95": 577,
+        "p99": 591,
+        "maximum": 654,
+        "mean": 534.16
+      },
+      "initiator_session_establishment_us": {
+        "samples": 100,
+        "minimum": 570,
+        "median": 631,
+        "p95": 680,
+        "p99": 699,
+        "maximum": 713,
+        "mean": 631.35
+      },
+      "responder_handshake_us": {
+        "samples": 100,
+        "minimum": 6169,
+        "median": 8536,
+        "p95": 9530,
+        "p99": 9865,
+        "maximum": 10182,
+        "mean": 8473.35
+      },
+      "kem_encapsulation_us": {
+        "samples": 100,
+        "minimum": 10,
+        "median": 14,
+        "p95": 18,
+        "p99": 26,
+        "maximum": 43,
+        "mean": 14.13
+      },
+      "policy_synthesis_us": {
+        "samples": 100,
+        "minimum": 2,
+        "median": 3,
+        "p95": 6,
+        "p99": 6,
+        "maximum": 7,
+        "mean": 3.53
+      },
+      "gateway_session_request_bytes": {
+        "samples": 100,
+        "minimum": 119639,
+        "median": 119911,
+        "p95": 120065,
+        "p99": 120115,
+        "maximum": 120224,
+        "mean": 119902.63
+      },
+      "authority_request_bytes_total": {
+        "samples": 100,
+        "minimum": 101884,
+        "median": 102220,
+        "p95": 102376,
+        "p99": 102400,
+        "maximum": 102402,
+        "mean": 102207.94
+      },
+      "authority_response_bytes_total": {
+        "samples": 100,
+        "minimum": 102944,
+        "median": 103227,
+        "p95": 103360,
+        "p99": 103403,
+        "maximum": 103539,
+        "mean": 103199.07
+      }
+    }
+  ]
+}

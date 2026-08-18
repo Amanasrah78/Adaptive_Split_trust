@@ -1,0 +1,267 @@
+{
+  "schema": "astra-pq-adaptive-session-responder-summary-v1",
+  "total_samples": 500,
+  "session_key_exported_values": [
+    false
+  ],
+  "confirmation_values": [
+    true
+  ],
+  "risks": [
+    {
+      "risk_class": "R0",
+      "samples": 100,
+      "clause_count": 1,
+      "evidence_count": 1,
+      "total_us": {
+        "samples": 100,
+        "minimum": 1854,
+        "median": 3970,
+        "p95": 7093,
+        "p99": 7662,
+        "maximum": 9940,
+        "mean": 4389
+      },
+      "request_verification_us": {
+        "samples": 100,
+        "minimum": 94,
+        "median": 104,
+        "p95": 137,
+        "p99": 179,
+        "maximum": 216,
+        "mean": 109
+      },
+      "kem_decapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 11,
+        "p95": 16,
+        "p99": 18,
+        "maximum": 42,
+        "mean": 11.7
+      },
+      "session_establishment_us": {
+        "samples": 100,
+        "minimum": 76,
+        "median": 85,
+        "p95": 105,
+        "p99": 118,
+        "maximum": 183,
+        "mean": 88.19
+      },
+      "finish_verification_us": {
+        "samples": 100,
+        "minimum": 654,
+        "median": 2600,
+        "p95": 3801,
+        "p99": 4000,
+        "maximum": 4363,
+        "mean": 2495.38
+      }
+    },
+    {
+      "risk_class": "R1",
+      "samples": 100,
+      "clause_count": 2,
+      "evidence_count": 3,
+      "total_us": {
+        "samples": 100,
+        "minimum": 2518,
+        "median": 5659,
+        "p95": 6980,
+        "p99": 7382,
+        "maximum": 7600,
+        "mean": 5185.04
+      },
+      "request_verification_us": {
+        "samples": 100,
+        "minimum": 145,
+        "median": 155,
+        "p95": 181,
+        "p99": 189,
+        "maximum": 202,
+        "mean": 158.65
+      },
+      "kem_decapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 10,
+        "p95": 13,
+        "p99": 15,
+        "maximum": 15,
+        "mean": 10.49
+      },
+      "session_establishment_us": {
+        "samples": 100,
+        "minimum": 214,
+        "median": 225,
+        "p95": 261,
+        "p99": 268,
+        "maximum": 273,
+        "mean": 230.94
+      },
+      "finish_verification_us": {
+        "samples": 100,
+        "minimum": 620,
+        "median": 2282,
+        "p95": 3006,
+        "p99": 4157,
+        "maximum": 4577,
+        "mean": 2088.03
+      }
+    },
+    {
+      "risk_class": "R2",
+      "samples": 100,
+      "clause_count": 3,
+      "evidence_count": 4,
+      "total_us": {
+        "samples": 100,
+        "minimum": 2807,
+        "median": 4693,
+        "p95": 7574,
+        "p99": 9375,
+        "maximum": 9508,
+        "mean": 4908.9
+      },
+      "request_verification_us": {
+        "samples": 100,
+        "minimum": 171,
+        "median": 183,
+        "p95": 206,
+        "p99": 218,
+        "maximum": 221,
+        "mean": 185.2
+      },
+      "kem_decapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 10,
+        "p95": 15,
+        "p99": 20,
+        "maximum": 20,
+        "mean": 11.02
+      },
+      "session_establishment_us": {
+        "samples": 100,
+        "minimum": 285,
+        "median": 310,
+        "p95": 340,
+        "p99": 405,
+        "maximum": 419,
+        "mean": 312.27
+      },
+      "finish_verification_us": {
+        "samples": 100,
+        "minimum": 626,
+        "median": 2202,
+        "p95": 4053,
+        "p99": 4193,
+        "maximum": 5767,
+        "mean": 2097.44
+      }
+    },
+    {
+      "risk_class": "R3",
+      "samples": 100,
+      "clause_count": 4,
+      "evidence_count": 6,
+      "total_us": {
+        "samples": 100,
+        "minimum": 3447,
+        "median": 6088,
+        "p95": 7576,
+        "p99": 8230,
+        "maximum": 8828,
+        "mean": 6227.05
+      },
+      "request_verification_us": {
+        "samples": 100,
+        "minimum": 224,
+        "median": 250,
+        "p95": 295,
+        "p99": 321,
+        "maximum": 364,
+        "mean": 255.67
+      },
+      "kem_decapsulation_us": {
+        "samples": 100,
+        "minimum": 9,
+        "median": 12,
+        "p95": 15,
+        "p99": 18,
+        "maximum": 18,
+        "mean": 12.45
+      },
+      "session_establishment_us": {
+        "samples": 100,
+        "minimum": 433,
+        "median": 476,
+        "p95": 523,
+        "p99": 537,
+        "maximum": 590,
+        "mean": 477.92
+      },
+      "finish_verification_us": {
+        "samples": 100,
+        "minimum": 639,
+        "median": 2564,
+        "p95": 3066,
+        "p99": 3527,
+        "maximum": 4829,
+        "mean": 2546.65
+      }
+    },
+    {
+      "risk_class": "R4",
+      "samples": 100,
+      "clause_count": 5,
+      "evidence_count": 8,
+      "total_us": {
+        "samples": 100,
+        "minimum": 4994,
+        "median": 7291,
+        "p95": 8228,
+        "p99": 8428,
+        "maximum": 8687,
+        "mean": 7095.63
+      },
+      "request_verification_us": {
+        "samples": 100,
+        "minimum": 274,
+        "median": 305,
+        "p95": 338,
+        "p99": 354,
+        "maximum": 490,
+        "mean": 307.26
+      },
+      "kem_decapsulation_us": {
+        "samples": 100,
+        "minimum": 10,
+        "median": 12,
+        "p95": 16,
+        "p99": 19,
+        "maximum": 21,
+        "mean": 12.18
+      },
+      "session_establishment_us": {
+        "samples": 100,
+        "minimum": 575,
+        "median": 625,
+        "p95": 666,
+        "p99": 685,
+        "maximum": 703,
+        "mean": 627.97
+      },
+      "finish_verification_us": {
+        "samples": 100,
+        "minimum": 1727,
+        "median": 2439,
+        "p95": 3218,
+        "p99": 3488,
+        "maximum": 3507,
+        "mean": 2455.12
+      }
+    }
+  ]
+}
