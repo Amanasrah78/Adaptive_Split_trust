@@ -1,0 +1,138 @@
+ASTRA-PQ concurrent authority-service evaluation
+Captured:
+2026-08-18T18:10:27+00:00
+
+Repository:
+2577174227cd253b83d81f5477f63fce62baf407
+dynamic-coalition-v0.5.0-1-g2577174
+?? results/concurrent-authority-service-environment.txt
+?? results/concurrent-gateway-a-load-status.txt
+?? results/concurrent-gateway-b-during-load.json
+
+Concurrency model:
+bounded-thread-per-connection
+maximum_concurrent_connections=32
+authorization_and_replay_state=mutex-protected
+
+Experiment:
+gateway_a_repetitions=20000
+gateway_a_output=discarded_by_design
+gateway_b_repetitions=1
+gateway_b_started_after_gateway_a_persistent_load
+    "delta": "0:00:34.665961",
+    "end": "2026-08-18 18:09:38.206970",
+    "finished": 1,
+    "rc": 0,
+    "start": "2026-08-18 18:09:03.541009",
+{
+  "authority_evidence_signature": "ML-DSA-65",
+  "authority_ids": [
+    "a1",
+    "a2",
+    "a3"
+  ],
+  "authority_processing_us": [
+    333,
+    595,
+    806
+  ],
+  "authority_round_trip_us": [
+    1312,
+    729,
+    1387
+  ],
+  "coalition_clause_id": "distributed-t3-c-a1-a2-a3",
+  "coalition_selection_us": 2008,
+  "configured_authorities": 7,
+  "connection_mode": "persistent-preconnected-excluded-from-timing",
+  "dprf_backend": "lwr-n1024-q64-q1-42-p10-x26-static-semi-honest",
+  "exact_coalition": true,
+  "excluded_authorities": [],
+  "gateway_id": "gateway-b",
+  "gateway_request_authentication": "ML-DSA-65",
+  "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
+  "live_iota_claim": false,
+  "malicious_robust": false,
+  "partial_payload_bytes_total": 624,
+  "policy_eligible_authorities": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7"
+  ],
+  "proactive_refresh_implemented": false,
+  "reachable_authorities": [
+    "a1",
+    "a2",
+    "a3",
+    "a4",
+    "a5",
+    "a6",
+    "a7"
+  ],
+  "request_bytes_per_authority": 12811,
+  "response_bytes_total": 38689,
+  "run": 1,
+  "schema": "astra-pq-distributed-authorization-v1",
+  "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
+  "selected_coalition": [
+    "a1",
+    "a2",
+    "a3"
+  ],
+  "success": true,
+  "threshold": 3,
+  "timing_us": {
+    "distributed_authorization_total": 1905,
+    "evidence_verification_sequential": 223,
+    "gateway_request_signing": 118,
+    "lwr_combine": 7,
+    "parallel_authority_collection": 1523
+  },
+  "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
+  "unreachable_authorities": []
+}
+
+Evidence hashes:
+eddf68eaa271142000e658669b94f23da1a7172cdb96f727f7febc3312ce471e  results/concurrent-gateway-a-load-status.txt
+2c0d2714ece2e0529387d0358abe40ac48a5b1643147125af51e38d25b991765  results/concurrent-gateway-b-during-load.json
+
+Deployed services:
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:49 astra-domain-a astra-authority-service[26981]: {"active_epoch":1,"authority_id":"a1","bind":"172.16.64.11:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:49 astra-domain-b astra-authority-service[8595]: {"active_epoch":1,"authority_id":"a2","bind":"172.16.64.12:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:50 astra-authority-3 astra-authority-service[7867]: {"active_epoch":1,"authority_id":"a3","bind":"172.16.64.13:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:50 astra-authority-4 astra-authority-service[7822]: {"active_epoch":1,"authority_id":"a4","bind":"172.16.64.14:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-authority-5 | CHANGED | rc=0 >>
+astra-authority-5
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:50 astra-authority-5 astra-authority-service[7973]: {"active_epoch":1,"authority_id":"a5","bind":"172.16.64.15:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-authority-6 | CHANGED | rc=0 >>
+astra-authority-6
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:50 astra-authority-6 astra-authority-service[7797]: {"active_epoch":1,"authority_id":"a6","bind":"172.16.64.16:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}
+astra-authority-7 | CHANGED | rc=0 >>
+astra-authority-7
+active
+1430b1c9e7939052be65faef67bf105c317123612a04d859d9dc3bfa39afe1a4  /home/astraadmin/astra-pq/bin/astra-authority-service
+Aug 18 18:04:51 astra-authority-7 astra-authority-service[7818]: {"active_epoch":1,"authority_id":"a7","bind":"172.16.64.17:7443","connection_model":"bounded-thread-per-connection","evidence_signature":"ML-DSA-65","gateway_authentication":"ML-DSA-65","maximum_concurrent_connections":32,"provisioned_coalitions":64,"provisioned_thresholds":[1,2,3,4,5,6,7],"replay_state":"in-memory","request_state_serialization":"mutex-protected","schema":"astra-pq-authority-service-start-v1","share_version":1}

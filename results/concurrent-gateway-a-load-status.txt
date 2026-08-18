@@ -1,0 +1,17 @@
+astra-domain-a | CHANGED => {
+    "ansible_job_id": "j838562202233.102161",
+    "changed": true,
+    "cmd": "ASTRA_THRESHOLD=3 ASTRA_REPETITIONS=20000 ASTRA_GATEWAY_ID=gateway-a ASTRA_GOVERNANCE_BUNDLE=/home/astraadmin/astra-pq/config/governance/governance-bundle.json ASTRA_GATEWAY_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk ASTRA_GATEWAY_PUBLIC_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.pk ASTRA_AUTHORITY_PUBLIC_KEY_ROOT=/home/astraadmin/astra-pq/config/authority-public-keys ASTRA_AUTHORITY_ENDPOINTS=a1=172.16.64.11:7443,a2=172.16.64.12:7443,a3=172.16.64.13:7443,a4=172.16.64.14:7443,a5=172.16.64.15:7443,a6=172.16.64.16:7443,a7=172.16.64.17:7443 /home/astraadmin/astra-pq/bin/astra-distributed-client > /dev/null",
+    "delta": "0:00:34.665961",
+    "end": "2026-08-18 18:09:38.206970",
+    "finished": 1,
+    "msg": "",
+    "rc": 0,
+    "results_file": "/home/astraadmin/.ansible_async/j838562202233.102161",
+    "start": "2026-08-18 18:09:03.541009",
+    "started": 1,
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
