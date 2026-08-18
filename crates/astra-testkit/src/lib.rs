@@ -7,6 +7,7 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+pub mod session_wire;
 use astra_common::{RiskClass, SessionContext};
 use astra_synthesizer::{
     AuthorityRecord, SynthesisError, SynthesisRequest, SynthesisResult, synthesize,
