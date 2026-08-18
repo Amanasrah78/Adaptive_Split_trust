@@ -5,10 +5,10 @@
 //! ML-DSA-65. The initial signed request is also the transcript consumed by the
 //! dual-gate session KDF.
 
-use crate::{SESSION_EPOCH, SESSION_SHARE_VERSION, r3_lab_synthesis};
+use crate::{SESSION_EPOCH, SESSION_SHARE_VERSION, adaptive_lab_synthesis};
 use anyhow::Context;
 use astra_authority::SignedPartialEvidence;
-use astra_common::{Digest32, RiskClass, SessionContext, SessionId, hash_domain_separated};
+use astra_common::{Digest32, SessionContext, SessionId, hash_domain_separated};
 use astra_pqcrypto::{PqProvider, SecretBytes};
 use astra_synthesizer::SynthesisResult;
 use serde::{Deserialize, Serialize};
@@ -30,7 +30,6 @@ pub const SESSION_COMPLETION_SCHEMA: &str = "astra-pq-session-completion-v1";
 pub const MAX_GATEWAY_MESSAGE_BYTES: usize = 1_048_576;
 
 const MAX_KEM_CIPHERTEXT_BYTES: usize = 8_192;
-const R3_EVIDENCE_ITEMS: usize = 6;
 const REQUEST_SIGNATURE_LABEL: &[u8] = b"ASTRA-PQ-v1/session-request-signature";
 const RESPONSE_SIGNATURE_LABEL: &[u8] = b"ASTRA-PQ-v1/session-response-signature";
 const FINISH_SIGNATURE_LABEL: &[u8] = b"ASTRA-PQ-v1/session-finish-signature";
@@ -49,13 +48,13 @@ pub struct SessionHandshakeRequest {
     pub responder_gateway: String,
     /// Canonical session context used by every authority.
     pub context: SessionContext,
-    /// Canonical four-clause R3 authorization structure.
+    /// Canonical risk-adaptive authorization structure.
     pub synthesis: SynthesisResult,
     /// Active exact-coalition LWR share version.
     pub share_version: u64,
     /// ML-KEM-768 ciphertext for Gateway B.
     pub kem_ciphertext: Vec<u8>,
-    /// Signed authority partials satisfying all R3 clauses.
+    /// Signed authority partials satisfying every synthesized clause.
     pub evidence: Vec<SignedPartialEvidence>,
 }
 
@@ -311,8 +310,8 @@ fn validate_session_request(request: &SessionHandshakeRequest) -> anyhow::Result
     );
     request.context.validate()?;
     anyhow::ensure!(
-        request.context.epoch == SESSION_EPOCH && request.context.risk == RiskClass::R3,
-        "session context differs from the provisioned R3 profile"
+        request.context.epoch == SESSION_EPOCH,
+        "session context differs from the provisioned epoch"
     );
     anyhow::ensure!(
         request.share_version == SESSION_SHARE_VERSION,
@@ -322,14 +321,20 @@ fn validate_session_request(request: &SessionHandshakeRequest) -> anyhow::Result
         (1..=MAX_KEM_CIPHERTEXT_BYTES).contains(&request.kem_ciphertext.len()),
         "invalid ML-KEM ciphertext size"
     );
+    let expected = adaptive_lab_synthesis(&request.context)?;
+    let expected_evidence = expected
+        .structure
+        .clauses
+        .iter()
+        .map(|clause| clause.members.len())
+        .sum::<usize>();
     anyhow::ensure!(
-        request.evidence.len() == R3_EVIDENCE_ITEMS,
-        "R3 session requires exactly six authority evidence items"
+        request.evidence.len() == expected_evidence,
+        "session evidence count differs from the synthesized adaptive policy"
     );
-    let expected = r3_lab_synthesis(&request.context)?;
     anyhow::ensure!(
         request.synthesis == expected,
-        "session synthesis differs from the canonical R3 policy"
+        "session synthesis differs from the canonical adaptive policy"
     );
     Ok(())
 }
