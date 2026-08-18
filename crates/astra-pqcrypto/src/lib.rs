@@ -6,13 +6,19 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+use astra_common::{Digest32, Secret32};
+use hkdf::Hkdf;
 use oqs::{kem, sig};
+use sha2::Sha384;
+use sha3::{Digest, Sha3_256};
 use std::fmt;
 use std::sync::Once;
 use thiserror::Error;
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
 const MAX_SIGNED_MESSAGE_BYTES: usize = 1_048_576;
+const MAX_TRANSCRIPT_BYTES: usize = 1_048_576;
+const SESSION_INFO_LABEL: &[u8] = b"ASTRA-PQ-v1/session";
 static OQS_INIT: Once = Once::new();
 
 /// Secret byte storage that is erased when dropped.
@@ -267,6 +273,52 @@ impl PqProvider {
     }
 }
 
+/// Derives a 256-bit session key from both ASTRA-PQ cryptographic gates.
+///
+/// The construction follows the manuscript profile:
+/// `IKM = K_kem || Z_s`,
+/// `salt = SHA3-256(u_s || SHA3-256(T_s))`, and
+/// `info = "ASTRA-PQ-v1/session" || u_s || SHA3-256(T_s)`.
+pub fn derive_session_key(
+    kem_secret: &SecretBytes,
+    authorization_secret: &Secret32,
+    authorization_input: &Digest32,
+    transcript: &[u8],
+) -> Result<Secret32, CryptoError> {
+    if kem_secret.is_empty() {
+        return Err(CryptoError::InvalidLength("ML-KEM shared secret"));
+    }
+    if transcript.is_empty() {
+        return Err(CryptoError::EmptyTranscript);
+    }
+    if transcript.len() > MAX_TRANSCRIPT_BYTES {
+        return Err(CryptoError::TranscriptTooLarge);
+    }
+
+    let transcript_hash = Sha3_256::digest(transcript);
+    let mut salt_hasher = Sha3_256::new();
+    salt_hasher.update(authorization_input.as_bytes());
+    salt_hasher.update(transcript_hash.as_slice());
+    let salt = salt_hasher.finalize();
+
+    let mut input_key_material = Vec::with_capacity(kem_secret.len() + 32);
+    input_key_material.extend_from_slice(kem_secret.expose_secret());
+    input_key_material.extend_from_slice(authorization_secret.expose_secret());
+
+    let hkdf = Hkdf::<Sha384>::new(Some(salt.as_slice()), &input_key_material);
+    input_key_material.zeroize();
+
+    let mut info = Vec::with_capacity(SESSION_INFO_LABEL.len() + 64);
+    info.extend_from_slice(SESSION_INFO_LABEL);
+    info.extend_from_slice(authorization_input.as_bytes());
+    info.extend_from_slice(transcript_hash.as_slice());
+
+    let mut session_key = [0_u8; 32];
+    hkdf.expand(&info, &mut session_key)
+        .map_err(|_| CryptoError::KdfExpansion)?;
+    Ok(Secret32::from_bytes(session_key))
+}
+
 fn validate_message(message: &[u8]) -> Result<(), CryptoError> {
     if message.is_empty() {
         return Err(CryptoError::EmptyMessage);
@@ -313,6 +365,15 @@ pub enum CryptoError {
     /// The signed message exceeds the protocol bound.
     #[error("the signed message exceeds the protocol bound")]
     MessageTooLarge,
+    /// The authenticated gateway transcript is empty.
+    #[error("the authenticated gateway transcript must not be empty")]
+    EmptyTranscript,
+    /// The authenticated gateway transcript exceeds its protocol bound.
+    #[error("the authenticated gateway transcript exceeds the protocol bound")]
+    TranscriptTooLarge,
+    /// HKDF could not produce the requested session-key length.
+    #[error("HKDF session-key expansion failed")]
+    KdfExpansion,
 }
 
 #[cfg(test)]
@@ -357,5 +418,55 @@ mod tests {
         assert_eq!(metadata.signature_algorithm, "ML-DSA-65");
         assert_eq!(metadata.kem_nist_level, 3);
         assert_eq!(metadata.signature_nist_level, 3);
+    }
+
+    #[test]
+    fn dual_gate_session_keys_agree() {
+        let provider = PqProvider::new().unwrap();
+        let keypair = provider.generate_kem_keypair().unwrap();
+        let encapsulation = provider.encapsulate(keypair.public_key()).unwrap();
+        let decapsulated = provider
+            .decapsulate(keypair.secret_key(), encapsulation.ciphertext())
+            .unwrap();
+        let authorization_secret = Secret32::from_bytes([5; 32]);
+        let authorization_input = Digest32::from_bytes([6; 32]);
+        let transcript = b"authenticated ASTRA-PQ pre-handshake transcript";
+
+        let initiator_key = derive_session_key(
+            &decapsulated,
+            &authorization_secret,
+            &authorization_input,
+            transcript,
+        )
+        .unwrap();
+        let responder_key = derive_session_key(
+            encapsulation.shared_secret(),
+            &authorization_secret,
+            &authorization_input,
+            transcript,
+        )
+        .unwrap();
+        assert_eq!(initiator_key.expose_secret(), responder_key.expose_secret());
+    }
+
+    #[test]
+    fn changing_authorization_secret_changes_session_key() {
+        let kem_secret = SecretBytes::new(vec![4; 32]);
+        let authorization_input = Digest32::from_bytes([6; 32]);
+        let first = derive_session_key(
+            &kem_secret,
+            &Secret32::from_bytes([5; 32]),
+            &authorization_input,
+            b"transcript",
+        )
+        .unwrap();
+        let second = derive_session_key(
+            &kem_secret,
+            &Secret32::from_bytes([7; 32]),
+            &authorization_input,
+            b"transcript",
+        )
+        .unwrap();
+        assert_ne!(first.expose_secret(), second.expose_secret());
     }
 }

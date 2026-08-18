@@ -48,10 +48,13 @@ dependencies = [
 name = "astra-gateway"
 version = "0.1.0"
 dependencies = [
+ "astra-authority",
  "astra-common",
  "astra-dprf",
  "astra-pqcrypto",
  "astra-synthesizer",
+ "sha3",
+ "thiserror",
 ]
 
 [[package]]

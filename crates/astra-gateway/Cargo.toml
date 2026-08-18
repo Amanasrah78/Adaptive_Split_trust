@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+astra-authority = { version = "0.1.0", path = "../astra-authority" }
 astra-common = { version = "0.1.0", path = "../astra-common" }
 astra-dprf = { version = "0.1.0", path = "../astra-dprf" }
+astra-pqcrypto = { version = "0.1.0", path = "../astra-pqcrypto" }
 astra-synthesizer = { version = "0.1.0", path = "../astra-synthesizer" }
+sha3 = "0.12.0"
+thiserror = "2.0.20"
