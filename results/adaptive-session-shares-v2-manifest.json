@@ -1,0 +1,431 @@
+{
+  "clause_set_count": 15,
+  "encrypted_at_rest": false,
+  "integrity_mechanism": "SHAKE256 embedded checksum plus domain-separated SHA3-256 manifest hash",
+  "lab_only": true,
+  "risk_classes": [
+    "R0",
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "risks": [
+    {
+      "clause_count": 1,
+      "clauses": [
+        {
+          "authorities": [
+            "a2"
+          ],
+          "clause_id": "destination",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "destination",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213075,
+              "file_hash": "9ff1bf726651785e36b965566a53c65ea2a222f111a3f59911b354e368453439",
+              "relative_path": "r0/destination/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        }
+      ],
+      "directory": "r0",
+      "evidence_count": 1,
+      "governed_floor_override": false,
+      "governed_minimum_organizations": 1,
+      "risk_class": "R0",
+      "synthesizer_minimum_authorities": 1
+    },
+    {
+      "clause_count": 2,
+      "clauses": [
+        {
+          "authorities": [
+            "a2"
+          ],
+          "clause_id": "destination",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "destination",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213075,
+              "file_hash": "1f4b5bf258864b558cb6708b598c28ca262e42434eaac8e1bb362d0b0b011ac4",
+              "relative_path": "r1/destination/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a1",
+            "a2"
+          ],
+          "clause_id": "risk-floor",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "risk-floor",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213078,
+              "file_hash": "09fd808fa87e6ca86838068cb012142db1eabc861dcee048723195082d5e3bc2",
+              "relative_path": "r1/risk-floor/a1.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213078,
+              "file_hash": "295a98505740ea87153c4bb4dfd1df9456d62e0346850173ba474780d6b25386",
+              "relative_path": "r1/risk-floor/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 2
+        }
+      ],
+      "directory": "r1",
+      "evidence_count": 3,
+      "governed_floor_override": false,
+      "governed_minimum_organizations": 2,
+      "risk_class": "R1",
+      "synthesizer_minimum_authorities": 2
+    },
+    {
+      "clause_count": 3,
+      "clauses": [
+        {
+          "authorities": [
+            "a2"
+          ],
+          "clause_id": "destination",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "destination",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213075,
+              "file_hash": "0be97031d47976720f5856b6bbdafed56143e26b5db002224a3728362f1cf89a",
+              "relative_path": "r2/destination/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a1",
+            "a2"
+          ],
+          "clause_id": "risk-floor",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "risk-floor",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213078,
+              "file_hash": "5bae4e8b548c9d1b7cdc7fc4acaa7e2db693ce3110068f0f992483ca696608ba",
+              "relative_path": "r2/risk-floor/a1.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213078,
+              "file_hash": "3ba292fc3a3cded5709f73c57bf3897e787129364d0ff432e4f2e1ccd0e77ed2",
+              "relative_path": "r2/risk-floor/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 2
+        },
+        {
+          "authorities": [
+            "a1"
+          ],
+          "clause_id": "source-or-oversight",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "source-or-oversight",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213083,
+              "file_hash": "7fc762f56e09af4030186ace6f15e1e48cb820a0a036dfbffe1e6eea3fefd98f",
+              "relative_path": "r2/source-or-oversight/a1.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        }
+      ],
+      "directory": "r2",
+      "evidence_count": 4,
+      "governed_floor_override": false,
+      "governed_minimum_organizations": 2,
+      "risk_class": "R2",
+      "synthesizer_minimum_authorities": 2
+    },
+    {
+      "clause_count": 4,
+      "clauses": [
+        {
+          "authorities": [
+            "a2"
+          ],
+          "clause_id": "destination",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "destination",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213075,
+              "file_hash": "22dc577d25280fcd57ee08bd826d43001cb99850c3b1137228ca6d410b799382",
+              "relative_path": "r3/destination/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a1",
+            "a2",
+            "a3"
+          ],
+          "clause_id": "risk-floor",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "risk-floor",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213082,
+              "file_hash": "a315df5ca36cd3c74b1ffc7f0441c5f6c305a7aad1bd0dab49ac63502130d87c",
+              "relative_path": "r3/risk-floor/a1.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213082,
+              "file_hash": "f0b7565add2f87ddb59e5c885813e3bbe628632523985576cdeb66ae6f6f4d25",
+              "relative_path": "r3/risk-floor/a2.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a3",
+              "encoded_bytes": 213082,
+              "file_hash": "0b922f9722ead4e00862bb611bee2652fb51d56f48c575b39c54793a2fb8195b",
+              "relative_path": "r3/risk-floor/a3.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 3
+        },
+        {
+          "authorities": [
+            "a1"
+          ],
+          "clause_id": "source",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "source",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213070,
+              "file_hash": "46bd0f14d76cb673e93c2438ad406cf6a53b1d76282ea2db5cc3c9dfbd2a19a3",
+              "relative_path": "r3/source/a1.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a3"
+          ],
+          "clause_id": "safety",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "safety",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a3",
+              "encoded_bytes": 213070,
+              "file_hash": "6247f742bad1fb67d3e7d78b3bc04c75a5fa99840d6ba83080ce6462b049423f",
+              "relative_path": "r3/safety/a3.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        }
+      ],
+      "directory": "r3",
+      "evidence_count": 6,
+      "governed_floor_override": false,
+      "governed_minimum_organizations": 3,
+      "risk_class": "R3",
+      "synthesizer_minimum_authorities": 3
+    },
+    {
+      "clause_count": 5,
+      "clauses": [
+        {
+          "authorities": [
+            "a2"
+          ],
+          "clause_id": "destination",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "destination",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213075,
+              "file_hash": "43bc09e5f96a3fa68d0b0371f39f651dbe96b18cdad8f1cc9ede909907af1550",
+              "relative_path": "r4/destination/a2.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a1",
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "clause_id": "risk-floor",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "risk-floor",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213086,
+              "file_hash": "0f25638ae9938ec990d7dd99618d5defaafc4b1b400f9cc5c06c4b77476e5203",
+              "relative_path": "r4/risk-floor/a1.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a2",
+              "encoded_bytes": 213086,
+              "file_hash": "3cf1442dd03e79b7218fa5c105a475e9874e897e2818895a2e44d368ff31e074",
+              "relative_path": "r4/risk-floor/a2.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a3",
+              "encoded_bytes": 213086,
+              "file_hash": "12f83844d4cc89c58db248b67bcffb5b46b5e96d5735352241b1de7021ab0d10",
+              "relative_path": "r4/risk-floor/a3.lwr",
+              "secret_vector_bytes": 212992
+            },
+            {
+              "authority_id": "a4",
+              "encoded_bytes": 213086,
+              "file_hash": "593363fa727f3081b76abb613d7904882fe7d82d8744f452bdf5dcc83e13f29a",
+              "relative_path": "r4/risk-floor/a4.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 4
+        },
+        {
+          "authorities": [
+            "a1"
+          ],
+          "clause_id": "source",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "source",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a1",
+              "encoded_bytes": 213070,
+              "file_hash": "4179df290abd3165b67e0a421726bcbcbe9f6d5212ac5f67c298aa40322f1e5d",
+              "relative_path": "r4/source/a1.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a3"
+          ],
+          "clause_id": "safety",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "safety",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a3",
+              "encoded_bytes": 213070,
+              "file_hash": "81b5d5a64ceba4f8823b40b32e512433322155a15dfd0f411715310fbd6645e3",
+              "relative_path": "r4/safety/a3.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        },
+        {
+          "authorities": [
+            "a4"
+          ],
+          "clause_id": "human-confirmation",
+          "epoch": 1,
+          "exact_coalition": true,
+          "purpose": "human-confirmation",
+          "share_version": 1,
+          "shares": [
+            {
+              "authority_id": "a4",
+              "encoded_bytes": 213082,
+              "file_hash": "d1e903a8e80098ff9f30259747fbb11d12dfb2610a9b7fd2204a8367173e4235",
+              "relative_path": "r4/human-confirmation/a4.lwr",
+              "secret_vector_bytes": 212992
+            }
+          ],
+          "threshold": 1
+        }
+      ],
+      "directory": "r4",
+      "evidence_count": 8,
+      "governed_floor_override": true,
+      "governed_minimum_organizations": 4,
+      "risk_class": "R4",
+      "synthesizer_minimum_authorities": 3
+    }
+  ],
+  "schema": "astra-pq-adaptive-session-share-provisioning-v2",
+  "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
+  "selection_model": "risk-qualified exact coalitions",
+  "share_file_count": 22,
+  "single_share_t_of_n": false
+}
