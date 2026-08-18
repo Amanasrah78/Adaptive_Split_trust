@@ -1,0 +1,101 @@
+{
+  "schema": "astra-pq-adaptive-session-fail-closed-summary-v1",
+  "minimal_authority_profiles": {
+    "samples": 5,
+    "successful_sessions": 5,
+    "risks": [
+      {
+        "risk_class": "R0",
+        "clause_count": 1,
+        "evidence_count": 1,
+        "contributors": {
+          "destination": [
+            "a2"
+          ]
+        }
+      },
+      {
+        "risk_class": "R1",
+        "clause_count": 2,
+        "evidence_count": 3,
+        "contributors": {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2"
+          ]
+        }
+      },
+      {
+        "risk_class": "R2",
+        "clause_count": 3,
+        "evidence_count": 4,
+        "contributors": {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2"
+          ],
+          "source-or-oversight": [
+            "a1"
+          ]
+        }
+      },
+      {
+        "risk_class": "R3",
+        "clause_count": 4,
+        "evidence_count": 6,
+        "contributors": {
+          "destination": [
+            "a2"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2",
+            "a3"
+          ],
+          "safety": [
+            "a3"
+          ],
+          "source": [
+            "a1"
+          ]
+        }
+      },
+      {
+        "risk_class": "R4",
+        "clause_count": 5,
+        "evidence_count": 8,
+        "contributors": {
+          "destination": [
+            "a2"
+          ],
+          "human-confirmation": [
+            "a4"
+          ],
+          "risk-floor": [
+            "a1",
+            "a2",
+            "a3",
+            "a4"
+          ],
+          "safety": [
+            "a3"
+          ],
+          "source": [
+            "a1"
+          ]
+        }
+      }
+    ]
+  },
+  "r4_missing_human_confirmation": {
+    "rejected": true,
+    "expected_authority": "a4",
+    "security_result": "fail-closed"
+  }
+}
