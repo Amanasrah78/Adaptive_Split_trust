@@ -58,6 +58,11 @@ struct NetworkEvidence {
     response_bytes: usize,
 }
 
+struct AuthorityConnection {
+    authority_id: String,
+    stream: TcpStream,
+}
+
 fn main() -> anyhow::Result<()> {
     let threshold = required_usize("ASTRA_THRESHOLD")?;
     let repetitions = required_usize("ASTRA_REPETITIONS")?;
@@ -131,6 +136,10 @@ fn main() -> anyhow::Result<()> {
         &[invocation_key.public_key()],
     );
     let backend = LwrExactCoalitionBackend;
+    let mut connections = selected_endpoints
+        .iter()
+        .map(|(authority, endpoint)| connect_authority(authority, *endpoint))
+        .collect::<anyhow::Result<Vec<_>>>()?;
 
     for run in 1..=repetitions {
         anyhow::ensure!(
@@ -162,11 +171,11 @@ fn main() -> anyhow::Result<()> {
 
         let network_start = Instant::now();
         let network_results = thread::scope(|scope| {
-            let handles = selected_endpoints
-                .iter()
-                .map(|(authority, endpoint)| {
+            let handles = connections
+                .iter_mut()
+                .map(|connection| {
                     let encoded_request = &encoded_request;
-                    scope.spawn(move || request_evidence(authority, *endpoint, encoded_request))
+                    scope.spawn(move || request_evidence(connection, encoded_request))
                 })
                 .collect::<Vec<_>>();
             handles
@@ -232,6 +241,7 @@ fn main() -> anyhow::Result<()> {
             "gateway_id": gateway_id,
             "authority_ids": authority_ids,
             "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
+            "connection_mode": "persistent-preconnected-excluded-from-timing",
             "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
             "live_iota_claim": false,
             "gateway_request_authentication": "ML-DSA-65",
@@ -261,28 +271,37 @@ fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-fn request_evidence(
-    expected_authority: &str,
+fn connect_authority(
+    authority_id: &str,
     endpoint: SocketAddr,
-    encoded_request: &[u8],
-) -> anyhow::Result<NetworkEvidence> {
-    let start = Instant::now();
-    let mut stream = TcpStream::connect_timeout(&endpoint, IO_TIMEOUT)
-        .with_context(|| format!("connect to {expected_authority} at {endpoint}"))?;
+) -> anyhow::Result<AuthorityConnection> {
+    let stream = TcpStream::connect_timeout(&endpoint, IO_TIMEOUT)
+        .with_context(|| format!("connect to {authority_id} at {endpoint}"))?;
     stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
-    write_frame(&mut stream, encoded_request)?;
-    let encoded_response = read_frame(&mut stream)?;
+    Ok(AuthorityConnection {
+        authority_id: authority_id.to_owned(),
+        stream,
+    })
+}
+
+fn request_evidence(
+    connection: &mut AuthorityConnection,
+    encoded_request: &[u8],
+) -> anyhow::Result<NetworkEvidence> {
+    let start = Instant::now();
+    write_frame(&mut connection.stream, encoded_request)?;
+    let encoded_response = read_frame(&mut connection.stream)?;
     let round_trip_us = start.elapsed().as_micros();
     let response: AuthorityWireResponse = serde_json::from_slice(&encoded_response)
-        .with_context(|| format!("decode response from {expected_authority}"))?;
+        .with_context(|| format!("decode response from {}", connection.authority_id))?;
     anyhow::ensure!(
         response.schema == WIRE_SCHEMA,
         "authority wire schema mismatch"
     );
     anyhow::ensure!(
-        response.authority_id == expected_authority,
+        response.authority_id == connection.authority_id,
         "authority response identity mismatch"
     );
     anyhow::ensure!(
@@ -296,7 +315,7 @@ fn request_evidence(
         .evidence
         .context("successful response lacks evidence")?;
     Ok(NetworkEvidence {
-        authority_id: expected_authority.to_owned(),
+        authority_id: connection.authority_id.clone(),
         evidence,
         round_trip_us,
         authority_processing_us: response.processing_us,

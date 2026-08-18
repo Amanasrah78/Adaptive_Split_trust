@@ -262,38 +262,44 @@ fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow
     stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
-    let encoded_request = read_frame(stream)?;
-    let signed: SignedAuthorityRequest =
-        serde_json::from_slice(&encoded_request).context("decode signed authority request")?;
-    let start = Instant::now();
-    let result = state.process(&signed);
-    let processing_us = start.elapsed().as_micros();
-    let response = match result {
-        Ok(evidence) => AuthorityWireResponse {
-            schema: WIRE_SCHEMA.to_owned(),
-            authority_id: state.authority_id.clone(),
-            success: true,
-            evidence: Some(evidence),
-            error: None,
-            processing_us,
-        },
-        Err(error) => AuthorityWireResponse {
-            schema: WIRE_SCHEMA.to_owned(),
-            authority_id: state.authority_id.clone(),
-            success: false,
-            evidence: None,
-            error: Some(error.to_string()),
-            processing_us,
-        },
-    };
-    let encoded_response = serde_json::to_vec(&response)?;
-    write_frame(stream, &encoded_response)?;
-    Ok(())
+    loop {
+        let Some(encoded_request) = read_frame_or_eof(stream)? else {
+            return Ok(());
+        };
+        let signed: SignedAuthorityRequest =
+            serde_json::from_slice(&encoded_request).context("decode signed authority request")?;
+        let start = Instant::now();
+        let result = state.process(&signed);
+        let processing_us = start.elapsed().as_micros();
+        let response = match result {
+            Ok(evidence) => AuthorityWireResponse {
+                schema: WIRE_SCHEMA.to_owned(),
+                authority_id: state.authority_id.clone(),
+                success: true,
+                evidence: Some(evidence),
+                error: None,
+                processing_us,
+            },
+            Err(error) => AuthorityWireResponse {
+                schema: WIRE_SCHEMA.to_owned(),
+                authority_id: state.authority_id.clone(),
+                success: false,
+                evidence: None,
+                error: Some(error.to_string()),
+                processing_us,
+            },
+        };
+        let encoded_response = serde_json::to_vec(&response)?;
+        write_frame(stream, &encoded_response)?;
+    }
 }
 
-fn read_frame(stream: &mut TcpStream) -> anyhow::Result<Vec<u8>> {
+fn read_frame_or_eof(stream: &mut TcpStream) -> anyhow::Result<Option<Vec<u8>>> {
     let mut length_bytes = [0_u8; 4];
-    stream.read_exact(&mut length_bytes)?;
+    if stream.read(&mut length_bytes[..1])? == 0 {
+        return Ok(None);
+    }
+    stream.read_exact(&mut length_bytes[1..])?;
     let length = usize::try_from(u32::from_be_bytes(length_bytes))
         .context("frame length does not fit this platform")?;
     anyhow::ensure!(
@@ -302,7 +308,7 @@ fn read_frame(stream: &mut TcpStream) -> anyhow::Result<Vec<u8>> {
     );
     let mut encoded = vec![0_u8; length];
     stream.read_exact(&mut encoded)?;
-    Ok(encoded)
+    Ok(Some(encoded))
 }
 
 fn write_frame(stream: &mut TcpStream, encoded: &[u8]) -> anyhow::Result<()> {
