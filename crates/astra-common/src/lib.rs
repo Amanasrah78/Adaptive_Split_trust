@@ -8,6 +8,7 @@ use serde::{Deserialize, Serialize};
 use sha3::{Digest, Sha3_256};
 use std::fmt;
 use thiserror::Error;
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 /// Current ASTRA-PQ wire-protocol version.
 pub const PROTOCOL_VERSION: u16 = 1;
@@ -54,6 +55,33 @@ impl fmt::Display for Digest32 {
 impl fmt::Debug for Digest32 {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(formatter, "Digest32({self})")
+    }
+}
+
+/// A fixed-length secret that is neither printable nor serializable and is
+/// erased when dropped.
+#[derive(Zeroize, ZeroizeOnDrop)]
+pub struct Secret32([u8; 32]);
+
+impl Secret32 {
+    /// Creates protected secret storage from exactly 32 bytes.
+    #[must_use]
+    pub const fn from_bytes(bytes: [u8; 32]) -> Self {
+        Self(bytes)
+    }
+
+    /// Borrows the secret for an immediate cryptographic operation.
+    ///
+    /// Callers must not log, serialize, clone, or persist the returned bytes.
+    #[must_use]
+    pub const fn expose_secret(&self) -> &[u8; 32] {
+        &self.0
+    }
+}
+
+impl fmt::Debug for Secret32 {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("Secret32([REDACTED])")
     }
 }
 

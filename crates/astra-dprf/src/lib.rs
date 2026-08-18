@@ -6,7 +6,7 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
-use astra_common::Digest32;
+use astra_common::{Digest32, Secret32};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use thiserror::Error;
@@ -217,7 +217,7 @@ pub trait DprfBackend {
         policy: &ClausePolicy,
         request: &EvaluationRequest,
         partials: &[PartialEvaluation],
-    ) -> Result<Digest32, DprfError>;
+    ) -> Result<Secret32, DprfError>;
 }
 
 /// Optional extension implemented by backends supporting proactive refresh.
