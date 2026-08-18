@@ -57,7 +57,7 @@ struct ServiceState {
     signing_key: SecretBytes,
     signing_public_key: Vec<u8>,
     gateway_public_keys: BTreeMap<String, Vec<u8>>,
-    shares: BTreeMap<u16, LwrExactCoalitionShare>,
+    shares: BTreeMap<String, LwrExactCoalitionShare>,
     completed_sessions: BTreeSet<String>,
 }
 
@@ -167,11 +167,10 @@ impl ServiceState {
         verify_authority_request(&self.provider, gateway_public_key, signed)
             .context("gateway request authentication failed")?;
         let request = &signed.request;
-        let threshold = parse_threshold(&request.evaluation.clause_id)?;
         let share = self
             .shares
-            .get(&threshold)
-            .context("authority is not provisioned for this threshold")?;
+            .get(&request.evaluation.clause_id)
+            .context("authority is not provisioned for this exact coalition")?;
         let replay_key = format!(
             "{}:{}:{}",
             request.context.session_id,
@@ -214,6 +213,11 @@ impl ServiceState {
 fn main() -> anyhow::Result<()> {
     let bind_address = required_environment("ASTRA_AUTHORITY_BIND")?;
     let mut state = ServiceState::load()?;
+    let provisioned_thresholds: BTreeSet<u16> = state
+        .shares
+        .keys()
+        .filter_map(|clause_id| parse_threshold(clause_id).ok())
+        .collect();
     let listener = TcpListener::bind(&bind_address)
         .with_context(|| format!("bind authority service to {bind_address}"))?;
     println!(
@@ -222,7 +226,8 @@ fn main() -> anyhow::Result<()> {
             "schema": "astra-pq-authority-service-start-v1",
             "authority_id": state.authority_id,
             "bind": bind_address,
-            "provisioned_thresholds": state.shares.keys().collect::<Vec<_>>(),
+            "provisioned_thresholds": provisioned_thresholds,
+            "provisioned_coalitions": state.shares.len(),
             "active_epoch": state.active_epoch,
             "share_version": state.share_version,
             "gateway_authentication": "ML-DSA-65",
@@ -328,13 +333,12 @@ fn write_frame(stream: &mut TcpStream, encoded: &[u8]) -> anyhow::Result<()> {
 fn load_shares(
     root: &Path,
     authority_id: &str,
-) -> anyhow::Result<BTreeMap<u16, LwrExactCoalitionShare>> {
+) -> anyhow::Result<BTreeMap<String, LwrExactCoalitionShare>> {
     let mut shares = BTreeMap::new();
-    for threshold in 1_u16..=7 {
-        let path = root.join(format!("t{threshold}/share.lwr"));
-        if !path.exists() {
-            continue;
-        }
+    let mut share_paths = Vec::new();
+    collect_share_paths(root, &mut share_paths)?;
+    share_paths.sort();
+    for path in share_paths {
         let encoded = Zeroizing::new(
             fs::read(&path).with_context(|| format!("read LWR share {}", path.display()))?,
         );
@@ -344,19 +348,80 @@ fn load_shares(
             share.authority_id() == authority_id,
             "provisioned LWR share belongs to another authority"
         );
-        shares.insert(threshold, share);
+        let clause_id = share.clause_id().to_owned();
+        let (_, clause_members) = parse_coalition_clause(&clause_id)
+            .context("provisioned LWR share has an unsupported coalition clause")?;
+        let share_members: Vec<&str> = share.coalition().iter().map(String::as_str).collect();
+        anyhow::ensure!(
+            clause_members == share_members,
+            "provisioned LWR share coalition differs from its clause identifier"
+        );
+        anyhow::ensure!(
+            shares.insert(clause_id.clone(), share).is_none(),
+            "duplicate provisioned coalition clause {clause_id}"
+        );
     }
     Ok(shares)
 }
 
+fn collect_share_paths(root: &Path, paths: &mut Vec<PathBuf>) -> anyhow::Result<()> {
+    for entry in fs::read_dir(root)
+        .with_context(|| format!("read LWR share directory {}", root.display()))?
+    {
+        let entry = entry.with_context(|| format!("read entry under {}", root.display()))?;
+        let path = entry.path();
+        let file_type = entry
+            .file_type()
+            .with_context(|| format!("inspect LWR provisioning path {}", path.display()))?;
+        if file_type.is_dir() {
+            collect_share_paths(&path, paths)?;
+        } else if file_type.is_file()
+            && path.extension().and_then(|extension| extension.to_str()) == Some("lwr")
+        {
+            paths.push(path);
+        }
+    }
+    Ok(())
+}
+
 fn parse_threshold(clause_id: &str) -> anyhow::Result<u16> {
-    let value = clause_id
+    Ok(parse_coalition_clause(clause_id)?.0)
+}
+
+fn parse_coalition_clause(clause_id: &str) -> anyhow::Result<(u16, Vec<&str>)> {
+    let suffix = clause_id
         .strip_prefix("distributed-t")
-        .context("unsupported distributed clause identifier")?
+        .context("unsupported distributed clause identifier")?;
+    let (threshold, coalition) = suffix
+        .split_once("-c-")
+        .context("distributed clause lacks an exact coalition identifier")?;
+    anyhow::ensure!(
+        !coalition.is_empty(),
+        "distributed coalition identifier is empty"
+    );
+    let value = threshold
         .parse::<u16>()
         .context("invalid distributed threshold")?;
     anyhow::ensure!((1..=7).contains(&value), "threshold is outside lab bounds");
-    Ok(value)
+    let members: Vec<&str> = coalition.split('-').collect();
+    anyhow::ensure!(
+        members.len() == usize::from(value),
+        "coalition size differs from threshold"
+    );
+    let mut previous_index = 0_u16;
+    for member in &members {
+        let index = member
+            .strip_prefix('a')
+            .context("invalid coalition authority identifier")?
+            .parse::<u16>()
+            .context("invalid coalition authority index")?;
+        anyhow::ensure!(
+            (1..=7).contains(&index) && index > previous_index,
+            "coalition authorities are invalid, duplicated, or unsorted"
+        );
+        previous_index = index;
+    }
+    Ok((value, members))
 }
 
 fn validate_identifier(value: &str, description: &str) -> anyhow::Result<()> {
@@ -386,4 +451,29 @@ fn unix_time() -> anyhow::Result<u64> {
         .duration_since(UNIX_EPOCH)
         .context("system clock precedes Unix epoch")?
         .as_secs())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn coalition_clause_parser_accepts_canonical_identifier() {
+        let (threshold, members) = parse_coalition_clause("distributed-t3-c-a1-a4-a7").unwrap();
+        assert_eq!(threshold, 3);
+        assert_eq!(members, vec!["a1", "a4", "a7"]);
+    }
+
+    #[test]
+    fn coalition_clause_parser_rejects_noncanonical_identifiers() {
+        for clause_id in [
+            "distributed-t3",
+            "distributed-t3-c-a1-a2",
+            "distributed-t2-c-a2-a1",
+            "distributed-t2-c-a1-a1",
+            "distributed-t2-c-a1-a8",
+        ] {
+            assert!(parse_coalition_clause(clause_id).is_err(), "{clause_id}");
+        }
+    }
 }
