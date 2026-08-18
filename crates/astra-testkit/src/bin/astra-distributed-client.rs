@@ -269,6 +269,7 @@ fn request_evidence(
     let start = Instant::now();
     let mut stream = TcpStream::connect_timeout(&endpoint, IO_TIMEOUT)
         .with_context(|| format!("connect to {expected_authority} at {endpoint}"))?;
+    stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
     write_frame(&mut stream, encoded_request)?;
@@ -397,8 +398,10 @@ fn write_frame(stream: &mut TcpStream, encoded: &[u8]) -> anyhow::Result<()> {
         "invalid authority request length"
     );
     let length = u32::try_from(encoded.len()).context("request frame is too large")?;
-    stream.write_all(&length.to_be_bytes())?;
-    stream.write_all(encoded)?;
+    let mut frame = Vec::with_capacity(4 + encoded.len());
+    frame.extend_from_slice(&length.to_be_bytes());
+    frame.extend_from_slice(encoded);
+    stream.write_all(&frame)?;
     stream.flush()?;
     Ok(())
 }

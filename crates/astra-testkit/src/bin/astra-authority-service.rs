@@ -259,6 +259,7 @@ fn main() -> anyhow::Result<()> {
 }
 
 fn handle_connection(stream: &mut TcpStream, state: &mut ServiceState) -> anyhow::Result<()> {
+    stream.set_nodelay(true)?;
     stream.set_read_timeout(Some(IO_TIMEOUT))?;
     stream.set_write_timeout(Some(IO_TIMEOUT))?;
     let encoded_request = read_frame(stream)?;
@@ -310,8 +311,10 @@ fn write_frame(stream: &mut TcpStream, encoded: &[u8]) -> anyhow::Result<()> {
         "invalid authority response length"
     );
     let length = u32::try_from(encoded.len()).context("response frame is too large")?;
-    stream.write_all(&length.to_be_bytes())?;
-    stream.write_all(encoded)?;
+    let mut frame = Vec::with_capacity(4 + encoded.len());
+    frame.extend_from_slice(&length.to_be_bytes());
+    frame.extend_from_slice(encoded);
+    stream.write_all(&frame)?;
     stream.flush()?;
     Ok(())
 }
