@@ -5,3 +5,7 @@ edition = "2024"
 
 [dependencies]
 astra-common = { version = "0.1.0", path = "../astra-common" }
+astra-pqcrypto = { version = "0.1.0", path = "../astra-pqcrypto" }
+minicbor = "2.3.0"
+serde = { version = "1.0.229", features = ["derive"] }
+thiserror = "2.0.20"

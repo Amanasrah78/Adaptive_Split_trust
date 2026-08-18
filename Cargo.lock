@@ -63,6 +63,9 @@ version = "0.1.0"
 dependencies = [
  "astra-common",
  "astra-pqcrypto",
+ "minicbor",
+ "serde",
+ "thiserror",
 ]
 
 [[package]]
