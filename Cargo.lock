@@ -28,6 +28,9 @@ name = "astra-dprf"
 version = "0.1.0"
 dependencies = [
  "astra-common",
+ "serde",
+ "thiserror",
+ "zeroize",
 ]
 
 [[package]]
