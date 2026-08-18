@@ -6,3 +6,5 @@ edition = "2024"
 [dependencies]
 astra-common = { version = "0.1.0", path = "../astra-common" }
 astra-dprf = { version = "0.1.0", path = "../astra-dprf" }
+astra-pqcrypto = { version = "0.1.0", path = "../astra-pqcrypto" }
+thiserror = "2.0.20"
