@@ -113,7 +113,6 @@ dependencies = [
  "astra-pqcrypto",
  "astra-synthesizer",
  "serde_json",
- "sha3",
 ]
 
 [[package]]

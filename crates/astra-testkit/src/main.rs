@@ -1,7 +1,7 @@
-//! Reproducible in-process ASTRA-PQ smoke experiment.
+//! Reproducible in-process ASTRA-PQ LWR integration experiment.
 //!
-//! The deterministic DPRF backend in this executable is test-only. It checks
-//! protocol composition but provides no threshold-DPRF security claim.
+//! This executable uses the paper-parameter LWR backend. Its claim is limited
+//! to static, semi-honest, exact-coalition security.
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
@@ -9,11 +9,11 @@
 use anyhow::Context;
 use astra_authority::{AuthorityConfig, AuthorityEngine, AuthorityRequest};
 use astra_common::{
-    Digest32, PROTOCOL_VERSION, RiskClass, Secret32, SessionContext, SessionId,
-    authorization_input, hash_domain_separated,
+    Digest32, PROTOCOL_VERSION, RiskClass, SessionContext, SessionId, authorization_input,
 };
 use astra_dprf::{
-    ClausePolicy, DprfBackend, DprfError, EvaluationRequest, PartialEvaluation, validate_and_select,
+    DprfBackend, EvaluationRequest,
+    lwr::{LwrExactCoalitionBackend, LwrExactCoalitionShare, setup_exact_coalition},
 };
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
@@ -21,73 +21,21 @@ use astra_governance::{
     GovernanceSignature, LedgerAnchor, LocalGovernanceState, RpcObservation, checkpoint_hash,
     governance_signature_message, validate_and_activate,
 };
-use astra_pqcrypto::{PqProvider, SecretBytes};
+use astra_pqcrypto::{PqProvider, SecretBytes, SignatureKeyPair};
 use astra_synthesizer::{AuthorityRecord, SynthesisRequest, SynthesisResult, synthesize};
 use serde_json::json;
-use sha3::{Digest, Sha3_256};
 use std::collections::{BTreeMap, BTreeSet};
 use std::time::Instant;
 
 const NOW: u64 = 1_800_000_000;
 const SHARE_VERSION: u64 = 1;
 
-struct DeterministicTestBackend;
-
-impl DprfBackend for DeterministicTestBackend {
-    type Share = [u8; 32];
-
-    fn backend_id(&self) -> &'static str {
-        "deterministic-test-only-NOT-SECURE"
-    }
-
-    fn partial_evaluate(
-        &self,
-        authority_id: &str,
-        share: &Self::Share,
-        request: &EvaluationRequest,
-    ) -> Result<PartialEvaluation, DprfError> {
-        Ok(PartialEvaluation {
-            authority_id: authority_id.to_owned(),
-            clause_id: request.clause_id.clone(),
-            epoch: request.epoch,
-            share_version: request.share_version,
-            input: request.input,
-            payload: hash_domain_separated(
-                b"ASTRA-PQ-TEST-PARTIAL-v1",
-                &[
-                    authority_id.as_bytes(),
-                    request.clause_id.as_bytes(),
-                    share,
-                    request.input.as_bytes(),
-                ],
-            )
-            .as_bytes()
-            .to_vec(),
-            proof: Vec::new(),
-        })
-    }
-
-    fn combine(
-        &self,
-        policy: &ClausePolicy,
-        request: &EvaluationRequest,
-        partials: &[PartialEvaluation],
-    ) -> Result<Secret32, DprfError> {
-        let selected = validate_and_select(policy, request, partials)?;
-        let mut hasher = Sha3_256::new();
-        hasher.update(b"ASTRA-PQ-TEST-COMBINE-v1");
-        for partial in selected.partials() {
-            hasher.update((partial.payload.len() as u64).to_be_bytes());
-            hasher.update(partial.payload.as_slice());
-        }
-        Ok(Secret32::from_bytes(hasher.finalize().into()))
-    }
-}
+type ClauseShares = BTreeMap<String, BTreeMap<String, LwrExactCoalitionShare>>;
 
 fn main() -> anyhow::Result<()> {
     let total_start = Instant::now();
     let provider = PqProvider::new().context("initialize post-quantum provider")?;
-    let backend = DeterministicTestBackend;
+    let backend = LwrExactCoalitionBackend;
 
     let governance_start = Instant::now();
     let (checkpoint, governance_state) = activate_test_checkpoint(&provider)?;
@@ -118,45 +66,36 @@ fn main() -> anyhow::Result<()> {
     .context("synthesize R3 authorization policy")?;
     let synthesis_us = elapsed_microseconds(synthesis_start);
 
-    let keys_a1 = provider.generate_signature_keypair()?;
-    let keys_a2 = provider.generate_signature_keypair()?;
-    let keys_a3 = provider.generate_signature_keypair()?;
+    let signing_keys = BTreeMap::from([
+        ("a1".to_owned(), provider.generate_signature_keypair()?),
+        ("a2".to_owned(), provider.generate_signature_keypair()?),
+        ("a3".to_owned(), provider.generate_signature_keypair()?),
+    ]);
+
+    let share_setup_start = Instant::now();
+    let clause_shares = setup_clause_shares(&synthesis, context.epoch)?;
+    let share_setup_us = elapsed_microseconds(share_setup_start);
+    let total_share_bytes: usize = clause_shares
+        .values()
+        .flat_map(|shares| shares.values())
+        .map(LwrExactCoalitionShare::secret_size_bytes)
+        .sum();
+
     let authority_start = Instant::now();
-    let mut evidence = Vec::new();
-    evidence.extend(issue_authority_evidence(
+    let evidence = issue_all_evidence(
         &provider,
         &backend,
-        "a1",
-        &[31; 32],
-        keys_a1.secret_key(),
         &context,
         &synthesis,
-    )?);
-    evidence.extend(issue_authority_evidence(
-        &provider,
-        &backend,
-        "a2",
-        &[32; 32],
-        keys_a2.secret_key(),
-        &context,
-        &synthesis,
-    )?);
-    evidence.extend(issue_authority_evidence(
-        &provider,
-        &backend,
-        "a3",
-        &[33; 32],
-        keys_a3.secret_key(),
-        &context,
-        &synthesis,
-    )?);
+        &signing_keys,
+        &clause_shares,
+    )?;
     let authority_us = elapsed_microseconds(authority_start);
 
-    let verification_keys: AuthorityVerificationKeys = BTreeMap::from([
-        ("a1".to_owned(), keys_a1.public_key().to_vec()),
-        ("a2".to_owned(), keys_a2.public_key().to_vec()),
-        ("a3".to_owned(), keys_a3.public_key().to_vec()),
-    ]);
+    let verification_keys: AuthorityVerificationKeys = signing_keys
+        .iter()
+        .map(|(authority, keys)| (authority.clone(), keys.public_key().to_vec()))
+        .collect();
     let responder_kem = provider.generate_kem_keypair()?;
     let encapsulation = provider.encapsulate(responder_kem.public_key())?;
     let decapsulated =
@@ -198,23 +137,38 @@ fn main() -> anyhow::Result<()> {
     );
 
     let metadata = provider.metadata();
+    let parameters = LwrExactCoalitionBackend::parameters();
+    let partial_payload_bytes: usize = evidence.iter().map(|item| item.partial.payload.len()).sum();
     let report = json!({
-        "schema": "astra-pq-smoke-v1",
+        "schema": "astra-pq-lwr-integration-v1",
         "success": true,
-        "security_claim": false,
+        "security_profile": LwrExactCoalitionBackend::security_profile(),
+        "malicious_robust": false,
+        "proactive_refresh_implemented": false,
         "dprf_backend": backend.backend_id(),
-        "warning": "The deterministic test DPRF validates composition only and is not a secure DPRF.",
+        "warning": "This LWR profile assumes static semi-honest authorities. ML-DSA authenticates partials but does not prove correct LWR evaluation.",
+        "dprf_parameters": {
+            "dimension": parameters.dimension,
+            "log_q": parameters.log_q,
+            "log_q1": parameters.log_q1,
+            "log_p": parameters.log_p,
+            "parallel_instances": parameters.parallel_instances,
+            "output_bits": parameters.extracted_output_bits
+        },
         "risk_class": "R3",
         "epoch": context.epoch,
         "policy_hash": synthesis.policy_hash.to_string(),
         "clause_count": synthesis.structure.clauses.len(),
         "evidence_count": evidence.len(),
+        "secret_share_bytes_total": total_share_bytes,
+        "partial_payload_bytes_total": partial_payload_bytes,
         "contributors": initiator.contributors,
         "kem": metadata.kem_algorithm,
         "signature": metadata.signature_algorithm,
         "timing_us": {
             "governance_validation": governance_us,
             "policy_synthesis": synthesis_us,
+            "lwr_share_setup": share_setup_us,
             "authority_issuance": authority_us,
             "initiator_gateway": initiator_us,
             "responder_gateway": responder_us,
@@ -345,59 +299,77 @@ fn authority_record(
     }
 }
 
-fn issue_authority_evidence(
-    provider: &PqProvider,
-    backend: &DeterministicTestBackend,
-    authority_id: &str,
-    share: &[u8; 32],
-    signing_key: &SecretBytes,
-    context: &SessionContext,
-    synthesis: &SynthesisResult,
-) -> anyhow::Result<Vec<astra_authority::SignedPartialEvidence>> {
-    let assigned_clauses: Vec<String> = synthesis
+fn setup_clause_shares(synthesis: &SynthesisResult, epoch: u64) -> anyhow::Result<ClauseShares> {
+    synthesis
         .structure
         .clauses
         .iter()
-        .filter(|clause| {
-            clause
+        .map(|clause| {
+            let authorities: Vec<String> = clause
                 .members
                 .iter()
-                .any(|member| member.authority_id == authority_id)
-        })
-        .map(|clause| clause.id.clone())
-        .collect();
-    let config = AuthorityConfig {
-        authority_id: authority_id.to_owned(),
-        active_epoch: context.epoch,
-        share_version: SHARE_VERSION,
-        approved_checkpoint: context.checkpoint_hash,
-        allowed_clauses: assigned_clauses.iter().cloned().collect(),
-    };
-    let mut engine = AuthorityEngine::new(config, backend, share, provider, signing_key);
-    let input = authorization_input(context, &synthesis.policy_hash)?;
-    assigned_clauses
-        .into_iter()
-        .map(|clause_id| {
-            engine
-                .authorize(&AuthorityRequest {
-                    context: context.clone(),
-                    policy_hash: synthesis.policy_hash,
-                    evaluation: EvaluationRequest {
-                        clause_id,
-                        epoch: context.epoch,
-                        share_version: SHARE_VERSION,
-                        input,
-                    },
-                })
-                .map_err(anyhow::Error::from)
+                .map(|member| member.authority_id.clone())
+                .collect();
+            anyhow::ensure!(
+                authorities.len() == usize::from(clause.threshold),
+                "clause {} is not an exact coalition",
+                clause.id
+            );
+            let shares = setup_exact_coalition(&clause.id, epoch, SHARE_VERSION, &authorities)?;
+            Ok((clause.id.clone(), shares))
         })
         .collect()
+}
+
+fn issue_all_evidence(
+    provider: &PqProvider,
+    backend: &LwrExactCoalitionBackend,
+    context: &SessionContext,
+    synthesis: &SynthesisResult,
+    signing_keys: &BTreeMap<String, SignatureKeyPair>,
+    clause_shares: &ClauseShares,
+) -> anyhow::Result<Vec<astra_authority::SignedPartialEvidence>> {
+    let input = authorization_input(context, &synthesis.policy_hash)?;
+    let mut evidence = Vec::new();
+    for clause in &synthesis.structure.clauses {
+        let shares = clause_shares
+            .get(&clause.id)
+            .context("missing clause-share map")?;
+        for member in &clause.members {
+            let share = shares
+                .get(&member.authority_id)
+                .context("missing authority LWR share")?;
+            let signing_key = signing_keys
+                .get(&member.authority_id)
+                .context("missing authority signing key")?;
+            let config = AuthorityConfig {
+                authority_id: member.authority_id.clone(),
+                active_epoch: context.epoch,
+                share_version: SHARE_VERSION,
+                approved_checkpoint: context.checkpoint_hash,
+                allowed_clauses: BTreeSet::from([clause.id.clone()]),
+            };
+            let mut engine =
+                AuthorityEngine::new(config, backend, share, provider, signing_key.secret_key());
+            evidence.push(engine.authorize(&AuthorityRequest {
+                context: context.clone(),
+                policy_hash: synthesis.policy_hash,
+                evaluation: EvaluationRequest {
+                    clause_id: clause.id.clone(),
+                    epoch: context.epoch,
+                    share_version: SHARE_VERSION,
+                    input,
+                },
+            })?);
+        }
+    }
+    Ok(evidence)
 }
 
 #[allow(clippy::too_many_arguments)]
 fn run_gateway(
     provider: &PqProvider,
-    backend: &DeterministicTestBackend,
+    backend: &LwrExactCoalitionBackend,
     context: &SessionContext,
     synthesis: &SynthesisResult,
     verification_keys: &AuthorityVerificationKeys,

@@ -13,4 +13,3 @@ astra-governance = { version = "0.1.0", path = "../astra-governance" }
 astra-pqcrypto = { version = "0.1.0", path = "../astra-pqcrypto" }
 astra-synthesizer = { version = "0.1.0", path = "../astra-synthesizer" }
 serde_json = "1.0.151"
-sha3 = "0.12.0"
