@@ -265,6 +265,7 @@ fn required_output_root() -> anyhow::Result<PathBuf> {
 fn create_private_directory(path: &Path) -> anyhow::Result<()> {
     let mut builder = fs::DirBuilder::new();
     builder.mode(0o700);
+    builder.recursive(true);
     builder
         .create(path)
         .with_context(|| format!("create private directory {}", path.display()))
