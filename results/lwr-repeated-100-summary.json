@@ -1,0 +1,58 @@
+{
+  "total": {
+    "samples": 100,
+    "minimum_us": 4908,
+    "median_us": 6068,
+    "p95_us": 6975,
+    "maximum_us": 7829,
+    "mean_us": 6061.11
+  },
+  "online_without_share_setup": {
+    "samples": 100,
+    "minimum_us": 2472,
+    "median_us": 3557,
+    "p95_us": 4470,
+    "maximum_us": 5170,
+    "mean_us": 3541.1
+  },
+  "lwr_share_setup": {
+    "samples": 100,
+    "minimum_us": 2395,
+    "median_us": 2492,
+    "p95_us": 2788,
+    "maximum_us": 2860,
+    "mean_us": 2520.01
+  },
+  "authority_issuance": {
+    "samples": 100,
+    "minimum_us": 859,
+    "median_us": 1605,
+    "p95_us": 2439,
+    "maximum_us": 3020,
+    "mean_us": 1652.7
+  },
+  "governance_validation": {
+    "samples": 100,
+    "minimum_us": 466,
+    "median_us": 822,
+    "p95_us": 1402,
+    "maximum_us": 1743,
+    "mean_us": 871.03
+  },
+  "initiator_gateway": {
+    "samples": 100,
+    "minimum_us": 353,
+    "median_us": 386,
+    "p95_us": 426,
+    "maximum_us": 440,
+    "mean_us": 387.66
+  },
+  "responder_gateway": {
+    "samples": 100,
+    "minimum_us": 350,
+    "median_us": 380,
+    "p95_us": 428,
+    "maximum_us": 512,
+    "mean_us": 384.03
+  }
+}
