@@ -1,0 +1,29 @@
+   Compiling astra-dprf v0.1.0 (/home/astraadmin/astra-pq/crates/astra-dprf)
+   Compiling astra-authority v0.1.0 (/home/astraadmin/astra-pq/crates/astra-authority)
+   Compiling astra-gateway v0.1.0 (/home/astraadmin/astra-pq/crates/astra-gateway)
+   Compiling astra-testkit v0.1.0 (/home/astraadmin/astra-pq/crates/astra-testkit)
+    Finished `release` profile [optimized] target(s) in 1.87s
+     Running `target/release/lwr-provision`
+	Command being timed: "cargo run --release --package astra-testkit --bin lwr-provision"
+	User time (seconds): 3.34
+	System time (seconds): 0.34
+	Percent of CPU this job got: 144%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 239952
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 197427
+	Voluntary context switches: 1584
+	Involuntary context switches: 424
+	Swaps: 0
+	File system inputs: 56
+	File system outputs: 207248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

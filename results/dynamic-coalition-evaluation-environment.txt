@@ -1,0 +1,134 @@
+ASTRA-PQ dynamic coalition evaluation
+Captured:
+2026-08-18T17:57:51+00:00
+
+Experimental interpretation:
+Repeated dataset: controlled policy exclusions, not physical VM failures.
+Physical a1 outage success and t=7 fail-closed tests are recorded separately.
+Construction: runtime selection among preprovisioned exact coalitions.
+Single-share conventional t-of-n construction: false.
+
+Repository:
+194ce86e073809afb531af7ad92e2a99d9cff350
+distributed-baseline-v0.4.0-4-g194ce86
+?? results/dynamic-coalition-a1-outage-smoke.json
+?? results/dynamic-coalition-controlled-exclusion-100-summary.json
+?? results/dynamic-coalition-controlled-exclusion-100.csv
+?? results/dynamic-coalition-controlled-exclusion-100.jsonl
+?? results/dynamic-coalition-evaluation-environment.txt
+?? results/dynamic-coalition-t7-insufficient.txt
+?? scripts/run-dynamic-coalition-benchmark.sh
+
+Evaluation artifact hashes:
+c1e11e3427022163ddd0541bb13718fe3ade1556261b516f566fb0856d662816  results/dynamic-coalition-controlled-exclusion-100.jsonl
+a6da004ce1edfb8d350eaf18bcb3c3464289e51a8bfffec1c42a78d79af78b62  results/dynamic-coalition-controlled-exclusion-100-summary.json
+732cd5d9f3ba5bb32bf84cec98f056f48f6a4986680d58ccb7e578a8c235ef44  results/dynamic-coalition-controlled-exclusion-100.csv
+8f14397fae607329f9b9d3ed13551ede2198762cb3199f1f62de5a2803b9f4eb  results/dynamic-coalition-a1-outage-smoke.json
+f30c9bc1503c6c939d8df47e96a64248153ddfe67fb2bbeb2aafac770c912ab0  results/dynamic-coalition-t7-insufficient.txt
+7264146d0e4eaaee459e7945a3ae1bf07c2fe0889f6f584bdcaf61478ff66be3  scripts/run-dynamic-coalition-benchmark.sh
+
+Provisioning manifest:
+ad013c73f02d5896d530894d05b7d395aaf9361bcf7341d94f7df39f22228709  /home/astraadmin/astra-provisioning/lwr-coalitions-v2/manifest.json
+{
+  "schema": "astra-pq-lwr-enumerated-coalition-provisioning-v2",
+  "authority_count": 7,
+  "coalition_count": 127,
+  "share_file_count": 448,
+  "single_share_t_of_n": false,
+  "selection_model": "runtime selection among preprovisioned exact coalitions"
+}
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.54
+	Maximum resident set size (kbytes): 239952
+	Exit status: 0
+
+Controller software and platform:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       467Mi       712Mi        60Ki       1.9Gi       2.4Gi
+Swap:          1.8Gi       5.5Mi       1.8Gi
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   11G  5.9G  64% /
+
+VM services and deployed artifacts:
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-5 | CHANGED | rc=0 >>
+astra-authority-5
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-6 | CHANGED | rc=0 >>
+astra-authority-6
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-7 | CHANGED | rc=0 >>
+astra-authority-7
+active
+64
+6891a6d92ed878518274148e785e88322cce33a4c2c0dab30508598ab652aa3f  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+
+Gateway client artifact:
+astra-domain-a | CHANGED | rc=0 >>
+5d3a5e9896dcee219b9b2e7af1beea8b5983ead19e66ebaf8a185f44a7a5878b  /home/astraadmin/astra-pq/bin/astra-distributed-client
+7264146d0e4eaaee459e7945a3ae1bf07c2fe0889f6f584bdcaf61478ff66be3  /home/astraadmin/astra-pq/bin/run-dynamic-coalition-benchmark.sh

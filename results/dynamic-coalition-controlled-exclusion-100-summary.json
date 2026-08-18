@@ -1,0 +1,389 @@
+{
+  "schema": "astra-pq-dynamic-coalition-summary-v1",
+  "threshold": 3,
+  "configured_authorities": 7,
+  "experiment_profile": "controlled-policy-exclusion",
+  "physical_outage_smoke_recorded_separately": true,
+  "total_samples": 500,
+  "scenarios": [
+    {
+      "excluded_authority_count": 0,
+      "excluded_authorities": [],
+      "selected_coalition": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "successes": 100,
+      "coalition_selection_us": {
+        "samples": 100,
+        "minimum": 825,
+        "median": 1498,
+        "p95": 1879,
+        "p99": 1996,
+        "maximum": 2029,
+        "mean": 1447.39
+      },
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1481,
+        "median": 2380,
+        "p95": 3104,
+        "p99": 3472,
+        "maximum": 3952,
+        "mean": 2426.12
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 971,
+        "median": 1752,
+        "p95": 2400,
+        "p99": 2702,
+        "maximum": 3253,
+        "mean": 1807.63
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 183,
+        "median": 215,
+        "p95": 233,
+        "p99": 249,
+        "maximum": 300,
+        "mean": 213.22
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 848,
+        "median": 1540,
+        "p95": 2140,
+        "p99": 2541,
+        "maximum": 2693,
+        "mean": 1587.61
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 331,
+        "median": 609,
+        "p95": 1060,
+        "p99": 1525,
+        "maximum": 1631,
+        "mean": 654.2
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38587,
+        "median": 38776,
+        "p95": 38862,
+        "p99": 38893,
+        "maximum": 38906,
+        "mean": 38767.84
+      }
+    },
+    {
+      "excluded_authority_count": 1,
+      "excluded_authorities": [
+        "a1"
+      ],
+      "selected_coalition": [
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "successes": 100,
+      "coalition_selection_us": {
+        "samples": 100,
+        "minimum": 898,
+        "median": 1426,
+        "p95": 1936,
+        "p99": 2027,
+        "maximum": 2030,
+        "mean": 1443.7
+      },
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1556,
+        "median": 2036,
+        "p95": 2778,
+        "p99": 3025,
+        "maximum": 3270,
+        "mean": 2090.45
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 1134,
+        "median": 1411,
+        "p95": 1994,
+        "p99": 2438,
+        "maximum": 2681,
+        "mean": 1521.64
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 175,
+        "median": 217,
+        "p95": 248,
+        "p99": 267,
+        "maximum": 287,
+        "mean": 217.05
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 1012,
+        "median": 1273,
+        "p95": 1805,
+        "p99": 2221,
+        "maximum": 2490,
+        "mean": 1365.63
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 318,
+        "median": 572,
+        "p95": 1203,
+        "p99": 1376,
+        "maximum": 1533,
+        "mean": 635.61
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38602,
+        "median": 38750,
+        "p95": 38852,
+        "p99": 38903,
+        "maximum": 38914,
+        "mean": 38746.04
+      }
+    },
+    {
+      "excluded_authority_count": 2,
+      "excluded_authorities": [
+        "a1",
+        "a2"
+      ],
+      "selected_coalition": [
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "successes": 100,
+      "coalition_selection_us": {
+        "samples": 100,
+        "minimum": 684,
+        "median": 1194,
+        "p95": 1708,
+        "p99": 1759,
+        "maximum": 1842,
+        "mean": 1204.78
+      },
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1502,
+        "median": 2088,
+        "p95": 2650,
+        "p99": 2946,
+        "maximum": 3114,
+        "mean": 2098.65
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 1042,
+        "median": 1432,
+        "p95": 2065,
+        "p99": 2228,
+        "maximum": 2593,
+        "mean": 1512.78
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 176,
+        "median": 207,
+        "p95": 249,
+        "p99": 258,
+        "maximum": 259,
+        "mean": 209.65
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 906,
+        "median": 1311,
+        "p95": 1876,
+        "p99": 2065,
+        "maximum": 2412,
+        "mean": 1362.75
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 344,
+        "median": 658,
+        "p95": 1160,
+        "p99": 1267,
+        "maximum": 1316,
+        "mean": 673.36
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38545,
+        "median": 38738,
+        "p95": 38819,
+        "p99": 38850,
+        "maximum": 38871,
+        "mean": 38732.32
+      }
+    },
+    {
+      "excluded_authority_count": 3,
+      "excluded_authorities": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "selected_coalition": [
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "successes": 100,
+      "coalition_selection_us": {
+        "samples": 100,
+        "minimum": 539,
+        "median": 1086,
+        "p95": 1593,
+        "p99": 1761,
+        "maximum": 1772,
+        "mean": 1095.28
+      },
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1469,
+        "median": 1989,
+        "p95": 3057,
+        "p99": 4520,
+        "maximum": 6544,
+        "mean": 2102.96
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 1114,
+        "median": 1374,
+        "p95": 2228,
+        "p99": 3079,
+        "maximum": 4182,
+        "mean": 1513.86
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 177,
+        "median": 212,
+        "p95": 252,
+        "p99": 538,
+        "maximum": 644,
+        "mean": 219.36
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 989,
+        "median": 1236,
+        "p95": 2047,
+        "p99": 2829,
+        "maximum": 3667,
+        "mean": 1350.41
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 289,
+        "median": 564,
+        "p95": 1338,
+        "p99": 1704,
+        "maximum": 1860,
+        "mean": 642.79
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38614,
+        "median": 38751,
+        "p95": 38838,
+        "p99": 38857,
+        "maximum": 38879,
+        "mean": 38746.87
+      }
+    },
+    {
+      "excluded_authority_count": 4,
+      "excluded_authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "selected_coalition": [
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "successes": 100,
+      "coalition_selection_us": {
+        "samples": 100,
+        "minimum": 407,
+        "median": 1061,
+        "p95": 1428,
+        "p99": 1481,
+        "maximum": 1483,
+        "mean": 1024.82
+      },
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1489,
+        "median": 1938,
+        "p95": 2911,
+        "p99": 3031,
+        "maximum": 3232,
+        "mean": 2018.65
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 1004,
+        "median": 1378,
+        "p95": 2015,
+        "p99": 2480,
+        "maximum": 2544,
+        "mean": 1472.95
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 177,
+        "median": 208,
+        "p95": 247,
+        "p99": 260,
+        "maximum": 263,
+        "mean": 211.76
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 872,
+        "median": 1223,
+        "p95": 1869,
+        "p99": 2348,
+        "maximum": 2396,
+        "mean": 1329.58
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 277,
+        "median": 590,
+        "p95": 1159,
+        "p99": 1544,
+        "maximum": 1886,
+        "mean": 644.4
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38597,
+        "median": 38749,
+        "p95": 38840,
+        "p99": 38864,
+        "maximum": 38872,
+        "mean": 38745.51
+      }
+    }
+  ]
+}

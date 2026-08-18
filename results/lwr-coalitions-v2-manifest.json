@@ -1,0 +1,5250 @@
+{
+  "authority_count": 7,
+  "coalition_count": 127,
+  "configurations": [
+    {
+      "authorities": [
+        "a1"
+      ],
+      "clause_id": "distributed-t1-c-a1",
+      "coalition_id": "a1",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213083,
+          "file_hash": "c8db2880c4c44137583df8ed6426d8a611eebf9c2bebe029bbe9ff316acab39f",
+          "relative_path": "t1/a1/a1.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a2"
+      ],
+      "clause_id": "distributed-t1-c-a2",
+      "coalition_id": "a2",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213083,
+          "file_hash": "79c8eafda2054255be285cb97cf6e4534b55edcc4f25e591b8fb5599470ff87d",
+          "relative_path": "t1/a2/a2.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a3"
+      ],
+      "clause_id": "distributed-t1-c-a3",
+      "coalition_id": "a3",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213083,
+          "file_hash": "54174a4f0c474a43ca377ba2b7d94ac61e5b1b529558ed3ab653aee552c3c823",
+          "relative_path": "t1/a3/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a4"
+      ],
+      "clause_id": "distributed-t1-c-a4",
+      "coalition_id": "a4",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213083,
+          "file_hash": "63c04b181f31ac32b33b38d66a5a00f99b1b073f19f00b573d167daf01964e24",
+          "relative_path": "t1/a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a5"
+      ],
+      "clause_id": "distributed-t1-c-a5",
+      "coalition_id": "a5",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213083,
+          "file_hash": "71ca12f741880dc2bc1ce9d4549e163c475ac1faa70d0cc3760142ecad385d50",
+          "relative_path": "t1/a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a6"
+      ],
+      "clause_id": "distributed-t1-c-a6",
+      "coalition_id": "a6",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213083,
+          "file_hash": "19fad4dbb304a2dbb3678e46e971973227b20c1c40435f6a1a0771ec91427a74",
+          "relative_path": "t1/a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a7"
+      ],
+      "clause_id": "distributed-t1-c-a7",
+      "coalition_id": "a7",
+      "coalition_size": 1,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213083,
+          "file_hash": "253f5fbddeeed5e3f9afd74631e17c8ca2fbe6774b7eb5b8a575c5f806a6ecac",
+          "relative_path": "t1/a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 1
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2"
+      ],
+      "clause_id": "distributed-t2-c-a1-a2",
+      "coalition_id": "a1-a2",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "237099feed43d3e2e15b474a1df19211800217d5c22fed73bb692abc5ba4b8d3",
+          "relative_path": "t2/a1-a2/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "9da1820c12a2b9c2fd58d4c9d76a18ee9d74f06e8211843676509d66b60940fc",
+          "relative_path": "t2/a1-a2/a2.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3"
+      ],
+      "clause_id": "distributed-t2-c-a1-a3",
+      "coalition_id": "a1-a3",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "c7498631db396a48c77990b4f903ed8409b09504c8c544ed2e2a12e862bc090d",
+          "relative_path": "t2/a1-a3/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "541ccd0e557cda07b9c6acce3ff05f1248ac1d49d66b1a7c5eb63feeac4eccb0",
+          "relative_path": "t2/a1-a3/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4"
+      ],
+      "clause_id": "distributed-t2-c-a1-a4",
+      "coalition_id": "a1-a4",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "2ff036bf558d1d995c03910968180fee3bc158b041709979397e379930622c70",
+          "relative_path": "t2/a1-a4/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "3411794debf80312e9e52a78c1b8b5fba92a4e7abd4789575dd4f5938ecf5905",
+          "relative_path": "t2/a1-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a5"
+      ],
+      "clause_id": "distributed-t2-c-a1-a5",
+      "coalition_id": "a1-a5",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "f3e587e2306e05e29cb91253c13d294bef2988846a2ded16b0bc09b324836c81",
+          "relative_path": "t2/a1-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "9231a7994d57449ba2f6c01a1c5b8da11427df6f94a782f8b550976e08d84d0c",
+          "relative_path": "t2/a1-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a6"
+      ],
+      "clause_id": "distributed-t2-c-a1-a6",
+      "coalition_id": "a1-a6",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "79e38bdd3363ea3cd4febd2ccf08125b45f5264ac8a1dfffd2db53e608599d88",
+          "relative_path": "t2/a1-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "7d0012bdf68ee22806a8ccd7901981db97ba216f6acc7f1c46876d8109b9f39d",
+          "relative_path": "t2/a1-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a1-a7",
+      "coalition_id": "a1-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213090,
+          "file_hash": "e6702ed404c6ac023ecf6f923bb653f2d5311d5c38f5cc6c89f3f0e29bcdf8c9",
+          "relative_path": "t2/a1-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "5f61dc07293b1ad8548d8f9c32d70b7fa96dd8158cf18ff7063a05fe8a2b94dd",
+          "relative_path": "t2/a1-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3"
+      ],
+      "clause_id": "distributed-t2-c-a2-a3",
+      "coalition_id": "a2-a3",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "2923f12d4f1657b49ad3522d28654200f4ba129e558557960a5e3a2a105a7ccc",
+          "relative_path": "t2/a2-a3/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "69e1808485424d89dc85b105865bb41fd34f78c9391fe992a679428777e0a372",
+          "relative_path": "t2/a2-a3/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4"
+      ],
+      "clause_id": "distributed-t2-c-a2-a4",
+      "coalition_id": "a2-a4",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "2dc40aa53a57d37e16949dff354f303388723d014203809519586137c838a084",
+          "relative_path": "t2/a2-a4/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "e2893d8be09ef7c5f93a6506794c7be6619664a528d45977dc2e1cf8c2db3c69",
+          "relative_path": "t2/a2-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a2",
+        "a5"
+      ],
+      "clause_id": "distributed-t2-c-a2-a5",
+      "coalition_id": "a2-a5",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "4ad097b417b854a2ad0bdc3beff28c2645ebca088155415a203a84c881f414cd",
+          "relative_path": "t2/a2-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "d248e4aef8a464c151eb4044f7caed6ba23365c3075e009b910db74610b954cc",
+          "relative_path": "t2/a2-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a2",
+        "a6"
+      ],
+      "clause_id": "distributed-t2-c-a2-a6",
+      "coalition_id": "a2-a6",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "e133041fdbd842ca2418e57b328717ce3f0f3a852d3ed9e2555d3acebea6bfb4",
+          "relative_path": "t2/a2-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "6926a118de7dcba1e9db76a3fadecaa9be4753352f6160b92492b72af4db5463",
+          "relative_path": "t2/a2-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a2",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a2-a7",
+      "coalition_id": "a2-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213090,
+          "file_hash": "3165163603c99df1482fd2f26124f317cb31080c515eed8f88c48eef223fe152",
+          "relative_path": "t2/a2-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "164996ed9402a4b96e7aea84cf47f398271e2220406b8783f122e01e46cd7ca8",
+          "relative_path": "t2/a2-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4"
+      ],
+      "clause_id": "distributed-t2-c-a3-a4",
+      "coalition_id": "a3-a4",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "1e79088c777439b6493d55060041a888ea966ab8a84bfa9b2a37c2f5a1a165e7",
+          "relative_path": "t2/a3-a4/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "f518a59f941b3a7d4df87e3605650a03e7dc6825ff755d05e9e8e7960d3a75af",
+          "relative_path": "t2/a3-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a3",
+        "a5"
+      ],
+      "clause_id": "distributed-t2-c-a3-a5",
+      "coalition_id": "a3-a5",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "6c22a849fcda27281b8476a94f97fab26cba1d7a9a87d7392fddd0e7cc542e40",
+          "relative_path": "t2/a3-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "61711cf1d82178e82ee6d4b644cd6c55c7004ed76e5438c708147e36f204bfa2",
+          "relative_path": "t2/a3-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a3",
+        "a6"
+      ],
+      "clause_id": "distributed-t2-c-a3-a6",
+      "coalition_id": "a3-a6",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "736b528efe2639cb6520733b6f5e4d6e1fb789606ce00703ad6d7fad9d3b2351",
+          "relative_path": "t2/a3-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "d5a63e47ee69d04cfa5d1a7d189764f712d1b506f90cc3914d7f4c340e6ec286",
+          "relative_path": "t2/a3-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a3",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a3-a7",
+      "coalition_id": "a3-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213090,
+          "file_hash": "928e886e05593e5a4e701b441dd54ca098896948ae7e8f21dbde4af71732a897",
+          "relative_path": "t2/a3-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "631739bca082cf7d49d2acd18e4759518b35c7bfe6b3b74b9a10c5fc07045c5a",
+          "relative_path": "t2/a3-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t2-c-a4-a5",
+      "coalition_id": "a4-a5",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "1443854e96a87240958b0797eec1f93869a67993fa3d3df55dd482b89beab017",
+          "relative_path": "t2/a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "b92a32f8196a1bc3f452f2d7cc7ad488a25f7da7b2550b2a96acfc32a6d6239e",
+          "relative_path": "t2/a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t2-c-a4-a6",
+      "coalition_id": "a4-a6",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "17ddbd10151c0b4869fb1dc144250571bea69f3ad9b64588421a5bf9172764c0",
+          "relative_path": "t2/a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "907f7943f94dfebd5df040af6e1634e6b13e5a4d623ba67332e8edd4412061d2",
+          "relative_path": "t2/a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a4-a7",
+      "coalition_id": "a4-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213090,
+          "file_hash": "a3acec90ef8c674a832ecf4baa50e14c9c83c8b6fbdb28ee86a8a0d04f9385f0",
+          "relative_path": "t2/a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "1d02a7ba899f1dbc129a0ec8f52e37cbc66c9648ab91d052b071d50969607638",
+          "relative_path": "t2/a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t2-c-a5-a6",
+      "coalition_id": "a5-a6",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "8f0fd0f7936a88264c0d3cc7f47588b3554159c03ed104906c82580eb13837db",
+          "relative_path": "t2/a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "82481cc974019ff9527b447de6448b25576778b95a7a7c44ad07c1f65cbccd6c",
+          "relative_path": "t2/a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a5-a7",
+      "coalition_id": "a5-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213090,
+          "file_hash": "d024163084d51d6f0e76e8aacb1bffcfb44c17261025ca125946a2d725013caa",
+          "relative_path": "t2/a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "92c2cf7914f174ba3971b7902455da4fa51eeb0ae1e189bf90f1fd3373623ed3",
+          "relative_path": "t2/a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t2-c-a6-a7",
+      "coalition_id": "a6-a7",
+      "coalition_size": 2,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213090,
+          "file_hash": "2cf276cb01bb90123b93f74a590c34fbdc95081b7fd97cace934ed539bee423f",
+          "relative_path": "t2/a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213090,
+          "file_hash": "9b6422fa89710e8862080fdd80b973adf7b9b3b332243b7791fac97f4ccf720c",
+          "relative_path": "t2/a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 2
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "clause_id": "distributed-t3-c-a1-a2-a3",
+      "coalition_id": "a1-a2-a3",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "51ec4f3456442bdbab976ee67d479148b3b9d315945d724f3bff9a7d9bec4df3",
+          "relative_path": "t3/a1-a2-a3/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "500a4ac1213918c71237f966730b68455ce461ab4fba45527aaf665b3e6fd080",
+          "relative_path": "t3/a1-a2-a3/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "e0a21ce278a35378f24a1642314a5725328ef9ac91a12e091f37e1405a3d7623",
+          "relative_path": "t3/a1-a2-a3/a3.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4"
+      ],
+      "clause_id": "distributed-t3-c-a1-a2-a4",
+      "coalition_id": "a1-a2-a4",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "2f69ffb919c2b860b4a811436dab8d4cdd878014cc827cf1f0047c526009e8fd",
+          "relative_path": "t3/a1-a2-a4/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "19ff6947bd6c4da29397cc8a779ad14e654002c82137cd37c60a21c44e44beb1",
+          "relative_path": "t3/a1-a2-a4/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "e1ae3608710baf8400cad458b826c94e6bb2508f9f288f17f5745bc5dc6723eb",
+          "relative_path": "t3/a1-a2-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a1-a2-a5",
+      "coalition_id": "a1-a2-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "fa04ec36289a07bd188aa85aa15b1e9121ac11b210b6436763de0d8a7fd37373",
+          "relative_path": "t3/a1-a2-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "04905c09ec137f0835f5a31b294929693645573cbb5ef90014c03875ef6e4504",
+          "relative_path": "t3/a1-a2-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "8394dd1dfb66feb90f36e2b632e674e0da65d3c0ad5b97e7afdf046dfc7a0ff0",
+          "relative_path": "t3/a1-a2-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a1-a2-a6",
+      "coalition_id": "a1-a2-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "0f8de9b8aba29c1e138176111fca984121cfa34678fa9c8daec87b9c691d0d9f",
+          "relative_path": "t3/a1-a2-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "e6d421d7a03ad1327e443b4238b9dcaf574c0f08bb913d12d3b610aa89b62d1d",
+          "relative_path": "t3/a1-a2-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "088b35150a25e4f8a7c6184d44514ba09f8f3c8c8155a58105b416fee42af8cb",
+          "relative_path": "t3/a1-a2-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a1-a2-a7",
+      "coalition_id": "a1-a2-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "6b0f8ea163c7c375577f0f1f2d6d14c770e9bac911db999e75577ecb0a7fe97f",
+          "relative_path": "t3/a1-a2-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "4700ac42307062e5b7cfe19d39c64a6253d2756db90df8a1cd067797f38d9d53",
+          "relative_path": "t3/a1-a2-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "744938ee248930480589630a33e36e93a07eca0d76d4238395433992942134cc",
+          "relative_path": "t3/a1-a2-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4"
+      ],
+      "clause_id": "distributed-t3-c-a1-a3-a4",
+      "coalition_id": "a1-a3-a4",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "635ab6c0851f97c3ae94a31ddb5e42a2b3f4b06e524f5b02fe5baa46e0ae81b3",
+          "relative_path": "t3/a1-a3-a4/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "f649cce50df15219e1355d1d9f2ca69dffeea6e274830505dc06ae7de3cf7c1a",
+          "relative_path": "t3/a1-a3-a4/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "36113e05242f2e8ea78bd147cdcaa9a188310b08c64e9e53f045c8a328b773c2",
+          "relative_path": "t3/a1-a3-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a1-a3-a5",
+      "coalition_id": "a1-a3-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "0d24dac53ed6774db4c4d1b39b71381d74e61d4f3171575147ae8405c84a250f",
+          "relative_path": "t3/a1-a3-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "a7d73133acd48cec1f1a1972800d6cd74d6c3793a8e25f5ea46b2156f6a520ba",
+          "relative_path": "t3/a1-a3-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "6e822d431eab0d0c7aa00142dd4aab681af2418ca6cc3b25cf87bbb5239414e0",
+          "relative_path": "t3/a1-a3-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a1-a3-a6",
+      "coalition_id": "a1-a3-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "b0337d936ef79ac3f22c2a17f4a948b22fb2c4bd8e910df6229d1f4ca94c7d67",
+          "relative_path": "t3/a1-a3-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "252cb6b5283c0597adfc4bcf0b6a55b05c0ed76f5a27e6f7613af629b76f313e",
+          "relative_path": "t3/a1-a3-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "70e9517ed96d545fca8796b2b82876850a3a2a2d8252757c1168bdc3d267ddcb",
+          "relative_path": "t3/a1-a3-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a1-a3-a7",
+      "coalition_id": "a1-a3-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "3ed3cd667ca98ed19eb92866d235576cf857ebff782637c0621372666028dc4b",
+          "relative_path": "t3/a1-a3-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "86f9413db6e4cc77b863427e0794000793596a81877305df457926c500c19760",
+          "relative_path": "t3/a1-a3-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "3993b068c4f06a98476fc001f06904c606e87c2c9319259fa523f1b543d5e5ea",
+          "relative_path": "t3/a1-a3-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a1-a4-a5",
+      "coalition_id": "a1-a4-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "5f26fb9c000437e684249d54c6cba5875b24af3da881a8331587d7bb7dd39224",
+          "relative_path": "t3/a1-a4-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "5ca417f4dd845b11c1eed3cdef37afd9584ae331d01f40ebb656a47fdc41077d",
+          "relative_path": "t3/a1-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "de3592221e02d0b41f17fd9bc1196a613417c1aecf268141d366640a865fc313",
+          "relative_path": "t3/a1-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a1-a4-a6",
+      "coalition_id": "a1-a4-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "f8ac891d70b034655d647c3e3229bde9f0fa2798cfc10cf9ae4d1ad0703032b5",
+          "relative_path": "t3/a1-a4-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "fdf15904ca42b40c0aef2d88a249a52c2bb5c8cba5041305284f96e1c854a733",
+          "relative_path": "t3/a1-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "7f539d9185edec6c7ed30d6f084d7767cb83b9d00ca5af21f0fd90d72ca0021f",
+          "relative_path": "t3/a1-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a1-a4-a7",
+      "coalition_id": "a1-a4-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "70dc1976ae2ed718cf3aee12b91abd91782d099a2f517d99a79856c0d5631aa2",
+          "relative_path": "t3/a1-a4-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "783e54305c0fc912a6f3895e9dc79c6eb8485a8867300e3ea7ad54bc83ade58c",
+          "relative_path": "t3/a1-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "74e15c5ac8035185f1fd69f4f8510bda0a356b1008b25f0b4b872f6b30013124",
+          "relative_path": "t3/a1-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a1-a5-a6",
+      "coalition_id": "a1-a5-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "648d7f121d7487f213c37948d9d8ddf6eefb1c75afd7307e7589a90990cf19ae",
+          "relative_path": "t3/a1-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "57f7f4219f16bda969533871b50e8dff59f8c82cbe3be179f7fff00faa73b989",
+          "relative_path": "t3/a1-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "8e4e03950e2dae83d63310e19625dbd7be59317f0f795be96a482e76280657f3",
+          "relative_path": "t3/a1-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a1-a5-a7",
+      "coalition_id": "a1-a5-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "d201cccabb4ed96de86461d7b57f6a762d2074aea4e8147fa28a9867a9473832",
+          "relative_path": "t3/a1-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "542f7d86ed95f9e70c0cd2deecc8ba6fdb4ae22e549370c5fb4771770abff8d0",
+          "relative_path": "t3/a1-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "c584afeaf9d537defc7477e33d0f837bcbe9987bddfa7f2ff56c1408ef543456",
+          "relative_path": "t3/a1-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a1-a6-a7",
+      "coalition_id": "a1-a6-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213097,
+          "file_hash": "393f1b8f00ff0d70f02662f00582738185eb83b431762ef63d87e016fbf2bc81",
+          "relative_path": "t3/a1-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "5690e5dad3f7e50ff6c190376ac6b06d6fe9abc4438fae0505f36e39bb10ed3e",
+          "relative_path": "t3/a1-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "4b7dd329b024a37a00917ff48f8a9f59c9ce51e3978e8801854aeec3b320f507",
+          "relative_path": "t3/a1-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "clause_id": "distributed-t3-c-a2-a3-a4",
+      "coalition_id": "a2-a3-a4",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "7938f2abc065d38ae38bb66e8a4f24fac9746a626a86031de8751413acc52f82",
+          "relative_path": "t3/a2-a3-a4/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "d7f462e190c24943b427aad4cc19f2c0f7b54ea58c144fa1a5a988c1f3bf655c",
+          "relative_path": "t3/a2-a3-a4/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "70798afa093f3e54c965923bf23998c252964162186f1f352640a12f81328ab2",
+          "relative_path": "t3/a2-a3-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a2-a3-a5",
+      "coalition_id": "a2-a3-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "e0c4a89c9f911c21800d4d8565ab13c838882165a6f3c67b83996f1eaed806d4",
+          "relative_path": "t3/a2-a3-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "d3d0cde8c28be9a4c4c714dfbcb5fef1aaf6fb758c0f5aab1d05b2e31527b0db",
+          "relative_path": "t3/a2-a3-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "52b09e05fef640084ee0a53846422b92919d25ae5a7e51dc2b8a5a8a0dba4584",
+          "relative_path": "t3/a2-a3-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a2-a3-a6",
+      "coalition_id": "a2-a3-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "2fd6e72ef6e083baad688fd2f9643c2bf93237160523923e0e260e5f4d99469a",
+          "relative_path": "t3/a2-a3-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "13fe8d565942033004da270a25079b3cd4ff8c82c5b87da53b460ddbd7f93afa",
+          "relative_path": "t3/a2-a3-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "3c2598403a33186a06fad5a3168d04832b85749e02d9114a456b2c87b1151a08",
+          "relative_path": "t3/a2-a3-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a2-a3-a7",
+      "coalition_id": "a2-a3-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "536f65c066503d5241f3bad368a8eddd1db083491444ad8c9ecb720b80869670",
+          "relative_path": "t3/a2-a3-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "f45dddbdff40a7910a337c2e62060b956b74857532cff1617ec13efe41fb4356",
+          "relative_path": "t3/a2-a3-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "28e418e596c4e1831004a55e0dd7cb3f0ff2e57e8dc8c65b96e3911ff97b7d3e",
+          "relative_path": "t3/a2-a3-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a2-a4-a5",
+      "coalition_id": "a2-a4-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "92fe6fdab2fb262f35774ae66b552fc4a071169395403be6f73253d8c95e021d",
+          "relative_path": "t3/a2-a4-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "ba2d55341927c2e2de3e9369f776549ecc3aef52de4b50271c6c0ab9242a70b9",
+          "relative_path": "t3/a2-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "22d38fd9ea36f6805afdb2cbe70cdc3ad65dcc5d9c7786fa0e2796a5779b9d13",
+          "relative_path": "t3/a2-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a2-a4-a6",
+      "coalition_id": "a2-a4-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "5e61cf8a4effc71da853878dab27de06d1768d0a9b63b1549eccfb4dc0f7b0a8",
+          "relative_path": "t3/a2-a4-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "5bfc99fb1001205edf701d00ae3bf92c7e154bb7a741c9426677f9667895fc9b",
+          "relative_path": "t3/a2-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "4046d772c6923603f4570a449166a621b0e8dd9bbe7029fed2eb0af282313cd3",
+          "relative_path": "t3/a2-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a2-a4-a7",
+      "coalition_id": "a2-a4-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "cd63e004dfc67a6c4d4299adba0f7e4755ed630102ff1f1ee0d0c28dca7666ad",
+          "relative_path": "t3/a2-a4-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "c6806de0731cfcf35c0285362f3e62600d059ade3fb57e2a0a7a5dd58ab25d69",
+          "relative_path": "t3/a2-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "6457d8aa1de8aab1262e5b995d335904db6b964d6356793892517ad92c464f3d",
+          "relative_path": "t3/a2-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a2-a5-a6",
+      "coalition_id": "a2-a5-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "ae858de660ddf6fc5d422ae8728c6a63ae4d963be8d490c546efb70b36fa7b2f",
+          "relative_path": "t3/a2-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "185c871b3f5136decec4795562714f0c7cbae0ec1c2fcdf382b2e93af40e47b7",
+          "relative_path": "t3/a2-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "b2ad340870c8ee45999557c13a517e74f4c29791ab1f94447f75d25f2f21350b",
+          "relative_path": "t3/a2-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a2-a5-a7",
+      "coalition_id": "a2-a5-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "01d79489e756c1da66a8c20f9c62ef5dfb249640b81c163cc7e6eed4fc56b3f6",
+          "relative_path": "t3/a2-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "b4eb22dd2d234b5449044fd194e7f19a8c9ad569d133bdf95ecd2b0155a03724",
+          "relative_path": "t3/a2-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "8cce9447705ad64752253e613ad6cda8579d0439aa442e3d73f97b8f626d8723",
+          "relative_path": "t3/a2-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a2",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a2-a6-a7",
+      "coalition_id": "a2-a6-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213097,
+          "file_hash": "0511ee1f3d79c2540775a6c4c0485a1190ebc4e6efc069090a41684af710433c",
+          "relative_path": "t3/a2-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "30e8f0415a4feaa6efb067c9c7b476146761e1c3ad1e7dde37317bf2a11a822f",
+          "relative_path": "t3/a2-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "7f710c5fd6ebb953be96106be2d1627cacfc307cfcaee24f33577c209bfcd98f",
+          "relative_path": "t3/a2-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t3-c-a3-a4-a5",
+      "coalition_id": "a3-a4-a5",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "ee93d8662d97f8eab53447c4c1c9cea6c6a4b2a91c807ea9cd883f24fe748a7f",
+          "relative_path": "t3/a3-a4-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "becda8217bd1f90d77db684f3f70772103ccda569769a0898c7ae8070e343142",
+          "relative_path": "t3/a3-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "4b58e48b30539ad9f9d52cd9befa40fb56c704046f60926548d6fb6cb46e2ee6",
+          "relative_path": "t3/a3-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a3-a4-a6",
+      "coalition_id": "a3-a4-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "eb06c9aa2f42506f397712eb324ce96720faae22b1186ff1548627977000ef92",
+          "relative_path": "t3/a3-a4-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "d52c33b0256d81ed24f495999e9fa904841157df9fc133a3beb2ac8bb85bdf8c",
+          "relative_path": "t3/a3-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "567ce1c2922fec9ec217de23e2270bb52fd0dde6538c7907508c753a3388eaea",
+          "relative_path": "t3/a3-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a3-a4-a7",
+      "coalition_id": "a3-a4-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "0553181cf312f975c2cff7f9170b63c86372c69c229cc088715b3e69367daae9",
+          "relative_path": "t3/a3-a4-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "14aca9bb64004003fc141503262cfa58fd0cfed6ec5b95c25c16dd52c94d77fd",
+          "relative_path": "t3/a3-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "6948cf0b743a9cb05602f7c44a253c7a856e97cefe20d65cd5bd17a19c953918",
+          "relative_path": "t3/a3-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a3-a5-a6",
+      "coalition_id": "a3-a5-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "afa07e832af3ddda7cd37f0d69eb4ce652958d308b03d065b3529514c6c4a191",
+          "relative_path": "t3/a3-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "acc9b98d78f91fa4029c2018bf6d3fc620efe92e22ee259994cc80cbaf609b39",
+          "relative_path": "t3/a3-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "b1f36c8f5e06ac2d7cdc39ffeef5650ca77f0c016829171360c276f9db5755ee",
+          "relative_path": "t3/a3-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a3-a5-a7",
+      "coalition_id": "a3-a5-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "d49625737d38a0bf4ddbce4d99c3e0018989f40f8e9acde02ef91f8b2348bcf6",
+          "relative_path": "t3/a3-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "6cd2d9f0b12ebee6e396ca71f7bad96238ad6ba5a5c56ef82d66128cb5ab274f",
+          "relative_path": "t3/a3-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "007080837b44600a2ab57ac1537044f3f25b7c385170c84d2de59b971f3e1036",
+          "relative_path": "t3/a3-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a3",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a3-a6-a7",
+      "coalition_id": "a3-a6-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213097,
+          "file_hash": "e30b511e8125c1683cc01b795b8a438d9d93312a151838387487a3974ca008da",
+          "relative_path": "t3/a3-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "f04b32ae4b988dec4a0a0da76e9528683c8fa7a5fd068b3020c587aef1f0a6e5",
+          "relative_path": "t3/a3-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "b8941ea429939ae1d8da019732103772ee364438e3c2a31b047fc7c45ba8defe",
+          "relative_path": "t3/a3-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t3-c-a4-a5-a6",
+      "coalition_id": "a4-a5-a6",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "b26970c9360a0d27675dc38c6a813d87afb9c406d082b127a348a4f2014f3a66",
+          "relative_path": "t3/a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "2872e2188f646b7350940d8feca9e07fc154bfc7682b809b8a285e9c56972472",
+          "relative_path": "t3/a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "db47a3f340d845c807a60d90846bda950d394e20d602769105a79cbe682649d6",
+          "relative_path": "t3/a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a4-a5-a7",
+      "coalition_id": "a4-a5-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "b3c3f4d4d635be9c82973ba821cf2069014e17310623cee4f7afaf7f869ad8aa",
+          "relative_path": "t3/a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "4b47feb0816f819b3cd5948dd1f70483481eba744bb1d20312cd5b52776b8ee4",
+          "relative_path": "t3/a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "0e29677fce63b255798e730e93b20d25a6d82ed694c38b2d31a43c71edbfd201",
+          "relative_path": "t3/a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a4-a6-a7",
+      "coalition_id": "a4-a6-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213097,
+          "file_hash": "184881179069d90b058c4bdbdb781c0a1f75d5f47239addd2d02115a3f0b0c82",
+          "relative_path": "t3/a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "be0e1d245e133c9691bb66185daa44520372a1ed766d2cfa83d241df6f2f2769",
+          "relative_path": "t3/a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "27e04d505c4fba1ce2a111ba402ce2b4c6fee1236d3c5c408d7e9ea5ecb48ab6",
+          "relative_path": "t3/a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t3-c-a5-a6-a7",
+      "coalition_id": "a5-a6-a7",
+      "coalition_size": 3,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213097,
+          "file_hash": "3f3a89e7a61f2e186244b8c285124dd789eef70abcca2dfe6351abe1f619606c",
+          "relative_path": "t3/a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213097,
+          "file_hash": "8ce3d1e65cbc8a682f0bc3f0f057fdff8bbd08c714bfd244286046f63f9adb1c",
+          "relative_path": "t3/a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213097,
+          "file_hash": "a8f5cd29eb89834b4740ccdc9a5dcba1269c5c40ff7f31153a1d19a2576136da",
+          "relative_path": "t3/a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 3
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a3-a4",
+      "coalition_id": "a1-a2-a3-a4",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "d4386dc70adb4943318cb57365463194472c5dc5e7fba31943238a6bd2dbffc6",
+          "relative_path": "t4/a1-a2-a3-a4/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "d15e1d77d36609f991ba1c766f0814edb115bd4574def8a0ce3cad57f0e90318",
+          "relative_path": "t4/a1-a2-a3-a4/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "3f9143eb0ff29e05be29aab880dbb52449e8135c54cd0f655359d23fc02ea015",
+          "relative_path": "t4/a1-a2-a3-a4/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "a2ddf2a3b6f43573321dfd0d69d7191b59d29a37612d8e290ecc2118e55cd954",
+          "relative_path": "t4/a1-a2-a3-a4/a4.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a5"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a3-a5",
+      "coalition_id": "a1-a2-a3-a5",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "695838a3916f7c80796ca71504310a82c948fefad6a786cac202203d3dffa61a",
+          "relative_path": "t4/a1-a2-a3-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "c29cc6056de382beb9e9e3e2dfb471b0473cb5ce010e8b5aac50d89467fa2357",
+          "relative_path": "t4/a1-a2-a3-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "1f34046297326316591d116c87228b0b5f0ce6f61cabb36598f9798c997c422a",
+          "relative_path": "t4/a1-a2-a3-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "1e076d8ee57051d720ca0d8b58d13198ca2684e8b2af3ae04001d960c71dfd1c",
+          "relative_path": "t4/a1-a2-a3-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a3-a6",
+      "coalition_id": "a1-a2-a3-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "88ab558dfc5bb124903c4cdd1d783d0a1b45e63ded23c5dd39cbd25f1cd5aec5",
+          "relative_path": "t4/a1-a2-a3-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "de07365d01a15a333e018a21f176d806d81a4ef21692b16e40fab7f51f243300",
+          "relative_path": "t4/a1-a2-a3-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "e2a16b74349b3fd625b9091390e8b4cea65c134b35f235877a52c0ce4adb9c29",
+          "relative_path": "t4/a1-a2-a3-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "873cc552fc5fddf27e5c30ffcffcbd608501f292ff6adb6816a4e73c746d8318",
+          "relative_path": "t4/a1-a2-a3-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a3-a7",
+      "coalition_id": "a1-a2-a3-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "ed1eedca659b939ec38c7df1941a46b0b60d4294fa9fb4131e86bd71b989ec2c",
+          "relative_path": "t4/a1-a2-a3-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "5809852085ed8ff0f1638be6c393642321673108583e2b760bc6080d65449af6",
+          "relative_path": "t4/a1-a2-a3-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "bed559042f9ff73ea37aba3779bec939bd228205dcffedd22debd6c2e82be956",
+          "relative_path": "t4/a1-a2-a3-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "8d6686d099e24f78920eb2127f99a942feb916c8ab2a639a1842bbadd8e1b055",
+          "relative_path": "t4/a1-a2-a3-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a4-a5",
+      "coalition_id": "a1-a2-a4-a5",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "bd8d43c8059525d2b0f73bbdea02e31d9be55dd793bb66831cec1c67a20d2a5a",
+          "relative_path": "t4/a1-a2-a4-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "4960a4726f059aa3ad167f13baa27e5d16b1ab1026817b3a5bb2528f4b21b653",
+          "relative_path": "t4/a1-a2-a4-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "22d720fcfeef5645c57e8dfd81d3ca645dc70a627aaec54b69fb233719cedb18",
+          "relative_path": "t4/a1-a2-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "6fd39458459fea0fae8e2aba8ba2e7b7e619301d0bac5c540175794999101381",
+          "relative_path": "t4/a1-a2-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a4-a6",
+      "coalition_id": "a1-a2-a4-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "10b77fc6a00f56ea1d07db1de077ff3123e85c17a41811c13563397dfc629d72",
+          "relative_path": "t4/a1-a2-a4-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "266464038e5d36c92c2bdfc3c5629f38f7c2b4cb088bed0a7bb1a55716baf6b3",
+          "relative_path": "t4/a1-a2-a4-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "d8c1714636b9735d34caeef7b36f42dd82229ccab1e395274a31204c0bf41845",
+          "relative_path": "t4/a1-a2-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "ce9e6d6a6c1f815c8a5340e23f01f1b4018a0251db38c0d7cf9dcf6e01eb433f",
+          "relative_path": "t4/a1-a2-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a4-a7",
+      "coalition_id": "a1-a2-a4-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "3b392a40ae75aebf2b0378aee8e6e02b52a49775648cd5598501af6a64cec71f",
+          "relative_path": "t4/a1-a2-a4-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "059341b56cc355a885c428bc4b0008b53dd2a48ebcf94824a9642066306a9a57",
+          "relative_path": "t4/a1-a2-a4-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "65ee2843d7599d7ca86b5b464ca86c08d23b7a6245a0a8957bc24eeca37bc805",
+          "relative_path": "t4/a1-a2-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a74eb477b0d291a6afa695613110d8a4fa6d3733c8a3f9ad8d61bffc6d77d6cf",
+          "relative_path": "t4/a1-a2-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a5-a6",
+      "coalition_id": "a1-a2-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "e1f91ff698e1a8783a6eee6d6c892889538400ffa4815d3c017596ff58b88861",
+          "relative_path": "t4/a1-a2-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "0cf8099b51baa999cd8483c6377af58b0ecd94c24b9a8dcecade5e85e0714bf5",
+          "relative_path": "t4/a1-a2-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "c1d373feac7514cd1000ba6354cbb4384f3a387c67c57ca2ca6bcadfe72efeb4",
+          "relative_path": "t4/a1-a2-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "96214e72a5eea05368c0ecdd95fc4a4ffa21988b0fc26bc67fcca537cb7d0af8",
+          "relative_path": "t4/a1-a2-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a5-a7",
+      "coalition_id": "a1-a2-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "75bec8cc190d7f17d1a5b4936fb6b3c5bd75b6e29b6cbcf009bc28f6d9b7769d",
+          "relative_path": "t4/a1-a2-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "c816626f47f05ed57c6f26415bfa014e1c3e008d72d209b2bdbdb09e1b5c8f71",
+          "relative_path": "t4/a1-a2-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "b7efbcbdba7f4cd642dbe77f1b4141adb3b62de50da73dc371403e61cdda27f9",
+          "relative_path": "t4/a1-a2-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a442324a5577a1d41b339c41d2b1c36002ed14437d944ee17b7798bae2a7160d",
+          "relative_path": "t4/a1-a2-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a2-a6-a7",
+      "coalition_id": "a1-a2-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "5ddadf51a8d5070efe7da63b2dea7b4ecce72d1f88caeafc2c6822921c847529",
+          "relative_path": "t4/a1-a2-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "1613dc103c7e9165fb095f4252a92d167db87f441fd4cb0b9e179627843b1733",
+          "relative_path": "t4/a1-a2-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "9e79f0e75e79959dc80649e7192382ddfb9df05311c8523b2da3cc5e66ff3b9d",
+          "relative_path": "t4/a1-a2-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "d53650e5ac4e747c774a87351bbb79c2b099f6839c431c74f63af3efd722d491",
+          "relative_path": "t4/a1-a2-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a4-a5",
+      "coalition_id": "a1-a3-a4-a5",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "b2b3b3ad9377afeef157b096a3f0a56df5a872e5a618a3c984abc87c08b12ffc",
+          "relative_path": "t4/a1-a3-a4-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "5a01b323ec1fd2fffa9eb76f3bd6532bdc5bb394167558bb48fa69e1ebfd513f",
+          "relative_path": "t4/a1-a3-a4-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "672b685adf1d3521bc536ad102ce7a9156f293a721a911c7bcbc111b84417aec",
+          "relative_path": "t4/a1-a3-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "9c1b5924922a2923f45d8b92c596b053d592f3e2db8e7ce5e2dab33d377f57a5",
+          "relative_path": "t4/a1-a3-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a4-a6",
+      "coalition_id": "a1-a3-a4-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "c4e1287f1535e77468670e708a3ac0605f061fc293e6b3d546ae1eeb9c6a1927",
+          "relative_path": "t4/a1-a3-a4-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "0bd3c6ea583f6b07e0e5d1728b4858e12e1d15762b871f53be490ab885ac7b40",
+          "relative_path": "t4/a1-a3-a4-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "3814fb3d92ccca1be323485e9e3bacbdf0cf7a72af04316c29313b6fa6b8e72f",
+          "relative_path": "t4/a1-a3-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "6405d666663fa225ac9d8012cc9dfdcdcacd49a3f0922179adc95eb856a2982c",
+          "relative_path": "t4/a1-a3-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a4-a7",
+      "coalition_id": "a1-a3-a4-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "71b0b8134d250d6562fa30ffd0a00dd1862d4d236b0dd990eab4520a2c7963dc",
+          "relative_path": "t4/a1-a3-a4-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "d34914a3d53258053edda2a91bcd9767635ae7c5877f9d1b96df8663fcca8370",
+          "relative_path": "t4/a1-a3-a4-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "54f70ea1c402111f70c5fa189f4a8d9011e8142be33f37841b132bc046b9b7c4",
+          "relative_path": "t4/a1-a3-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a54851a91575bd528084a3b83c46c6b3102c6acf07076d30b54c408d3b18c39a",
+          "relative_path": "t4/a1-a3-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a5-a6",
+      "coalition_id": "a1-a3-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "4aa4e99dc2e86ea93dec5e6409cd2e6a437593be07c4c8ffbe88cba1283ffdde",
+          "relative_path": "t4/a1-a3-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "e6ffd0c0847f37f8163b4955325ad1509e4080a96aa4a2be32c4aae72be66109",
+          "relative_path": "t4/a1-a3-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "2735499ed2754d384d0ff84f99bac840113981eed52947e4069b1e0f6724df81",
+          "relative_path": "t4/a1-a3-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "dc7272b16a4b81e96b652ca43bac85f1bd847219f73ebfd420a21a4c223f7eb6",
+          "relative_path": "t4/a1-a3-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a5-a7",
+      "coalition_id": "a1-a3-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "9ead4e75c6636fa796189481740533ac7a6d39ab09113394e3b0339eb7552c31",
+          "relative_path": "t4/a1-a3-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "29342e6e93d5c1b86fa541ed2d512fa316827e66918ba65d6c4582464d3c9b9e",
+          "relative_path": "t4/a1-a3-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "3992bbeb1527765e49ffa7b0827881933328b223aebb1f0d83c411892e845292",
+          "relative_path": "t4/a1-a3-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "8743253324af961b4bce284513dd9dcb9c841e9f6889c35b9c9b223a3c4f7982",
+          "relative_path": "t4/a1-a3-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a3-a6-a7",
+      "coalition_id": "a1-a3-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "27c36448298b55e094fd6cab248b9255b4374cb6c0c106d7b7aad4a8b41f49c6",
+          "relative_path": "t4/a1-a3-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "5621b418d121015762e2a82b76d7779e5e49a13ef235ae1c9fc547eca6f4117c",
+          "relative_path": "t4/a1-a3-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "3f946c158f3efb07beb561d6869879fff289f9726a0098408d4a7b3007728dc4",
+          "relative_path": "t4/a1-a3-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "e88e59089cb51b6de9c6562652b72e7b73c9695a00d45b5b37233dcccce3e08e",
+          "relative_path": "t4/a1-a3-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a1-a4-a5-a6",
+      "coalition_id": "a1-a4-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "62037f7e328acbb0ad5a17b8fdf000c5c678ce2fab8fc0736ed80813dbdffa70",
+          "relative_path": "t4/a1-a4-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "0945f07378661ba5e56a104c81b33488a9d7526b054922ad1ac5eabb86af0b3e",
+          "relative_path": "t4/a1-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "b7f525d151faecf7fa760aa7bdffc8a88add95e1905dfedadcd2f71d1430044e",
+          "relative_path": "t4/a1-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "9856769dacfe4e6e64f59dfe31ec4c81cbfe6d8d7d965266b1320fcf44209a4d",
+          "relative_path": "t4/a1-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a4-a5-a7",
+      "coalition_id": "a1-a4-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "4f4b6db42d9c73ca8c742ca2f766e418b14d563075d370f905d698cfa091df1e",
+          "relative_path": "t4/a1-a4-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "72733df500715b44b56787d042737120d6782f7c630758be0d159af4065bbac1",
+          "relative_path": "t4/a1-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "5b1e92c4df167e4c9f0b03b2fd36a342ca630968ab252e849303e6561797dffb",
+          "relative_path": "t4/a1-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a09d148b173138016f245ed9268d26535861b706997993f03f4edc2d252a69e5",
+          "relative_path": "t4/a1-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a4-a6-a7",
+      "coalition_id": "a1-a4-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "3ffbdae0d35ba7fab84c42e096502ab94e0b10aa988deaac411c05090ba811da",
+          "relative_path": "t4/a1-a4-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "267be408458724646392531e313e190505efbb0f90ad8d86de3b7de31c6ab084",
+          "relative_path": "t4/a1-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "3017c8345cab4b697176d895a0dae914b954860144781a23ea58a6a419c9f36c",
+          "relative_path": "t4/a1-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "efea5b4f41895acc40556bc8b4f640299a82fdba933989d513800bb7515df6e9",
+          "relative_path": "t4/a1-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a1-a5-a6-a7",
+      "coalition_id": "a1-a5-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213104,
+          "file_hash": "ba4b7c6f1da36270c8a0507c88d7034755c23f79ea73ec25a8908ecc975031b7",
+          "relative_path": "t4/a1-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "82dbdeb145c60ac42c397b1984b3749ddddaab0d09820d927e418f0b686da5b2",
+          "relative_path": "t4/a1-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "c2a84365d8d27f02c8fcc1fcee47548dc58c846273c90f724e454d7966818f30",
+          "relative_path": "t4/a1-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "2ba7b9657e87daba3a2bbb5fdb344b1d63d1d658722f9653f7dbf7486a7a3cd4",
+          "relative_path": "t4/a1-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a4-a5",
+      "coalition_id": "a2-a3-a4-a5",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "27f51f305ebc9aec95c68c59b36f972c0f81af9c1b0cf32f959bb628815ae2ed",
+          "relative_path": "t4/a2-a3-a4-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "d752d2de5a5ce0ebf7ce6dfa8dafa90d1b5809aba4d6b8b6a901d5317645ec44",
+          "relative_path": "t4/a2-a3-a4-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "75408dbc22b6d887cb3b4196c73b0550701baa45cf849a073bf9ab774547ef56",
+          "relative_path": "t4/a2-a3-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "f6c41d44e36122d56ef0b7ec709ae490b0df2494db794942366e688682e93aca",
+          "relative_path": "t4/a2-a3-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a4-a6",
+      "coalition_id": "a2-a3-a4-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "e25b0d64cd9783f6ee7e2a6c82e98bcfd06d60ff61ba12fbca8689f7ea602620",
+          "relative_path": "t4/a2-a3-a4-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "d1112713af3c6b90211dd51d3ae7456fc3db5bb3baeff72c7220a7342ab56ddf",
+          "relative_path": "t4/a2-a3-a4-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "91461b9c3749cc635bb3a263d3b74d61eb42bc5b7a358f12c0f2774d43039123",
+          "relative_path": "t4/a2-a3-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "4821febd7f369bae4af93161ca18516e0e8431962439b1670981bc7176f8fa7b",
+          "relative_path": "t4/a2-a3-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a4-a7",
+      "coalition_id": "a2-a3-a4-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "57b3e675573fba24a8d0b6839405242479c63bda2a874c5d2179156d61bdff04",
+          "relative_path": "t4/a2-a3-a4-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "20f9ee2bde5f3717627fa81658fbd34c45bc1c59324e87fff18eb9bfd8fc78dd",
+          "relative_path": "t4/a2-a3-a4-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "2ba0b8d9b43da6ea5efcc59f03389c40d0662268ad4ada700037d8f5c83d559a",
+          "relative_path": "t4/a2-a3-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "05cc5101d4c2c79ae78a0093cce3abeb07b8c8889d5e4d1025d33f59612b7ebb",
+          "relative_path": "t4/a2-a3-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a5-a6",
+      "coalition_id": "a2-a3-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "1c620ddaa3bd2e6164a73cbdec812ac11255160824ceac1c39a617c0861f6be6",
+          "relative_path": "t4/a2-a3-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "7965e6c567b0978177911c5bb60ad47b47de36b858cc2ec2f5e985a439a461fb",
+          "relative_path": "t4/a2-a3-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "2c42fe9363bcb8b2bd63a9123897b6e64916a36cab85f136219cb33f7720b5b1",
+          "relative_path": "t4/a2-a3-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "bd5e7dd68a9c8e4468e4cbaa70290a04f8371fdddb142f1b4452d1ce156b6a88",
+          "relative_path": "t4/a2-a3-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a5-a7",
+      "coalition_id": "a2-a3-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "5626b201315659901238548e8f59a755675c1ed2248d9de3a956370c6a1eb7b9",
+          "relative_path": "t4/a2-a3-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "3a38a834d7a6982d5dc73c9a10182f1fb25acc745d2da84fe52b0c8ff18d2226",
+          "relative_path": "t4/a2-a3-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "de661bdfdd3f1d204ba8ec9279c97e0b1a7f293d252263dad0c8fea4e4c5c995",
+          "relative_path": "t4/a2-a3-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "09d43e573f59b2a2a6ed2f7a7fee1872e583d3f546ce63e8ff23fb433d016cca",
+          "relative_path": "t4/a2-a3-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a3-a6-a7",
+      "coalition_id": "a2-a3-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "b32c4418e6e30bd8b9f303198a292ac089ad24007ff1e147587d86bf7cdaa968",
+          "relative_path": "t4/a2-a3-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "9ebda6b65bec6c570b2eac905dd45db36458234f664b8dfdc1709e2d5b7b08b1",
+          "relative_path": "t4/a2-a3-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "91cfa08466e752628a4f1fc46655f7b3099cb60c6b3521bebb1875a7677aaf45",
+          "relative_path": "t4/a2-a3-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "2f603610f46a5e1b77daaf666908ad98d62108c20f9f29fc2460f6438cdfb899",
+          "relative_path": "t4/a2-a3-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a2-a4-a5-a6",
+      "coalition_id": "a2-a4-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "0f4fa1148fe73fa623ff9859c23f66a3da4ee57cbc5bc2be89681a5909b8c6af",
+          "relative_path": "t4/a2-a4-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "f0a180637526c1fb28a4ee474ec4ee1cbf39748fcb7e68d8004571ff381b9038",
+          "relative_path": "t4/a2-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "992d31bca8e263551bac498065b061baef0828d302c496fe77da5c5c5cc53006",
+          "relative_path": "t4/a2-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "f748eaddd73818e1976e456bdd9fb84b155bbbbe53b9ac9349997ef28b769395",
+          "relative_path": "t4/a2-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a4-a5-a7",
+      "coalition_id": "a2-a4-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "035e218da74f7effdb927fab4ba69447d99cfc52ea8d56614e389d5262911e9f",
+          "relative_path": "t4/a2-a4-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "121ca6c793e2b80e8f2da7a0cecc67df047318f5978c2c94339c43e8a37ccb76",
+          "relative_path": "t4/a2-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "dbc3a47c2d9b0a9aab13c2aa92248e01e034502c6a6020ec730f6f03d2b49c63",
+          "relative_path": "t4/a2-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "bebd43a63a88da51531331264bfc04b8c7cf79f5b09af2442b2d7faa870e1dc1",
+          "relative_path": "t4/a2-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a4-a6-a7",
+      "coalition_id": "a2-a4-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "12cdb619859c11fe3ece6ecf5e5bbbb7cce7d6d8f9f08d98e7cc44641083f563",
+          "relative_path": "t4/a2-a4-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "2679659f354f9e090b698a75c9353faa14a1f0e68f57e68a0e9e5b66fb3ca2ea",
+          "relative_path": "t4/a2-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "fc486df51c3bb25deea43b75364c8d0b6c4f04af0c244488bc6c254cafc31a6c",
+          "relative_path": "t4/a2-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a4af7104d1dcb8d2fe9504abd03bb15ad849f2ea328e091581463839c26eb54b",
+          "relative_path": "t4/a2-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a2",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a2-a5-a6-a7",
+      "coalition_id": "a2-a5-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213104,
+          "file_hash": "0f234631e4e1d9143ec6ff454244084139928e91bf01be82f6faab11c869a7b9",
+          "relative_path": "t4/a2-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "29157681a3f667608921f6217b08bb2cd27bf1034de20d6f743679d5a606b9ad",
+          "relative_path": "t4/a2-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "04bad0c63591635a2f70ba35280c5515ad4f23937c4cef8f20e8730aa88ef88d",
+          "relative_path": "t4/a2-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "771a91b9804176964f031784613328f8cc7c25dd6ecf5108bca0c276ba8e0820",
+          "relative_path": "t4/a2-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t4-c-a3-a4-a5-a6",
+      "coalition_id": "a3-a4-a5-a6",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "0455f14e93bd644dd9deb9cfdbfb07b59f490fbcb61fc38f524cee26b43b549a",
+          "relative_path": "t4/a3-a4-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "ad83878326ff90275af75aa45bc82a7b0e2123679e875bb2f1de8cc85a7d00f0",
+          "relative_path": "t4/a3-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "9d6a20ae35311519d6e297fe3d3eecf63c891ca6364de3865f81bd745c5a674b",
+          "relative_path": "t4/a3-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "a2e59f1e3594dafe522f9178ff725cda997516b7990d54f99565b83011f6a01f",
+          "relative_path": "t4/a3-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a3-a4-a5-a7",
+      "coalition_id": "a3-a4-a5-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "a98fbc23a43df2a08039e797831837e9f57ff660b283c964e101028027e7a6c6",
+          "relative_path": "t4/a3-a4-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "9e4546a2949b9da1b9a75407f394cefa69c10f57d018aa9a7f2bcb01421ec1e5",
+          "relative_path": "t4/a3-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "eb5896a1466e50831fae8adaa0f907b1b33f82cd0d1844ef108a40c47821836f",
+          "relative_path": "t4/a3-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "5aa9a893959ea0297f193c371050a8cfe16acecef611d6a864a46c5b5443fd50",
+          "relative_path": "t4/a3-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a3-a4-a6-a7",
+      "coalition_id": "a3-a4-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "8758c9cfec6434758f9aa4002c521cbec2ba813bbe8216b09da395a8b666ed27",
+          "relative_path": "t4/a3-a4-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "b2d35d788d40f345e3ef52e122d0399e7ce6a59d88d2123098d78e5fd436e797",
+          "relative_path": "t4/a3-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "808a586c6caadb0b9fb425ddc0890ad209766ab805bb5be9f8f5f058c154d97a",
+          "relative_path": "t4/a3-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "b06390049e4db9f88f5331f1db5e2dbf6d527b4db600774119c06260a17aebbf",
+          "relative_path": "t4/a3-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a3",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a3-a5-a6-a7",
+      "coalition_id": "a3-a5-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213104,
+          "file_hash": "18d9469aaaf9f62fb2b830755090e015282d387c2fd6e0d0132c9ef17cf85537",
+          "relative_path": "t4/a3-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "3008fdfc992b3c6c3b38c51c8ce17bcfee4e3557a0670ed98bb26a2c81745987",
+          "relative_path": "t4/a3-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "a009d9d6c6bfc5f68e9a9ab63794e43bb1d18a8f1db5369dc59653f947861b33",
+          "relative_path": "t4/a3-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "1800330ced2b47eb419c92f51167f6032214fdc94567f1de816aba51c7f14439",
+          "relative_path": "t4/a3-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t4-c-a4-a5-a6-a7",
+      "coalition_id": "a4-a5-a6-a7",
+      "coalition_size": 4,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213104,
+          "file_hash": "e078ed0ed48017cccfa5522e85512b0353338caf468b1337538e497999056f36",
+          "relative_path": "t4/a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213104,
+          "file_hash": "3e5acf92a264708e3d14db4bbddac12b1e9badfea46f7d916ad8777ef0ce878a",
+          "relative_path": "t4/a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213104,
+          "file_hash": "54b98fab9d66a59bb219af186975cc66a31954c918d41fbee464823f43ae4ee9",
+          "relative_path": "t4/a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213104,
+          "file_hash": "a8df23dd723ad83f53a5b656c484d02d28fafd0963159197253b9fa369115277",
+          "relative_path": "t4/a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 4
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a4-a5",
+      "coalition_id": "a1-a2-a3-a4-a5",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "dd8f15a937bbd8669ca00efea8bb539185297d593e5a28c5e7d406b600b89d27",
+          "relative_path": "t5/a1-a2-a3-a4-a5/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "e30f07ada54ca4366d3fa9f3352ba108bb893b7ada686c1ace4b0bdb686ab5f1",
+          "relative_path": "t5/a1-a2-a3-a4-a5/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "a189f380fd35e5b8393076af58de061f8f1e243273bb4ecc9fcac0b4e35e2f0f",
+          "relative_path": "t5/a1-a2-a3-a4-a5/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "4825d4e05c355f6e7e0197f023aec9f781e3063fd661af901dc94de5fb30186f",
+          "relative_path": "t5/a1-a2-a3-a4-a5/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "095a859f396af17f8966a23a1bbc2d6cff0b422c2e648790255baf17f2ebfebe",
+          "relative_path": "t5/a1-a2-a3-a4-a5/a5.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a6"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a4-a6",
+      "coalition_id": "a1-a2-a3-a4-a6",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "c6659c956da6fee44d99250fe02899d1af68e95399b6c4a27d316396d1b6186f",
+          "relative_path": "t5/a1-a2-a3-a4-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "82cd3f5abe1cac09784c1fa7716596b67725b51dbfbea615eb07b998d69f8fa3",
+          "relative_path": "t5/a1-a2-a3-a4-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "e01f8eb3e2b0293839194e75338dcb88d82eed63d2dea0c22583f03fa42934b6",
+          "relative_path": "t5/a1-a2-a3-a4-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "76b16b15e7249c1a4241c5912a4d9dda102e38f83b4adfe9e6ca09bf95934efd",
+          "relative_path": "t5/a1-a2-a3-a4-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "314c6491d6da49c9d7c7c6ea224085cd3bea9effe38783e4c7aed0627d411407",
+          "relative_path": "t5/a1-a2-a3-a4-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a4-a7",
+      "coalition_id": "a1-a2-a3-a4-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "4f458a68ec8cbfd973688fdd639b568860220fe9d259ccbea612152cdb956482",
+          "relative_path": "t5/a1-a2-a3-a4-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "5dd4dcbc3e28922b6d726a11b7b6776022cdaf0ddb8935ab108874b1aae758f9",
+          "relative_path": "t5/a1-a2-a3-a4-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "3f6bdd22834e9b77f37b146d6259a159b699486d19ca6486d68f48386b64bcc4",
+          "relative_path": "t5/a1-a2-a3-a4-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "7caeb13e22f3bc79fde7b6b894830e2c7dbd48850ee1c615745d94d3b95adcec",
+          "relative_path": "t5/a1-a2-a3-a4-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "5ffba39f6bcbee15ee7713dbe543f20630417e1103f0bd7f83889b116e69b289",
+          "relative_path": "t5/a1-a2-a3-a4-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a5-a6",
+      "coalition_id": "a1-a2-a3-a5-a6",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "385e2ae78cd700e042c23942298ac48de69d4c1c22febd3f1fecaf7b3db7a0f6",
+          "relative_path": "t5/a1-a2-a3-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "fe0d4bc6e9a1fbbab9912655af8509f39fd6bff2e1a92cc8c2ad13f49e43e78d",
+          "relative_path": "t5/a1-a2-a3-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "818d53c921a7ab99c533d58b6a0296f56f36428dff7ee2ef9e84ebe641b17b00",
+          "relative_path": "t5/a1-a2-a3-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "12bcfc952c6c9db2032216b270ebfd84c888fb7f97f902813f748e1ef67736fd",
+          "relative_path": "t5/a1-a2-a3-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "445e8046e3c49a4b5be8a5cac113afa12ae1517de847a3a97789511f263b2931",
+          "relative_path": "t5/a1-a2-a3-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a5-a7",
+      "coalition_id": "a1-a2-a3-a5-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "e125d0068e65a4125fa7b5d1871fe8c8c0fdb4304579dab4af19d23f53c7c901",
+          "relative_path": "t5/a1-a2-a3-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "b98f00a2d56c08fdc912485ba33143cfe349245ddc3209bee96632dc1bd3ec4b",
+          "relative_path": "t5/a1-a2-a3-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "94826862da30320d3a60f81eae055ea28362229e52f5d34abd9eb347ee8ce33e",
+          "relative_path": "t5/a1-a2-a3-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "d792bc58dcaa2eddf5542a6638b6294e585f316767e7e8097f00bbf82cbd19fe",
+          "relative_path": "t5/a1-a2-a3-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "3ac5b0fb9e938d24c90daa65e18bcfcdfe2b14e018c43230fd3043413288f47a",
+          "relative_path": "t5/a1-a2-a3-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a3-a6-a7",
+      "coalition_id": "a1-a2-a3-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "a98bc1504ced873942e2f95a7955dc10c7a3c147242aa3a567cf30bbaa1fd2cc",
+          "relative_path": "t5/a1-a2-a3-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "70b82daba1bfca9b7b19e68cd7b0c50a03740d0725cf83d73aef6ec002ad4640",
+          "relative_path": "t5/a1-a2-a3-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "bbdf02eab2db1bda6ed91ff8d83b401a22911c538afbbd03a557e0b225a5b0fd",
+          "relative_path": "t5/a1-a2-a3-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "9405992234a95acc07f548c22485bb83766cbc1fca089c71803d3bd5f95be092",
+          "relative_path": "t5/a1-a2-a3-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "ede0ca4be0f44c076a2c67f358f6bb6857f46c1553f6e3e0fd35187b08463620",
+          "relative_path": "t5/a1-a2-a3-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a4-a5-a6",
+      "coalition_id": "a1-a2-a4-a5-a6",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "6cb6858b1b46021bf7272fe1ad3a947cf42c20840066aeb555a5df5449db6ffd",
+          "relative_path": "t5/a1-a2-a4-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "42dcaa10f40073905881876ed6429150ae25a0a13c4edc9b9bb51c904bf2a38f",
+          "relative_path": "t5/a1-a2-a4-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "286140d74f9b0194216b5fe6bc14cb934570c866510ef1026a4addd1b2409894",
+          "relative_path": "t5/a1-a2-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "056804be22c2af36ce92c3b77bfc98051302345f0810695814c17eaebd4faf29",
+          "relative_path": "t5/a1-a2-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "025a4fd749207267bb421710f48cb091fd97c506c03babc4505908dce8faa3ff",
+          "relative_path": "t5/a1-a2-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a4-a5-a7",
+      "coalition_id": "a1-a2-a4-a5-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "b19a9dd48885a87563c394d8b3da9288ded2e838249dd23991a99f45d14d6144",
+          "relative_path": "t5/a1-a2-a4-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "3814bb61e2accea71a2a2e2280b863047325cfe6ed5e13f4bb32129e8ba9a27a",
+          "relative_path": "t5/a1-a2-a4-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "20a5b76cec7810fea2230b771afb90b8b522c2c833ba2d2169ef0ae504f5719d",
+          "relative_path": "t5/a1-a2-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "f49ebda99a8748ebb6cee687d1f610e192c79425703bf6c45505178407c83f70",
+          "relative_path": "t5/a1-a2-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "efac2a0bdb810b2eb3808725de7134a1629299a63a1fb60f91df6b394be6973d",
+          "relative_path": "t5/a1-a2-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a4-a6-a7",
+      "coalition_id": "a1-a2-a4-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "00c6f9f9c3e2a9380ebfe435fcd5adbd9d083b4207ef2584263da89fde49d5e7",
+          "relative_path": "t5/a1-a2-a4-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "b4fdfc5e406b0dfe551132af3a924429c548ac4cc80e71248f74eef1a57ef795",
+          "relative_path": "t5/a1-a2-a4-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "a832968590d6b6358039684eaf0ec0bd603bcad818b0321b2be096519001e8b0",
+          "relative_path": "t5/a1-a2-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "40b2007ce191edbaf0556615f90aa0ede42c6feaa91d54ba450fa04ca8419942",
+          "relative_path": "t5/a1-a2-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "7b057d177a0159dd07d10f203a5ee3a94697de6e19d4f97f70d981799c223bbf",
+          "relative_path": "t5/a1-a2-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a2-a5-a6-a7",
+      "coalition_id": "a1-a2-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "f88bf0253837a01d984f0c023ba34202bd1434eeaf9fceaa46d0a6562af44fa0",
+          "relative_path": "t5/a1-a2-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "972b8f39c8370af7b7e47c747096d686e11a884c5dcc4f486abda8f8d7a36a3f",
+          "relative_path": "t5/a1-a2-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "06e74dd8c0a2633fcb6b45137aa0d0a49a693019fef01bc17ec19156739968e0",
+          "relative_path": "t5/a1-a2-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "896a09577b1e45a430182bebe23dcb670b87ef237df90bd8d6885c6c524def52",
+          "relative_path": "t5/a1-a2-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "badb0245e338b8575ec4d9a4218ff47b0a84f823180768777267bae79c9f4480",
+          "relative_path": "t5/a1-a2-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t5-c-a1-a3-a4-a5-a6",
+      "coalition_id": "a1-a3-a4-a5-a6",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "6dcea94b2f05afed3b324e60d417a4b0b95f91d484cdf583a8f05c89602341d4",
+          "relative_path": "t5/a1-a3-a4-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "c2a3d8ae70079ad556dcd83e39e79d7a27ff7b7516f8733508f8e17157a8973f",
+          "relative_path": "t5/a1-a3-a4-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "7625e0997990d091c74def9f9e8de80de853a012e80812aaeb522b3fc617526d",
+          "relative_path": "t5/a1-a3-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "00e504857632b3fad63e4d49e72d3d6b26655ccf89066aaa257357dc42b88b74",
+          "relative_path": "t5/a1-a3-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "dd5c511267da109453932cf9a5459ccf131875c095fc56e0b47da8f5abd7537c",
+          "relative_path": "t5/a1-a3-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a3-a4-a5-a7",
+      "coalition_id": "a1-a3-a4-a5-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "7675f2b8f80bf43b5726e072e5712b4c791ad5e4a3ea159b7d48990b5f2365fd",
+          "relative_path": "t5/a1-a3-a4-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "203918710b2a4b1e98eda1f3090dc47ea92e2384c195d8d5a0d281d1e65ca6a5",
+          "relative_path": "t5/a1-a3-a4-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "a1a5f9d9dcf776335f8f0a5b5afb1a59bd93cea4797df4493fe0b00427a15909",
+          "relative_path": "t5/a1-a3-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "951dd4741b42916f84fdcb9c967cf9301c6f24479f720d2b7c9d136fe37bbf46",
+          "relative_path": "t5/a1-a3-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "178e6acd256939cf06ec8798d8bf6a3d494da6d758a0dd46a3f3494cad2a87ae",
+          "relative_path": "t5/a1-a3-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a3-a4-a6-a7",
+      "coalition_id": "a1-a3-a4-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "34cc94d7a6851a9eba74fbc35647222e71f3bdaa1aed73d5ac9b7dd29629ed11",
+          "relative_path": "t5/a1-a3-a4-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "03383b20e0caca25fdcafc53a0ebc9576ff68f934571f29c576cd6ec3e0d120c",
+          "relative_path": "t5/a1-a3-a4-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "5367950fbec2b21a09626017b5179bfbb5e53545b8238ed45f6a58c77d42eefb",
+          "relative_path": "t5/a1-a3-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "b5c3e34ca5fc337d02551951e57123a9574e34308c24905694d7ae88a6f630fa",
+          "relative_path": "t5/a1-a3-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "38f3ae66450fc736962c546a81400a6293d19fccd2de14eb5523bb326c84c41c",
+          "relative_path": "t5/a1-a3-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a3-a5-a6-a7",
+      "coalition_id": "a1-a3-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "5039d621dd1524ba16871f39e40517c4b2392768d6a6c18d17897de9c7b9c824",
+          "relative_path": "t5/a1-a3-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "192ef7ee0bfafffc0fafed7a5efec82888bfada446c5ff63978b68d064449c3b",
+          "relative_path": "t5/a1-a3-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "99fcee73c14ebd5ddd1a4f6e63cc4c2679962f52ce0dab8a1d2b69a9c98de424",
+          "relative_path": "t5/a1-a3-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "01b07569307be590f1c62d7ed8d3f53512079c3e56032b91e91232bbcbf5292b",
+          "relative_path": "t5/a1-a3-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "a35841fe96623369db0e7ffd361176f073e8a6bd3ecd9c7b9b1a5c5856b40638",
+          "relative_path": "t5/a1-a3-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a1-a4-a5-a6-a7",
+      "coalition_id": "a1-a4-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213111,
+          "file_hash": "f051df22bd9c4dfe3f852f09a867bff2afb14fc7e62dd0423801e19046530d05",
+          "relative_path": "t5/a1-a4-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "c7ae993dbbac4f3929ba85844043b78910993cafaf8c395a309a5bbc458b65b8",
+          "relative_path": "t5/a1-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "5e5b2cb5237b10088ba3b5e927569dcedf4a256d401e3a86cec27888c6658231",
+          "relative_path": "t5/a1-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "dd06e3d8d4ba46d7551e0b7112b50df2a33a9819c9c08fc7beddcd036433fc78",
+          "relative_path": "t5/a1-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "650fb2e22c0fb65ccee123e0a4164d3594778a708e1c67308d152c5d17836f13",
+          "relative_path": "t5/a1-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t5-c-a2-a3-a4-a5-a6",
+      "coalition_id": "a2-a3-a4-a5-a6",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "44b2b541a0686114eed879e7d77cbd6e22bff9def81d324148b87fc45db32c69",
+          "relative_path": "t5/a2-a3-a4-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "24af4381576518ec58941c47fe5cd062ec276751c6a075b70f72f32a4bf0d806",
+          "relative_path": "t5/a2-a3-a4-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "9c51ec95ce98cd0be5c2159a06efeaf027371fba1f2c41b919fb8dffcd484ae4",
+          "relative_path": "t5/a2-a3-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "0935886dc5dcf11c452a3175bbce1fac9bc32854dd20f2ca39bba52cb8a1dc48",
+          "relative_path": "t5/a2-a3-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "44aecaf09881d84eed909d8ed59c272338f09dfe97902d1dd185b62e82b63dd8",
+          "relative_path": "t5/a2-a3-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a2-a3-a4-a5-a7",
+      "coalition_id": "a2-a3-a4-a5-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "861c563db08e1cf9af29d986a31b3113d82a51b881a0fbf833a45dcc83d63664",
+          "relative_path": "t5/a2-a3-a4-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "ad32fd44c08f5155c8187c8aa28ff1b846a1758306fe41c624d890b99715b33d",
+          "relative_path": "t5/a2-a3-a4-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "b37e94707a0a01b134c504f54fc385d55f1fab16eddbfeff5d0c9a846fcb71d5",
+          "relative_path": "t5/a2-a3-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "2f7beb829d6e460e5bc1c2240a515c384e06eefd1b5cb50ab75c8fa9c9ccf85b",
+          "relative_path": "t5/a2-a3-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "c977cb0380f759bbd33d211e3afb60bd02f7cb0c9c40daa47c6db1d02e7eecb2",
+          "relative_path": "t5/a2-a3-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a2-a3-a4-a6-a7",
+      "coalition_id": "a2-a3-a4-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "8eb9454413d20bf1feb2802c71824122671ceba4da909eec04418454e7f15abb",
+          "relative_path": "t5/a2-a3-a4-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "259112dd5bceb75cd1535284aeb33ed585a01453a8c4a09fd5984dcf9b2d5047",
+          "relative_path": "t5/a2-a3-a4-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "cebe4564be7616d792fe28271c0c99d9084cf00af5f5d05cb73df08d594278ac",
+          "relative_path": "t5/a2-a3-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "9ff22316d8576e3f7e48230e9a72a6cf7bcacbb95d320475813faae8047f648b",
+          "relative_path": "t5/a2-a3-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "1940f554f9c59099c45f142708cf80078edcdec7df82d2d5dcefee5ab6f42200",
+          "relative_path": "t5/a2-a3-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a2-a3-a5-a6-a7",
+      "coalition_id": "a2-a3-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "bf0aa31c02f69210ad8bb96e9573a8dd141ea7522c2074135f6a9adbae1574fb",
+          "relative_path": "t5/a2-a3-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "8e614ba66da7aecb359d848f59a7b701fa16cb248347f4820ef317c4556ecda4",
+          "relative_path": "t5/a2-a3-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "c6fa32b8f3f881b157078af3e92517d2a4de0f3c1f0bb3b3db28cbbdfcb8635b",
+          "relative_path": "t5/a2-a3-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "cc7f835cbcbe4d98129f3610bf8c1e05113ec9c005a08df46482c669a150f0a5",
+          "relative_path": "t5/a2-a3-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "96b0267cda8f4d967de8cf67ea2bdbef5e66216bad86a105c7bc97b9b0084ffc",
+          "relative_path": "t5/a2-a3-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a2",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a2-a4-a5-a6-a7",
+      "coalition_id": "a2-a4-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213111,
+          "file_hash": "ccc548eb1775b3ccc0fec85cae5108713e9f400be6115fb2575aea24b6dae560",
+          "relative_path": "t5/a2-a4-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "cb92ddc2058a438cc92867bcb81019a9dbe14003f247634b9c50d0ff459a98bb",
+          "relative_path": "t5/a2-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "cde8f2025b79d0b4778effa175c367a74479b260f706aed2008e83d08b5bf32b",
+          "relative_path": "t5/a2-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "eaf70eab635623d102ce29c1c15b2422639a81e26e3d8e61bbf79c9d5839ce39",
+          "relative_path": "t5/a2-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "523482647593d817dbcc5e49e2c562b398d1e62b5e874920adb881e274a56992",
+          "relative_path": "t5/a2-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t5-c-a3-a4-a5-a6-a7",
+      "coalition_id": "a3-a4-a5-a6-a7",
+      "coalition_size": 5,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213111,
+          "file_hash": "676be38657a94f1219f289cfeab517f8981f12894fc402229519f46fb163b1b3",
+          "relative_path": "t5/a3-a4-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213111,
+          "file_hash": "975eac823ae3976eff77798a0b7b5fd6bb550834b2989570ed8a00e692d510d2",
+          "relative_path": "t5/a3-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213111,
+          "file_hash": "103869e077f078b72f6d4528ec0a2d80c866982e9e9885137e42b26bea70c14f",
+          "relative_path": "t5/a3-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213111,
+          "file_hash": "04879be8a96269b094f62362fb479c626a6309e7aa258554eafcd1164ec879ef",
+          "relative_path": "t5/a3-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213111,
+          "file_hash": "5e6e19a375ef2bb8f83bb1d208105c14f697d1a3cdaa8595fed6839150c90e4e",
+          "relative_path": "t5/a3-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 5
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6"
+      ],
+      "clause_id": "distributed-t6-c-a1-a2-a3-a4-a5-a6",
+      "coalition_id": "a1-a2-a3-a4-a5-a6",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "7c3ef8d01207e4e4b4de05c2a3607781e3c0df8324bde6e30eb8c17f25f15cc7",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "4f9c6bfc5686daa40f27838bc4f50e2dcc6f0c0bb7f9e97a3dd85709abd19d4d",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "c542356b7d58399d1872a68e6a9f663e04af65028ebea4cd1105a9c59ed4a6b0",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "1bfd04d8147a07ab8bb2516fd6d323456a4d645eef32c7917faba2b871ee8cbe",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "df92d96b620587c530df6befe8649b8daaa1c58d38ed50ee77f840d16d31f305",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "8594ebe05c58caf1b098941abbd107a5aa6e9b285b80c231606ea1dc32ee058f",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a6/a6.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a1-a2-a3-a4-a5-a7",
+      "coalition_id": "a1-a2-a3-a4-a5-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "07d39a046bb898483b6beb4f7400824a9bc0075b6c3f79afa89dde5e9f33e115",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "2ce4a17b6853e55292f5d313837c7d608f596a925285724957f4c5b8b9cc903c",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "7eebd1cb6cbc70c9e469e9b3ecc1582d79aafb473849300556a517588dd360de",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "34bdd2699deb20006edcf60c9d0ccbb473979755a3a86cc04119a4ef53c2f1bc",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "5aee8c936860e76f3338e8b73ab4a5e0d97132f54efec67e83beb10e31ec36e9",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "97e67929ad0488d50a662c329e77f581d6e29bd41d311d9bd51b2565c5d4d3a1",
+          "relative_path": "t6/a1-a2-a3-a4-a5-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a1-a2-a3-a4-a6-a7",
+      "coalition_id": "a1-a2-a3-a4-a6-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "90df14d115888108013820568d7d0c5357e1d648abf8cf302091fbeb05ea066d",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "92b828318605c9381c24bcf6aeed50967719750fc340779431eb98e0b518f156",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "110ad49461c7ceffdb31e8d07bb89deebb103f737ac5f754e9e29dafeffb9395",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "98c1ffaefb2f4b7115b426f482395dd3b6137ec94fef662ed1b216e472877602",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "7dcca0509d2550cb190f4184b9999739d81206c4e0e757bf3efd29f4625c1855",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "c484022cc782e0a781fdcaae35e210a607f366dc44b061626db795fd4e243cc7",
+          "relative_path": "t6/a1-a2-a3-a4-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a1-a2-a3-a5-a6-a7",
+      "coalition_id": "a1-a2-a3-a5-a6-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "b131c61c2d336e9a27e8853ab75a609e03f3de348f343fcbc7eaff6ad381d86d",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "1b9aab04628909de10dd84add6b5858ab389151878b6e2f54ae16e2b50840524",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "c36def560ec20ecb574b64cc0c2050e6f0572f615437e319a485591ddfaad41d",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "b8d776f2d2207495e1ed1c54f13cffb3e09f3ef70e8afaa891ec4c94e63fe433",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "70fb80b3610bbf99e5c3cee5944d0a3e0895f8a4663cfa88807597cdbb8f7743",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "01940f0d7ca2bf0215ba8039a1d937691ca415ea53bc934f3b2f556710b26aa2",
+          "relative_path": "t6/a1-a2-a3-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a1-a2-a4-a5-a6-a7",
+      "coalition_id": "a1-a2-a4-a5-a6-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "4bdf17319572df26a35beff749bdb82d52bbaad4d732d0c716a8775eb458fa2a",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "91250cca3ce706fb0eb964dce2431e4a6275f3b967894d2dc6ad1fc060441fbb",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "b07dde53ec9b1e940804cd1abcf8b462b7ac7614aabc40fdf38f661f2e2bcf84",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "c0af4376e6a6ca29147cf2d2b197c5b7f3dd4dff268542c0efcb010ac67f7ce3",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "c46ff34fbde950872ccd34de15157df6202e9a1c63b63aef82193bdaa72b7058",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "d1d4a798cce78f7f63e5742c594a9af84d88cd2a3ac8c365d3c2315dc78e549e",
+          "relative_path": "t6/a1-a2-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a1-a3-a4-a5-a6-a7",
+      "coalition_id": "a1-a3-a4-a5-a6-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213118,
+          "file_hash": "1a0a22fd4a2953691e39b2f8105666debb4a4f75836d30dd6a85ee51797f544c",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "946cd403f1cc01a488baf832e45e86a9895074130c10eccae7f6cc44b9800e80",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "be7571be82976adfa3fede3d2af38c68431c4ebe2851532bc644551d74552e43",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "a7c142cf37c2e74f61e93844154eff1e53170fcce3a063e83eca5bf89bec92bd",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "a65ad44eab7bc5d0fc5c981383efca3e97a116ffea9cc1c4cc6208abc93f16cd",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "dab8528d35eab5c7eb9cb16df75c13751daf8331e21bf9de58cf28a4fd5989e8",
+          "relative_path": "t6/a1-a3-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t6-c-a2-a3-a4-a5-a6-a7",
+      "coalition_id": "a2-a3-a4-a5-a6-a7",
+      "coalition_size": 6,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213118,
+          "file_hash": "4f10a465b8355baedf86440e1a4016ea4746c95a26c83ae64b253db78b8e2332",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213118,
+          "file_hash": "9c6ff08642298697f0051493c44fbd7c5c1d24094d3d0c3586f1b64a99645caf",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213118,
+          "file_hash": "e86a9a29c8432b367a816fd175921aa98c06403085ba64b54511b6274d22bbcb",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213118,
+          "file_hash": "053b6561657534bb6c52260fb6a1350303a54df901e9c60d2152813436c3f5a4",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213118,
+          "file_hash": "938e393bba952c5c6ab9396ee951b4ef1d90481974a699c7570e4976d97a7a1e",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213118,
+          "file_hash": "ec38edaa74b7584a76c91944f5f3b3d8f1a3292551269a40d3e922322012427a",
+          "relative_path": "t6/a2-a3-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 6
+    },
+    {
+      "authorities": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7"
+      ],
+      "clause_id": "distributed-t7-c-a1-a2-a3-a4-a5-a6-a7",
+      "coalition_id": "a1-a2-a3-a4-a5-a6-a7",
+      "coalition_size": 7,
+      "eligible_authorities": 7,
+      "epoch": 1,
+      "share_version": 1,
+      "shares": [
+        {
+          "authority_id": "a1",
+          "encoded_bytes": 213125,
+          "file_hash": "4bf470d5d440b394dd4ef80bc2aad4a7712da78928f208d9ef2048a5784bc737",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a1.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a2",
+          "encoded_bytes": 213125,
+          "file_hash": "039ba9661a7342867334949dab9c1b27627f1dd7a9076f4d88f75b40bc7fcb03",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a2.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a3",
+          "encoded_bytes": 213125,
+          "file_hash": "3631e9c099798e62c83bbb82431ce08548e2b1b42033952a22aeeb237e973b5c",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a3.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a4",
+          "encoded_bytes": 213125,
+          "file_hash": "bc61c10f1eb895ddb6614578da3b459f68c710bc0691f758558a36dd65b6c531",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a4.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a5",
+          "encoded_bytes": 213125,
+          "file_hash": "42f6e53f630118ac90af829d26492889196bf0fb5e66df995d43b7c31118a6fc",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a5.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a6",
+          "encoded_bytes": 213125,
+          "file_hash": "fc991ebcf40b1f793bce3cfb72443034fa69275957fe8fcad8171d9c516bbc2b",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a6.lwr",
+          "secret_vector_bytes": 212992
+        },
+        {
+          "authority_id": "a7",
+          "encoded_bytes": 213125,
+          "file_hash": "acc50fdf3cd5695cf3baa15543e423474b0f760503b5723ae07859ae603557e9",
+          "relative_path": "t7/a1-a2-a3-a4-a5-a6-a7/a7.lwr",
+          "secret_vector_bytes": 212992
+        }
+      ],
+      "threshold": 7
+    }
+  ],
+  "encrypted_at_rest": false,
+  "integrity_mechanism": "SHAKE256 embedded checksum plus domain-separated SHA3-256 manifest hash",
+  "lab_only": true,
+  "maximum_threshold": 7,
+  "minimum_threshold": 1,
+  "schema": "astra-pq-lwr-enumerated-coalition-provisioning-v2",
+  "selection_model": "runtime selection among preprovisioned exact coalitions",
+  "share_file_count": 448,
+  "single_share_t_of_n": false
+}

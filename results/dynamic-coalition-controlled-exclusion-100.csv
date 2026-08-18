@@ -1,0 +1,6 @@
+"excluded_authority_count","excluded_authorities","selected_coalition","successes","selection_median_us","selection_p95_us","authorization_median_us","authorization_p95_us","slowest_rtt_median_us","response_bytes_mean"
+0,"","a1+a2+a3",100,1498,1879,2380,3104,1540,38767.84
+1,"a1","a2+a3+a4",100,1426,1936,2036,2778,1273,38746.04
+2,"a1+a2","a3+a4+a5",100,1194,1708,2088,2650,1311,38732.32
+3,"a1+a2+a3","a4+a5+a6",100,1086,1593,1989,3057,1236,38746.87
+4,"a1+a2+a3+a4","a5+a6+a7",100,1061,1428,1938,2911,1223,38745.51

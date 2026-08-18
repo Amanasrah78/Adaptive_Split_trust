@@ -1,0 +1,2 @@
+Error: no policy-compliant coalition is reachable: threshold=7, reachable=6
+client_exit_code=1
