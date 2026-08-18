@@ -16,6 +16,9 @@ use astra_common::{
     hash_domain_separated,
 };
 use astra_dprf::{ClausePolicy, DprfBackend, EvaluationRequest, lwr::LwrExactCoalitionBackend};
+use astra_governance::{
+    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+};
 use astra_pqcrypto::PqProvider;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -26,7 +29,7 @@ use std::io::{Read, Write};
 use std::net::{SocketAddr, TcpStream};
 use std::path::PathBuf;
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 const WIRE_SCHEMA: &str = "astra-pq-authority-wire-v1";
 const REPORT_SCHEMA: &str = "astra-pq-distributed-authorization-v1";
@@ -64,13 +67,30 @@ fn main() -> anyhow::Result<()> {
     );
     anyhow::ensure!(repetitions >= 1, "repetitions must be positive");
     let gateway_id = required_environment("ASTRA_GATEWAY_ID")?;
-    let checkpoint = parse_digest32(&required_environment("ASTRA_APPROVED_CHECKPOINT_HASH")?)?;
+    let governance_path = PathBuf::from(required_environment("ASTRA_GOVERNANCE_BUNDLE")?);
     let endpoints = parse_endpoints(&required_environment("ASTRA_AUTHORITY_ENDPOINTS")?)?;
     let gateway_secret_path = PathBuf::from(required_environment("ASTRA_GATEWAY_SIGNING_KEY")?);
     let gateway_public_path = PathBuf::from(required_environment("ASTRA_GATEWAY_PUBLIC_KEY")?);
     let authority_key_root =
         PathBuf::from(required_environment("ASTRA_AUTHORITY_PUBLIC_KEY_ROOT")?);
     let provider = PqProvider::new().context("initialize post-quantum provider")?;
+    let governance_bundle: GovernanceBundle = serde_json::from_slice(
+        &fs::read(&governance_path)
+            .with_context(|| format!("read {}", governance_path.display()))?,
+    )
+    .context("decode governance bundle")?;
+    let governance_state = validate_bundle(
+        &provider,
+        &LocalGovernanceState::default(),
+        &governance_bundle,
+        unix_time()?,
+    )
+    .context("validate off-path governance bundle")?;
+    anyhow::ensure!(
+        governance_bundle.checkpoint.epoch == EPOCH,
+        "governance epoch differs from provisioned LWR epoch"
+    );
+    let checkpoint = governance_state.checkpoint_hash;
     let gateway_secret = provider.import_signature_secret_key(
         fs::read(&gateway_secret_path)
             .with_context(|| format!("read {}", gateway_secret_path.display()))?,
@@ -113,6 +133,14 @@ fn main() -> anyhow::Result<()> {
     let backend = LwrExactCoalitionBackend;
 
     for run in 1..=repetitions {
+        anyhow::ensure!(
+            checkpoint_is_fresh(
+                &governance_state,
+                &governance_bundle.checkpoint,
+                unix_time()?
+            ),
+            "cached governance checkpoint is stale"
+        );
         let total_start = Instant::now();
         let context = experiment_context(run, threshold, checkpoint, invocation_nonce);
         let input = authorization_input(&context, &policy_hash)?;
@@ -204,6 +232,8 @@ fn main() -> anyhow::Result<()> {
             "gateway_id": gateway_id,
             "authority_ids": authority_ids,
             "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
+            "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
+            "live_iota_claim": false,
             "gateway_request_authentication": "ML-DSA-65",
             "authority_evidence_signature": "ML-DSA-65",
             "dprf_backend": backend.backend_id(),
@@ -373,22 +403,6 @@ fn write_frame(stream: &mut TcpStream, encoded: &[u8]) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn parse_digest32(encoded: &str) -> anyhow::Result<Digest32> {
-    anyhow::ensure!(
-        encoded.len() == 64,
-        "checkpoint hash must contain 64 hex digits"
-    );
-    let mut bytes = [0_u8; 32];
-    for (index, destination) in bytes.iter_mut().enumerate() {
-        let offset = index * 2;
-        *destination = u8::from_str_radix(&encoded[offset..offset + 2], 16)
-            .context("checkpoint hash is not hexadecimal")?;
-    }
-    let digest = Digest32::from_bytes(bytes);
-    anyhow::ensure!(!digest.is_zero(), "checkpoint hash must not be zero");
-    Ok(digest)
-}
-
 fn required_usize(name: &str) -> anyhow::Result<usize> {
     required_environment(name)?
         .parse::<usize>()
@@ -399,4 +413,11 @@ fn required_environment(name: &str) -> anyhow::Result<String> {
     let value = env::var(name).with_context(|| format!("missing {name}"))?;
     anyhow::ensure!(!value.trim().is_empty(), "{name} is empty");
     Ok(value)
+}
+
+fn unix_time() -> anyhow::Result<u64> {
+    Ok(SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .context("system clock precedes Unix epoch")?
+        .as_secs())
 }

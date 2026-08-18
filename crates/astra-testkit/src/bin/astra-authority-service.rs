@@ -15,6 +15,9 @@ use astra_authority::{
 };
 use astra_common::Digest32;
 use astra_dprf::lwr::{LwrExactCoalitionBackend, LwrExactCoalitionShare};
+use astra_governance::{
+    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+};
 use astra_pqcrypto::{PqProvider, SecretBytes};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -24,7 +27,7 @@ use std::fs;
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::path::{Path, PathBuf};
-use std::time::{Duration, Instant};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use zeroize::Zeroizing;
 
 const WIRE_SCHEMA: &str = "astra-pq-authority-wire-v1";
@@ -47,6 +50,8 @@ struct ServiceState {
     active_epoch: u64,
     share_version: u64,
     approved_checkpoint: Digest32,
+    governance_bundle: GovernanceBundle,
+    governance_state: LocalGovernanceState,
     provider: PqProvider,
     backend: LwrExactCoalitionBackend,
     signing_key: SecretBytes,
@@ -60,10 +65,8 @@ impl ServiceState {
     fn load() -> anyhow::Result<Self> {
         let authority_id = required_environment("ASTRA_AUTHORITY_ID")?;
         validate_identifier(&authority_id, "authority identifier")?;
-        let active_epoch = required_u64("ASTRA_ACTIVE_EPOCH")?;
         let share_version = required_u64("ASTRA_SHARE_VERSION")?;
-        let approved_checkpoint =
-            parse_digest32(&required_environment("ASTRA_APPROVED_CHECKPOINT_HASH")?)?;
+        let governance_path = PathBuf::from(required_environment("ASTRA_GOVERNANCE_BUNDLE")?);
         let share_root = PathBuf::from(required_environment("ASTRA_LWR_SHARE_ROOT")?);
         let signing_secret_path =
             PathBuf::from(required_environment("ASTRA_AUTHORITY_SIGNING_KEY")?);
@@ -72,6 +75,28 @@ impl ServiceState {
         let gateway_key_root =
             PathBuf::from(required_environment("ASTRA_GATEWAY_PUBLIC_KEY_ROOT")?);
         let provider = PqProvider::new().context("initialize post-quantum provider")?;
+        let governance_bundle: GovernanceBundle = serde_json::from_slice(
+            &fs::read(&governance_path)
+                .with_context(|| format!("read {}", governance_path.display()))?,
+        )
+        .context("decode governance bundle")?;
+        let governance_state = validate_bundle(
+            &provider,
+            &LocalGovernanceState::default(),
+            &governance_bundle,
+            unix_time()?,
+        )
+        .context("validate off-path governance bundle")?;
+        anyhow::ensure!(
+            checkpoint_is_fresh(
+                &governance_state,
+                &governance_bundle.checkpoint,
+                unix_time()?
+            ),
+            "governance bundle is stale"
+        );
+        let active_epoch = governance_bundle.checkpoint.epoch;
+        let approved_checkpoint = governance_state.checkpoint_hash;
 
         let secret_bytes = fs::read(&signing_secret_path)
             .with_context(|| format!("read {}", signing_secret_path.display()))?;
@@ -111,6 +136,8 @@ impl ServiceState {
             active_epoch,
             share_version,
             approved_checkpoint,
+            governance_bundle,
+            governance_state,
             provider,
             backend: LwrExactCoalitionBackend,
             signing_key,
@@ -125,6 +152,14 @@ impl ServiceState {
         &mut self,
         signed: &SignedAuthorityRequest,
     ) -> anyhow::Result<SignedPartialEvidence> {
+        anyhow::ensure!(
+            checkpoint_is_fresh(
+                &self.governance_state,
+                &self.governance_bundle.checkpoint,
+                unix_time()?
+            ),
+            "cached governance checkpoint is stale"
+        );
         let gateway_public_key = self
             .gateway_public_keys
             .get(&signed.gateway_id)
@@ -315,22 +350,6 @@ fn parse_threshold(clause_id: &str) -> anyhow::Result<u16> {
     Ok(value)
 }
 
-fn parse_digest32(encoded: &str) -> anyhow::Result<Digest32> {
-    anyhow::ensure!(
-        encoded.len() == 64,
-        "checkpoint hash must contain 64 hex digits"
-    );
-    let mut bytes = [0_u8; 32];
-    for (index, destination) in bytes.iter_mut().enumerate() {
-        let offset = index * 2;
-        *destination = u8::from_str_radix(&encoded[offset..offset + 2], 16)
-            .context("checkpoint hash is not hexadecimal")?;
-    }
-    let digest = Digest32::from_bytes(bytes);
-    anyhow::ensure!(!digest.is_zero(), "checkpoint hash must not be zero");
-    Ok(digest)
-}
-
 fn validate_identifier(value: &str, description: &str) -> anyhow::Result<()> {
     anyhow::ensure!(
         !value.is_empty() && value.len() <= 256 && !value.chars().any(char::is_control),
@@ -351,4 +370,11 @@ fn required_u64(name: &str) -> anyhow::Result<u64> {
         .with_context(|| format!("parse {name} as an integer"))?;
     anyhow::ensure!(value > 0, "{name} must be positive");
     Ok(value)
+}
+
+fn unix_time() -> anyhow::Result<u64> {
+    Ok(SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .context("system clock precedes Unix epoch")?
+        .as_secs())
 }
