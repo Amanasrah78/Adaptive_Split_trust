@@ -11,6 +11,10 @@ use astra_common::{
 use astra_dprf::{
     ClausePolicy, DprfBackend, DprfError, EvaluationRequest, PartialEvaluation, validate_and_select,
 };
+use astra_governance::{
+    GovernanceCheckpoint, GovernanceError, LocalGovernanceState, checkpoint_hash,
+    checkpoint_is_fresh,
+};
 use astra_pqcrypto::{CryptoError, PqProvider, SecretBytes, derive_session_key};
 use astra_synthesizer::{AuthorizationStructure, DistinctBy, SynthesisResult};
 use sha3::{Digest, Sha3_256};
@@ -60,6 +64,12 @@ pub struct SessionEstablishmentRequest<'a> {
     pub kem_secret: &'a SecretBytes,
     /// Authenticated pre-handshake transcript.
     pub authenticated_transcript: &'a [u8],
+    /// Rollback-protected state for the locally activated checkpoint.
+    pub governance_state: &'a LocalGovernanceState,
+    /// Locally cached checkpoint bundle.
+    pub governance_checkpoint: &'a GovernanceCheckpoint,
+    /// Current trusted Unix time.
+    pub now: u64,
 }
 
 /// Verifies signed evidence and combines every required MT-CNF clause.
@@ -184,6 +194,12 @@ pub fn establish_session<B: DprfBackend>(
     backend: &B,
     request: SessionEstablishmentRequest<'_>,
 ) -> Result<EstablishedSession, GatewayError> {
+    validate_cached_governance(
+        request.context,
+        request.governance_state,
+        request.governance_checkpoint,
+        request.now,
+    )?;
     let authorization = combine_authorization(
         provider,
         backend,
@@ -204,6 +220,27 @@ pub fn establish_session<B: DprfBackend>(
         authorization_input: authorization.authorization_input,
         contributors: authorization.contributors,
     })
+}
+
+/// Enforces epoch, digest, and bounded-staleness checks on cached governance.
+pub fn validate_cached_governance(
+    context: &SessionContext,
+    state: &LocalGovernanceState,
+    checkpoint: &GovernanceCheckpoint,
+    now: u64,
+) -> Result<(), GatewayError> {
+    let digest = checkpoint_hash(checkpoint)?;
+    if context.epoch != checkpoint.epoch
+        || state.highest_epoch != checkpoint.epoch
+        || context.checkpoint_hash != digest
+        || state.checkpoint_hash != digest
+    {
+        return Err(GatewayError::GovernanceContextMismatch);
+    }
+    if !checkpoint_is_fresh(state, checkpoint, now) {
+        return Err(GatewayError::StaleGovernanceCheckpoint);
+    }
+    Ok(())
 }
 
 fn validate_structure(
@@ -268,6 +305,9 @@ pub enum GatewayError {
     /// Post-quantum key establishment failed.
     #[error(transparent)]
     Crypto(#[from] CryptoError),
+    /// Off-path governance object validation failed.
+    #[error(transparent)]
+    Governance(#[from] GovernanceError),
     /// The synthesized structure is malformed or inconsistent with the context.
     #[error("invalid synthesized authorization structure")]
     InvalidAuthorizationStructure,
@@ -302,6 +342,12 @@ pub enum GatewayError {
     /// No governed ML-DSA verification key exists for the authority.
     #[error("missing verification key for authority {0}")]
     MissingVerificationKey(String),
+    /// Session context and locally activated checkpoint differ.
+    #[error("session context does not match the activated governance checkpoint")]
+    GovernanceContextMismatch,
+    /// The bounded offline-use window for the checkpoint has elapsed.
+    #[error("cached governance checkpoint has expired")]
+    StaleGovernanceCheckpoint,
 }
 
 #[cfg(test)]
@@ -492,6 +538,37 @@ mod tests {
         assert_eq!(
             result.authorization_input,
             authorization_input(&context, &synthesis.policy_hash).unwrap()
+        );
+    }
+
+    #[test]
+    fn cached_governance_expires_at_the_configured_boundary() {
+        let mut context = context();
+        let checkpoint = GovernanceCheckpoint {
+            protocol_version: PROTOCOL_VERSION,
+            epoch: context.epoch,
+            predecessor_hash: Digest32::from_bytes([8; 32]),
+            epoch_randomness: Digest32::from_bytes([1; 32]),
+            registry_root: Digest32::from_bytes([2; 32]),
+            independence_root: Digest32::from_bytes([3; 32]),
+            policy_root: Digest32::from_bytes([4; 32]),
+            revocation_root: Digest32::from_bytes([5; 32]),
+            parameters_root: Digest32::from_bytes([6; 32]),
+            activation_time: 1_700_000_000,
+            maximum_age: 60,
+        };
+        let digest = checkpoint_hash(&checkpoint).unwrap();
+        context.checkpoint_hash = digest;
+        let state = LocalGovernanceState {
+            highest_epoch: context.epoch,
+            checkpoint_hash: digest,
+            validated_at: 1_700_000_010,
+            object_version: 9,
+        };
+        validate_cached_governance(&context, &state, &checkpoint, 1_700_000_070).unwrap();
+        assert_eq!(
+            validate_cached_governance(&context, &state, &checkpoint, 1_700_000_071),
+            Err(GatewayError::StaleGovernanceCheckpoint)
         );
     }
 }

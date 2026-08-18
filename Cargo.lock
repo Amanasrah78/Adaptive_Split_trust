@@ -51,6 +51,7 @@ dependencies = [
  "astra-authority",
  "astra-common",
  "astra-dprf",
+ "astra-governance",
  "astra-pqcrypto",
  "astra-synthesizer",
  "sha3",
