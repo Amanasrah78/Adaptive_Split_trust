@@ -17,7 +17,7 @@ use shake::{
 };
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
-use zeroize::{Zeroize, ZeroizeOnDrop};
+use zeroize::{Zeroize, ZeroizeOnDrop, Zeroizing};
 
 /// LWR key-vector dimension from the concrete paper profile.
 pub const LWR_DIMENSION: usize = 1024;
@@ -33,6 +33,9 @@ const PARTIAL_BYTES: usize = PARALLEL_INSTANCES * 8;
 const Q1_MASK: u64 = (1_u64 << PARTIAL_BITS) - 1;
 const P_MASK: u64 = (1_u64 << OUTPUT_BITS) - 1;
 const HASH_TO_VECTOR_LABEL: &[u8] = b"ASTRA-PQ-LWR-H2V-v1";
+const PROVISIONING_MAGIC: &[u8; 8] = b"ASTRALW1";
+const PROVISIONING_CHECKSUM_LABEL: &[u8] = b"ASTRA-PQ-LWR-PROVISIONING-v1";
+const PROVISIONING_CHECKSUM_BYTES: usize = 32;
 
 /// Public description of the concrete experimental parameter set.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -94,6 +97,193 @@ impl LwrExactCoalitionShare {
     pub fn coalition(&self) -> &[String] {
         &self.coalition
     }
+
+    /// Encodes this secret share for controlled offline lab provisioning.
+    ///
+    /// The returned buffer is zeroized on drop and includes corruption
+    /// detection, but it is not encrypted or authenticated. It must be
+    /// transferred over an authenticated administrative channel and stored in
+    /// a file readable only by the authority account.
+    pub fn export_lab_provisioning(&self) -> Result<Zeroizing<Vec<u8>>, DprfError> {
+        let coalition_count = u16::try_from(self.coalition.len())
+            .map_err(|_| backend_error("coalition count does not fit provisioning format"))?;
+        let word_count = u32::try_from(self.words.len())
+            .map_err(|_| backend_error("word count does not fit provisioning format"))?;
+        let mut encoded = Zeroizing::new(Vec::with_capacity(
+            TOTAL_WORDS * 8 + self.coalition.len() * 32 + 256,
+        ));
+        encoded.extend_from_slice(PROVISIONING_MAGIC);
+        encode_text(&mut encoded, &self.authority_id)?;
+        encode_text(&mut encoded, &self.clause_id)?;
+        encoded.extend_from_slice(&self.epoch.to_be_bytes());
+        encoded.extend_from_slice(&self.share_version.to_be_bytes());
+        encoded.extend_from_slice(&coalition_count.to_be_bytes());
+        for authority in &self.coalition {
+            encode_text(&mut encoded, authority)?;
+        }
+        encoded.extend_from_slice(&word_count.to_be_bytes());
+        for word in &self.words {
+            encoded.extend_from_slice(&word.to_be_bytes());
+        }
+        let checksum = provisioning_checksum(&encoded);
+        encoded.extend_from_slice(&checksum);
+        Ok(encoded)
+    }
+
+    /// Decodes a secret share delivered through the controlled lab
+    /// provisioning channel.
+    pub fn import_lab_provisioning(encoded: &[u8]) -> Result<Self, DprfError> {
+        if encoded.len() <= PROVISIONING_CHECKSUM_BYTES {
+            return Err(backend_error("truncated LWR provisioning object"));
+        }
+        let payload_length = encoded.len() - PROVISIONING_CHECKSUM_BYTES;
+        let (payload, supplied_checksum) = encoded.split_at(payload_length);
+        let expected_checksum = provisioning_checksum(payload);
+        if !constant_time_equal(supplied_checksum, &expected_checksum) {
+            return Err(backend_error("LWR provisioning checksum mismatch"));
+        }
+
+        let mut reader = ProvisioningReader::new(payload);
+        if reader.read_exact(PROVISIONING_MAGIC.len())? != PROVISIONING_MAGIC {
+            return Err(backend_error("invalid LWR provisioning format"));
+        }
+        let authority_id = reader.read_text()?;
+        let clause_id = reader.read_text()?;
+        let epoch = reader.read_u64()?;
+        let share_version = reader.read_u64()?;
+        let coalition_count = usize::from(reader.read_u16()?);
+        if !(1..=32).contains(&coalition_count) {
+            return Err(backend_error("invalid provisioned coalition size"));
+        }
+        let coalition = (0..coalition_count)
+            .map(|_| reader.read_text())
+            .collect::<Result<Vec<_>, _>>()?;
+        let word_count = reader.read_u32()?;
+        if word_count != TOTAL_WORDS as u32 {
+            return Err(backend_error("unexpected provisioned LWR word count"));
+        }
+        let words = (0..TOTAL_WORDS)
+            .map(|_| reader.read_u64())
+            .collect::<Result<Vec<_>, _>>()?;
+        if !reader.is_empty() {
+            return Err(backend_error("trailing LWR provisioning data"));
+        }
+        validate_setup(&clause_id, epoch, share_version, &coalition)?;
+        if coalition.windows(2).any(|pair| pair[0] >= pair[1])
+            || coalition.binary_search(&authority_id).is_err()
+        {
+            return Err(backend_error("invalid provisioned coalition membership"));
+        }
+        Ok(Self {
+            authority_id,
+            clause_id,
+            epoch,
+            share_version,
+            coalition,
+            words,
+        })
+    }
+}
+
+struct ProvisioningReader<'a> {
+    encoded: &'a [u8],
+    offset: usize,
+}
+
+impl<'a> ProvisioningReader<'a> {
+    const fn new(encoded: &'a [u8]) -> Self {
+        Self { encoded, offset: 0 }
+    }
+
+    fn read_exact(&mut self, length: usize) -> Result<&'a [u8], DprfError> {
+        let end = self
+            .offset
+            .checked_add(length)
+            .ok_or_else(|| backend_error("provisioning length overflow"))?;
+        let value = self
+            .encoded
+            .get(self.offset..end)
+            .ok_or_else(|| backend_error("truncated LWR provisioning object"))?;
+        self.offset = end;
+        Ok(value)
+    }
+
+    fn read_u16(&mut self) -> Result<u16, DprfError> {
+        let bytes: [u8; 2] = self
+            .read_exact(2)?
+            .try_into()
+            .map_err(|_| backend_error("invalid provisioned u16"))?;
+        Ok(u16::from_be_bytes(bytes))
+    }
+
+    fn read_u32(&mut self) -> Result<u32, DprfError> {
+        let bytes: [u8; 4] = self
+            .read_exact(4)?
+            .try_into()
+            .map_err(|_| backend_error("invalid provisioned u32"))?;
+        Ok(u32::from_be_bytes(bytes))
+    }
+
+    fn read_u64(&mut self) -> Result<u64, DprfError> {
+        let bytes: [u8; 8] = self
+            .read_exact(8)?
+            .try_into()
+            .map_err(|_| backend_error("invalid provisioned u64"))?;
+        Ok(u64::from_be_bytes(bytes))
+    }
+
+    fn read_text(&mut self) -> Result<String, DprfError> {
+        let length = usize::from(self.read_u16()?);
+        if length == 0 || length > 256 {
+            return Err(backend_error("invalid provisioned text length"));
+        }
+        let bytes = self.read_exact(length)?;
+        let value = std::str::from_utf8(bytes)
+            .map_err(|_| backend_error("provisioned text is not UTF-8"))?;
+        if value.chars().any(char::is_control) {
+            return Err(backend_error(
+                "provisioned text contains control characters",
+            ));
+        }
+        Ok(value.to_owned())
+    }
+
+    const fn is_empty(&self) -> bool {
+        self.offset == self.encoded.len()
+    }
+}
+
+fn encode_text(encoded: &mut Vec<u8>, value: &str) -> Result<(), DprfError> {
+    let length = u16::try_from(value.len())
+        .map_err(|_| backend_error("text does not fit provisioning format"))?;
+    if value.is_empty() || value.len() > 256 || value.chars().any(char::is_control) {
+        return Err(backend_error("invalid provisioning text"));
+    }
+    encoded.extend_from_slice(&length.to_be_bytes());
+    encoded.extend_from_slice(value.as_bytes());
+    Ok(())
+}
+
+fn provisioning_checksum(encoded: &[u8]) -> [u8; PROVISIONING_CHECKSUM_BYTES] {
+    let mut hasher = Shake256::default();
+    hasher.update(PROVISIONING_CHECKSUM_LABEL);
+    hasher.update(encoded);
+    let mut reader = hasher.finalize_xof();
+    let mut checksum = [0_u8; PROVISIONING_CHECKSUM_BYTES];
+    reader.read(&mut checksum);
+    checksum
+}
+
+fn constant_time_equal(left: &[u8], right: &[u8]) -> bool {
+    if left.len() != right.len() {
+        return false;
+    }
+    left.iter()
+        .zip(right)
+        .fold(0_u8, |difference, (left_byte, right_byte)| {
+            difference | (left_byte ^ right_byte)
+        })
+        == 0
 }
 
 /// Static semi-honest LWR backend for one exact coalition per clause key.
@@ -436,6 +626,30 @@ mod tests {
         let direct = pack_256_bits(&direct_outputs);
         reconstructed_key.zeroize();
         assert_eq!(first.expose_secret(), &direct);
+    }
+
+    #[test]
+    fn lab_provisioning_round_trip_preserves_share() {
+        let authorities: Vec<String> = (1..=3).map(|index| format!("a{index}")).collect();
+        let shares = setup_exact_coalition("risk-floor:coalition-1", 7, 2, &authorities).unwrap();
+        let original = &shares["a2"];
+        let encoded = original.export_lab_provisioning().unwrap();
+        let imported = LwrExactCoalitionShare::import_lab_provisioning(&encoded).unwrap();
+        assert_eq!(imported.authority_id, original.authority_id);
+        assert_eq!(imported.clause_id, original.clause_id);
+        assert_eq!(imported.epoch, original.epoch);
+        assert_eq!(imported.share_version, original.share_version);
+        assert_eq!(imported.coalition, original.coalition);
+        assert_eq!(imported.words, original.words);
+    }
+
+    #[test]
+    fn corrupted_lab_provisioning_is_rejected() {
+        let authorities = vec!["a1".to_owned(), "a2".to_owned()];
+        let shares = setup_exact_coalition("risk-floor:coalition-1", 7, 2, &authorities).unwrap();
+        let mut encoded = shares["a1"].export_lab_provisioning().unwrap();
+        encoded[100] ^= 0x80;
+        assert!(LwrExactCoalitionShare::import_lab_provisioning(&encoded).is_err());
     }
 
     #[test]
