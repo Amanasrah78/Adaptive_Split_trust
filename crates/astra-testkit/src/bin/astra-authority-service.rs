@@ -417,8 +417,8 @@ fn load_shares(
             "provisioned LWR share belongs to another authority"
         );
         let clause_id = share.clause_id().to_owned();
-        let (_, clause_members) = parse_coalition_clause(&clause_id)
-            .context("provisioned LWR share has an unsupported coalition clause")?;
+        let (_, clause_members) = parse_supported_clause(&clause_id)
+            .context("provisioned LWR share has an unsupported clause")?;
         let share_members: Vec<&str> = share.coalition().iter().map(String::as_str).collect();
         anyhow::ensure!(
             clause_members == share_members,
@@ -452,8 +452,20 @@ fn collect_share_paths(root: &Path, paths: &mut Vec<PathBuf>) -> anyhow::Result<
     Ok(())
 }
 
+fn parse_supported_clause(clause_id: &str) -> anyhow::Result<(u16, Vec<&str>)> {
+    match clause_id {
+        "destination" => Ok((1, vec!["a2"])),
+        "risk-floor" => Ok((3, vec!["a1", "a2", "a3"])),
+        "source" => Ok((1, vec!["a1"])),
+        "safety" => Ok((1, vec!["a3"])),
+        "source-or-oversight" => Ok((1, vec!["a1"])),
+        "human-confirmation" => Ok((1, vec!["a4"])),
+        _ => parse_coalition_clause(clause_id),
+    }
+}
+
 fn parse_threshold(clause_id: &str) -> anyhow::Result<u16> {
-    Ok(parse_coalition_clause(clause_id)?.0)
+    Ok(parse_supported_clause(clause_id)?.0)
 }
 
 fn parse_coalition_clause(clause_id: &str) -> anyhow::Result<(u16, Vec<&str>)> {
@@ -532,6 +544,20 @@ mod tests {
         assert_eq!(members, vec!["a1", "a4", "a7"]);
     }
 
+    #[test]
+    fn normative_session_clauses_have_explicit_coalitions() {
+        assert_eq!(
+            parse_supported_clause("destination").unwrap(),
+            (1, vec!["a2"])
+        );
+        assert_eq!(
+            parse_supported_clause("risk-floor").unwrap(),
+            (3, vec!["a1", "a2", "a3"])
+        );
+        assert_eq!(parse_supported_clause("source").unwrap(), (1, vec!["a1"]));
+        assert_eq!(parse_supported_clause("safety").unwrap(), (1, vec!["a3"]));
+        assert!(parse_supported_clause("unsupported-session-clause").is_err());
+    }
     #[test]
     fn coalition_clause_parser_rejects_noncanonical_identifiers() {
         for clause_id in [
