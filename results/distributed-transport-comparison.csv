@@ -1,0 +1,8 @@
+"threshold","cold_total_median_us","persistent_total_median_us","median_reduction_percent","cold_total_p95_us","persistent_total_p95_us","p95_reduction_percent","cold_slowest_rtt_median_us","persistent_slowest_rtt_median_us","cold_slowest_processing_median_us","persistent_slowest_processing_median_us"
+1,1056,900,14.77,1778,1555,12.54,510,473,392,369
+2,4263,1349,68.36,5378,2391,55.54,3653,869,551,519
+3,2190,2002,8.58,3292,3436,-4.37,1473,1379,608,646
+4,2450,2159,11.88,3326,2740,17.62,1471,1502,662,668
+5,2802,2347,16.24,3324,2939,11.58,1757,1409,724,736
+6,3111,2662,14.43,3847,3160,17.86,1905,1569,822,739
+7,3414,2650,22.38,4023,3409,15.26,2086,1597,790,735

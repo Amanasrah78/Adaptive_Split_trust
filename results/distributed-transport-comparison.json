@@ -1,0 +1,99 @@
+{
+  "schema": "astra-pq-transport-comparison-v1",
+  "samples_per_threshold_per_profile": 100,
+  "cold_profile": "Fresh TCP connections included in each authorization measurement",
+  "persistent_profile": "Preconnected persistent TCP channels; connection setup excluded",
+  "thresholds": [
+    {
+      "threshold": 1,
+      "cold_total_median_us": 1056,
+      "persistent_total_median_us": 900,
+      "median_reduction_percent": 14.77,
+      "cold_total_p95_us": 1778,
+      "persistent_total_p95_us": 1555,
+      "p95_reduction_percent": 12.54,
+      "cold_slowest_rtt_median_us": 510,
+      "persistent_slowest_rtt_median_us": 473,
+      "cold_slowest_processing_median_us": 392,
+      "persistent_slowest_processing_median_us": 369
+    },
+    {
+      "threshold": 2,
+      "cold_total_median_us": 4263,
+      "persistent_total_median_us": 1349,
+      "median_reduction_percent": 68.36,
+      "cold_total_p95_us": 5378,
+      "persistent_total_p95_us": 2391,
+      "p95_reduction_percent": 55.54,
+      "cold_slowest_rtt_median_us": 3653,
+      "persistent_slowest_rtt_median_us": 869,
+      "cold_slowest_processing_median_us": 551,
+      "persistent_slowest_processing_median_us": 519
+    },
+    {
+      "threshold": 3,
+      "cold_total_median_us": 2190,
+      "persistent_total_median_us": 2002,
+      "median_reduction_percent": 8.58,
+      "cold_total_p95_us": 3292,
+      "persistent_total_p95_us": 3436,
+      "p95_reduction_percent": -4.37,
+      "cold_slowest_rtt_median_us": 1473,
+      "persistent_slowest_rtt_median_us": 1379,
+      "cold_slowest_processing_median_us": 608,
+      "persistent_slowest_processing_median_us": 646
+    },
+    {
+      "threshold": 4,
+      "cold_total_median_us": 2450,
+      "persistent_total_median_us": 2159,
+      "median_reduction_percent": 11.88,
+      "cold_total_p95_us": 3326,
+      "persistent_total_p95_us": 2740,
+      "p95_reduction_percent": 17.62,
+      "cold_slowest_rtt_median_us": 1471,
+      "persistent_slowest_rtt_median_us": 1502,
+      "cold_slowest_processing_median_us": 662,
+      "persistent_slowest_processing_median_us": 668
+    },
+    {
+      "threshold": 5,
+      "cold_total_median_us": 2802,
+      "persistent_total_median_us": 2347,
+      "median_reduction_percent": 16.24,
+      "cold_total_p95_us": 3324,
+      "persistent_total_p95_us": 2939,
+      "p95_reduction_percent": 11.58,
+      "cold_slowest_rtt_median_us": 1757,
+      "persistent_slowest_rtt_median_us": 1409,
+      "cold_slowest_processing_median_us": 724,
+      "persistent_slowest_processing_median_us": 736
+    },
+    {
+      "threshold": 6,
+      "cold_total_median_us": 3111,
+      "persistent_total_median_us": 2662,
+      "median_reduction_percent": 14.43,
+      "cold_total_p95_us": 3847,
+      "persistent_total_p95_us": 3160,
+      "p95_reduction_percent": 17.86,
+      "cold_slowest_rtt_median_us": 1905,
+      "persistent_slowest_rtt_median_us": 1569,
+      "cold_slowest_processing_median_us": 822,
+      "persistent_slowest_processing_median_us": 739
+    },
+    {
+      "threshold": 7,
+      "cold_total_median_us": 3414,
+      "persistent_total_median_us": 2650,
+      "median_reduction_percent": 22.38,
+      "cold_total_p95_us": 4023,
+      "persistent_total_p95_us": 3409,
+      "p95_reduction_percent": 15.26,
+      "cold_slowest_rtt_median_us": 2086,
+      "persistent_slowest_rtt_median_us": 1597,
+      "cold_slowest_processing_median_us": 790,
+      "persistent_slowest_processing_median_us": 735
+    }
+  ]
+}
