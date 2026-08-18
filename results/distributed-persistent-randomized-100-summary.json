@@ -1,0 +1,534 @@
+{
+  "schema": "astra-pq-distributed-persistent-summary-v1",
+  "total_samples": 700,
+  "connection_modes": [
+    "persistent-preconnected-excluded-from-timing"
+  ],
+  "thresholds": [
+    {
+      "threshold": 1,
+      "total_us": {
+        "samples": 100,
+        "minimum": 578,
+        "median": 900,
+        "p95": 1555,
+        "p99": 1978,
+        "maximum": 2258,
+        "mean": 989.42
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 395,
+        "median": 560,
+        "p95": 1070,
+        "p99": 1766,
+        "maximum": 1971,
+        "mean": 643.51
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 95,
+        "median": 204,
+        "p95": 541,
+        "p99": 828,
+        "maximum": 983,
+        "mean": 253.42
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 59,
+        "median": 68,
+        "p95": 85,
+        "p99": 94,
+        "maximum": 102,
+        "mean": 70.06
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 0,
+        "median": 0,
+        "p95": 1,
+        "p99": 3,
+        "maximum": 4,
+        "mean": 0.5
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 316,
+        "median": 473,
+        "p95": 989,
+        "p99": 1532,
+        "maximum": 1874,
+        "mean": 556.12
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 225,
+        "median": 369,
+        "p95": 895,
+        "p99": 1428,
+        "maximum": 1768,
+        "mean": 456.38
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 12812,
+        "median": 12905,
+        "p95": 12956,
+        "p99": 12993,
+        "maximum": 13006,
+        "mean": 12901.93
+      }
+    },
+    {
+      "threshold": 2,
+      "total_us": {
+        "samples": 100,
+        "minimum": 998,
+        "median": 1349,
+        "p95": 2391,
+        "p99": 3092,
+        "maximum": 3240,
+        "mean": 1477.8
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 689,
+        "median": 956,
+        "p95": 1577,
+        "p99": 2051,
+        "maximum": 2261,
+        "mean": 1012.12
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 96,
+        "median": 242,
+        "p95": 697,
+        "p99": 1356,
+        "maximum": 1736,
+        "mean": 302.19
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 117,
+        "median": 140,
+        "p95": 164,
+        "p99": 177,
+        "maximum": 191,
+        "mean": 140.34
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 0,
+        "median": 1,
+        "p95": 2,
+        "p99": 5,
+        "maximum": 25,
+        "mean": 1.22
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 610,
+        "median": 869,
+        "p95": 1507,
+        "p99": 1965,
+        "maximum": 2205,
+        "mean": 930.33
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 234,
+        "median": 519,
+        "p95": 1033,
+        "p99": 1466,
+        "maximum": 1602,
+        "mean": 568.77
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 25708,
+        "median": 25809,
+        "p95": 25898,
+        "p99": 25908,
+        "maximum": 25915,
+        "mean": 25816.59
+      }
+    },
+    {
+      "threshold": 3,
+      "total_us": {
+        "samples": 100,
+        "minimum": 1278,
+        "median": 2002,
+        "p95": 3436,
+        "p99": 4231,
+        "maximum": 5150,
+        "mean": 2140.36
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 894,
+        "median": 1498,
+        "p95": 2392,
+        "p99": 3487,
+        "maximum": 3986,
+        "mean": 1577.32
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 95,
+        "median": 239,
+        "p95": 744,
+        "p99": 1005,
+        "maximum": 1066,
+        "mean": 311.4
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 177,
+        "median": 208,
+        "p95": 289,
+        "p99": 590,
+        "maximum": 614,
+        "mean": 224.85
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 0,
+        "median": 1,
+        "p95": 2,
+        "p99": 4,
+        "maximum": 4,
+        "mean": 1.27
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 816,
+        "median": 1379,
+        "p95": 2165,
+        "p99": 2992,
+        "maximum": 3681,
+        "mean": 1445.79
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 273,
+        "median": 646,
+        "p95": 1399,
+        "p99": 1573,
+        "maximum": 1596,
+        "mean": 710.61
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 38586,
+        "median": 38721,
+        "p95": 38809,
+        "p99": 38827,
+        "maximum": 38844,
+        "mean": 38718.38
+      }
+    },
+    {
+      "threshold": 4,
+      "total_us": {
+        "samples": 100,
+        "minimum": 1505,
+        "median": 2159,
+        "p95": 2740,
+        "p99": 3342,
+        "maximum": 3586,
+        "mean": 2178.1
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 1062,
+        "median": 1629,
+        "p95": 2091,
+        "p99": 2177,
+        "maximum": 2694,
+        "mean": 1607.24
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 95,
+        "median": 214,
+        "p95": 567,
+        "p99": 948,
+        "maximum": 1530,
+        "mean": 269.24
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 235,
+        "median": 274,
+        "p95": 309,
+        "p99": 314,
+        "maximum": 328,
+        "mean": 276.78
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 1,
+        "p95": 2,
+        "p99": 3,
+        "maximum": 4,
+        "mean": 1.32
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 969,
+        "median": 1502,
+        "p95": 1974,
+        "p99": 2042,
+        "maximum": 2601,
+        "mean": 1467.02
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 350,
+        "median": 668,
+        "p95": 1170,
+        "p99": 1332,
+        "maximum": 2110,
+        "mean": 709.17
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 51443,
+        "median": 51579,
+        "p95": 51691,
+        "p99": 51765,
+        "maximum": 51812,
+        "mean": 51587.76
+      }
+    },
+    {
+      "threshold": 5,
+      "total_us": {
+        "samples": 100,
+        "minimum": 1675,
+        "median": 2347,
+        "p95": 2939,
+        "p99": 3571,
+        "maximum": 4086,
+        "mean": 2362.37
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 1149,
+        "median": 1642,
+        "p95": 2239,
+        "p99": 2905,
+        "maximum": 3587,
+        "mean": 1685.84
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 97,
+        "median": 246,
+        "p95": 612,
+        "p99": 931,
+        "maximum": 952,
+        "mean": 286.48
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 311,
+        "median": 360,
+        "p95": 393,
+        "p99": 405,
+        "maximum": 907,
+        "mean": 364.37
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 1,
+        "p95": 2,
+        "p99": 4,
+        "maximum": 15,
+        "mean": 1.6
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 963,
+        "median": 1409,
+        "p95": 1967,
+        "p99": 2237,
+        "maximum": 2704,
+        "mean": 1468.58
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 395,
+        "median": 736,
+        "p95": 1307,
+        "p99": 1640,
+        "maximum": 1641,
+        "mean": 783.1
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 64321,
+        "median": 64509,
+        "p95": 64641,
+        "p99": 64655,
+        "maximum": 64678,
+        "mean": 64508.25
+      }
+    },
+    {
+      "threshold": 6,
+      "total_us": {
+        "samples": 100,
+        "minimum": 1903,
+        "median": 2662,
+        "p95": 3160,
+        "p99": 3554,
+        "maximum": 3859,
+        "mean": 2634.47
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 1315,
+        "median": 1912,
+        "p95": 2413,
+        "p99": 2614,
+        "maximum": 2771,
+        "mean": 1916.05
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 98,
+        "median": 203,
+        "p95": 574,
+        "p99": 927,
+        "maximum": 1612,
+        "mean": 266.37
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 366,
+        "median": 423,
+        "p95": 463,
+        "p99": 478,
+        "maximum": 506,
+        "mean": 425.4
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 2,
+        "p95": 3,
+        "p99": 5,
+        "maximum": 10,
+        "mean": 1.71
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 1120,
+        "median": 1569,
+        "p95": 2190,
+        "p99": 2416,
+        "maximum": 2655,
+        "mean": 1614.04
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 361,
+        "median": 739,
+        "p95": 1334,
+        "p99": 1438,
+        "maximum": 1505,
+        "mean": 792.99
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 77222,
+        "median": 77453,
+        "p95": 77592,
+        "p99": 77662,
+        "maximum": 77673,
+        "mean": 77440.12
+      }
+    },
+    {
+      "threshold": 7,
+      "total_us": {
+        "samples": 100,
+        "minimum": 2185,
+        "median": 2650,
+        "p95": 3409,
+        "p99": 3774,
+        "maximum": 3821,
+        "mean": 2733.86
+      },
+      "collection_us": {
+        "samples": 100,
+        "minimum": 1548,
+        "median": 1838,
+        "p95": 2408,
+        "p99": 2668,
+        "maximum": 3202,
+        "mean": 1922.05
+      },
+      "gateway_signing_us": {
+        "samples": 100,
+        "minimum": 96,
+        "median": 235,
+        "p95": 670,
+        "p99": 1108,
+        "maximum": 1315,
+        "mean": 291.39
+      },
+      "evidence_verification_us": {
+        "samples": 100,
+        "minimum": 417,
+        "median": 492,
+        "p95": 528,
+        "p99": 557,
+        "maximum": 567,
+        "mean": 493.54
+      },
+      "lwr_combine_us": {
+        "samples": 100,
+        "minimum": 1,
+        "median": 2,
+        "p95": 4,
+        "p99": 12,
+        "maximum": 14,
+        "mean": 2.09
+      },
+      "slowest_authority_rtt_us": {
+        "samples": 100,
+        "minimum": 1219,
+        "median": 1597,
+        "p95": 2096,
+        "p99": 2331,
+        "maximum": 2353,
+        "mean": 1651.41
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 396,
+        "median": 735,
+        "p95": 1308,
+        "p99": 1511,
+        "maximum": 1818,
+        "mean": 791.44
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 90047,
+        "median": 90295,
+        "p95": 90449,
+        "p99": 90510,
+        "maximum": 90518,
+        "mean": 90294.31
+      }
+    }
+  ]
+}

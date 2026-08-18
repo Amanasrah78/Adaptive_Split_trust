@@ -1,0 +1,210 @@
+ASTRA-PQ persistent distributed benchmark
+Captured:
+2026-08-18T17:10:01+00:00
+
+Repository:
+0d7a4a2cd117f7b96126a8b55668a2b99ed5ff2e
+lwr-scaling-v0.3.0-13-g0d7a4a2
+?? results/distributed-cold-connection-randomized-100-summary.json
+?? results/distributed-cold-connection-randomized-100.jsonl
+?? results/distributed-persistent-randomized-100-environment.txt
+?? results/distributed-persistent-randomized-100-summary.json
+?? results/distributed-persistent-randomized-100.jsonl
+
+Controller software:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+
+Controller CPU:
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+
+Controller memory and storage:
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       458Mi       1.1Gi        56Ki       1.5Gi       2.4Gi
+Swap:          1.8Gi       5.5Mi       1.8Gi
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   10G  6.2G  63% /
+
+Result hashes:
+72f77a89319ed94f8e5c4962c4ea048be32cfdcbd97000948f3e9e7d82bf8e1f  results/distributed-persistent-randomized-100.jsonl
+c2824c2732f9a53988e5f14108106a4baea25d41e926586610df5c01508c2909  results/distributed-persistent-randomized-100-summary.json
+
+Private-network RTT evidence:
+bcbd0412e6f85a9998e063c09c819210851e7896f594a95aa3d1925a746e0310  /home/astraadmin/astra-results-pilot/domain-a-private-rtt.txt
+PING 172.16.64.18 (172.16.64.18) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3881ms
+rtt min/avg/max/mdev = 0.304/0.794/1.121/0.228 ms
+PING 172.16.64.12 (172.16.64.12) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3867ms
+rtt min/avg/max/mdev = 0.517/1.106/2.693/0.579 ms
+PING 172.16.64.13 (172.16.64.13) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3851ms
+rtt min/avg/max/mdev = 0.517/0.910/2.157/0.341 ms
+PING 172.16.64.14 (172.16.64.14) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3845ms
+rtt min/avg/max/mdev = 0.557/1.006/2.309/0.363 ms
+PING 172.16.64.15 (172.16.64.15) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3873ms
+rtt min/avg/max/mdev = 0.340/0.948/2.366/0.366 ms
+PING 172.16.64.16 (172.16.64.16) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3833ms
+rtt min/avg/max/mdev = 0.577/1.014/2.196/0.331 ms
+PING 172.16.64.17 (172.16.64.17) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3865ms
+rtt min/avg/max/mdev = 0.533/1.022/2.266/0.431 ms
+1c083cb298c5c282a6a37c9343b00498534c4262221816e39c013569800e47b6  /home/astraadmin/astra-results-pilot/domain-b-private-rtt.txt
+PING 172.16.64.18 (172.16.64.18) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3876ms
+rtt min/avg/max/mdev = 0.232/0.990/3.246/0.665 ms
+PING 172.16.64.11 (172.16.64.11) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3860ms
+rtt min/avg/max/mdev = 0.474/0.852/1.362/0.216 ms
+PING 172.16.64.13 (172.16.64.13) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3861ms
+rtt min/avg/max/mdev = 0.530/0.999/3.188/0.534 ms
+PING 172.16.64.14 (172.16.64.14) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3848ms
+rtt min/avg/max/mdev = 0.450/0.987/2.195/0.316 ms
+PING 172.16.64.15 (172.16.64.15) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3863ms
+rtt min/avg/max/mdev = 0.442/0.953/1.986/0.276 ms
+PING 172.16.64.16 (172.16.64.16) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3822ms
+rtt min/avg/max/mdev = 0.354/0.965/2.136/0.318 ms
+PING 172.16.64.17 (172.16.64.17) 56(84) bytes of data.
+20 packets transmitted, 20 received, 0% packet loss, time 3839ms
+rtt min/avg/max/mdev = 0.524/0.982/2.282/0.333 ms
+
+VM platform:
+astra-controller | CHANGED | rc=0 >>
+astra-controller
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       495Mi       1.1Gi       192Ki       1.5Gi       2.3Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   10G  6.2G  63% /
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           2.3Gi       417Mi       1.3Gi       1.2Mi       789Mi       1.9Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           2.3Gi       421Mi       1.3Gi       1.2Mi       777Mi       1.9Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+Linux astra-authority-3 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           1.4Gi       352Mi       414Mi       1.2Mi       773Mi       1.1Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+Linux astra-authority-4 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           1.4Gi       352Mi       401Mi       1.2Mi       787Mi       1.1Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-authority-5 | CHANGED | rc=0 >>
+astra-authority-5
+Linux astra-authority-5 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           1.4Gi       351Mi       415Mi       1.2Mi       773Mi       1.1Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-authority-6 | CHANGED | rc=0 >>
+astra-authority-6
+Linux astra-authority-6 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           1.4Gi       348Mi       408Mi       1.2Mi       785Mi       1.1Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+astra-authority-7 | CHANGED | rc=0 >>
+astra-authority-7
+Linux astra-authority-7 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+2
+               total        used        free      shared  buff/cache   available
+Mem:           1.4Gi       338Mi       429Mi       1.2Mi       772Mi       1.1Gi
+/dev/mapper/ubuntu--vg-ubuntu--lv  9.8G  5.0G  4.3G  54% /
+
+Authority services and deployed artifacts:
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-5 | CHANGED | rc=0 >>
+astra-authority-5
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-6 | CHANGED | rc=0 >>
+astra-authority-6
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+astra-authority-7 | CHANGED | rc=0 >>
+astra-authority-7
+active
+77b809775cd47e3f8fd3cd899743a9c728815a782d92ea47af5a85fea6d2ae64  /home/astraadmin/astra-pq/bin/astra-authority-service
+b65266abbdede4feb712570321906a4ea43196a856a4c661861074e582ba2032  /home/astraadmin/astra-pq/config/governance/governance-bundle.json
+
+Domain-A benchmark artifacts:
+astra-domain-a | CHANGED | rc=0 >>
+9ac2f00c1decb1d020d30da6e1ffc78dded343986fbde6f39e0acb242925ae36  /home/astraadmin/astra-pq/bin/astra-distributed-client
+13acf34004dc14caa979db52ccd7664f3d74c835f6ee491893e81ef81669b0ca  /home/astraadmin/astra-pq/bin/run-persistent-benchmark.sh
+72f77a89319ed94f8e5c4962c4ea048be32cfdcbd97000948f3e9e7d82bf8e1f  /home/astraadmin/astra-pq/results/distributed-persistent-randomized-100.jsonl
