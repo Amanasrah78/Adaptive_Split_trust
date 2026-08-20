@@ -1,0 +1,74 @@
+ASTRA-PQ bootstrap confidence interval analysis
+Captured:
+2026-08-20T10:23:47+00:00
+
+Repository:
+a8263e5be586dbb6771fddf3b2e606fa96ec009a
+adaptive-session-v0.8.0-13-ga8263e5
+?? results/bootstrap-confidence-intervals-environment.txt
+?? results/bootstrap-confidence-intervals-resource.txt
+?? results/bootstrap-confidence-intervals-stderr.txt
+?? results/bootstrap-confidence-intervals-stdout.txt
+?? results/bootstrap-confidence-intervals.csv
+?? results/bootstrap-confidence-intervals.json
+?? scripts/__pycache__/
+
+Runtime:
+Python 3.12.3
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+
+Statistical method:
+method=nonparametric-percentile-bootstrap
+confidence_level=0.95
+resamples=5000
+seed=20260820
+outlier_removal=false
+exchangeable_observations_within_configuration=true
+worker_and_temporal_clustering_modeled=false
+
+Artifacts:
+5a9835fcddce0884c123d1353befed5bcc1d328985c1949d4d91191d990e9d7d  scripts/bootstrap-confidence-intervals.py
+5b02f84830abc1be70d8f890dad3d80151f7b9f156da262187a4e4dd29818af0  results/bootstrap-confidence-intervals.json
+44f75e6ffadd56ce32cd89d31f3a2ab8a2f530b2ab717c880ec55775e31ac085  results/bootstrap-confidence-intervals.csv
+e56759559f8b6a2a34e055e845715f13e27b1939aa0cfec8d71ae1b43da8d6c3  results/bootstrap-confidence-intervals-resource.txt
+78902b88c63902296eb231742ca1aabded3ffcb79457eba89fe52113e4d4a715  results/bootstrap-confidence-intervals-stdout.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  results/bootstrap-confidence-intervals-stderr.txt
+
+Input artifact provenance:
+492c248b1b6d6d5c0643a279ec8cd45ac947107b5af212e00fb49cf92cd731c7  results/primitive-1000.jsonl
+7e20286aeb3a0fe756df32cd37210bbd21e7085d98de4e04a22a9962e0445f5f  results/synthesis-scale-100.jsonl
+aef6b6131e8d090159b173dba92182e80c8801011569bc0ac1b86a8209cfc891  results/distributed-cold-connection-randomized-100.jsonl
+72f77a89319ed94f8e5c4962c4ea048be32cfdcbd97000948f3e9e7d82bf8e1f  results/distributed-persistent-randomized-100.jsonl
+ad9a4059431cd530b3573a27deaf77656d2bce607c3970b09e48a5814001c0d3  results/adaptive-session-balanced-100.jsonl
+4d2aeb66e3c7b792c511db66080e15c211bb68076c1db67978f7e39b966c7655  results/signature-baselines-balanced-100.jsonl
+111a7e6b3417e128e947637c54a68afd88472114ac83532aaa527f799de98896  results/astra-pq-threshold3-comparison-100.jsonl
+d9e0be2664969ae97310d94c221b9244def3814cc7110ed39394fd34e5b09254  results/concurrent-authorization-curve.jsonl
+
+Resource measurement:
+	Command being timed: "python3 scripts/bootstrap-confidence-intervals.py --root /home/astraadmin/astra-pq --resamples 5000 --confidence 0.95 --seed 20260820"
+	User time (seconds): 31.61
+	System time (seconds): 0.04
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.70
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 113192
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 27501
+	Voluntary context switches: 1
+	Involuntary context switches: 196
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 280
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
