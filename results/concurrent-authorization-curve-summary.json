@@ -1,0 +1,555 @@
+{
+  "schema": "astra-pq-concurrent-authorization-curve-summary-v1",
+  "total_samples": 7040,
+  "threshold": 3,
+  "selected_coalition": [
+    "a1",
+    "a2",
+    "a3"
+  ],
+  "design": {
+    "concurrency_levels": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      24,
+      32
+    ],
+    "execution_order": [
+      1,
+      32,
+      2,
+      24,
+      4,
+      16,
+      8
+    ],
+    "target_samples_per_level": 1000,
+    "coordinated_start_barrier": true,
+    "persistent_connections": true,
+    "connection_setup_in_timing": false,
+    "maximum_authority_connections": 32
+  },
+  "levels": [
+    {
+      "concurrency_level": 1,
+      "level_sequence": 1,
+      "samples": 1000,
+      "workers_successful": 1,
+      "repetitions_per_worker": 1000,
+      "elapsed_us": 1703342,
+      "throughput_authorizations_per_second": 587.081,
+      "authorization_total": {
+        "samples": 1000,
+        "minimum_us": 1099,
+        "median_us": 1601,
+        "p95_us": 2420,
+        "p99_us": 2878,
+        "maximum_us": 3632,
+        "mean_us": 1692.876
+      },
+      "parallel_collection": {
+        "samples": 1000,
+        "minimum_us": 789,
+        "median_us": 1091,
+        "p95_us": 1809,
+        "p99_us": 2152,
+        "maximum_us": 2745,
+        "mean_us": 1189.611
+      },
+      "gateway_request_signing": {
+        "samples": 1000,
+        "minimum_us": 96,
+        "median_us": 224,
+        "p95_us": 689,
+        "p99_us": 1069,
+        "maximum_us": 1756,
+        "mean_us": 283.771
+      },
+      "evidence_verification": {
+        "samples": 1000,
+        "minimum_us": 173,
+        "median_us": 196,
+        "p95_us": 224,
+        "p99_us": 235,
+        "maximum_us": 284,
+        "mean_us": 197.34
+      },
+      "lwr_combine": {
+        "samples": 1000,
+        "minimum_us": 0,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 4,
+        "maximum_us": 14,
+        "mean_us": 1.122
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1000,
+        "minimum_us": 704,
+        "median_us": 994,
+        "p95_us": 1668,
+        "p99_us": 1996,
+        "maximum_us": 2671,
+        "mean_us": 1090.969
+      },
+      "slowest_authority_processing": {
+        "samples": 1000,
+        "minimum_us": 286,
+        "median_us": 578,
+        "p95_us": 1090,
+        "p99_us": 1444,
+        "maximum_us": 1844,
+        "mean_us": 627.025
+      },
+      "throughput_multiple_vs_concurrency_1": 1,
+      "median_latency_change_percent_vs_concurrency_1": 0
+    },
+    {
+      "concurrency_level": 2,
+      "level_sequence": 3,
+      "samples": 1000,
+      "workers_successful": 2,
+      "repetitions_per_worker": 500,
+      "elapsed_us": 1137880,
+      "throughput_authorizations_per_second": 878.827,
+      "authorization_total": {
+        "samples": 1000,
+        "minimum_us": 1260,
+        "median_us": 2168,
+        "p95_us": 3225,
+        "p99_us": 3760,
+        "maximum_us": 6606,
+        "mean_us": 2252.151
+      },
+      "parallel_collection": {
+        "samples": 1000,
+        "minimum_us": 850,
+        "median_us": 1614,
+        "p95_us": 2594,
+        "p99_us": 3041,
+        "maximum_us": 4308,
+        "mean_us": 1684.768
+      },
+      "gateway_request_signing": {
+        "samples": 1000,
+        "minimum_us": 95,
+        "median_us": 250,
+        "p95_us": 759,
+        "p99_us": 1143,
+        "maximum_us": 1953,
+        "mean_us": 316.868
+      },
+      "evidence_verification": {
+        "samples": 1000,
+        "minimum_us": 172,
+        "median_us": 213,
+        "p95_us": 276,
+        "p99_us": 485,
+        "maximum_us": 1458,
+        "mean_us": 223.537
+      },
+      "lwr_combine": {
+        "samples": 1000,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 3,
+        "p99_us": 4,
+        "maximum_us": 20,
+        "mean_us": 1.346
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1000,
+        "minimum_us": 757,
+        "median_us": 1360,
+        "p95_us": 2128,
+        "p99_us": 2628,
+        "maximum_us": 3710,
+        "mean_us": 1414.981
+      },
+      "slowest_authority_processing": {
+        "samples": 1000,
+        "minimum_us": 277,
+        "median_us": 746,
+        "p95_us": 1422,
+        "p99_us": 1853,
+        "maximum_us": 2395,
+        "mean_us": 802.504
+      },
+      "throughput_multiple_vs_concurrency_1": 1.497,
+      "median_latency_change_percent_vs_concurrency_1": 35.42
+    },
+    {
+      "concurrency_level": 4,
+      "level_sequence": 5,
+      "samples": 1000,
+      "workers_successful": 4,
+      "repetitions_per_worker": 250,
+      "elapsed_us": 833302,
+      "throughput_authorizations_per_second": 1200.045,
+      "authorization_total": {
+        "samples": 1000,
+        "minimum_us": 1421,
+        "median_us": 3145,
+        "p95_us": 4827,
+        "p99_us": 6005,
+        "maximum_us": 9479,
+        "mean_us": 3265.778
+      },
+      "parallel_collection": {
+        "samples": 1000,
+        "minimum_us": 1022,
+        "median_us": 2456,
+        "p95_us": 3705,
+        "p99_us": 4527,
+        "maximum_us": 8476,
+        "mean_us": 2543.42
+      },
+      "gateway_request_signing": {
+        "samples": 1000,
+        "minimum_us": 95,
+        "median_us": 279,
+        "p95_us": 1290,
+        "p99_us": 2146,
+        "maximum_us": 4105,
+        "mean_us": 424.741
+      },
+      "evidence_verification": {
+        "samples": 1000,
+        "minimum_us": 173,
+        "median_us": 214,
+        "p95_us": 672,
+        "p99_us": 1073,
+        "maximum_us": 1849,
+        "mean_us": 265.771
+      },
+      "lwr_combine": {
+        "samples": 1000,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 4,
+        "maximum_us": 468,
+        "mean_us": 2.089
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1000,
+        "minimum_us": 867,
+        "median_us": 2010,
+        "p95_us": 3063,
+        "p99_us": 3585,
+        "maximum_us": 6300,
+        "mean_us": 2084.012
+      },
+      "slowest_authority_processing": {
+        "samples": 1000,
+        "minimum_us": 290,
+        "median_us": 1002,
+        "p95_us": 2153,
+        "p99_us": 2775,
+        "maximum_us": 5064,
+        "mean_us": 1113.11
+      },
+      "throughput_multiple_vs_concurrency_1": 2.044,
+      "median_latency_change_percent_vs_concurrency_1": 96.44
+    },
+    {
+      "concurrency_level": 8,
+      "level_sequence": 7,
+      "samples": 1000,
+      "workers_successful": 8,
+      "repetitions_per_worker": 125,
+      "elapsed_us": 749062,
+      "throughput_authorizations_per_second": 1335.003,
+      "authorization_total": {
+        "samples": 1000,
+        "minimum_us": 1721,
+        "median_us": 5605,
+        "p95_us": 9506,
+        "p99_us": 11732,
+        "maximum_us": 21127,
+        "mean_us": 5814.089
+      },
+      "parallel_collection": {
+        "samples": 1000,
+        "minimum_us": 1213,
+        "median_us": 4573,
+        "p95_us": 8047,
+        "p99_us": 10743,
+        "maximum_us": 18331,
+        "mean_us": 4760.401
+      },
+      "gateway_request_signing": {
+        "samples": 1000,
+        "minimum_us": 97,
+        "median_us": 301,
+        "p95_us": 2508,
+        "p99_us": 3443,
+        "maximum_us": 6949,
+        "mean_us": 667.092
+      },
+      "evidence_verification": {
+        "samples": 1000,
+        "minimum_us": 174,
+        "median_us": 216,
+        "p95_us": 963,
+        "p99_us": 1714,
+        "maximum_us": 4029,
+        "mean_us": 323.17
+      },
+      "lwr_combine": {
+        "samples": 1000,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 4,
+        "maximum_us": 607,
+        "mean_us": 2.721
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1000,
+        "minimum_us": 1034,
+        "median_us": 3239,
+        "p95_us": 6869,
+        "p99_us": 9103,
+        "maximum_us": 16735,
+        "mean_us": 3578.344
+      },
+      "slowest_authority_processing": {
+        "samples": 1000,
+        "minimum_us": 302,
+        "median_us": 1869,
+        "p95_us": 6086,
+        "p99_us": 8690,
+        "maximum_us": 16572,
+        "mean_us": 2507.778
+      },
+      "throughput_multiple_vs_concurrency_1": 2.274,
+      "median_latency_change_percent_vs_concurrency_1": 250.09
+    },
+    {
+      "concurrency_level": 16,
+      "level_sequence": 6,
+      "samples": 1008,
+      "workers_successful": 16,
+      "repetitions_per_worker": 63,
+      "elapsed_us": 761551,
+      "throughput_authorizations_per_second": 1323.615,
+      "authorization_total": {
+        "samples": 1008,
+        "minimum_us": 1787,
+        "median_us": 11520,
+        "p95_us": 20857,
+        "p99_us": 30064,
+        "maximum_us": 48210,
+        "mean_us": 11606.443452380952
+      },
+      "parallel_collection": {
+        "samples": 1008,
+        "minimum_us": 1291,
+        "median_us": 10493,
+        "p95_us": 19954,
+        "p99_us": 28925,
+        "maximum_us": 47446,
+        "mean_us": 10492.025793650793
+      },
+      "gateway_request_signing": {
+        "samples": 1008,
+        "minimum_us": 98,
+        "median_us": 298,
+        "p95_us": 2967,
+        "p99_us": 5620,
+        "maximum_us": 11832,
+        "mean_us": 721.5109126984127
+      },
+      "evidence_verification": {
+        "samples": 1008,
+        "minimum_us": 176,
+        "median_us": 217,
+        "p95_us": 977,
+        "p99_us": 2356,
+        "maximum_us": 4139,
+        "mean_us": 339.11607142857144
+      },
+      "lwr_combine": {
+        "samples": 1008,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 4,
+        "maximum_us": 668,
+        "mean_us": 2.994047619047619
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1008,
+        "minimum_us": 981,
+        "median_us": 9259,
+        "p95_us": 19265,
+        "p99_us": 27008,
+        "maximum_us": 46189,
+        "mean_us": 9120.130952380952
+      },
+      "slowest_authority_processing": {
+        "samples": 1008,
+        "minimum_us": 298,
+        "median_us": 8475,
+        "p95_us": 18428,
+        "p99_us": 26333,
+        "maximum_us": 46073,
+        "mean_us": 8168.586309523809
+      },
+      "throughput_multiple_vs_concurrency_1": 2.255,
+      "median_latency_change_percent_vs_concurrency_1": 619.55
+    },
+    {
+      "concurrency_level": 24,
+      "level_sequence": 4,
+      "samples": 1008,
+      "workers_successful": 24,
+      "repetitions_per_worker": 42,
+      "elapsed_us": 759396,
+      "throughput_authorizations_per_second": 1327.371,
+      "authorization_total": {
+        "samples": 1008,
+        "minimum_us": 1277,
+        "median_us": 17548,
+        "p95_us": 35002,
+        "p99_us": 46103,
+        "maximum_us": 84548,
+        "mean_us": 17037.27876984127
+      },
+      "parallel_collection": {
+        "samples": 1008,
+        "minimum_us": 894,
+        "median_us": 16171,
+        "p95_us": 33250,
+        "p99_us": 44639,
+        "maximum_us": 83596,
+        "mean_us": 15672.024801587302
+      },
+      "gateway_request_signing": {
+        "samples": 1008,
+        "minimum_us": 96,
+        "median_us": 323,
+        "p95_us": 4125,
+        "p99_us": 7256,
+        "maximum_us": 11388,
+        "mean_us": 929.7589285714286
+      },
+      "evidence_verification": {
+        "samples": 1008,
+        "minimum_us": 176,
+        "median_us": 220,
+        "p95_us": 1262,
+        "p99_us": 2987,
+        "maximum_us": 5451,
+        "mean_us": 374.4861111111111
+      },
+      "lwr_combine": {
+        "samples": 1008,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 13,
+        "maximum_us": 842,
+        "mean_us": 4.566468253968254
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1008,
+        "minimum_us": 808,
+        "median_us": 13957,
+        "p95_us": 30869,
+        "p99_us": 43294,
+        "maximum_us": 77015,
+        "mean_us": 13444.871031746032
+      },
+      "slowest_authority_processing": {
+        "samples": 1008,
+        "minimum_us": 318,
+        "median_us": 13038,
+        "p95_us": 29959,
+        "p99_us": 42188,
+        "maximum_us": 76725,
+        "mean_us": 12278.603174603175
+      },
+      "throughput_multiple_vs_concurrency_1": 2.261,
+      "median_latency_change_percent_vs_concurrency_1": 996.06
+    },
+    {
+      "concurrency_level": 32,
+      "level_sequence": 2,
+      "samples": 1024,
+      "workers_successful": 32,
+      "repetitions_per_worker": 32,
+      "elapsed_us": 758283,
+      "throughput_authorizations_per_second": 1350.419,
+      "authorization_total": {
+        "samples": 1024,
+        "minimum_us": 2224,
+        "median_us": 23063,
+        "p95_us": 46048,
+        "p99_us": 58492,
+        "maximum_us": 81683,
+        "mean_us": 21871.814453125
+      },
+      "parallel_collection": {
+        "samples": 1024,
+        "minimum_us": 1208,
+        "median_us": 21860,
+        "p95_us": 44837,
+        "p99_us": 57344,
+        "maximum_us": 80392,
+        "mean_us": 20680.7177734375
+      },
+      "gateway_request_signing": {
+        "samples": 1024,
+        "minimum_us": 96,
+        "median_us": 303,
+        "p95_us": 2972,
+        "p99_us": 5347,
+        "maximum_us": 15287,
+        "mean_us": 759.2724609375
+      },
+      "evidence_verification": {
+        "samples": 1024,
+        "minimum_us": 174,
+        "median_us": 219,
+        "p95_us": 1094,
+        "p99_us": 2274,
+        "maximum_us": 3841,
+        "mean_us": 344.6748046875
+      },
+      "lwr_combine": {
+        "samples": 1024,
+        "minimum_us": 1,
+        "median_us": 1,
+        "p95_us": 2,
+        "p99_us": 5,
+        "maximum_us": 3282,
+        "mean_us": 8.4541015625
+      },
+      "slowest_authority_round_trip": {
+        "samples": 1024,
+        "minimum_us": 958,
+        "median_us": 19949,
+        "p95_us": 44016,
+        "p99_us": 56930,
+        "maximum_us": 79853,
+        "mean_us": 18853.50390625
+      },
+      "slowest_authority_processing": {
+        "samples": 1024,
+        "minimum_us": 323,
+        "median_us": 19096,
+        "p95_us": 42702,
+        "p99_us": 55242,
+        "maximum_us": 79768,
+        "mean_us": 17798.8798828125
+      },
+      "throughput_multiple_vs_concurrency_1": 2.3,
+      "median_latency_change_percent_vs_concurrency_1": 1340.54
+    }
+  ]
+}
