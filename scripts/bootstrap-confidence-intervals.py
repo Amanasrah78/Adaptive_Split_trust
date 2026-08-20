@@ -98,6 +98,55 @@ def bootstrap_quantiles(
     }
 
 
+def bootstrap_difference(
+    first: list[float],
+    second: list[float],
+    resamples: int,
+    confidence: float,
+    rng: random.Random,
+) -> dict[str, Any]:
+    if not first or not second:
+        raise ValueError("cannot bootstrap a difference with an empty sample")
+    first_ordered = sorted(first)
+    second_ordered = sorted(second)
+    median_differences: list[float] = []
+    p95_differences: list[float] = []
+    for _ in range(resamples):
+        first_sample = sorted(
+            first_ordered[rng.randrange(len(first_ordered))]
+            for _ in range(len(first_ordered))
+        )
+        second_sample = sorted(
+            second_ordered[rng.randrange(len(second_ordered))]
+            for _ in range(len(second_ordered))
+        )
+        median_differences.append(median(first_sample) - median(second_sample))
+        p95_differences.append(
+            nearest_rank(first_sample, 0.95) - nearest_rank(second_sample, 0.95)
+        )
+    median_differences.sort()
+    p95_differences.sort()
+    median_lower, median_upper = interval(median_differences, confidence)
+    p95_lower, p95_upper = interval(p95_differences, confidence)
+    first_median = median(first_ordered)
+    second_median = median(second_ordered)
+    return {
+        "first_samples": len(first_ordered),
+        "second_samples": len(second_ordered),
+        "median_difference_us": first_median - second_median,
+        "median_difference_ci_lower_us": median_lower,
+        "median_difference_ci_upper_us": median_upper,
+        "median_percent_difference":
+            ((first_median - second_median) * 100.0) / second_median,
+        "p95_difference_us": (
+            nearest_rank(first_ordered, 0.95)
+            - nearest_rank(second_ordered, 0.95)
+        ),
+        "p95_difference_ci_lower_us": p95_lower,
+        "p95_difference_ci_upper_us": p95_upper,
+    }
+
+
 def rounded(value: Any) -> Any:
     if isinstance(value, float):
         return round(value, 6)
@@ -133,7 +182,7 @@ def grouped(
     groups: dict[tuple[Any, ...], list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         groups[key_function(record)].append(record)
-    return sorted(groups.items(), key=lambda item: tuple(str(value) for value in item[0]))
+    return sorted(groups.items(), key=lambda item: item[0])
 
 
 def build_rows(
@@ -349,6 +398,10 @@ def self_test() -> None:
     second = bootstrap_quantiles(values, 200, 0.95, random.Random(7))
     assert first == second
     assert first["median_ci_lower"] <= first["median"] <= first["median_ci_upper"]
+    difference = bootstrap_difference(
+        [2.0, 3.0, 4.0], [1.0, 2.0, 3.0], 200, 0.95, random.Random(9)
+    )
+    assert difference["median_difference_us"] == 1.0
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -378,6 +431,46 @@ def main() -> None:
         arguments.confidence,
         arguments.seed,
     )
+    results = root / "results"
+    baseline_records = read_jsonl(results / "signature-baselines-balanced-100.jsonl")
+    astra_records = read_jsonl(results / "astra-pq-threshold3-comparison-100.jsonl")
+    comparison_values = {
+        "centralized": [
+            float(record["timing_us"]["authorization_total"])
+            for record in baseline_records
+            if record["baseline_profile"] == "centralized"
+        ],
+        "static-quorum": [
+            float(record["timing_us"]["authorization_total"])
+            for record in baseline_records
+            if record["baseline_profile"] == "static-quorum"
+        ],
+        "astra-pq-threshold-3": [
+            float(record["timing_us"]["distributed_authorization_total"])
+            for record in astra_records
+        ],
+    }
+    contrast_rng = random.Random(arguments.seed + 1)
+    contrasts = []
+    for first_name, second_name in [
+        ("astra-pq-threshold-3", "static-quorum"),
+        ("astra-pq-threshold-3", "centralized"),
+        ("static-quorum", "centralized"),
+    ]:
+        result = bootstrap_difference(
+            comparison_values[first_name],
+            comparison_values[second_name],
+            arguments.resamples,
+            arguments.confidence,
+            contrast_rng,
+        )
+        contrasts.append(
+            {
+                "first_profile": first_name,
+                "second_profile": second_name,
+                **{key: rounded(value) for key, value in result.items()},
+            }
+        )
     output = {
         "schema": SCHEMA,
         "method": "nonparametric percentile bootstrap",
@@ -395,6 +488,7 @@ def main() -> None:
         "input_artifacts": provenance,
         "row_count": len(rows),
         "rows": rows,
+        "authorization_baseline_contrasts": contrasts,
     }
     json_path = root / "results" / "bootstrap-confidence-intervals.json"
     csv_path = root / "results" / "bootstrap-confidence-intervals.csv"
