@@ -1,0 +1,55 @@
+{
+  "schema": "astra-pq-authorization-baseline-comparison-v1",
+  "samples_per_profile": 100,
+  "scope": "persistent-preconnected authorization path",
+  "security_equivalence": false,
+  "interpretation": "The centralized and static-quorum profiles are performance references and do not produce the ASTRA-PQ distributed authorization secret.",
+  "profiles": [
+    {
+      "profile": "centralized",
+      "trust_model": "single destination-authority trust",
+      "required_authorities": 1,
+      "distributed_authorization_secret": false,
+      "total_median_us": 1285,
+      "total_p95_us": 2695,
+      "total_p99_us": 2980,
+      "collection_median_us": 875,
+      "verification_median_us": 69,
+      "request_bytes_per_authority_median": 12326,
+      "response_bytes_total_median": 12121
+    },
+    {
+      "profile": "static-quorum",
+      "trust_model": "fixed three-authority signature quorum",
+      "required_authorities": 3,
+      "distributed_authorization_secret": false,
+      "total_median_us": 1689,
+      "total_p95_us": 2490,
+      "total_p99_us": 3018,
+      "collection_median_us": 1227,
+      "verification_median_us": 201,
+      "request_bytes_per_authority_median": 12334,
+      "response_bytes_total_median": 36401
+    },
+    {
+      "profile": "astra-pq-threshold-3",
+      "trust_model": "exact three-authority LWR split trust",
+      "required_authorities": 3,
+      "distributed_authorization_secret": true,
+      "total_median_us": 1663,
+      "total_p95_us": 2473,
+      "total_p99_us": 2755,
+      "collection_median_us": 1162,
+      "verification_median_us": 201,
+      "lwr_combine_median_us": 1,
+      "request_bytes_per_authority_median": 12800,
+      "response_bytes_total_median": 38784
+    }
+  ],
+  "relative_results": {
+    "astra_pq_median_percent_vs_centralized": 29.42,
+    "static_quorum_median_percent_vs_centralized": 31.44,
+    "astra_pq_median_percent_vs_static_quorum": -1.54,
+    "astra_pq_p95_percent_vs_static_quorum": -0.68
+  }
+}

@@ -1,0 +1,4 @@
+"profile","required_authorities","distributed_authorization_secret","total_median_us","total_p95_us","total_p99_us","collection_median_us","verification_median_us","request_bytes_per_authority_median","response_bytes_total_median"
+"centralized",1,false,1285,2695,2980,875,69,12326,12121
+"static-quorum",3,false,1689,2490,3018,1227,201,12334,36401
+"astra-pq-threshold-3",3,true,1663,2473,2755,1162,201,12800,38784

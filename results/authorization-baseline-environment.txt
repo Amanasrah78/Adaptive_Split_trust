@@ -1,0 +1,159 @@
+ASTRA-PQ authorization baseline comparison
+Captured:
+2026-08-20T09:51:54+00:00
+
+Repository:
+ad6411f807c8b92b316be16039dfbb8f9e044389
+adaptive-session-v0.8.0-8-gad6411f
+?? deployment/baseline/
+?? results/astra-pq-threshold3-comparison-100-resource.txt
+?? results/astra-pq-threshold3-comparison-100-summary.json
+?? results/astra-pq-threshold3-comparison-100.jsonl
+?? results/authorization-baseline-comparison.csv
+?? results/authorization-baseline-comparison.json
+?? results/authorization-baseline-environment.txt
+?? results/signature-baselines-balanced-100-resource.txt
+?? results/signature-baselines-balanced-100-stdout.txt
+?? results/signature-baselines-balanced-100-summary.json
+?? results/signature-baselines-balanced-100.jsonl
+?? scripts/run-signature-baseline-benchmark.sh
+
+Software:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+jq-1.7
+ansible [core 2.16.3]
+
+Experiment design:
+profiles=centralized,static-quorum,astra-pq-threshold-3
+samples_per_profile=100
+baseline_blocks=10
+baseline_samples_per_profile_per_block=10
+baseline_order=alternated
+astra_pq_collection=immediately_after_baseline_campaign
+all_profiles_fully_interleaved=false
+authority_connection_setup_in_timing=false
+governance_bundle_validation_in_timing=false
+transport=bounded-json-over-tcp-isolated-lab-no-confidentiality
+baseline_security_equivalent_to_astra_pq=false
+
+Controller release artifacts:
+c805b9c4d5fa0e1920a62ceafaaa70f45e3d0bcff6c1cb57565cbb1c2045e196  target/release/astra-signature-baseline-service
+d0b5e8f59336866d2a8995c1dc31a28df5cbd83918cae6812fd1d466e8dfd63f  target/release/astra-signature-baseline-client
+214a8109fb7dc1df3af885e5956f155105303532bdbd4c5404af5247c711c28f  scripts/run-signature-baseline-benchmark.sh
+
+Result artifacts:
+4d2aeb66e3c7b792c511db66080e15c211bb68076c1db67978f7e39b966c7655  results/signature-baselines-balanced-100.jsonl
+3ea21649a50da7fe97fae085d95f4d5eb854a359a1468ec37b8c457fd7df6a3f  results/signature-baselines-balanced-100-summary.json
+cc8456097935b39de8186aadf9ba464f0d7b4839936cd526459bdc9885e74bbe  results/signature-baselines-balanced-100-resource.txt
+eddfce9c1111e86f6999cefd1330c9203e70a5deed12b76fe7b450256039a3be  results/signature-baselines-balanced-100-stdout.txt
+111a7e6b3417e128e947637c54a68afd88472114ac83532aaa527f799de98896  results/astra-pq-threshold3-comparison-100.jsonl
+ac58134d258345908d7e504acbbf920ca3704fc4f355e500f9c0a0c1e4ca4c69  results/astra-pq-threshold3-comparison-100-summary.json
+d6a3c04da6869a7560a4d601e0987177c1f1568f871fd2cdd45627a6f902ce2a  results/astra-pq-threshold3-comparison-100-resource.txt
+76af2ffcd696cae664e186e463a023af6a4b64526badf3d69115be4aefef420d  results/authorization-baseline-comparison.json
+6f5ecdd78cbd7d23be3c7fed55cd294a9ffa45bd12a30ecae9d5dd9ce79829c7  results/authorization-baseline-comparison.csv
+
+Baseline resource measurement:
+	Command being timed: "/home/astraadmin/astra-pq/bin/run-signature-baseline-benchmark.sh"
+	User time (seconds): 0.13
+	System time (seconds): 0.05
+	Percent of CPU this job got: 50%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3840
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16778
+	Voluntary context switches: 1088
+	Involuntary context switches: 22
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 448
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+ASTRA-PQ resource measurement:
+	Command being timed: "env ASTRA_THRESHOLD=3 ASTRA_REPETITIONS=100 ASTRA_GATEWAY_ID=gateway-a ASTRA_GOVERNANCE_BUNDLE=/home/astraadmin/astra-pq/config/governance/governance-bundle.json ASTRA_GATEWAY_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk ASTRA_GATEWAY_PUBLIC_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.pk ASTRA_AUTHORITY_PUBLIC_KEY_ROOT=/home/astraadmin/astra-pq/config/authority-public-keys ASTRA_AUTHORITY_ENDPOINTS=a1=172.16.64.11:7443,a2=172.16.64.12:7443,a3=172.16.64.13:7443,a4=172.16.64.14:7443,a5=172.16.64.15:7443,a6=172.16.64.16:7443,a7=172.16.64.17:7443 /home/astraadmin/astra-pq/bin/astra-distributed-client"
+	User time (seconds): 0.05
+	System time (seconds): 0.01
+	Percent of CPU this job got: 42%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2432
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 277
+	Voluntary context switches: 552
+	Involuntary context switches: 14
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 272
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.11/24 fe80::20c:29ff:fe1b:b168/64 
+enp26s0          UP             172.16.64.11/24 fe80::20c:29ff:fe1b:b172/64 
+docker0          DOWN           172.17.0.1/16 
+active
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+c805b9c4d5fa0e1920a62ceafaaa70f45e3d0bcff6c1cb57565cbb1c2045e196  /home/astraadmin/astra-pq/bin/astra-signature-baseline-service
+ASTRA_AUTHORITY_ID=a1
+ASTRA_BASELINE_BIND=172.16.64.11:7663
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.12/24 fe80::20c:29ff:fec2:5abe/64 
+enp26s0          UP             172.16.64.12/24 fe80::20c:29ff:fec2:5ac8/64 
+docker0          DOWN           172.17.0.1/16 
+active
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+c805b9c4d5fa0e1920a62ceafaaa70f45e3d0bcff6c1cb57565cbb1c2045e196  /home/astraadmin/astra-pq/bin/astra-signature-baseline-service
+ASTRA_AUTHORITY_ID=a2
+ASTRA_BASELINE_BIND=172.16.64.12:7663
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+Linux astra-authority-3 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.13/24 fe80::20c:29ff:fe2c:c263/64 
+enp26s0          UP             172.16.64.13/24 fe80::20c:29ff:fe2c:c26d/64 
+docker0          DOWN           172.17.0.1/16 
+active
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+c805b9c4d5fa0e1920a62ceafaaa70f45e3d0bcff6c1cb57565cbb1c2045e196  /home/astraadmin/astra-pq/bin/astra-signature-baseline-service
+ASTRA_AUTHORITY_ID=a3
+ASTRA_BASELINE_BIND=172.16.64.13:7663
+astra-domain-a | CHANGED | rc=0 >>
+5d3a5e9896dcee219b9b2e7af1beea8b5983ead19e66ebaf8a185f44a7a5878b  /home/astraadmin/astra-pq/bin/astra-distributed-client
+d0b5e8f59336866d2a8995c1dc31a28df5cbd83918cae6812fd1d466e8dfd63f  /home/astraadmin/astra-pq/bin/astra-signature-baseline-client
+214a8109fb7dc1df3af885e5956f155105303532bdbd4c5404af5247c711c28f  /home/astraadmin/astra-pq/bin/run-signature-baseline-benchmark.sh
