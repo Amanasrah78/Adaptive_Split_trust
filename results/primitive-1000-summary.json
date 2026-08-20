@@ -1,0 +1,159 @@
+{
+  "schema": "astra-pq-primitive-benchmark-summary-v1",
+  "samples": 1000,
+  "warmup_iterations": 100,
+  "execution_model": "single-process-sequential-interleaved",
+  "message_bytes": 1024,
+  "provider": {
+    "kem_algorithm": "ML-KEM-768",
+    "kem_implementation": "FIPS203",
+    "kem_nist_level": 3,
+    "signature_algorithm": "ML-DSA-65",
+    "signature_implementation": "FIPS204",
+    "signature_nist_level": 3
+  },
+  "lwr_threshold": 3,
+  "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
+  "malicious_robust": false,
+  "proactive_refresh_implemented": false,
+  "sizes": {
+    "kem_ciphertext_bytes": 1088,
+    "kem_public_key_bytes": 1184,
+    "kem_secret_key_bytes": 2400,
+    "kem_shared_secret_bytes": 32,
+    "lwr_partial_payload_bytes_total": 624,
+    "lwr_secret_share_bytes_total": 638976,
+    "representative_json_bytes": 1113,
+    "signature_bytes": 3309,
+    "signature_public_key_bytes": 1952,
+    "signature_secret_key_bytes": 4032
+  },
+  "timings": {
+    "confirmation_tag_derivation": {
+      "samples": 1000,
+      "minimum_ns": 1459,
+      "median_ns": 1543,
+      "p95_ns": 2042,
+      "p99_ns": 2210,
+      "maximum_ns": 15341,
+      "mean_ns": 1630.758
+    },
+    "json_deserialization": {
+      "samples": 1000,
+      "minimum_ns": 292,
+      "median_ns": 375,
+      "p95_ns": 751,
+      "p99_ns": 1126,
+      "maximum_ns": 1667,
+      "mean_ns": 430.891
+    },
+    "json_serialization": {
+      "samples": 1000,
+      "minimum_ns": 375,
+      "median_ns": 459,
+      "p95_ns": 708,
+      "p99_ns": 958,
+      "maximum_ns": 1418,
+      "mean_ns": 488.528
+    },
+    "kem_decapsulation": {
+      "samples": 1000,
+      "minimum_ns": 9296,
+      "median_ns": 9505,
+      "p95_ns": 13424,
+      "p99_ns": 14382,
+      "maximum_ns": 21552,
+      "mean_ns": 10128.542
+    },
+    "kem_encapsulation": {
+      "samples": 1000,
+      "minimum_ns": 7837,
+      "median_ns": 8088,
+      "p95_ns": 11047,
+      "p99_ns": 14716,
+      "maximum_ns": 41814,
+      "mean_ns": 8676.995
+    },
+    "kem_key_generation": {
+      "samples": 1000,
+      "minimum_ns": 8212,
+      "median_ns": 8421,
+      "p95_ns": 11798,
+      "p99_ns": 16633,
+      "maximum_ns": 35643,
+      "mean_ns": 9104.74
+    },
+    "lwr_combine": {
+      "samples": 1000,
+      "minimum_ns": 833,
+      "median_ns": 959,
+      "p95_ns": 1459,
+      "p99_ns": 1834,
+      "maximum_ns": 4919,
+      "mean_ns": 1045.078
+    },
+    "lwr_partial_evaluations_sequential": {
+      "samples": 1000,
+      "minimum_ns": 34851,
+      "median_ns": 35226,
+      "p95_ns": 45274,
+      "p99_ns": 50610,
+      "maximum_ns": 187179,
+      "mean_ns": 37346.568
+    },
+    "lwr_share_setup": {
+      "samples": 1000,
+      "minimum_ns": 1111111,
+      "median_ns": 1159303,
+      "p95_ns": 1271860,
+      "p99_ns": 1308712,
+      "maximum_ns": 1359197,
+      "mean_ns": 1168592.04
+    },
+    "session_key_derivation": {
+      "samples": 1000,
+      "minimum_ns": 1625,
+      "median_ns": 1709,
+      "p95_ns": 2376,
+      "p99_ns": 2501,
+      "maximum_ns": 27472,
+      "mean_ns": 1835.192
+    },
+    "sha3_256_domain_hash": {
+      "samples": 1000,
+      "minimum_ns": 875,
+      "median_ns": 959,
+      "p95_ns": 1334,
+      "p99_ns": 1376,
+      "maximum_ns": 5003,
+      "mean_ns": 1017.422
+    },
+    "signature_key_generation": {
+      "samples": 1000,
+      "minimum_ns": 61323,
+      "median_ns": 62824,
+      "p95_ns": 79207,
+      "p99_ns": 88879,
+      "maximum_ns": 106638,
+      "mean_ns": 66457.835
+    },
+    "signature_sign": {
+      "samples": 1000,
+      "minimum_ns": 96007,
+      "median_ns": 215569,
+      "p95_ns": 625987,
+      "p99_ns": 817169,
+      "maximum_ns": 1318676,
+      "mean_ns": 267725.855
+    },
+    "signature_verify": {
+      "samples": 1000,
+      "minimum_ns": 58196,
+      "median_ns": 58947,
+      "p95_ns": 75205,
+      "p99_ns": 83793,
+      "maximum_ns": 110974,
+      "mean_ns": 62226.268
+    }
+  }
+}
