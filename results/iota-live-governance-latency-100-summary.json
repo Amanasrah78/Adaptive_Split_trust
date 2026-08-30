@@ -1,0 +1,139 @@
+{
+  "schema": "astra-pq-live-iota-latency-summary-v1",
+  "units": "microseconds",
+  "total_samples": 400,
+  "samples_per_profile": [
+    100
+  ],
+  "all_successful": true,
+  "session_critical_path": false,
+  "rpc_administrative_independence": false,
+  "profiles": [
+    {
+      "profile": "fullnode-observation",
+      "success": true,
+      "rpc_services": [
+        1
+      ],
+      "network_calls_per_sample": [
+        2
+      ],
+      "endpoint_orders": [
+        "fullnode"
+      ],
+      "administratively_independent": [
+        false
+      ],
+      "object_versions": [
+        924792290
+      ],
+      "checkpoint_hashes": [
+        "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f"
+      ],
+      "latency": {
+        "samples": 100,
+        "minimum_us": 430499,
+        "median_us": 454133,
+        "p95_us": 1479142,
+        "p99_us": 2468514,
+        "maximum_us": 2469726,
+        "mean_us": 624965.66
+      }
+    },
+    {
+      "profile": "indexer-observation",
+      "success": true,
+      "rpc_services": [
+        1
+      ],
+      "network_calls_per_sample": [
+        2
+      ],
+      "endpoint_orders": [
+        "indexer"
+      ],
+      "administratively_independent": [
+        false
+      ],
+      "object_versions": [
+        924792290
+      ],
+      "checkpoint_hashes": [
+        "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f"
+      ],
+      "latency": {
+        "samples": 100,
+        "minimum_us": 798939,
+        "median_us": 849792,
+        "p95_us": 2840493,
+        "p99_us": 2861495,
+        "maximum_us": 3858181,
+        "mean_us": 1137049.37
+      }
+    },
+    {
+      "profile": "local-finalization",
+      "success": true,
+      "rpc_services": [
+        0
+      ],
+      "network_calls_per_sample": [
+        0
+      ],
+      "endpoint_orders": [
+        "local"
+      ],
+      "administratively_independent": [
+        false
+      ],
+      "object_versions": [
+        924792290
+      ],
+      "checkpoint_hashes": [
+        "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f"
+      ],
+      "latency": {
+        "samples": 100,
+        "minimum_us": 5093,
+        "median_us": 7198,
+        "p95_us": 8783,
+        "p99_us": 9343,
+        "maximum_us": 10920,
+        "mean_us": 7265.76
+      }
+    },
+    {
+      "profile": "two-service-agreement",
+      "success": true,
+      "rpc_services": [
+        2
+      ],
+      "network_calls_per_sample": [
+        4
+      ],
+      "endpoint_orders": [
+        "fullnode,indexer",
+        "indexer,fullnode"
+      ],
+      "administratively_independent": [
+        false
+      ],
+      "object_versions": [
+        924792290
+      ],
+      "checkpoint_hashes": [
+        "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f"
+      ],
+      "latency": {
+        "samples": 100,
+        "minimum_us": 1149220,
+        "median_us": 1235819,
+        "p95_us": 3248832,
+        "p99_us": 4236638,
+        "maximum_us": 4256985,
+        "mean_us": 1750105.31
+      }
+    }
+  ],
+  "interpretation": "Network observations are off-path governance synchronization costs. The two RPC services share IOTA administration and are not an independent-operator quorum."
+}

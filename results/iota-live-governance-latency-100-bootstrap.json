@@ -1,0 +1,115 @@
+{
+  "schema": "astra-pq-live-iota-latency-bootstrap-v1",
+  "method": "nonparametric percentile bootstrap",
+  "confidence_level": 0.95,
+  "resamples": 5000,
+  "seed": 20260830,
+  "quantile_definition": "ordered sample at floor((n-1)*p)",
+  "sampling_assumption": "observations are treated as exchangeable within each profile; temporal dependence and shared RPC administration are not modeled",
+  "outlier_removal": false,
+  "session_critical_path": false,
+  "rpc_administrative_independence": false,
+  "input_artifact": {
+    "path": "results/iota-live-governance-latency-100.jsonl",
+    "sha256": "d094831e6aec287c59807e9b2fda56e09d99c01bab0583c06d7e444e5307ef43",
+    "records": 400
+  },
+  "profiles": [
+    {
+      "profile": "fullnode-observation",
+      "rpc_services": [
+        1
+      ],
+      "network_calls_per_sample": [
+        2
+      ],
+      "samples": 100,
+      "minimum_us": 430499.0,
+      "median_us": 454133.0,
+      "median_ci_95_us": [
+        452449.0,
+        455340.0
+      ],
+      "p95_us": 1479142.0,
+      "p95_ci_95_us": [
+        1459387.0,
+        2465434.0
+      ],
+      "p99_us": 2468514.0,
+      "maximum_us": 2469726.0,
+      "mean_us": 624965.66
+    },
+    {
+      "profile": "indexer-observation",
+      "rpc_services": [
+        1
+      ],
+      "network_calls_per_sample": [
+        2
+      ],
+      "samples": 100,
+      "minimum_us": 798939.0,
+      "median_us": 849792.0,
+      "median_ci_95_us": [
+        847370.0,
+        851086.0
+      ],
+      "p95_us": 2840493.0,
+      "p95_ci_95_us": [
+        1855588.0,
+        2858890.0
+      ],
+      "p99_us": 2861495.0,
+      "maximum_us": 3858181.0,
+      "mean_us": 1137049.37
+    },
+    {
+      "profile": "local-finalization",
+      "rpc_services": [
+        0
+      ],
+      "network_calls_per_sample": [
+        0
+      ],
+      "samples": 100,
+      "minimum_us": 5093.0,
+      "median_us": 7198.0,
+      "median_ci_95_us": [
+        6982.0,
+        7294.0
+      ],
+      "p95_us": 8783.0,
+      "p95_ci_95_us": [
+        8529.0,
+        9145.0
+      ],
+      "p99_us": 9343.0,
+      "maximum_us": 10920.0,
+      "mean_us": 7265.76
+    },
+    {
+      "profile": "two-service-agreement",
+      "rpc_services": [
+        2
+      ],
+      "network_calls_per_sample": [
+        4
+      ],
+      "samples": 100,
+      "minimum_us": 1149220.0,
+      "median_us": 1235819.0,
+      "median_ci_95_us": [
+        1229897.0,
+        1243130.0
+      ],
+      "p95_us": 3248832.0,
+      "p95_ci_95_us": [
+        3215122.0,
+        4211135.0
+      ],
+      "p99_us": 4236638.0,
+      "maximum_us": 4256985.0,
+      "mean_us": 1750105.31
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+ASTRA-PQ live IOTA governance latency evaluation
+
+Recorded at:
+2026-08-30T01:12:37+00:00
+
+Repository:
+573686b994ab4fd4688b406fd454e518f2b1eafa
+feature/evaluation-completeness
+
+Platform:
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       412Mi       845Mi       1.3Mi       1.8Gi       2.4Gi
+Swap:          1.8Gi          0B       1.8Gi
+
+Toolchain:
+Python 3.12.3
+jq-1.7
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+iota 1.30.1-46b3da7c7df5
+
+Experimental design:
+samples_per_profile=100
+profiles=fullnode-observation,indexer-observation,two-service-agreement,local-finalization
+profile_order=cyclically_rotated
+two_service_endpoint_order=alternated
+pause_between_measurements_seconds=0.025
+outlier_removal=false
+observer_timing_includes=process startup,RPC calls,response validation,JSON serialization
+fullnode_network_calls_per_sample=2
+indexer_network_calls_per_sample=2
+two_service_network_calls_per_sample=4
+two_service_execution=sequential
+local_finalization_timing_includes=process startup,ML-DSA verification,bundle validation,state writes
+session_critical_path=false
+
+RPC administration:
+fullnode=https://api.testnet.iota.cafe
+indexer=https://indexer.testnet.iota.cafe
+administratively_independent=false
+
+Resource measurement:
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:05.28
+	Maximum resident set size (kbytes): 23296
+	Exit status: 0
+
+Artifact hashes:
+2d40eeea087b72de56d20f961183207e66d9d04d7b1a9c600a97383bf345830b  scripts/run-live-iota-observation-benchmark.sh
+ad774ba91f55c370a6d350a5e3b26c762bf5712f39254e08ac5dbf7f425a534a  scripts/summarize-live-iota-observation.jq
+fb36564e291a9f5fefa7efd7ecb21def2b4105f3dfc13dcf824313002ad0703c  deployment/iota-live/scripts/observe_iota_anchor.py
+25d5a6e70cfde8d1fcea4b5d9d52af52e03c0c2564dba9374fdfe80235b69b31  target/release/astra-iota-governance
+d094831e6aec287c59807e9b2fda56e09d99c01bab0583c06d7e444e5307ef43  results/iota-live-governance-latency-100.jsonl
+e222870019589549d0584ed844b096e84f8defce916bb836da519ab765e6f358  results/iota-live-governance-latency-100-summary.json
+f7d59c200de7636a96bd41f72e621843d27b6162f8927fac42770e739159120a  results/iota-live-governance-latency-100-stdout.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  results/iota-live-governance-latency-100-stderr.txt
+b284d0e5e02a7d00c161da4dd91a3b5807c5249fa93508fabd08d5063a98ad55  results/iota-live-governance-latency-100-resource.txt
+
+Bootstrap analysis:
+method=nonparametric percentile bootstrap
+confidence_level=0.95
+resamples=5000
+seed=20260830
+sampling_assumption=observations treated as exchangeable within each profile
+temporal_dependence_modeled=false
+outlier_removal=false
+
+Bootstrap artifact hashes:
+7272c66834eceea4e702fc8b35b2ef1f7cd68ab4493aa094213c0b4490309da4  scripts/bootstrap-live-iota-latency.py
+b1f06a015a4c4540577ed25fe8cce649b6725147df669c21a49d2358ac1d9d04  results/iota-live-governance-latency-100-bootstrap.json
+5a471fc9e1f8f16e46de519d82d7f1d7ca5162736ed317ec8cda6f878b4d7541  results/iota-live-governance-latency-100-bootstrap.csv
+4b80978f263c50090f1a56ae0070839ad5849375cfb229ea60390cd4eddf5d0d  results/iota-live-governance-latency-100-bootstrap-resource.txt
+5db29cff18419666f1c5af17da85e084f4da74bd142b4d94ae5cd4678b71ce54  results/iota-live-governance-latency-100-bootstrap-stdout.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  results/iota-live-governance-latency-100-bootstrap-stderr.txt
