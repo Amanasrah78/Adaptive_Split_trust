@@ -1,0 +1,13 @@
+{
+  "schema": "astra-pq-live-iota-epoch-call-v1",
+  "package_id": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+  "governance_object_id": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+  "publisher_cap_id": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+  "package_version": 1,
+  "epoch": 1,
+  "predecessor_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "checkpoint_hash": "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f",
+  "activation_time": 1788049573,
+  "bundle_uri": "https://raw.githubusercontent.com/Amanasrah78/Adaptive_Split_trust/36b31ec3af3918ee65d9bcd8e11dc1857eb3f003/results/iota-live-checkpoint-epoch1-prepared.json",
+  "governance_key_set_id": "astra-governance-actors-v1"
+}

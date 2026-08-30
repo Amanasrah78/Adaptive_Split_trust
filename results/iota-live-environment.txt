@@ -1,0 +1,89 @@
+ASTRA-PQ live IOTA evaluation environment
+
+Recorded at:
+2026-08-30T00:50:14+00:00
+
+Repository:
+36b31ec3af3918ee65d9bcd8e11dc1857eb3f003
+feature/evaluation-completeness
+
+Operating system:
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+
+CPU:
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+
+Memory:
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       422Mi       990Mi       1.2Mi       1.6Gi       2.4Gi
+Swap:          1.8Gi          0B       1.8Gi
+
+Filesystem:
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   12G  4.6G  72% /
+
+Toolchain:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+Python 3.12.3
+jq-1.7
+iota 1.30.1-46b3da7c7df5
+
+IOTA deployment:
+network=testnet
+network_id=2304aa97
+package_id=0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6
+governance_object_id=0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e
+package_transaction=CQAkvGiqxfyJEuN2drLiMDTvDpYhCcZAAq1F4aFQCSDt
+epoch_transaction=81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw
+object_version=924792290
+checkpoint_hash=3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f
+
+RPC services:
+fullnode=https://api.testnet.iota.cafe
+indexer=https://indexer.testnet.iota.cafe
+administratively_independent=false
+Both services are operated within IOTA infrastructure.
+
+Resource measurements:
+
+[results/iota-live-package-publish-resource.txt]
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.22
+	Maximum resident set size (kbytes): 198844
+	Exit status: 0
+
+[results/iota-live-epoch1-publish-resource.txt]
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.36
+	Maximum resident set size (kbytes): 25472
+	Exit status: 0
+
+[results/iota-live-observation-epoch1-resource.txt]
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.68
+	Maximum resident set size (kbytes): 23268
+	Exit status: 0
+
+[results/iota-live-finalization-epoch1-resource.txt]
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Maximum resident set size (kbytes): 2304
+	Exit status: 0
+
+Artifact hashes:
+76c4c9e5b27ab71e29c90f47ccf32f95b0f5724d948fbcbff012271bbc0cc40f  deployment/iota-live/Move.toml
+ff3cd994022cc14d23666c446b211635c5192a990a5b8c83f1818ece02d3a8ba  deployment/iota-live/Move.lock
+559918efbfafcfcc13e2c4a6b72823cc88537f7e013d4e2117f176461d0b1b8a  deployment/iota-live/sources/astra_pq_governance.move
+fb36564e291a9f5fefa7efd7ecb21def2b4105f3dfc13dcf824313002ad0703c  deployment/iota-live/scripts/observe_iota_anchor.py
+901834ba796ea431598e31b5fce4f3347cb8bde65996f3ebde2ab8ee6ad22c14  crates/astra-testkit/src/bin/astra-iota-governance.rs
+25d5a6e70cfde8d1fcea4b5d9d52af52e03c0c2564dba9374fdfe80235b69b31  target/release/astra-iota-governance
+9dec796ed17c81cd91ac8577a0e6eebe2b1130725e24ff084e1bb1a34a3ed29b  results/iota-live-package-publish.json
+12b4f1cca538132c9cf3e363ab123029117910cb4188621c5875354a0e945e6d  results/iota-live-checkpoint-epoch1-prepared.json
+c68f41dffaa038fe7ba444c6e15647464c3833f9696eacf6d1465e5f6c8713af  results/iota-live-epoch1-publish.json
+f784abc0a0248430b8bcb7c77e264c8838e82fd094197af8c3484a434ea30713  results/iota-live-governance-object-epoch1.json
+ae59fa3739ac8abd180f46ae42c86f50b142274edb200cc8255518bbd14e48f7  results/iota-live-observation-epoch1.json
+94282f49e5cdc5ad9635ff0cf20fd56329ce0ca5c159353849726717f1d88bdc  results/iota-live-governance-bundle-epoch1.json
+6b98dadecff787bf1cc156981c28af0ddf100b4447c9e19dcadc90e1e118ad3c  results/iota-live-governance-state-epoch1.json
+f70666ad15074ba073abb43e2657032f92a63e8a610d6cc00ab6a02aba38908d  results/iota-live-evaluation-summary.json

@@ -8,6 +8,9 @@ module astra_pq_governance::astra_pq_governance;
 
 use iota::event;
 
+#[test_only]
+use iota::test_scenario;
+
 const PACKAGE_VERSION: u64 = 1;
 const DIGEST_BYTES: u64 = 32;
 const MAX_URI_BYTES: u64 = 512;

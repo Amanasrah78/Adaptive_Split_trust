@@ -1,0 +1,13 @@
+{
+  "bundle_output": "results/iota-live-governance-bundle-epoch1.json",
+  "bundle_uri": "https://raw.githubusercontent.com/Amanasrah78/Adaptive_Split_trust/36b31ec3af3918ee65d9bcd8e11dc1857eb3f003/results/iota-live-checkpoint-epoch1-prepared.json",
+  "checkpoint_hash": "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f",
+  "epoch": 1,
+  "iota_previous_transaction": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+  "live_iota_claim": true,
+  "object_version": 924792290,
+  "schema": "astra-pq-live-iota-finalization-v1",
+  "state_output": "results/iota-live-governance-state-epoch1.json",
+  "validated": true,
+  "validated_at": 1788050762
+}

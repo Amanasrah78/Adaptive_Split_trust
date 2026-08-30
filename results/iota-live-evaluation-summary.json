@@ -1,0 +1,72 @@
+{
+  "schema": "astra-pq-live-iota-evaluation-summary-v1",
+  "live_iota_claim": true,
+  "session_critical_path": false,
+  "network": {
+    "environment": "IOTA public testnet",
+    "network_id": "2304aa97",
+    "package_id": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+    "governance_object_id": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+    "package_version": 1
+  },
+  "package_publication": {
+    "transaction_digest": "CQAkvGiqxfyJEuN2drLiMDTvDpYhCcZAAq1F4aFQCSDt",
+    "status": "success",
+    "gas_used": {
+      "computationCost": "1000000",
+      "computationCostBurned": "1000000",
+      "storageCost": "18376800",
+      "storageRebate": "980400",
+      "nonRefundableStorageFee": "0"
+    },
+    "net_gas_nanos": 18396400
+  },
+  "epoch_publication": {
+    "epoch": 1,
+    "checkpoint_hash": "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f",
+    "activation_time": 1788049573,
+    "maximum_age_seconds": 604800,
+    "transaction_digest": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+    "status": "success",
+    "event_count": 1,
+    "object_version": "924792290",
+    "gas_used": {
+      "computationCost": "1000000",
+      "computationCostBurned": "1000000",
+      "storageCost": "5958400",
+      "storageRebate": "4560000",
+      "nonRefundableStorageFee": "0"
+    },
+    "net_gas_nanos": 2398400
+  },
+  "observation": {
+    "required_agreement": 2,
+    "agreeing_services": 2,
+    "service_identifiers": [
+      "iota-foundation-fullnode",
+      "iota-foundation-indexer"
+    ],
+    "object_version": 924792290,
+    "previous_transaction": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+    "bundle_uri": "https://raw.githubusercontent.com/Amanasrah78/Adaptive_Split_trust/36b31ec3af3918ee65d9bcd8e11dc1857eb3f003/results/iota-live-checkpoint-epoch1-prepared.json",
+    "rejected_endpoint_errors": [],
+    "administratively_independent": false,
+    "limitation": "The full-node and indexer observations are distinct services operated by the same IOTA administrative infrastructure; they do not establish independent-operator RPC agreement."
+  },
+  "governance_authentication": {
+    "algorithm": "ML-DSA-65",
+    "key_set_id": "astra-governance-actors-v1",
+    "threshold": 2,
+    "signature_count": 2
+  },
+  "local_finalization": {
+    "validated": true,
+    "epoch": 1,
+    "checkpoint_hash": "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f",
+    "object_version": 924792290,
+    "validated_at": 1788050762,
+    "bundle_output": "results/iota-live-governance-bundle-epoch1.json",
+    "state_output": "results/iota-live-governance-state-epoch1.json"
+  },
+  "interpretation": "The experiment replaces synthetic ledger observations with a live IOTA testnet package, shared governance object, epoch publication, object observation, detached post-quantum governance-signature validation, and local activation. IOTA synchronization remains outside the session-critical path."
+}
