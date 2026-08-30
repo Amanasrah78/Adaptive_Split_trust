@@ -1,0 +1,3 @@
+   Compiling astra-testkit v0.1.0 (/home/astraadmin/astra-pq/crates/astra-testkit)
+    Finished `release` profile [optimized] target(s) in 2.85s
+     Running `target/release/astra-iota-governance prepare`

@@ -6,3 +6,9 @@
 /results/raw/
 /config/generated/
 .DS_Store
+/tools/
+/deployment/iota-live/build/
+**/__pycache__/
+/tools/
+/deployment/iota-live/build/
+**/__pycache__/

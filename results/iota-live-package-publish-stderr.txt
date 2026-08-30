@@ -1,0 +1,8 @@
+[warn] Client/Server api version mismatch, client api version: 1.30.1, server api version: 1.30.1-rc
+[Note]: Dependency sources are no longer verified automatically during publication and upgrade. You can pass the `--verify-deps` option if you would like to verify them as part of publication or upgrade.
+INCLUDING DEPENDENCY IotaSystem
+INCLUDING DEPENDENCY Stardust
+INCLUDING DEPENDENCY Iota
+INCLUDING DEPENDENCY MoveStdlib
+BUILDING astra_pq_governance
+Skipping dependency verification

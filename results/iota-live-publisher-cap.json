@@ -1,0 +1,20 @@
+{
+  "objectId": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+  "version": "924792289",
+  "digest": "6GRyz1QTe6zX63n2zS3hmzf1nVLVvWHKEVcfdxs5b1tB",
+  "type": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6::astra_pq_governance::PublisherCap",
+  "owner": {
+    "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+  },
+  "previousTransaction": "CQAkvGiqxfyJEuN2drLiMDTvDpYhCcZAAq1F4aFQCSDt",
+  "storageRebate": "1421200",
+  "content": {
+    "dataType": "moveObject",
+    "type": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6::astra_pq_governance::PublisherCap",
+    "fields": {
+      "id": {
+        "id": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f"
+      }
+    }
+  }
+}
