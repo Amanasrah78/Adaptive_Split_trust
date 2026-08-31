@@ -6,6 +6,7 @@
 //! key confirmation without exporting the derived session key.
 
 #![forbid(unsafe_code)]
+#![recursion_limit = "256"]
 #![warn(missing_docs)]
 
 use anyhow::Context;
@@ -19,7 +20,7 @@ use astra_common::{
 use astra_dprf::{DprfBackend, EvaluationRequest, lwr::LwrExactCoalitionBackend};
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
-    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+    GovernanceBundle, GovernanceProfile, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
 };
 use astra_pqcrypto::{ConfirmationRole, PqProvider, derive_session_confirmation_tag};
 use astra_testkit::session_wire::{
@@ -51,6 +52,12 @@ const RESPONDER_ID: &str = "gateway-b";
 const SESSION_ID_LABEL: &[u8] = b"ASTRA-PQ-v1/distributed-session-id";
 const PREHANDSHAKE_LABEL: &[u8] = b"ASTRA-PQ-v1/distributed-prehandshake";
 const SIGNING_SELF_TEST_MESSAGE: &[u8] = b"ASTRA-PQ initiator signing-key self-test v1";
+const LIVE_IOTA_NETWORK_ID: &str = "2304aa97";
+const LIVE_IOTA_PACKAGE_ID: &str =
+    "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6";
+const LIVE_IOTA_OBJECT_ID: &str =
+    "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e";
+const LIVE_IOTA_PACKAGE_VERSION: u64 = 1;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct AuthorityWireResponse {
@@ -374,8 +381,15 @@ fn main() -> anyhow::Result<()> {
                 "security_profile": LwrExactCoalitionBackend::security_profile(),
                 "malicious_robust": false,
                 "proactive_refresh_implemented": false,
-                "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
-                "live_iota_claim": false,
+                "governance_validation": governance_reporting(&governance_bundle.profile).0,
+                "live_iota_claim": governance_reporting(&governance_bundle.profile).1,
+                "governance_network_id": &governance_bundle.profile.network_id,
+                "governance_package_id": &governance_bundle.profile.package_id,
+                "governance_object_id": &governance_bundle.profile.object_id,
+                "governance_object_version": governance_bundle.anchor.object_version,
+                "rpc_service_observations": governance_bundle.observations.len(),
+                "rpc_service_quorum": governance_bundle.profile.rpc_quorum,
+                "rpc_administrative_independence_claim": false,
                 "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
                 "session_key_exported": false,
                 "bidirectional_key_confirmation": true,
@@ -651,6 +665,24 @@ fn digests_equal(left: &Digest32, right: &Digest32) -> bool {
             difference | (*left_byte ^ *right_byte)
         })
         == 0
+}
+
+fn governance_reporting(profile: &GovernanceProfile) -> (&'static str, bool) {
+    let live = profile.network_id == LIVE_IOTA_NETWORK_ID
+        && profile.package_id == LIVE_IOTA_PACKAGE_ID
+        && profile.object_id == LIVE_IOTA_OBJECT_ID
+        && profile.package_version == LIVE_IOTA_PACKAGE_VERSION;
+
+    if live {
+        (
+            "off-path-signed-bundle-live-iota-testnet-two-service-observation",
+            true,
+        )
+    } else if profile.network_id == "iota-lab-synthetic-observations" {
+        ("off-path-signed-bundle-synthetic-iota-observations", false)
+    } else {
+        ("off-path-signed-bundle-unclassified-observations", false)
+    }
 }
 
 #[cfg(test)]

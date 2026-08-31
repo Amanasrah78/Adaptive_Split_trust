@@ -6,6 +6,7 @@
 //! confirmation. Session keys and intermediate secrets are never serialized.
 
 #![forbid(unsafe_code)]
+#![recursion_limit = "256"]
 #![warn(missing_docs)]
 
 use anyhow::Context;
@@ -13,7 +14,7 @@ use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::LwrExactCoalitionBackend;
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
-    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+    GovernanceBundle, GovernanceProfile, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
 };
 use astra_pqcrypto::{ConfirmationRole, PqProvider, SecretBytes, derive_session_confirmation_tag};
 use astra_testkit::adaptive_lab_synthesis;
@@ -41,6 +42,12 @@ const MAX_CONCURRENT_CONNECTIONS: usize = 32;
 const IO_TIMEOUT: Duration = Duration::from_secs(5);
 const RESPONDER_ID: &str = "gateway-b";
 const SIGNING_SELF_TEST_MESSAGE: &[u8] = b"ASTRA-PQ responder signing-key self-test v1";
+const LIVE_IOTA_NETWORK_ID: &str = "2304aa97";
+const LIVE_IOTA_PACKAGE_ID: &str =
+    "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6";
+const LIVE_IOTA_OBJECT_ID: &str =
+    "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e";
+const LIVE_IOTA_PACKAGE_VERSION: u64 = 1;
 
 struct ResponderState {
     provider: PqProvider,
@@ -175,8 +182,15 @@ fn main() -> anyhow::Result<()> {
             "signature": metadata.signature_algorithm,
             "authorization_policy": "risk-adaptive-exact-coalition-R0-through-R4",
             "evidence_items_by_risk": {"R0": 1, "R1": 3, "R2": 4, "R3": 6, "R4": 8},
-            "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
-            "live_iota_claim": false,
+            "governance_validation": governance_reporting(&state.governance_bundle.profile).0,
+            "live_iota_claim": governance_reporting(&state.governance_bundle.profile).1,
+            "governance_network_id": &state.governance_bundle.profile.network_id,
+            "governance_package_id": &state.governance_bundle.profile.package_id,
+            "governance_object_id": &state.governance_bundle.profile.object_id,
+            "governance_object_version": state.governance_bundle.anchor.object_version,
+            "rpc_service_observations": state.governance_bundle.observations.len(),
+            "rpc_service_quorum": state.governance_bundle.profile.rpc_quorum,
+            "rpc_administrative_independence_claim": false,
             "connection_model": "bounded-thread-per-connection",
             "maximum_concurrent_connections": MAX_CONCURRENT_CONNECTIONS,
             "session_processing": "mutex-serialized"
@@ -378,7 +392,15 @@ fn handle_connection(
             "bidirectional_key_confirmation": true,
             "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
             "malicious_robust": false,
-            "live_iota_claim": false,
+            "governance_validation": governance_reporting(&state.governance_bundle.profile).0,
+            "live_iota_claim": governance_reporting(&state.governance_bundle.profile).1,
+            "governance_network_id": &state.governance_bundle.profile.network_id,
+            "governance_package_id": &state.governance_bundle.profile.package_id,
+            "governance_object_id": &state.governance_bundle.profile.object_id,
+            "governance_object_version": state.governance_bundle.anchor.object_version,
+            "rpc_service_observations": state.governance_bundle.observations.len(),
+            "rpc_service_quorum": state.governance_bundle.profile.rpc_quorum,
+            "rpc_administrative_independence_claim": false,
             "timing_us": {
                 "request_verification": request_verification_us,
                 "kem_decapsulation": kem_decapsulation_us,
@@ -483,6 +505,24 @@ fn secrets_equal(left: &[u8], right: &[u8]) -> bool {
             difference | (*left_byte ^ *right_byte)
         })
         == 0
+}
+
+fn governance_reporting(profile: &GovernanceProfile) -> (&'static str, bool) {
+    let live = profile.network_id == LIVE_IOTA_NETWORK_ID
+        && profile.package_id == LIVE_IOTA_PACKAGE_ID
+        && profile.object_id == LIVE_IOTA_OBJECT_ID
+        && profile.package_version == LIVE_IOTA_PACKAGE_VERSION;
+
+    if live {
+        (
+            "off-path-signed-bundle-live-iota-testnet-two-service-observation",
+            true,
+        )
+    } else if profile.network_id == "iota-lab-synthetic-observations" {
+        ("off-path-signed-bundle-synthetic-iota-observations", false)
+    } else {
+        ("off-path-signed-bundle-unclassified-observations", false)
+    }
 }
 
 #[cfg(test)]

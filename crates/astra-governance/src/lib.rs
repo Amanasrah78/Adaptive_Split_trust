@@ -144,10 +144,10 @@ pub struct LedgerAnchor {
     pub transaction_digest: Digest32,
 }
 
-/// Independent full-node observation of an IOTA anchor.
+/// Observation of an IOTA anchor obtained from a distinct RPC service.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct RpcObservation {
-    /// Independently administered RPC operator identifier.
+    /// Distinct RPC service identifier.
     pub operator_id: String,
     /// Observed IOTA object version.
     pub object_version: u64,
@@ -188,7 +188,7 @@ pub struct GovernanceProfile {
     pub object_id: String,
     /// Expected package schema version.
     pub package_version: u64,
-    /// Minimum number of independent agreeing RPC operators.
+    /// Minimum number of distinct agreeing RPC service identifiers.
     pub rpc_quorum: u16,
 }
 
@@ -224,7 +224,7 @@ pub struct CheckpointCandidate<'a> {
     pub checkpoint: &'a GovernanceCheckpoint,
     /// IOTA shared-object anchor.
     pub anchor: &'a LedgerAnchor,
-    /// Observations from independently administered RPC endpoints.
+    /// Observations obtained from distinct RPC services.
     pub observations: &'a [RpcObservation],
     /// Configured IOTA deployment profile.
     pub profile: &'a GovernanceProfile,
@@ -248,7 +248,7 @@ pub struct GovernanceBundle {
     pub checkpoint: GovernanceCheckpoint,
     /// IOTA shared-object anchor for the checkpoint.
     pub anchor: LedgerAnchor,
-    /// Independently obtained full-node observations.
+    /// Observations obtained from distinct RPC services.
     pub observations: Vec<RpcObservation>,
     /// Expected IOTA deployment binding.
     pub profile: GovernanceProfile,
@@ -408,20 +408,20 @@ fn validate_rpc_quorum(
     anchor: &LedgerAnchor,
     observations: &[RpcObservation],
 ) -> Result<(), GovernanceError> {
-    let mut agreeing_operators = BTreeSet::new();
+    let mut agreeing_services = BTreeSet::new();
     for observation in observations {
         validate_text("rpc_operator_id", &observation.operator_id)?;
         if observation.object_version == anchor.object_version
             && observation.checkpoint_hash == anchor.checkpoint_hash
             && observation.transaction_digest == anchor.transaction_digest
         {
-            agreeing_operators.insert(observation.operator_id.as_str());
+            agreeing_services.insert(observation.operator_id.as_str());
         }
     }
-    if agreeing_operators.len() < usize::from(required) {
+    if agreeing_services.len() < usize::from(required) {
         return Err(GovernanceError::InsufficientRpcAgreement {
             required,
-            agreeing: agreeing_operators.len(),
+            agreeing: agreeing_services.len(),
         });
     }
     Ok(())

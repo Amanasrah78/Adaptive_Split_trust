@@ -1,0 +1,65 @@
+{
+  "schema": "astra-pq-live-iota-adaptive-session-smoke-summary-v1",
+  "purpose": "functional integration validation; not a latency benchmark",
+  "samples": 5,
+  "all_successful": true,
+  "live_iota_claims": [
+    true
+  ],
+  "governance_validation": [
+    "off-path-signed-bundle-live-iota-testnet-two-service-observation"
+  ],
+  "network_ids": [
+    "2304aa97"
+  ],
+  "object_versions": [
+    924792290
+  ],
+  "rpc_service_observations": [
+    2
+  ],
+  "rpc_service_quorums": [
+    2
+  ],
+  "rpc_administrative_independence_claims": [
+    false
+  ],
+  "profiles": [
+    {
+      "risk_class": "R0",
+      "success": true,
+      "clause_count": 1,
+      "evidence_count": 1,
+      "total_us": 4766
+    },
+    {
+      "risk_class": "R1",
+      "success": true,
+      "clause_count": 2,
+      "evidence_count": 3,
+      "total_us": 7151
+    },
+    {
+      "risk_class": "R2",
+      "success": true,
+      "clause_count": 3,
+      "evidence_count": 4,
+      "total_us": 8690
+    },
+    {
+      "risk_class": "R3",
+      "success": true,
+      "clause_count": 4,
+      "evidence_count": 6,
+      "total_us": 13915
+    },
+    {
+      "risk_class": "R4",
+      "success": true,
+      "clause_count": 5,
+      "evidence_count": 8,
+      "total_us": 17535
+    }
+  ],
+  "limitation": "Each risk profile has one functional sample. The two agreeing RPC services share IOTA administration and do not establish independent-operator agreement."
+}
