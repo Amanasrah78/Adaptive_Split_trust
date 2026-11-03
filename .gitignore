@@ -9,3 +9,8 @@
 /tools/
 /deployment/iota-live/build/
 **/__pycache__/
+
+# Local/deployed ASTRA-PQ runtime artifacts
+/bin/
+/config/authority-public-keys/
+/results/iota-live-*.json

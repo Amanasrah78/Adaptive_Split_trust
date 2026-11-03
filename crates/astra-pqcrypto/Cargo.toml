@@ -6,6 +6,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+aes-gcm = "0.10.3"
 astra-common = { version = "0.1.0", path = "../astra-common" }
 hkdf = "0.13.0"
 oqs = { version = "0.11.0", default-features = false, features = ["std", "ml_kem", "ml_dsa", "vendored"] }

@@ -15,11 +15,12 @@ temporary="${output}.partial.$$"
 trap 'rm -f "${temporary}"' EXIT
 
 ASTRA_SESSION_REPETITIONS="${repetitions}" \
-ASTRA_GOVERNANCE_BUNDLE=/home/astraadmin/astra-pq/config/governance/governance-bundle.json \
-ASTRA_INITIATOR_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk \
-ASTRA_INITIATOR_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.pk \
-ASTRA_RESPONDER_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/config/gateway-public-keys/gateway-b.pk \
-ASTRA_RESPONDER_KEM_PUBLIC=/home/astraadmin/astra-pq/config/responder-kem/gateway-b.pk \
+ASTRA_GOVERNANCE_BUNDLE="${ASTRA_GOVERNANCE_BUNDLE:-/home/astraadmin/astra-pq/config/governance/governance-bundle.json}" \
+ASTRA_GOVERNANCE_PREVIOUS_STATE="${ASTRA_GOVERNANCE_PREVIOUS_STATE:-/home/astraadmin/astra-pq/results/iota-live-governance-state-epoch1.json}" \
+ASTRA_INITIATOR_SIGNING_KEY=/home/astraadmin/astra-provisioning/gateway-keys-v1/gateway-a/request-signing.sk \
+ASTRA_INITIATOR_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-provisioning/gateway-keys-v1/gateway-a/request-signing.pk \
+ASTRA_RESPONDER_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-provisioning/gateway-keys-v1/gateway-b/request-signing.pk \
+ASTRA_RESPONDER_KEM_PUBLIC=/home/astraadmin/astra-provisioning/responder-kem-v1/encapsulation.pk \
 ASTRA_AUTHORITY_PUBLIC_KEY_ROOT=/home/astraadmin/astra-pq/config/authority-public-keys \
 ASTRA_AUTHORITY_ENDPOINTS=a1=172.16.64.11:7443,a2=172.16.64.12:7443,a3=172.16.64.13:7443 \
 ASTRA_SESSION_RESPONDER_ENDPOINT=172.16.64.12:7553 \

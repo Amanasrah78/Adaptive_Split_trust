@@ -6,6 +6,9 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+/// Authenticated, sequence-protected session record layer.
+pub mod record;
+
 use astra_common::{Digest32, Secret32};
 use hkdf::Hkdf;
 use oqs::{kem, sig};
@@ -18,8 +21,18 @@ use zeroize::{Zeroize, ZeroizeOnDrop};
 
 const MAX_SIGNED_MESSAGE_BYTES: usize = 1_048_576;
 const MAX_TRANSCRIPT_BYTES: usize = 1_048_576;
-const SESSION_INFO_LABEL: &[u8] = b"ASTRA-PQ-v1/session";
+const INITIATOR_WRITE_KEY_LABEL: &[u8] = b"ASTRA-PQ-v1/key-schedule/initiator-write-key";
+const RESPONDER_WRITE_KEY_LABEL: &[u8] = b"ASTRA-PQ-v1/key-schedule/responder-write-key";
+const INITIATOR_WRITE_IV_LABEL: &[u8] = b"ASTRA-PQ-v1/key-schedule/initiator-write-iv";
+const RESPONDER_WRITE_IV_LABEL: &[u8] = b"ASTRA-PQ-v1/key-schedule/responder-write-iv";
+const INITIATOR_CONFIRMATION_KEY_LABEL: &[u8] =
+    b"ASTRA-PQ-v1/key-schedule/initiator-confirmation-key";
+const RESPONDER_CONFIRMATION_KEY_LABEL: &[u8] =
+    b"ASTRA-PQ-v1/key-schedule/responder-confirmation-key";
 const CONFIRMATION_INFO_LABEL: &[u8] = b"ASTRA-PQ-v1/key-confirmation";
+
+/// Length of a per-direction traffic IV.
+pub const TRAFFIC_IV_BYTES: usize = 12;
 static OQS_INIT: Once = Once::new();
 
 /// Secret byte storage that is erased when dropped.
@@ -301,18 +314,58 @@ impl PqProvider {
     }
 }
 
-/// Derives a 256-bit session key from both ASTRA-PQ cryptographic gates.
+/// All cryptographic secrets derived for one established ASTRA-PQ session.
 ///
-/// The construction follows the manuscript profile:
-/// `IKM = K_kem || Z_s`,
-/// `salt = SHA3-256(u_s || SHA3-256(T_s))`, and
-/// `info = "ASTRA-PQ-v1/session" || u_s || SHA3-256(T_s)`.
-pub fn derive_session_key(
+/// The initiator and responder receive identical instances of this structure,
+/// but use only the key and IV corresponding to the direction in which they
+/// transmit. Confirmation keys are disjoint from traffic keys.
+#[derive(Zeroize, ZeroizeOnDrop)]
+pub struct SessionSecrets {
+    /// Traffic-encryption key for initiator-to-responder records.
+    pub initiator_write_key: Secret32,
+    /// Traffic-encryption key for responder-to-initiator records.
+    pub responder_write_key: Secret32,
+    /// Base IV for initiator-to-responder records.
+    pub initiator_write_iv: [u8; TRAFFIC_IV_BYTES],
+    /// Base IV for responder-to-initiator records.
+    pub responder_write_iv: [u8; TRAFFIC_IV_BYTES],
+    /// Key used only for initiator handshake confirmation.
+    pub initiator_confirmation_key: Secret32,
+    /// Key used only for responder handshake confirmation.
+    pub responder_confirmation_key: Secret32,
+}
+
+impl fmt::Debug for SessionSecrets {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter
+            .debug_struct("SessionSecrets")
+            .field("initiator_write_key", &"[REDACTED]")
+            .field("responder_write_key", &"[REDACTED]")
+            .field("initiator_write_iv", &"[REDACTED]")
+            .field("responder_write_iv", &"[REDACTED]")
+            .field("initiator_confirmation_key", &"[REDACTED]")
+            .field("responder_confirmation_key", &"[REDACTED]")
+            .finish()
+    }
+}
+
+/// Derives the complete ASTRA-PQ session key schedule from both trust gates.
+///
+/// The root construction is:
+///
+/// `IKM = K_kem || Z_s`
+///
+/// `salt = SHA3-256(u_s || SHA3-256(T_s))`
+///
+/// Each traffic key, traffic IV, and confirmation key is then independently
+/// expanded from the same HKDF-SHA384 pseudorandom key using a distinct
+/// protocol label plus `u_s` and `SHA3-256(T_s)`.
+pub fn derive_session_secrets(
     kem_secret: &SecretBytes,
     authorization_secret: &Secret32,
     authorization_input: &Digest32,
     transcript: &[u8],
-) -> Result<Secret32, CryptoError> {
+) -> Result<SessionSecrets, CryptoError> {
     if kem_secret.is_empty() {
         return Err(CryptoError::InvalidLength("ML-KEM shared secret"));
     }
@@ -324,6 +377,7 @@ pub fn derive_session_key(
     }
 
     let transcript_hash = Sha3_256::digest(transcript);
+
     let mut salt_hasher = Sha3_256::new();
     salt_hasher.update(authorization_input.as_bytes());
     salt_hasher.update(transcript_hash.as_slice());
@@ -336,15 +390,48 @@ pub fn derive_session_key(
     let hkdf = Hkdf::<Sha384>::new(Some(salt.as_slice()), &input_key_material);
     input_key_material.zeroize();
 
-    let mut info = Vec::with_capacity(SESSION_INFO_LABEL.len() + 64);
-    info.extend_from_slice(SESSION_INFO_LABEL);
-    info.extend_from_slice(authorization_input.as_bytes());
-    info.extend_from_slice(transcript_hash.as_slice());
+    let expand = |label: &[u8], output: &mut [u8]| -> Result<(), CryptoError> {
+        let mut info = Vec::with_capacity(label.len() + 64);
+        info.extend_from_slice(label);
+        info.extend_from_slice(authorization_input.as_bytes());
+        info.extend_from_slice(transcript_hash.as_slice());
 
-    let mut session_key = [0_u8; 32];
-    hkdf.expand(&info, &mut session_key)
-        .map_err(|_| CryptoError::KdfExpansion)?;
-    Ok(Secret32::from_bytes(session_key))
+        hkdf.expand(&info, output)
+            .map_err(|_| CryptoError::KdfExpansion)
+    };
+
+    let mut initiator_write_key = [0_u8; 32];
+    expand(INITIATOR_WRITE_KEY_LABEL, &mut initiator_write_key)?;
+
+    let mut responder_write_key = [0_u8; 32];
+    expand(RESPONDER_WRITE_KEY_LABEL, &mut responder_write_key)?;
+
+    let mut initiator_write_iv = [0_u8; TRAFFIC_IV_BYTES];
+    expand(INITIATOR_WRITE_IV_LABEL, &mut initiator_write_iv)?;
+
+    let mut responder_write_iv = [0_u8; TRAFFIC_IV_BYTES];
+    expand(RESPONDER_WRITE_IV_LABEL, &mut responder_write_iv)?;
+
+    let mut initiator_confirmation_key = [0_u8; 32];
+    expand(
+        INITIATOR_CONFIRMATION_KEY_LABEL,
+        &mut initiator_confirmation_key,
+    )?;
+
+    let mut responder_confirmation_key = [0_u8; 32];
+    expand(
+        RESPONDER_CONFIRMATION_KEY_LABEL,
+        &mut responder_confirmation_key,
+    )?;
+
+    Ok(SessionSecrets {
+        initiator_write_key: Secret32::from_bytes(initiator_write_key),
+        responder_write_key: Secret32::from_bytes(responder_write_key),
+        initiator_write_iv,
+        responder_write_iv,
+        initiator_confirmation_key: Secret32::from_bytes(initiator_confirmation_key),
+        responder_confirmation_key: Secret32::from_bytes(responder_confirmation_key),
+    })
 }
 
 /// Direction bound to a session-key confirmation tag.
@@ -365,13 +452,13 @@ impl ConfirmationRole {
     }
 }
 
-/// Derives a public, role-separated confirmation tag for a session key.
+/// Derives a public, role-separated confirmation tag.
 ///
-/// The tag proves possession of the dual-gated session key without exposing
-/// that key. It is bound to the authenticated handshake transcript and to the
-/// sender role to prevent reflection between protocol directions.
+/// The supplied key must be the dedicated confirmation key for the sender
+/// role. The tag is additionally bound to the authenticated handshake
+/// transcript and explicit sender role.
 pub fn derive_session_confirmation_tag(
-    session_key: &Secret32,
+    confirmation_key: &Secret32,
     transcript: &[u8],
     role: ConfirmationRole,
 ) -> Result<Digest32, CryptoError> {
@@ -385,7 +472,7 @@ pub fn derive_session_confirmation_tag(
     let transcript_hash = Sha3_256::digest(transcript);
     let hkdf = Hkdf::<Sha384>::new(
         Some(transcript_hash.as_slice()),
-        session_key.expose_secret(),
+        confirmation_key.expose_secret(),
     );
     let mut info = Vec::with_capacity(CONFIRMATION_INFO_LABEL.len() + 48);
     info.extend_from_slice(CONFIRMATION_INFO_LABEL);
@@ -533,49 +620,113 @@ mod tests {
     }
 
     #[test]
-    fn dual_gate_session_keys_agree() {
+    fn dual_gate_session_secrets_agree() {
         let provider = PqProvider::new().unwrap();
         let keypair = provider.generate_kem_keypair().unwrap();
         let encapsulation = provider.encapsulate(keypair.public_key()).unwrap();
         let decapsulated = provider
             .decapsulate(keypair.secret_key(), encapsulation.ciphertext())
             .unwrap();
+
         let authorization_secret = Secret32::from_bytes([5; 32]);
         let authorization_input = Digest32::from_bytes([6; 32]);
         let transcript = b"authenticated ASTRA-PQ pre-handshake transcript";
 
-        let initiator_key = derive_session_key(
+        let initiator = derive_session_secrets(
             &decapsulated,
             &authorization_secret,
             &authorization_input,
             transcript,
         )
         .unwrap();
-        let responder_key = derive_session_key(
+
+        let responder = derive_session_secrets(
             encapsulation.shared_secret(),
             &authorization_secret,
             &authorization_input,
             transcript,
         )
         .unwrap();
-        assert_eq!(initiator_key.expose_secret(), responder_key.expose_secret());
+
+        assert_eq!(
+            initiator.initiator_write_key.expose_secret(),
+            responder.initiator_write_key.expose_secret()
+        );
+        assert_eq!(
+            initiator.responder_write_key.expose_secret(),
+            responder.responder_write_key.expose_secret()
+        );
+        assert_eq!(initiator.initiator_write_iv, responder.initiator_write_iv);
+        assert_eq!(initiator.responder_write_iv, responder.responder_write_iv);
+        assert_eq!(
+            initiator.initiator_confirmation_key.expose_secret(),
+            responder.initiator_confirmation_key.expose_secret()
+        );
+        assert_eq!(
+            initiator.responder_confirmation_key.expose_secret(),
+            responder.responder_confirmation_key.expose_secret()
+        );
+    }
+
+    #[test]
+    fn session_key_schedule_is_domain_separated() {
+        let kem_secret = SecretBytes::new(vec![4; 32]);
+        let secrets = derive_session_secrets(
+            &kem_secret,
+            &Secret32::from_bytes([5; 32]),
+            &Digest32::from_bytes([6; 32]),
+            b"domain-separated transcript",
+        )
+        .unwrap();
+
+        assert_ne!(
+            secrets.initiator_write_key.expose_secret(),
+            secrets.responder_write_key.expose_secret()
+        );
+        assert_ne!(secrets.initiator_write_iv, secrets.responder_write_iv);
+        assert_ne!(
+            secrets.initiator_confirmation_key.expose_secret(),
+            secrets.responder_confirmation_key.expose_secret()
+        );
+        assert_ne!(
+            secrets.initiator_write_key.expose_secret(),
+            secrets.initiator_confirmation_key.expose_secret()
+        );
+        assert_ne!(
+            secrets.responder_write_key.expose_secret(),
+            secrets.responder_confirmation_key.expose_secret()
+        );
     }
 
     #[test]
     fn confirmation_tags_are_role_and_transcript_bound() {
-        let session_key = Secret32::from_bytes([9; 32]);
+        let initiator_key = Secret32::from_bytes([9; 32]);
+        let responder_key = Secret32::from_bytes([10; 32]);
         let transcript = b"authenticated distributed session transcript";
-        let responder =
-            derive_session_confirmation_tag(&session_key, transcript, ConfirmationRole::Responder)
-                .unwrap();
-        let repeated =
-            derive_session_confirmation_tag(&session_key, transcript, ConfirmationRole::Responder)
-                .unwrap();
-        let initiator =
-            derive_session_confirmation_tag(&session_key, transcript, ConfirmationRole::Initiator)
-                .unwrap();
+
+        let responder = derive_session_confirmation_tag(
+            &responder_key,
+            transcript,
+            ConfirmationRole::Responder,
+        )
+        .unwrap();
+
+        let repeated = derive_session_confirmation_tag(
+            &responder_key,
+            transcript,
+            ConfirmationRole::Responder,
+        )
+        .unwrap();
+
+        let initiator = derive_session_confirmation_tag(
+            &initiator_key,
+            transcript,
+            ConfirmationRole::Initiator,
+        )
+        .unwrap();
+
         let changed_transcript = derive_session_confirmation_tag(
-            &session_key,
+            &responder_key,
             b"changed distributed session transcript",
             ConfirmationRole::Responder,
         )
@@ -584,30 +735,70 @@ mod tests {
         assert_eq!(responder, repeated);
         assert_ne!(responder, initiator);
         assert_ne!(responder, changed_transcript);
+
         assert_eq!(
-            derive_session_confirmation_tag(&session_key, b"", ConfirmationRole::Responder),
+            derive_session_confirmation_tag(&responder_key, b"", ConfirmationRole::Responder),
             Err(CryptoError::EmptyTranscript)
         );
     }
 
     #[test]
-    fn changing_authorization_secret_changes_session_key() {
+    fn changing_authorization_secret_changes_session_schedule() {
         let kem_secret = SecretBytes::new(vec![4; 32]);
         let authorization_input = Digest32::from_bytes([6; 32]);
-        let first = derive_session_key(
+
+        let first = derive_session_secrets(
             &kem_secret,
             &Secret32::from_bytes([5; 32]),
             &authorization_input,
             b"transcript",
         )
         .unwrap();
-        let second = derive_session_key(
+
+        let second = derive_session_secrets(
             &kem_secret,
             &Secret32::from_bytes([7; 32]),
             &authorization_input,
             b"transcript",
         )
         .unwrap();
-        assert_ne!(first.expose_secret(), second.expose_secret());
+
+        assert_ne!(
+            first.initiator_write_key.expose_secret(),
+            second.initiator_write_key.expose_secret()
+        );
+        assert_ne!(
+            first.responder_confirmation_key.expose_secret(),
+            second.responder_confirmation_key.expose_secret()
+        );
+    }
+
+    #[test]
+    fn changing_transcript_changes_session_schedule() {
+        let kem_secret = SecretBytes::new(vec![4; 32]);
+        let authorization_secret = Secret32::from_bytes([5; 32]);
+        let authorization_input = Digest32::from_bytes([6; 32]);
+
+        let first = derive_session_secrets(
+            &kem_secret,
+            &authorization_secret,
+            &authorization_input,
+            b"transcript-a",
+        )
+        .unwrap();
+
+        let second = derive_session_secrets(
+            &kem_secret,
+            &authorization_secret,
+            &authorization_input,
+            b"transcript-b",
+        )
+        .unwrap();
+
+        assert_ne!(
+            first.initiator_write_key.expose_secret(),
+            second.initiator_write_key.expose_secret()
+        );
+        assert_ne!(first.responder_write_iv, second.responder_write_iv);
     }
 }

@@ -129,12 +129,14 @@ impl<'a, B: DprfBackend> AuthorityEngine<'a, B> {
         }
     }
 
-    /// Validates, evaluates, and signs one authorization request.
-    pub fn authorize(
+    /// Validates, evaluates, and signs one authorization request
+    /// using the supplied trusted Unix time.
+    pub fn authorize_at(
         &mut self,
         request: &AuthorityRequest,
+        now: u64,
     ) -> Result<SignedPartialEvidence, AuthorityError> {
-        request.context.validate()?;
+        request.context.validate_at(now)?;
         request.evaluation.validate()?;
 
         if request.context.epoch != self.config.active_epoch
@@ -393,6 +395,9 @@ mod tests {
             protocol_version: PROTOCOL_VERSION,
             session_id: SessionId::from_bytes([1; 32]),
             epoch: 4,
+            issued_at_unix: 100,
+            expires_at_unix: 200,
+            request_nonce: astra_common::RequestNonce::from_bytes([4; 32]),
             source_domain: "domain-a".to_owned(),
             destination_domain: "domain-b".to_owned(),
             subject: "operator:17".to_owned(),
@@ -440,7 +445,7 @@ mod tests {
             signing_keys.secret_key(),
         );
         let request = request();
-        let evidence = engine.authorize(&request).unwrap();
+        let evidence = engine.authorize_at(&request, 150).unwrap();
         verify_evidence(
             &provider,
             signing_keys.public_key(),
@@ -449,7 +454,7 @@ mod tests {
         )
         .unwrap();
         assert_eq!(
-            engine.authorize(&request),
+            engine.authorize_at(&request, 150),
             Err(AuthorityError::ReplayDetected)
         );
     }
@@ -475,6 +480,56 @@ mod tests {
     }
 
     #[test]
+    fn session_validity_interval_is_enforced_before_authorization() {
+        let provider = PqProvider::new().unwrap();
+        let signing_keys = provider.generate_signature_keypair().unwrap();
+        let backend = TestBackend;
+        let share = [5; 32];
+
+        let authorize_at = |now: u64| {
+            let config = AuthorityConfig {
+                authority_id: "authority-3".to_owned(),
+                active_epoch: 4,
+                share_version: 2,
+                approved_checkpoint: Digest32::from_bytes([3; 32]),
+                allowed_clauses: BTreeSet::from(["risk-floor".to_owned()]),
+            };
+
+            let mut engine = AuthorityEngine::new(
+                config,
+                &backend,
+                &share,
+                &provider,
+                signing_keys.secret_key(),
+            );
+
+            engine.authorize_at(&request(), now)
+        };
+
+        // issued_at = 100, permitted clock skew = 5 seconds.
+        assert_eq!(
+            authorize_at(94),
+            Err(AuthorityError::Protocol(
+                astra_common::ProtocolError::SessionNotYetValid
+            ))
+        );
+
+        // Exactly at issued_at - skew is accepted.
+        assert!(authorize_at(95).is_ok());
+
+        // expires_at = 200. Exactly at expires_at + skew is accepted.
+        assert!(authorize_at(205).is_ok());
+
+        // One second beyond the permitted expiry skew is rejected.
+        assert_eq!(
+            authorize_at(206),
+            Err(AuthorityError::Protocol(
+                astra_common::ProtocolError::SessionExpired
+            ))
+        );
+    }
+
+    #[test]
     fn changed_policy_input_is_rejected_before_evaluation() {
         let provider = PqProvider::new().unwrap();
         let signing_keys = provider.generate_signature_keypair().unwrap();
@@ -497,7 +552,7 @@ mod tests {
         let mut request = request();
         request.policy_hash = Digest32::from_bytes([8; 32]);
         assert_eq!(
-            engine.authorize(&request),
+            engine.authorize_at(&request, 150),
             Err(AuthorityError::AuthorizationInputMismatch)
         );
     }

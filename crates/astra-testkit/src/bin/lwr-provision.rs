@@ -12,6 +12,7 @@
 use anyhow::Context;
 use astra_common::hash_domain_separated;
 use astra_dprf::lwr::setup_exact_coalition;
+use astra_testkit::{SESSION_EPOCH, SESSION_SHARE_VERSION};
 use serde_json::json;
 use std::env;
 use std::fs::{self, File, OpenOptions};
@@ -19,8 +20,8 @@ use std::io::Write;
 use std::os::unix::fs::{DirBuilderExt, OpenOptionsExt};
 use std::path::{Path, PathBuf};
 
-const EPOCH: u64 = 1;
-const SHARE_VERSION: u64 = 1;
+const EPOCH: u64 = SESSION_EPOCH;
+const SHARE_VERSION: u64 = SESSION_SHARE_VERSION;
 const DEFAULT_MIN_THRESHOLD: usize = 1;
 const DEFAULT_MAX_THRESHOLD: usize = 7;
 const LAB_AUTHORITY_COUNT: usize = 7;

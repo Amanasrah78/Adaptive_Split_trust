@@ -16,9 +16,10 @@ use astra_authority::{
 use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::{LwrExactCoalitionBackend, LwrExactCoalitionShare};
 use astra_governance::{
-    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+    GovernanceBundle, LocalGovernanceState, checkpoint_hash, checkpoint_is_fresh, validate_bundle,
 };
 use astra_pqcrypto::{PqProvider, SecretBytes};
+use astra_testkit::replay_store::ReplayStore;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::{BTreeMap, BTreeSet};
@@ -62,7 +63,7 @@ struct ServiceState {
     signing_public_key: Vec<u8>,
     gateway_public_keys: BTreeMap<String, Vec<u8>>,
     shares: BTreeMap<String, LwrExactCoalitionShare>,
-    completed_sessions: BTreeSet<String>,
+    replay_store: ReplayStore,
 }
 
 struct ConnectionPermit {
@@ -88,27 +89,99 @@ impl ServiceState {
             PathBuf::from(required_environment("ASTRA_AUTHORITY_PUBLIC_KEY")?);
         let gateway_key_root =
             PathBuf::from(required_environment("ASTRA_GATEWAY_PUBLIC_KEY_ROOT")?);
+        let replay_db_path = PathBuf::from(required_environment("ASTRA_AUTHORITY_REPLAY_DB")?);
         let provider = PqProvider::new().context("initialize post-quantum provider")?;
+
+        let mut replay_store = ReplayStore::open(&replay_db_path).with_context(|| {
+            format!(
+                "open durable authority replay database {}",
+                replay_db_path.display()
+            )
+        })?;
+
+        replay_store
+            .cleanup_expired(unix_time()?)
+            .context("clean expired authority replay state")?;
+
         let governance_bundle: GovernanceBundle = serde_json::from_slice(
             &fs::read(&governance_path)
                 .with_context(|| format!("read {}", governance_path.display()))?,
         )
         .context("decode governance bundle")?;
-        let governance_state = validate_bundle(
-            &provider,
-            &LocalGovernanceState::default(),
-            &governance_bundle,
-            unix_time()?,
-        )
-        .context("validate off-path governance bundle")?;
+
+        let governance_scope = format!("authority:{}", authority_id);
+        let governance_now = unix_time()?;
+
+        let persisted_governance = replay_store
+            .load_governance_state(&governance_scope)
+            .context("load durable authority governance state")?;
+
+        let candidate_checkpoint_hash = checkpoint_hash(&governance_bundle.checkpoint)
+            .context("hash authority governance checkpoint")?;
+
+        let (governance_state, governance_changed) = match persisted_governance {
+            None => {
+                let state = validate_bundle(
+                    &provider,
+                    &LocalGovernanceState::default(),
+                    &governance_bundle,
+                    governance_now,
+                )
+                .context("validate initial off-path governance bundle")?;
+
+                (state, true)
+            }
+
+            Some(current) if governance_bundle.checkpoint.epoch == current.highest_epoch => {
+                anyhow::ensure!(
+                    candidate_checkpoint_hash == current.checkpoint_hash,
+                    "persisted governance checkpoint conflicts with loaded bundle"
+                );
+
+                anyhow::ensure!(
+                    governance_bundle.anchor.epoch == current.highest_epoch,
+                    "persisted governance epoch conflicts with loaded ledger anchor"
+                );
+
+                anyhow::ensure!(
+                    governance_bundle.anchor.checkpoint_hash == current.checkpoint_hash,
+                    "persisted governance checkpoint conflicts with loaded ledger anchor"
+                );
+
+                anyhow::ensure!(
+                    governance_bundle.anchor.object_version == current.object_version,
+                    "persisted governance object version conflicts with loaded ledger anchor"
+                );
+
+                (current, false)
+            }
+
+            Some(current) => {
+                let state =
+                    validate_bundle(&provider, &current, &governance_bundle, governance_now)
+                        .context(
+                            "validate governance bundle against durable authority high-water state",
+                        )?;
+
+                (state, true)
+            }
+        };
+
         anyhow::ensure!(
             checkpoint_is_fresh(
                 &governance_state,
                 &governance_bundle.checkpoint,
-                unix_time()?
+                governance_now
             ),
             "governance bundle is stale"
         );
+
+        if governance_changed {
+            replay_store
+                .store_governance_state(&governance_scope, &governance_state)
+                .context("persist authority governance high-water state")?;
+        }
+
         let active_epoch = governance_bundle.checkpoint.epoch;
         let approved_checkpoint = governance_state.checkpoint_hash;
 
@@ -158,7 +231,7 @@ impl ServiceState {
             signing_public_key,
             gateway_public_keys,
             shares,
-            completed_sessions: BTreeSet::new(),
+            replay_store,
         })
     }
 
@@ -187,42 +260,88 @@ impl ServiceState {
             .get(&risk_key)
             .or_else(|| self.shares.get(&request.evaluation.clause_id))
             .context("authority is not provisioned for this exact coalition")?;
-        let replay_key = format!(
-            "{}:{}:{}",
-            request.context.session_id,
-            request.evaluation.clause_id,
-            request.evaluation.share_version
+        let replay_scope = format!(
+            "authority:{}:{}:{}",
+            self.authority_id, request.evaluation.clause_id, request.evaluation.share_version
         );
-        anyhow::ensure!(
-            !self.completed_sessions.contains(&replay_key),
-            "duplicate session-clause request"
-        );
-        let config = AuthorityConfig {
-            authority_id: self.authority_id.clone(),
-            active_epoch: self.active_epoch,
-            share_version: self.share_version,
-            approved_checkpoint: self.approved_checkpoint,
-            allowed_clauses: BTreeSet::from([request.evaluation.clause_id.clone()]),
-        };
-        let mut engine = AuthorityEngine::new(
-            config,
-            &self.backend,
-            share,
-            &self.provider,
-            &self.signing_key,
-        );
-        let evidence = engine
-            .authorize(request)
-            .context("authority request rejected")?;
-        verify_evidence(
-            &self.provider,
-            &self.signing_public_key,
-            &request.context,
-            &evidence,
-        )
-        .context("authority evidence self-verification failed")?;
-        self.completed_sessions.insert(replay_key);
-        Ok(evidence)
+
+        let replay_now = unix_time()?;
+
+        request
+            .context
+            .validate_at(replay_now)
+            .context("authority request is outside its validity interval")?;
+
+        self.replay_store
+            .cleanup_expired(replay_now)
+            .context("clean expired authority replay state")?;
+
+        self.replay_store
+            .reserve(
+                &replay_scope,
+                &request.context.session_id,
+                request.context.epoch,
+                request.context.expires_at_unix,
+                replay_now,
+            )
+            .context("reserve durable authority replay state")?;
+
+        let processing_result = (|| -> anyhow::Result<SignedPartialEvidence> {
+            let config = AuthorityConfig {
+                authority_id: self.authority_id.clone(),
+                active_epoch: self.active_epoch,
+                share_version: self.share_version,
+                approved_checkpoint: self.approved_checkpoint,
+                allowed_clauses: BTreeSet::from([request.evaluation.clause_id.clone()]),
+            };
+            let mut engine = AuthorityEngine::new(
+                config,
+                &self.backend,
+                share,
+                &self.provider,
+                &self.signing_key,
+            );
+            let evidence = engine
+                .authorize_at(request, unix_time()?)
+                .context("authority request rejected")?;
+            verify_evidence(
+                &self.provider,
+                &self.signing_public_key,
+                &request.context,
+                &evidence,
+            )
+            .context("authority evidence self-verification failed")?;
+            Ok(evidence)
+        })();
+
+        match processing_result {
+            Ok(evidence) => {
+                self.replay_store
+                    .mark_accepted(
+                        &replay_scope,
+                        &request.context.session_id,
+                        request.context.epoch,
+                        unix_time()?,
+                    )
+                    .context("persist accepted authority replay state")?;
+
+                Ok(evidence)
+            }
+            Err(error) => {
+                if let Err(state_error) = self.replay_store.mark_rejected(
+                    &replay_scope,
+                    &request.context.session_id,
+                    request.context.epoch,
+                    replay_now,
+                ) {
+                    return Err(anyhow::anyhow!(
+                        "{error:#}; additionally failed to persist rejected replay state: {state_error}"
+                    ));
+                }
+
+                Err(error)
+            }
+        }
     }
 }
 
@@ -249,7 +368,7 @@ fn main() -> anyhow::Result<()> {
             "share_version": state.share_version,
             "gateway_authentication": "ML-DSA-65",
             "evidence_signature": "ML-DSA-65",
-            "replay_state": "in-memory",
+            "replay_state": "sqlite-wal-durable",
             "connection_model": "bounded-thread-per-connection",
             "maximum_concurrent_connections": MAX_CONCURRENT_CONNECTIONS,
             "request_state_serialization": "mutex-protected"
@@ -344,14 +463,25 @@ fn handle_connection(
                 error: None,
                 processing_us,
             },
-            Err(error) => AuthorityWireResponse {
-                schema: WIRE_SCHEMA.to_owned(),
-                authority_id,
-                success: false,
-                evidence: None,
-                error: Some(error.to_string()),
-                processing_us,
-            },
+            Err(error) => {
+                eprintln!(
+                    "{}",
+                    json!({
+                        "schema": "astra-pq-authority-request-rejection-v1",
+                        "authority_id": authority_id,
+                        "error": format!("{error:#}")
+                    })
+                );
+
+                AuthorityWireResponse {
+                    schema: WIRE_SCHEMA.to_owned(),
+                    authority_id,
+                    success: false,
+                    evidence: None,
+                    error: Some("authority request rejected".to_owned()),
+                    processing_us,
+                }
+            }
         };
         let encoded_response = serde_json::to_vec(&response)?;
         write_frame(stream, &encoded_response)?;

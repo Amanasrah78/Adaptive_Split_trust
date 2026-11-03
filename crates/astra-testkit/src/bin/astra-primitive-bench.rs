@@ -13,7 +13,7 @@ use astra_dprf::{
     lwr::{LwrExactCoalitionBackend, setup_exact_coalition},
 };
 use astra_pqcrypto::{
-    ConfirmationRole, PqProvider, derive_session_confirmation_tag, derive_session_key,
+    ConfirmationRole, PqProvider, derive_session_confirmation_tag, derive_session_secrets,
 };
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
@@ -160,7 +160,7 @@ fn measure_sample(
     let authorization_secret = Secret32::from_bytes([0x5a; 32]);
     let authorization_input = sample_input(sample_number);
     let start = Instant::now();
-    let session_key = derive_session_key(
+    let session_secrets = derive_session_secrets(
         encapsulation.shared_secret(),
         &authorization_secret,
         &authorization_input,
@@ -171,7 +171,7 @@ fn measure_sample(
 
     let start = Instant::now();
     let confirmation = derive_session_confirmation_tag(
-        &session_key,
+        &session_secrets.initiator_confirmation_key,
         black_box(message),
         ConfirmationRole::Initiator,
     )
