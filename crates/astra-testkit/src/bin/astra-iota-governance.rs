@@ -107,20 +107,41 @@ fn prepare() -> anyhow::Result<()> {
     let network_id = required_environment("ASTRA_IOTA_NETWORK_ID")?;
     let package_id = required_environment("ASTRA_IOTA_PACKAGE_ID")?;
     let object_id = required_environment("ASTRA_IOTA_OBJECT_ID")?;
+    let previous_state_path = env::var("ASTRA_IOTA_PREVIOUS_STATE")
+        .ok()
+        .filter(|value| !value.trim().is_empty())
+        .map(PathBuf::from);
     let now = unix_time()?;
 
     let template: GovernanceBundle = read_json(&template_path)?;
     anyhow::ensure!(template.schema_version == 1, "unsupported template schema");
-    anyhow::ensure!(
-        template.checkpoint.epoch == 1,
-        "template must describe epoch one"
-    );
-    anyhow::ensure!(
-        template.checkpoint.predecessor_hash.is_zero(),
-        "epoch-one template predecessor is not zero"
-    );
+
+    let previous_state = match previous_state_path {
+        Some(path) => Some(read_json::<LocalGovernanceState>(&path)?),
+        None => None,
+    };
 
     let mut checkpoint = template.checkpoint;
+
+    match previous_state.as_ref() {
+        Some(previous) => {
+            checkpoint.epoch = previous
+                .highest_epoch
+                .checked_add(1)
+                .context("governance epoch overflow")?;
+            checkpoint.predecessor_hash = previous.checkpoint_hash;
+        }
+        None => {
+            anyhow::ensure!(
+                checkpoint.epoch == 1,
+                "epoch-one preparation requires an epoch-one template"
+            );
+            anyhow::ensure!(
+                checkpoint.predecessor_hash.is_zero(),
+                "epoch-one template predecessor is not zero"
+            );
+        }
+    }
     checkpoint.activation_time = now;
     checkpoint.maximum_age = MAXIMUM_AGE_SECONDS;
     checkpoint
@@ -204,6 +225,10 @@ fn finalize() -> anyhow::Result<()> {
     let observation_path = required_path("ASTRA_IOTA_LIVE_OBSERVATION")?;
     let bundle_output = required_path("ASTRA_IOTA_BUNDLE_OUTPUT")?;
     let state_output = required_path("ASTRA_IOTA_STATE_OUTPUT")?;
+    let previous_state_path = env::var("ASTRA_IOTA_PREVIOUS_STATE")
+        .ok()
+        .filter(|value| !value.trim().is_empty())
+        .map(PathBuf::from);
     let prepared: PreparedCheckpoint = read_json(&prepared_path)?;
     let observed: LiveObservation = read_json(&observation_path)?;
     anyhow::ensure!(
@@ -276,9 +301,13 @@ fn finalize() -> anyhow::Result<()> {
         signatures: prepared.signatures,
     };
     let now = unix_time()?;
+    let current_state = match previous_state_path {
+        Some(path) => read_json::<LocalGovernanceState>(&path)?,
+        None => LocalGovernanceState::default(),
+    };
     let state = validate_bundle(
         &PqProvider::new().context("initialize post-quantum provider")?,
-        &LocalGovernanceState::default(),
+        &current_state,
         &bundle,
         now,
     )
