@@ -11,7 +11,13 @@ use thiserror::Error;
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
 /// Current ASTRA-PQ wire-protocol version.
-pub const PROTOCOL_VERSION: u16 = 1;
+pub const PROTOCOL_VERSION: u16 = 2;
+
+/// Maximum permitted lifetime of a session authorization request.
+pub const MAX_SESSION_LIFETIME_SECONDS: u64 = 300;
+
+/// Permitted clock difference between protocol participants.
+pub const SESSION_CLOCK_SKEW_SECONDS: u64 = 5;
 
 /// Domain separator for the session authorization input.
 pub const AUTH_INPUT_LABEL: &[u8] = b"ASTRA-PQ-AUTH-v1";
@@ -121,6 +127,42 @@ impl fmt::Debug for SessionId {
     }
 }
 
+/// A fresh 256-bit nonce associated with one session request.
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct RequestNonce([u8; 32]);
+
+impl RequestNonce {
+    /// Creates a request nonce from exactly 32 bytes.
+    #[must_use]
+    pub const fn from_bytes(bytes: [u8; 32]) -> Self {
+        Self(bytes)
+    }
+
+    /// Returns the nonce bytes.
+    #[must_use]
+    pub const fn as_bytes(&self) -> &[u8; 32] {
+        &self.0
+    }
+
+    /// Returns true when every nonce byte is zero.
+    #[must_use]
+    pub fn is_zero(&self) -> bool {
+        self.0.iter().all(|byte| *byte == 0)
+    }
+}
+
+impl fmt::Display for RequestNonce {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(&hex::encode(self.0))
+    }
+}
+
+impl fmt::Debug for RequestNonce {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(formatter, "RequestNonce({self})")
+    }
+}
+
 /// Operation risk classes used by the normative synthesis profile.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum RiskClass {
@@ -169,6 +211,12 @@ pub struct SessionContext {
     pub session_id: SessionId,
     /// Active governance epoch.
     pub epoch: u64,
+    /// Time at which the session request was created, as Unix seconds.
+    pub issued_at_unix: u64,
+    /// Time after which the session request must no longer be accepted.
+    pub expires_at_unix: u64,
+    /// Fresh random value preventing reuse of otherwise identical requests.
+    pub request_nonce: RequestNonce,
     /// Source administrative domain.
     pub source_domain: String,
     /// Destination administrative domain that owns the resource.
@@ -199,6 +247,18 @@ impl SessionContext {
         if self.epoch == 0 {
             return Err(ProtocolError::InvalidField("epoch"));
         }
+        if self.issued_at_unix == 0 {
+            return Err(ProtocolError::InvalidField("issued_at_unix"));
+        }
+        if self.expires_at_unix <= self.issued_at_unix {
+            return Err(ProtocolError::InvalidField("expires_at_unix"));
+        }
+        if self.expires_at_unix - self.issued_at_unix > MAX_SESSION_LIFETIME_SECONDS {
+            return Err(ProtocolError::InvalidField("session_lifetime"));
+        }
+        if self.request_nonce.is_zero() {
+            return Err(ProtocolError::InvalidField("request_nonce"));
+        }
         validate_identifier("source_domain", &self.source_domain)?;
         validate_identifier("destination_domain", &self.destination_domain)?;
         validate_identifier("subject", &self.subject)?;
@@ -212,6 +272,22 @@ impl SessionContext {
         }
         if self.checkpoint_hash.is_zero() {
             return Err(ProtocolError::InvalidField("checkpoint_hash"));
+        }
+        Ok(())
+    }
+
+    /// Validates the context and its acceptance interval at `now`.
+    pub fn validate_at(&self, now: u64) -> Result<(), ProtocolError> {
+        self.validate()?;
+        if now.saturating_add(SESSION_CLOCK_SKEW_SECONDS) < self.issued_at_unix {
+            return Err(ProtocolError::SessionNotYetValid);
+        }
+        if now
+            > self
+                .expires_at_unix
+                .saturating_add(SESSION_CLOCK_SKEW_SECONDS)
+        {
+            return Err(ProtocolError::SessionExpired);
         }
         Ok(())
     }
@@ -236,7 +312,7 @@ impl CanonicalEncode for SessionContext {
         }
 
         // Integer keys are emitted in ascending order and all lengths are definite.
-        encode!(encoder.map(11));
+        encode!(encoder.map(14));
         encode!(encoder.u8(0));
         encode!(encoder.u16(self.protocol_version));
         encode!(encoder.u8(1));
@@ -259,6 +335,12 @@ impl CanonicalEncode for SessionContext {
         encode!(encoder.bytes(self.gateway_transcript_hash.as_bytes()));
         encode!(encoder.u8(10));
         encode!(encoder.bytes(self.checkpoint_hash.as_bytes()));
+        encode!(encoder.u8(11));
+        encode!(encoder.u64(self.issued_at_unix));
+        encode!(encoder.u8(12));
+        encode!(encoder.u64(self.expires_at_unix));
+        encode!(encoder.u8(13));
+        encode!(encoder.bytes(self.request_nonce.as_bytes()));
 
         Ok(bytes)
     }
@@ -308,6 +390,12 @@ pub enum ProtocolError {
     /// The source and destination domains are identical.
     #[error("the session is not cross-domain")]
     NotCrossDomain,
+    /// The request was received before its acceptance interval.
+    #[error("the session request is not yet valid")]
+    SessionNotYetValid,
+    /// The request was received after its acceptance interval.
+    #[error("the session request has expired")]
+    SessionExpired,
     /// Canonical CBOR encoding failed.
     #[error("canonical encoding failed: {0}")]
     Encoding(String),
@@ -323,6 +411,9 @@ mod tests {
             protocol_version: PROTOCOL_VERSION,
             session_id: SessionId::from_bytes([1; 32]),
             epoch,
+            issued_at_unix: 100,
+            expires_at_unix: 200,
+            request_nonce: RequestNonce::from_bytes([4; 32]),
             source_domain: "domain-a".to_owned(),
             destination_domain: "domain-b".to_owned(),
             subject: "operator:17".to_owned(),
@@ -346,6 +437,83 @@ mod tests {
         let mut invalid = context(7);
         invalid.destination_domain = invalid.source_domain.clone();
         assert_eq!(invalid.validate(), Err(ProtocolError::NotCrossDomain));
+    }
+
+    #[test]
+    fn invalid_session_intervals_are_rejected() {
+        let mut invalid = context(7);
+        invalid.issued_at_unix = 0;
+        assert_eq!(
+            invalid.validate(),
+            Err(ProtocolError::InvalidField("issued_at_unix"))
+        );
+
+        let mut invalid = context(7);
+        invalid.expires_at_unix = invalid.issued_at_unix;
+        assert_eq!(
+            invalid.validate(),
+            Err(ProtocolError::InvalidField("expires_at_unix"))
+        );
+
+        let mut invalid = context(7);
+        invalid.expires_at_unix = invalid.issued_at_unix + MAX_SESSION_LIFETIME_SECONDS + 1;
+        assert_eq!(
+            invalid.validate(),
+            Err(ProtocolError::InvalidField("session_lifetime"))
+        );
+    }
+
+    #[test]
+    fn zero_request_nonce_is_rejected() {
+        let mut invalid = context(7);
+        invalid.request_nonce = RequestNonce::from_bytes([0; 32]);
+        assert_eq!(
+            invalid.validate(),
+            Err(ProtocolError::InvalidField("request_nonce"))
+        );
+    }
+
+    #[test]
+    fn request_interval_allows_only_bounded_clock_skew() {
+        let valid = context(7);
+
+        assert_eq!(
+            valid.validate_at(94),
+            Err(ProtocolError::SessionNotYetValid)
+        );
+        assert!(valid.validate_at(95).is_ok());
+        assert!(valid.validate_at(205).is_ok());
+        assert_eq!(valid.validate_at(206), Err(ProtocolError::SessionExpired));
+    }
+
+    #[test]
+    fn validity_fields_change_authorization_input() {
+        let policy_hash = Digest32::from_bytes([9; 32]);
+        let base = context(7);
+
+        let mut changed_issue_time = base.clone();
+        changed_issue_time.issued_at_unix += 1;
+
+        let mut changed_expiry = base.clone();
+        changed_expiry.expires_at_unix += 1;
+
+        let mut changed_nonce = base.clone();
+        changed_nonce.request_nonce = RequestNonce::from_bytes([5; 32]);
+
+        let base_input = authorization_input(&base, &policy_hash).unwrap();
+
+        assert_ne!(
+            base_input,
+            authorization_input(&changed_issue_time, &policy_hash).unwrap()
+        );
+        assert_ne!(
+            base_input,
+            authorization_input(&changed_expiry, &policy_hash).unwrap()
+        );
+        assert_ne!(
+            base_input,
+            authorization_input(&changed_nonce, &policy_hash).unwrap()
+        );
     }
 
     #[test]

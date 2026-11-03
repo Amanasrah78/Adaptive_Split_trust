@@ -1,0 +1,877 @@
+{
+  "schema": "astra-pq-pqdprf-same-host-summary-v1",
+  "units": "nanoseconds",
+  "reference_commit": "e520c669c16160d802c0d86b3034310750277899",
+  "reference_kernel": "portable NTL reproduction of the LWR arithmetic",
+  "comparability_limit": "This reproduces the reference arithmetic, not the complete cryptoTools/PQ-DiSE application.",
+  "configurations": [
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 1,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 1953,
+        "median_ns": 2295,
+        "p95_ns": 2462,
+        "p99_ns": 3005,
+        "maximum_ns": 11392,
+        "mean_ns": 2311.035
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 94601,
+        "median_ns": 107746,
+        "p95_ns": 117761,
+        "p99_ns": 126191,
+        "maximum_ns": 222044,
+        "mean_ns": 107973.955
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 94601,
+        "median_ns": 107746,
+        "p95_ns": 117761,
+        "p99_ns": 126191,
+        "maximum_ns": 222044,
+        "mean_ns": 107973.955
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 41,
+        "p95_ns": 42,
+        "p99_ns": 42,
+        "maximum_ns": 84,
+        "mean_ns": 22.291
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 94685,
+        "median_ns": 107829,
+        "p95_ns": 117803,
+        "p99_ns": 126357,
+        "maximum_ns": 222252,
+        "mean_ns": 108043.18
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 94601,
+        "median_ns": 107787,
+        "p95_ns": 117803,
+        "p99_ns": 126274,
+        "maximum_ns": 222127,
+        "mean_ns": 107996.246
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 2,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 51435,
+        "median_ns": 59214,
+        "p95_ns": 64723,
+        "p99_ns": 71650,
+        "maximum_ns": 92973,
+        "mean_ns": 59081.225
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 187166,
+        "median_ns": 215417,
+        "p95_ns": 230806,
+        "p99_ns": 243494,
+        "maximum_ns": 265860,
+        "mean_ns": 216057.709
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 93770,
+        "median_ns": 109833,
+        "p95_ns": 120307,
+        "p99_ns": 129195,
+        "maximum_ns": 157989,
+        "mean_ns": 110448.118
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 41,
+        "p95_ns": 42,
+        "p99_ns": 83,
+        "maximum_ns": 125,
+        "mean_ns": 27.142
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 187291,
+        "median_ns": 215534,
+        "p95_ns": 230973,
+        "p99_ns": 243576,
+        "maximum_ns": 266110,
+        "mean_ns": 216153.857
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 93854,
+        "median_ns": 109874,
+        "p95_ns": 120348,
+        "p99_ns": 129236,
+        "maximum_ns": 158031,
+        "mean_ns": 110475.26
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 3,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 101445,
+        "median_ns": 115424,
+        "p95_ns": 124981,
+        "p99_ns": 134453,
+        "maximum_ns": 188659,
+        "mean_ns": 115070.118
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 283345,
+        "median_ns": 321651,
+        "p95_ns": 341431,
+        "p99_ns": 367137,
+        "maximum_ns": 460110,
+        "mean_ns": 322484.063
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 94933,
+        "median_ns": 110375,
+        "p95_ns": 121517,
+        "p99_ns": 137332,
+        "maximum_ns": 232226,
+        "mean_ns": 111621.81
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 42,
+        "p99_ns": 84,
+        "maximum_ns": 84,
+        "mean_ns": 32.739
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 283470,
+        "median_ns": 321861,
+        "p95_ns": 341599,
+        "p99_ns": 368056,
+        "maximum_ns": 460445,
+        "mean_ns": 322616.912
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 94975,
+        "median_ns": 110416,
+        "p95_ns": 121559,
+        "p99_ns": 137373,
+        "maximum_ns": 232268,
+        "mean_ns": 111654.549
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 4,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 151603,
+        "median_ns": 171628,
+        "p95_ns": 184445,
+        "p99_ns": 194894,
+        "maximum_ns": 208565,
+        "mean_ns": 171529.517
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 378155,
+        "median_ns": 428094,
+        "p95_ns": 451347,
+        "p99_ns": 475008,
+        "maximum_ns": 512565,
+        "mean_ns": 429004.712
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 95269,
+        "median_ns": 110625,
+        "p95_ns": 120974,
+        "p99_ns": 131782,
+        "maximum_ns": 166501,
+        "mean_ns": 111514.636
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 42,
+        "p99_ns": 84,
+        "maximum_ns": 125,
+        "mean_ns": 37.356
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 378321,
+        "median_ns": 428271,
+        "p95_ns": 451473,
+        "p99_ns": 475134,
+        "maximum_ns": 512732,
+        "mean_ns": 429162.865
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 95311,
+        "median_ns": 110666,
+        "p95_ns": 121016,
+        "p99_ns": 131865,
+        "maximum_ns": 166584,
+        "mean_ns": 111551.992
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 5,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 201001,
+        "median_ns": 228630,
+        "p95_ns": 248834,
+        "p99_ns": 260910,
+        "maximum_ns": 373981,
+        "mean_ns": 229806.884
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 474717,
+        "median_ns": 537980,
+        "p95_ns": 584930,
+        "p99_ns": 607740,
+        "maximum_ns": 915507,
+        "mean_ns": 542195.255
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 95770,
+        "median_ns": 112378,
+        "p95_ns": 126965,
+        "p99_ns": 152226,
+        "maximum_ns": 310010,
+        "mean_ns": 114373.933
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 83,
+        "p99_ns": 125,
+        "maximum_ns": 209,
+        "mean_ns": 44.434
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 474925,
+        "median_ns": 538187,
+        "p95_ns": 585055,
+        "p99_ns": 608030,
+        "maximum_ns": 916007,
+        "mean_ns": 542391.368
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 95812,
+        "median_ns": 112420,
+        "p95_ns": 127006,
+        "p99_ns": 152267,
+        "maximum_ns": 310051,
+        "mean_ns": 114418.367
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 6,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 248281,
+        "median_ns": 283678,
+        "p95_ns": 301252,
+        "p99_ns": 312345,
+        "maximum_ns": 431902,
+        "mean_ns": 283642.34
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 568650,
+        "median_ns": 645350,
+        "p95_ns": 681194,
+        "p99_ns": 719126,
+        "maximum_ns": 839516,
+        "mean_ns": 645910.604
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 95269,
+        "median_ns": 112545,
+        "p95_ns": 126817,
+        "p99_ns": 150686,
+        "maximum_ns": 244953,
+        "mean_ns": 114381.946
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 83,
+        "p99_ns": 84,
+        "maximum_ns": 167,
+        "mean_ns": 43.068
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 568775,
+        "median_ns": 645558,
+        "p95_ns": 681443,
+        "p99_ns": 719416,
+        "maximum_ns": 840185,
+        "mean_ns": 646129.638
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 95311,
+        "median_ns": 112586,
+        "p95_ns": 126859,
+        "p99_ns": 150728,
+        "maximum_ns": 245037,
+        "mean_ns": 114425.014
+      }
+    },
+    {
+      "output_components": 13,
+      "nominal_output_bits": 130,
+      "threshold": 7,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 104,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 299300,
+        "median_ns": 339345,
+        "p95_ns": 362922,
+        "p99_ns": 377194,
+        "maximum_ns": 408200,
+        "mean_ns": 340096.554
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 669344,
+        "median_ns": 756348,
+        "p95_ns": 795742,
+        "p99_ns": 823368,
+        "maximum_ns": 1303508,
+        "mean_ns": 758328.746
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 96146,
+        "median_ns": 113338,
+        "p95_ns": 127215,
+        "p99_ns": 140754,
+        "maximum_ns": 313640,
+        "mean_ns": 115028.147
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 84,
+        "p99_ns": 125,
+        "maximum_ns": 167,
+        "mean_ns": 49.044
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 669427,
+        "median_ns": 756600,
+        "p95_ns": 796035,
+        "p99_ns": 823660,
+        "maximum_ns": 1304260,
+        "mean_ns": 758588.895
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 96188,
+        "median_ns": 113380,
+        "p95_ns": 127256,
+        "p99_ns": 140837,
+        "maximum_ns": 313723,
+        "mean_ns": 115077.191
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 1,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 1994,
+        "median_ns": 2295,
+        "p95_ns": 2671,
+        "p99_ns": 3005,
+        "maximum_ns": 10891,
+        "mean_ns": 2307.417
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 189286,
+        "median_ns": 215251,
+        "p95_ns": 229972,
+        "p99_ns": 243951,
+        "maximum_ns": 328413,
+        "mean_ns": 215645.237
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 189286,
+        "median_ns": 215251,
+        "p95_ns": 229972,
+        "p99_ns": 243951,
+        "maximum_ns": 328413,
+        "mean_ns": 215645.237
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 41,
+        "p95_ns": 42,
+        "p99_ns": 84,
+        "maximum_ns": 3573,
+        "mean_ns": 32.344
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 189328,
+        "median_ns": 215408,
+        "p95_ns": 230181,
+        "p99_ns": 244035,
+        "maximum_ns": 328580,
+        "mean_ns": 215731.924
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 189286,
+        "median_ns": 215324,
+        "p95_ns": 230014,
+        "p99_ns": 243993,
+        "maximum_ns": 328455,
+        "mean_ns": 215677.581
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 2,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 51410,
+        "median_ns": 59215,
+        "p95_ns": 64347,
+        "p99_ns": 70857,
+        "maximum_ns": 215575,
+        "mean_ns": 58986.35
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 379907,
+        "median_ns": 431275,
+        "p95_ns": 458233,
+        "p99_ns": 477471,
+        "maximum_ns": 710156,
+        "mean_ns": 433516.452
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 190788,
+        "median_ns": 219164,
+        "p95_ns": 235651,
+        "p99_ns": 250442,
+        "maximum_ns": 494622,
+        "mean_ns": 221106.35
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 42,
+        "p99_ns": 84,
+        "maximum_ns": 167,
+        "mean_ns": 34.025
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 380031,
+        "median_ns": 431401,
+        "p95_ns": 458317,
+        "p99_ns": 477554,
+        "maximum_ns": 710406,
+        "mean_ns": 433629.971
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 190829,
+        "median_ns": 219206,
+        "p95_ns": 235651,
+        "p99_ns": 250484,
+        "maximum_ns": 494622,
+        "mean_ns": 221140.375
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 3,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 100611,
+        "median_ns": 114840,
+        "p95_ns": 124396,
+        "p99_ns": 132491,
+        "maximum_ns": 229304,
+        "mean_ns": 114794.33
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 571947,
+        "median_ns": 651650,
+        "p95_ns": 685035,
+        "p99_ns": 706983,
+        "maximum_ns": 883291,
+        "mean_ns": 652639.342
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 191289,
+        "median_ns": 222252,
+        "p95_ns": 239653,
+        "p99_ns": 255178,
+        "maximum_ns": 383287,
+        "mean_ns": 223700
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 83,
+        "p99_ns": 125,
+        "maximum_ns": 542,
+        "mean_ns": 44.005
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 572072,
+        "median_ns": 651817,
+        "p95_ns": 685118,
+        "p99_ns": 707401,
+        "maximum_ns": 883542,
+        "mean_ns": 652790.327
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 191331,
+        "median_ns": 222294,
+        "p95_ns": 239695,
+        "p99_ns": 255220,
+        "maximum_ns": 383329,
+        "mean_ns": 223744.005
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 4,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 151145,
+        "median_ns": 170841,
+        "p95_ns": 185280,
+        "p99_ns": 197012,
+        "maximum_ns": 257681,
+        "mean_ns": 171576.008
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 764695,
+        "median_ns": 862510,
+        "p95_ns": 905792,
+        "p99_ns": 946134,
+        "maximum_ns": 1047163,
+        "mean_ns": 864253.469
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 192374,
+        "median_ns": 221251,
+        "p95_ns": 238360,
+        "p99_ns": 258432,
+        "maximum_ns": 356455,
+        "mean_ns": 223277.977
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 0,
+        "median_ns": 42,
+        "p95_ns": 84,
+        "p99_ns": 126,
+        "maximum_ns": 207,
+        "mean_ns": 50.117
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 764905,
+        "median_ns": 862677,
+        "p95_ns": 906034,
+        "p99_ns": 946466,
+        "maximum_ns": 1047831,
+        "mean_ns": 864443.761
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 192457,
+        "median_ns": 221293,
+        "p95_ns": 238475,
+        "p99_ns": 258473,
+        "maximum_ns": 356497,
+        "mean_ns": 223328.094
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 5,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 200178,
+        "median_ns": 230181,
+        "p95_ns": 248417,
+        "p99_ns": 266819,
+        "maximum_ns": 374273,
+        "mean_ns": 230253.31
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 958473,
+        "median_ns": 1088060,
+        "p95_ns": 1149526,
+        "p99_ns": 1188460,
+        "maximum_ns": 1243084,
+        "mean_ns": 1090683.518
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 199713,
+        "median_ns": 227677,
+        "p95_ns": 248542,
+        "p99_ns": 292942,
+        "maximum_ns": 339471,
+        "mean_ns": 230119.015
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 41,
+        "median_ns": 42,
+        "p95_ns": 84,
+        "p99_ns": 167,
+        "maximum_ns": 3158,
+        "mean_ns": 62.778
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 958598,
+        "median_ns": 1088351,
+        "p95_ns": 1149693,
+        "p99_ns": 1188668,
+        "maximum_ns": 1243585,
+        "mean_ns": 1090929.958
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 199796,
+        "median_ns": 227757,
+        "p95_ns": 248625,
+        "p99_ns": 293067,
+        "maximum_ns": 339554,
+        "mean_ns": 230181.793
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 6,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 249459,
+        "median_ns": 284346,
+        "p95_ns": 306129,
+        "p99_ns": 318940,
+        "maximum_ns": 384789,
+        "mean_ns": 285086.825
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 1176068,
+        "median_ns": 1307808,
+        "p95_ns": 1372821,
+        "p99_ns": 1413382,
+        "maximum_ns": 1451691,
+        "mean_ns": 1309279.536
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 207814,
+        "median_ns": 228762,
+        "p95_ns": 247290,
+        "p99_ns": 271243,
+        "maximum_ns": 375817,
+        "mean_ns": 230523.639
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 41,
+        "median_ns": 83,
+        "p95_ns": 125,
+        "p99_ns": 208,
+        "maximum_ns": 209,
+        "mean_ns": 70.433
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 1176233,
+        "median_ns": 1308141,
+        "p95_ns": 1373364,
+        "p99_ns": 1414009,
+        "maximum_ns": 1452608,
+        "mean_ns": 1309556.243
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 207897,
+        "median_ns": 228844,
+        "p95_ns": 247457,
+        "p99_ns": 271326,
+        "maximum_ns": 375900,
+        "mean_ns": 230594.072
+      }
+    },
+    {
+      "output_components": 26,
+      "nominal_output_bits": 260,
+      "threshold": 7,
+      "raw_share_bytes_per_authority": 8192,
+      "partial_payload_bytes_per_authority": 208,
+      "mismatched_components": 0,
+      "share_setup": {
+        "samples": 1000,
+        "minimum_ns": 300131,
+        "median_ns": 343644,
+        "p95_ns": 365969,
+        "p99_ns": 379740,
+        "maximum_ns": 432235,
+        "mean_ns": 344058.928
+      },
+      "partial_evaluations_sequential": {
+        "samples": 1000,
+        "minimum_ns": 1359093,
+        "median_ns": 1522381,
+        "p95_ns": 1608052,
+        "p99_ns": 1651784,
+        "maximum_ns": 1729033,
+        "mean_ns": 1528898.443
+      },
+      "slowest_partial_evaluation": {
+        "samples": 1000,
+        "minimum_ns": 206311,
+        "median_ns": 229179,
+        "p95_ns": 250086,
+        "p99_ns": 291273,
+        "maximum_ns": 349068,
+        "mean_ns": 231817.327
+      },
+      "final_combination": {
+        "samples": 1000,
+        "minimum_ns": 41,
+        "median_ns": 83,
+        "p95_ns": 125,
+        "p99_ns": 208,
+        "maximum_ns": 3171,
+        "mean_ns": 86.124
+      },
+      "sequential_total": {
+        "samples": 1000,
+        "minimum_ns": 1359385,
+        "median_ns": 1522672,
+        "p95_ns": 1608886,
+        "p99_ns": 1652368,
+        "maximum_ns": 1729323,
+        "mean_ns": 1529223.366
+      },
+      "parallel_computation_model": {
+        "samples": 1000,
+        "minimum_ns": 206394,
+        "median_ns": 229262,
+        "p95_ns": 250253,
+        "p99_ns": 291524,
+        "maximum_ns": 349277,
+        "mean_ns": 231903.451
+      }
+    }
+  ]
+}

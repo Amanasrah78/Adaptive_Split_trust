@@ -1,0 +1,16 @@
+{
+  "activation_time": 1788049573,
+  "checkpoint_hash": "3897281163407be8e72ab9a325fed0c08008b5f6335be6c3175de230a08b873f",
+  "epoch": 1,
+  "governance_key_set_id": "astra-governance-actors-v1",
+  "governance_signature_threshold": 2,
+  "governance_signatures": 2,
+  "live_iota_claim": true,
+  "maximum_age": 604800,
+  "network_id": "2304aa97",
+  "object_id": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+  "output": "results/iota-live-checkpoint-epoch1-prepared.json",
+  "package_id": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+  "rpc_quorum": 2,
+  "schema": "astra-pq-live-iota-prepared-checkpoint-v1"
+}

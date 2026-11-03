@@ -1,0 +1,102 @@
+PQDPRF same-host reference-kernel evaluation
+Captured:
+2026-08-20T14:27:54+00:00
+
+Reference repository:
+e520c669c16160d802c0d86b3034310750277899
+559be3c0914457ce0ac93f02eb0b86826b75c63ea840ece9235a2dd6d7ef70cd  /home/astraadmin/PQDiSE-from-PQDPRF/pqdise/dEnc_tests/Compare_DPrfs.cpp
+c1dfa8b2830f02e2438345532c81debae01efd7c63df126141cf2a5b256c4f1e  /home/astraadmin/PQDiSE-from-PQDPRF/pqdise/dEnc/dprf/LWR_helper.cpp
+
+Host:
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+
+Compiler and libraries:
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+libgmp-dev:arm64	2:6.3.0+dfsg-2ubuntu6.1
+libntl-dev	11.5.1-1
+
+Benchmark design:
+samples_per_threshold_per_output_width=1000
+thresholds=1,2,3,4,5,6,7
+output_components=13,26
+blocks=10
+order=cyclically_rotated_configuration_order
+warmup_samples_per_configuration=20
+input_expansion_timed=false
+network_timed=false
+outlier_removal=false
+
+Comparability boundary:
+portable NTL reproduction of the reference LWR arithmetic
+not the complete cryptoTools or PQ-DiSE application
+parallel_computation_model_ns is calculated, not a measured parallel execution
+
+Resource measurement:
+	Command being timed: "target/reference-benchmark/reference-lwr-bench"
+	User time (seconds): 27.45
+	System time (seconds): 0.04
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:27.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5860
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 51043
+	Voluntary context switches: 9
+	Involuntary context switches: 203
+	Swaps: 0
+	File system inputs: 8
+	File system outputs: 22096
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+Artifact hashes:
+823c22556b0f1b0e309b976c4268140b58977895a0baba0454e019b5ee124616  target/reference-benchmark/reference-lwr-bench
+4044fdec274960b5db8e0b13fc02f133bfd37d5233416bb130314f6ee507ff79  scripts/reference-lwr-bench.cpp
+970493105b48fa8e40a931e5456755e4f175843333037fe641f66681d9422739  scripts/summarize-reference-lwr.jq
+2dc7143c5f0d6906c6f78ccbf3d3d81282d692a892a9f184ab8b8b94f28c8898  results/pqdprf-reference-same-host-1000.jsonl
+d2c32f65ff31f28de71b2a3c4abd42dbaf57fabe510bbc41cc601daf67ae841e  results/pqdprf-reference-same-host-1000-summary.json
+5bb5c6dda993cc9bcfa2e04c55cdd152197f8222fab4d14422ec3aeb554abcc3  results/pqdprf-reference-same-host-1000-resource.txt

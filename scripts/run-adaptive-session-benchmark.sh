@@ -4,6 +4,15 @@ set -euo pipefail
 blocks="${ASTRA_ADAPTIVE_BLOCKS:-5}"
 repetitions_per_block="${ASTRA_ADAPTIVE_REPETITIONS_PER_BLOCK:-20}"
 output="${ASTRA_ADAPTIVE_OUTPUT:-/home/astraadmin/astra-pq/results/adaptive-session-balanced-100.jsonl}"
+governance_bundle="${ASTRA_ADAPTIVE_GOVERNANCE_BUNDLE:-/home/astraadmin/astra-pq/config/governance/governance-bundle.json}"
+expected_live_iota_claim="${ASTRA_ADAPTIVE_EXPECT_LIVE_IOTA_CLAIM:-false}"
+expected_network_id="${ASTRA_ADAPTIVE_EXPECT_NETWORK_ID:-}"
+
+if [[ "${expected_live_iota_claim}" != "true" &&
+      "${expected_live_iota_claim}" != "false" ]]; then
+  echo "ASTRA_ADAPTIVE_EXPECT_LIVE_IOTA_CLAIM must be true or false" >&2
+  exit 2
+fi
 
 for value in "${blocks}" "${repetitions_per_block}"; do
   if [[ ! "${value}" =~ ^[1-9][0-9]*$ ]]; then
@@ -31,7 +40,7 @@ for ((block = 0; block < blocks; block++)); do
 
     ASTRA_SESSION_RISK="${risk}" \
     ASTRA_SESSION_REPETITIONS="${repetitions_per_block}" \
-    ASTRA_GOVERNANCE_BUNDLE=/home/astraadmin/astra-pq/config/governance/governance-bundle.json \
+    ASTRA_GOVERNANCE_BUNDLE="${governance_bundle}" \
     ASTRA_INITIATOR_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk \
     ASTRA_INITIATOR_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.pk \
     ASTRA_RESPONDER_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/config/gateway-public-keys/gateway-b.pk \
@@ -62,6 +71,8 @@ done
 jq -e -s \
   --argjson expected_total "${expected_total}" \
   --argjson expected_per_risk "${expected_per_risk}" \
+  --argjson expected_live_iota_claim "${expected_live_iota_claim}" \
+  --arg expected_network_id "${expected_network_id}" \
   '
     length == $expected_total
     and ([.[] | select(.risk_class == "R0")] | length == $expected_per_risk)
@@ -71,6 +82,11 @@ jq -e -s \
     and ([.[] | select(.risk_class == "R4")] | length == $expected_per_risk)
     and all(.[];
       .success == true
+      and .live_iota_claim == $expected_live_iota_claim
+      and (
+        $expected_network_id == ""
+        or .governance_network_id == $expected_network_id
+      )
       and .session_key_exported == false
       and .bidirectional_key_confirmation == true
       and .risk_class == .benchmark_risk

@@ -15,7 +15,9 @@ use astra_governance::{
     GovernanceCheckpoint, GovernanceError, LocalGovernanceState, checkpoint_hash,
     checkpoint_is_fresh,
 };
-use astra_pqcrypto::{CryptoError, PqProvider, SecretBytes, derive_session_key};
+use astra_pqcrypto::{
+    CryptoError, PqProvider, SecretBytes, SessionSecrets, derive_session_secrets,
+};
 use astra_synthesizer::{AuthorizationStructure, DistinctBy, SynthesisResult};
 use sha3::{Digest, Sha3_256};
 use std::collections::{BTreeMap, BTreeSet};
@@ -40,8 +42,8 @@ pub struct AuthorizationResult {
 /// Final gateway result after both authorization and ML-KEM gates succeed.
 #[derive(Debug)]
 pub struct EstablishedSession {
-    /// Final 256-bit session key.
-    pub session_key: Secret32,
+    /// Direction-separated traffic and confirmation secrets.
+    pub secrets: SessionSecrets,
     /// Non-secret session-bound authorization input for audit correlation.
     pub authorization_input: Digest32,
     /// Selected authorization contributors by clause.
@@ -209,14 +211,14 @@ pub fn establish_session<B: DprfBackend>(
         request.verification_keys,
         request.evidence,
     )?;
-    let session_key = derive_session_key(
+    let secrets = derive_session_secrets(
         request.kem_secret,
         &authorization.authorization_secret,
         &authorization.authorization_input,
         request.authenticated_transcript,
     )?;
     Ok(EstablishedSession {
-        session_key,
+        secrets,
         authorization_input: authorization.authorization_input,
         contributors: authorization.contributors,
     })
@@ -405,6 +407,9 @@ mod tests {
             protocol_version: PROTOCOL_VERSION,
             session_id: SessionId::from_bytes([1; 32]),
             epoch: 4,
+            issued_at_unix: 100,
+            expires_at_unix: 200,
+            request_nonce: astra_common::RequestNonce::from_bytes([4; 32]),
             source_domain: "domain-a".to_owned(),
             destination_domain: "domain-b".to_owned(),
             subject: "operator:17".to_owned(),
@@ -512,11 +517,14 @@ mod tests {
             keys_a2.secret_key(),
         );
         let evidence = vec![
-            a2.authorize(&request(&context, synthesis.policy_hash, "destination"))
+            a2.authorize_at(
+                &request(&context, synthesis.policy_hash, "destination"),
+                150,
+            )
+            .unwrap(),
+            a1.authorize_at(&request(&context, synthesis.policy_hash, "risk-floor"), 150)
                 .unwrap(),
-            a1.authorize(&request(&context, synthesis.policy_hash, "risk-floor"))
-                .unwrap(),
-            a2.authorize(&request(&context, synthesis.policy_hash, "risk-floor"))
+            a2.authorize_at(&request(&context, synthesis.policy_hash, "risk-floor"), 150)
                 .unwrap(),
         ];
         let verification_keys = BTreeMap::from([

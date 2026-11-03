@@ -1,0 +1,23 @@
+	Command being timed: "/home/astraadmin/astra-pq/tools/iota-v1.30.1/iota client --yes call --package 0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6 --module astra_pq_governance --function publish_epoch --args 0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f 0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e 1 1 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] [56,151,40,17,99,64,123,232,231,42,185,163,37,254,208,192,128,8,181,246,51,91,230,195,23,93,226,48,160,139,135,63] 1788049573 [104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,65,109,97,110,97,115,114,97,104,55,56,47,65,100,97,112,116,105,118,101,95,83,112,108,105,116,95,116,114,117,115,116,47,51,54,98,51,49,101,99,51,97,102,51,57,49,56,101,101,54,53,100,57,98,99,100,56,101,49,49,100,99,49,56,53,55,101,98,51,102,48,48,51,47,114,101,115,117,108,116,115,47,105,111,116,97,45,108,105,118,101,45,99,104,101,99,107,112,111,105,110,116,45,101,112,111,99,104,49,45,112,114,101,112,97,114,101,100,46,106,115,111,110] [97,115,116,114,97,45,103,111,118,101,114,110,97,110,99,101,45,97,99,116,111,114,115,45,118,49] --gas 0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f --gas-budget 100000000 --json"
+	User time (seconds): 0.03
+	System time (seconds): 0.02
+	Percent of CPU this job got: 2%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 25472
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2304
+	Voluntary context switches: 101
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 48
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

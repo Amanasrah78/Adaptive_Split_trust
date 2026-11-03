@@ -1,0 +1,100 @@
+{
+  "schema": "astra-pq-threshold3-comparison-summary-v1",
+  "samples": 100,
+  "successful_authorizations": 100,
+  "threshold": 3,
+  "selected_coalitions": [
+    [
+      "a1",
+      "a2",
+      "a3"
+    ]
+  ],
+  "connection_modes": [
+    "persistent-preconnected-excluded-from-timing"
+  ],
+  "distributed_total_us": {
+    "samples": 100,
+    "minimum": 1222,
+    "median": 1663,
+    "p95": 2473,
+    "p99": 2755,
+    "maximum": 3074,
+    "mean": 1773.25
+  },
+  "parallel_collection_us": {
+    "samples": 100,
+    "minimum": 823,
+    "median": 1162,
+    "p95": 2065,
+    "p99": 2375,
+    "maximum": 2677,
+    "mean": 1278.24
+  },
+  "gateway_request_signing_us": {
+    "samples": 100,
+    "minimum": 95,
+    "median": 222,
+    "p95": 666,
+    "p99": 890,
+    "maximum": 948,
+    "mean": 271.27
+  },
+  "evidence_verification_us": {
+    "samples": 100,
+    "minimum": 173,
+    "median": 201,
+    "p95": 222,
+    "p99": 236,
+    "maximum": 260,
+    "mean": 200.91
+  },
+  "lwr_combine_us": {
+    "samples": 100,
+    "minimum": 1,
+    "median": 1,
+    "p95": 2,
+    "p99": 2,
+    "maximum": 10,
+    "mean": 1.16
+  },
+  "slowest_authority_round_trip_us": {
+    "samples": 100,
+    "minimum": 721,
+    "median": 981,
+    "p95": 1972,
+    "p99": 2268,
+    "maximum": 2578,
+    "mean": 1123.21
+  },
+  "slowest_authority_processing_us": {
+    "samples": 100,
+    "minimum": 316,
+    "median": 572,
+    "p95": 1006,
+    "p99": 1352,
+    "maximum": 1592,
+    "mean": 613.83
+  },
+  "request_bytes_per_authority": {
+    "samples": 100,
+    "minimum": 12717,
+    "median": 12800,
+    "p95": 12846,
+    "p99": 12870,
+    "maximum": 12877,
+    "mean": 12801.32
+  },
+  "response_bytes_total": {
+    "samples": 100,
+    "minimum": 38631,
+    "median": 38784,
+    "p95": 38871,
+    "p99": 38909,
+    "maximum": 38929,
+    "mean": 38780.57
+  },
+  "partial_payload_bytes_total": [
+    624
+  ]
+}

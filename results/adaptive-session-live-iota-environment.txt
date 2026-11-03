@@ -1,0 +1,72 @@
+ASTRA-PQ live-IOTA adaptive-session integration
+
+Captured UTC:
+2026-08-31T22:09:15+00:00
+
+Source revision before integration commit:
+786f426402c19fc461061f1b0a29613855dae016
+feature/evaluation-completeness
+
+Live IOTA deployment:
+{
+  "network_id": "2304aa97",
+  "package_id": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+  "object_id": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+  "package_version": 1,
+  "rpc_quorum": 2,
+  "epoch": 1,
+  "object_version": 924792290
+}
+
+Artifact hashes:
+c0b881da4a568df679d2586b54812e229a13bf815f2e3fbf0f8bf2d01bd6c654  crates/astra-governance/src/lib.rs
+7701b25f440745ad2d01e3b97e76d9dda52451973dc6bc539f441b4eb8248bc7  crates/astra-testkit/src/bin/astra-session-client.rs
+800fab293501bf37e457028b09e04e3317609fa35af1b7bec062520097253bd0  crates/astra-testkit/src/bin/astra-session-responder.rs
+3ee241b32bef8e427e9c33f0cbc4e4426ce0ae901e790c4c125cde9880d7767d  scripts/run-adaptive-session-benchmark.sh
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  target/release/astra-authority-service
+4fabcfdf784ab4cf77427d7b897546d7b8ccc17d3cf53f427a5f4e16fa4cd489  target/release/astra-session-client
+f6d9fe2cd4c5074ea4a8db36c5308b64e4984b76a0311ae848556d9a160d38b7  target/release/astra-session-responder
+94282f49e5cdc5ad9635ff0cf20fd56329ce0ca5c159353849726717f1d88bdc  results/iota-live-governance-bundle-epoch1.json
+724287aead0153107016dcbf6338e3476d3ff7cd8202bf72debd70d2440e850b  results/adaptive-session-live-iota-script-smoke.jsonl
+eeae87eb1fec62947476ebdcb0cfe09cd8cb4aba1070015a1aafc90cded51c6d  results/adaptive-session-live-iota-script-smoke-summary.json
+
+Interpretation:
+One functional session was executed for each risk profile.
+Live IOTA synchronization remained outside the session-critical path.
+The two agreeing RPC services share IOTA administration.
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+active
+astra-authority-4 | CHANGED | rc=0 >>
+astra-authority-4
+Linux astra-authority-4 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+active
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+active
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+Linux astra-authority-3 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+active

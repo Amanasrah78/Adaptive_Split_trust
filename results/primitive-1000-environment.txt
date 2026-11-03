@@ -1,0 +1,93 @@
+ASTRA-PQ isolated primitive benchmark
+Captured:
+2026-08-20T09:08:02+00:00
+
+Repository:
+fcce969b61a10b66f8de01500df5c54309d886f1
+adaptive-session-v0.8.0-4-gfcce969
+?? results/primitive-1000-environment.txt
+?? results/primitive-1000-resource.txt
+?? results/primitive-1000-summary.json
+?? results/primitive-1000.jsonl
+
+System:
+astra-controller
+Linux astra-controller 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU op-mode(s):                          64-bit
+Byte Order:                              Little Endian
+CPU(s):                                  2
+On-line CPU(s) list:                     0,1
+Vendor ID:                               Apple
+Model name:                              -
+Model:                                   0
+Thread(s) per core:                      1
+Core(s) per socket:                      2
+Socket(s):                               1
+Stepping:                                0x0
+BogoMIPS:                                48.00
+Flags:                                   fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0,1
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Reg file data sampling:    Not affected
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Vulnerable
+Vulnerability Spectre v1:                Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; CSV2, but not BHB
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Not affected
+               total        used        free      shared  buff/cache   available
+Mem:           2.8Gi       446Mi       301Mi        92Ki       2.3Gi       2.4Gi
+Swap:          1.8Gi       8.5Mi       1.8Gi
+Filesystem                         Size  Used Avail Use% Mounted on
+/dev/mapper/ubuntu--vg-ubuntu--lv   17G   11G  5.7G  66% /
+
+Toolchain:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+
+Experiment configuration:
+repetitions=1000
+warmup_iterations=100
+message_bytes=1024
+lwr_threshold=3
+execution_model=single-process-sequential-interleaved
+
+Provider:
+{
+  "kem_algorithm": "ML-KEM-768",
+  "kem_implementation": "FIPS203",
+  "kem_nist_level": 3,
+  "signature_algorithm": "ML-DSA-65",
+  "signature_implementation": "FIPS204",
+  "signature_nist_level": 3
+}
+
+Security scope:
+{
+  "security_profile": "post-quantum LWR; static corruption; semi-honest; exact coalition",
+  "malicious_robust": false,
+  "proactive_refresh_implemented": false
+}
+
+Resource measurement:
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.05
+	Maximum resident set size (kbytes): 3372
+	Exit status: 0
+
+Artifact hashes:
+105666e68d118cb18bffed4620c7f953499fb460cce4d30302dfbf17d619595f  target/release/astra-primitive-bench
+8bc98eee21a07e3bfeaa865cf878720dcc5b3264510cf821c0c65da8264c6cac  crates/astra-testkit/src/bin/astra-primitive-bench.rs
+492c248b1b6d6d5c0643a279ec8cd45ac947107b5af212e00fb49cf92cd731c7  results/primitive-1000.jsonl
+77ca28f40f31ffa161167cd767e53f8fd694da9ec3fbac884f60761d5cd9d6f5  results/primitive-1000-summary.json
+a5d12c2099ec5c0a3016ef8ddf64a6cd914b68ddc831fb2758854191dd04c0c7  results/primitive-1000-resource.txt

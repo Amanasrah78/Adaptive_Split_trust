@@ -1,0 +1,3235 @@
+{
+  "schema": "astra-pq-synthesis-scale-summary-v1",
+  "total_samples": 14000,
+  "successful_samples": 13600,
+  "intentional_fail_closed_samples": 400,
+  "repetitions_per_configuration": 100,
+  "populations": [
+    3,
+    4,
+    5,
+    7,
+    10,
+    20,
+    50
+  ],
+  "risk_classes": [
+    "R0",
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "additional_role_counts": [
+    0,
+    2,
+    4,
+    8
+  ],
+  "logical_records_only": true,
+  "cryptographic_provisioning_evaluated": false,
+  "successful_configurations": [
+    {
+      "population": 3,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2497,
+        "median_ns": 2664,
+        "p95_ns": 2955,
+        "p99_ns": 4162,
+        "maximum_ns": 20765,
+        "mean_ns": 2908.38
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3662,
+        "median_ns": 3995,
+        "p95_ns": 6284,
+        "p99_ns": 23303,
+        "maximum_ns": 98332,
+        "mean_ns": 5530.4
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "ca1526f3545b81246d4f2189cc53d814598b35e1b0287029288f65720571c81f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5202,
+        "median_ns": 5576,
+        "p95_ns": 6158,
+        "p99_ns": 6575,
+        "maximum_ns": 6741,
+        "mean_ns": 5599.05
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "3ac5d354ba2866ccf3a37770ce78d43e43d35124943bc1cb6cd329284433697f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6949,
+        "median_ns": 7241,
+        "p95_ns": 9530,
+        "p99_ns": 18976,
+        "maximum_ns": 19184,
+        "mean_ns": 7712.95
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 148,
+        "clause_count": 2,
+        "clause_member_references": 4,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 3,
+        "policy_hash": "d3b4f43b4ffb2f39f4b88689956ea5659ddcdbed678f997e3ed84a379591280c"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2330,
+        "median_ns": 2497,
+        "p95_ns": 2704,
+        "p99_ns": 3121,
+        "maximum_ns": 16562,
+        "mean_ns": 2673.99
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 262,
+        "clause_count": 4,
+        "clause_member_references": 6,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 3,
+        "policy_hash": "f7d951fd1819ea3dcbb9150d982c026882357c75a4c497f6048228823d9418cf"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3662,
+        "median_ns": 3829,
+        "p95_ns": 4162,
+        "p99_ns": 5035,
+        "maximum_ns": 16021,
+        "mean_ns": 3984.86
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 376,
+        "clause_count": 6,
+        "clause_member_references": 8,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 3,
+        "policy_hash": "09f150713e6779e1587010be8b7de6ca553867d5834ece5e27b9c79456aebc83"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3995,
+        "median_ns": 4203,
+        "p95_ns": 4577,
+        "p99_ns": 5368,
+        "maximum_ns": 5493,
+        "mean_ns": 4247.1
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 604,
+        "clause_count": 10,
+        "clause_member_references": 12,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 3,
+        "policy_hash": "d05591320301b4aff3823cbe4d2f95123e4f484c82e3cda29bc6d63afc0a464b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6034,
+        "median_ns": 6575,
+        "p95_ns": 7491,
+        "p99_ns": 13316,
+        "maximum_ns": 17852,
+        "mean_ns": 6841.62
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 201,
+        "clause_count": 3,
+        "clause_member_references": 5,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 3,
+        "policy_hash": "af834f8b6ec75ccc73dba5c2159de0a4b77dc489686b93e6b0ed3b7778302346"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2206,
+        "median_ns": 2496,
+        "p95_ns": 2913,
+        "p99_ns": 3413,
+        "maximum_ns": 6326,
+        "mean_ns": 2565.84
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 315,
+        "clause_count": 5,
+        "clause_member_references": 7,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 3,
+        "policy_hash": "1bda55623d4bd45ccddcaf54aac07d34c83c65ef58fa6cc155629a442c5ee7e5"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3162,
+        "median_ns": 3413,
+        "p95_ns": 3787,
+        "p99_ns": 4078,
+        "maximum_ns": 4120,
+        "mean_ns": 3442.29
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 429,
+        "clause_count": 7,
+        "clause_member_references": 9,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 3,
+        "policy_hash": "cc1ca58a3e9804300fe9c4879d39cd9f02365cd9cbc2a3900faf03ea1f9515a2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4036,
+        "median_ns": 4369,
+        "p95_ns": 4786,
+        "p99_ns": 5035,
+        "maximum_ns": 5119,
+        "mean_ns": 4378.52
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 657,
+        "clause_count": 11,
+        "clause_member_references": 13,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 3,
+        "policy_hash": "83f6380dc147d82e86dd70fcbf0b41ea955f785eef980288811d58c2bd6f824a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6325,
+        "median_ns": 7240,
+        "p95_ns": 14980,
+        "p99_ns": 26840,
+        "maximum_ns": 67663,
+        "mean_ns": 8521.07
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 228,
+        "clause_count": 4,
+        "clause_member_references": 6,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 3,
+        "policy_hash": "70f3bce918e1309b60837989dcb0139fe2566228a72137024d89454f3b17c5e5"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2371,
+        "median_ns": 2497,
+        "p95_ns": 2705,
+        "p99_ns": 3162,
+        "maximum_ns": 3454,
+        "mean_ns": 2531.35
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 342,
+        "clause_count": 6,
+        "clause_member_references": 8,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 3,
+        "policy_hash": "b3f55f657d836b826587943281ad46a129dd87c15680d0d565dab70d0983a033"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3537,
+        "median_ns": 3704,
+        "p95_ns": 4120,
+        "p99_ns": 4536,
+        "maximum_ns": 4786,
+        "mean_ns": 3766.88
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 456,
+        "clause_count": 8,
+        "clause_member_references": 10,
+        "evidence_count": 10,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 3,
+        "policy_hash": "7eac330004d22afb82680872394b3f3b901bbbab3bbe12aa0bf91f6eb49374e7"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4744,
+        "median_ns": 5077,
+        "p95_ns": 5576,
+        "p99_ns": 5992,
+        "maximum_ns": 16686,
+        "mean_ns": 5224.98
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 684,
+        "clause_count": 12,
+        "clause_member_references": 14,
+        "evidence_count": 14,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 3,
+        "policy_hash": "dec0aa78691121bf1b95dbb7d0d611454bed73b5705a239855b3b259067839ef"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6575,
+        "median_ns": 6866,
+        "p95_ns": 8031,
+        "p99_ns": 22637,
+        "maximum_ns": 40656,
+        "mean_ns": 7513.62
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1081,
+        "median_ns": 1165,
+        "p95_ns": 1248,
+        "p99_ns": 1622,
+        "maximum_ns": 1748,
+        "mean_ns": 1168.86
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1956,
+        "median_ns": 2080,
+        "p95_ns": 2164,
+        "p99_ns": 2206,
+        "maximum_ns": 20349,
+        "mean_ns": 2250.45
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2829,
+        "median_ns": 2954,
+        "p95_ns": 3038,
+        "p99_ns": 3537,
+        "maximum_ns": 3662,
+        "mean_ns": 2948.27
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "687b849a4783435f15df9042e7e52eca0663364b4927ac3e2babb8f7b15be51b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4494,
+        "median_ns": 4869,
+        "p95_ns": 5285,
+        "p99_ns": 5743,
+        "maximum_ns": 5909,
+        "mean_ns": 4875.34
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 171,
+        "clause_count": 2,
+        "clause_member_references": 5,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 4,
+        "policy_hash": "81743aee61afb2f85e5c87aa7ec5ad53c937c4ef6f809fdb6918222fdab5e607"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1706,
+        "median_ns": 1789,
+        "p95_ns": 2039,
+        "p99_ns": 2330,
+        "maximum_ns": 7324,
+        "mean_ns": 1868.82
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 285,
+        "clause_count": 4,
+        "clause_member_references": 7,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 4,
+        "policy_hash": "81887af111d931c6da76360306030d80121f8350d699b1342a42bb177df416a6"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2538,
+        "median_ns": 2663,
+        "p95_ns": 2705,
+        "p99_ns": 2788,
+        "maximum_ns": 3121,
+        "mean_ns": 2643.25
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 399,
+        "clause_count": 6,
+        "clause_member_references": 9,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 4,
+        "policy_hash": "1a9fd4ee9d1ded3f5e01b8709849fc344e2c8e78abae0da4fef0b280f3ab0979"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3329,
+        "median_ns": 3496,
+        "p95_ns": 3662,
+        "p99_ns": 4036,
+        "maximum_ns": 4286,
+        "mean_ns": 3520
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 627,
+        "clause_count": 10,
+        "clause_member_references": 13,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 4,
+        "policy_hash": "e711ed8f2ac809403f6172192118670dfe9a66d6b287d2c77007a6e6b35365a4"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4869,
+        "median_ns": 5119,
+        "p95_ns": 5285,
+        "p99_ns": 5327,
+        "maximum_ns": 5368,
+        "mean_ns": 5108.01
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 224,
+        "clause_count": 3,
+        "clause_member_references": 6,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 4,
+        "policy_hash": "ee8b8e9f01fa0a8e385d43532c93c4e260acbae1c6451596ef590281ebf8e606"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1664,
+        "median_ns": 1955,
+        "p95_ns": 2122,
+        "p99_ns": 2164,
+        "maximum_ns": 2455,
+        "mean_ns": 1879.27
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 338,
+        "clause_count": 5,
+        "clause_member_references": 8,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 4,
+        "policy_hash": "0381742d1382fbff1d9fe2bd9e9cacb9de748a34d6daaf7fc1377d824bfa633e"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2413,
+        "median_ns": 2497,
+        "p95_ns": 3037,
+        "p99_ns": 3121,
+        "maximum_ns": 3246,
+        "mean_ns": 2565.82
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 452,
+        "clause_count": 7,
+        "clause_member_references": 10,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 4,
+        "policy_hash": "4c3520a7d27d010a2bf09ae4a3f0b20d10ac9f296ac312ec677d2e5b91c8a320"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3204,
+        "median_ns": 3370,
+        "p95_ns": 4079,
+        "p99_ns": 4286,
+        "maximum_ns": 13524,
+        "mean_ns": 3516.69
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 680,
+        "clause_count": 11,
+        "clause_member_references": 14,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 4,
+        "policy_hash": "eb46ec68c50c21c596e43b2793195bd0581d14e1f0ad946760e3798e02c77923"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4785,
+        "median_ns": 5077,
+        "p95_ns": 5659,
+        "p99_ns": 6492,
+        "maximum_ns": 7199,
+        "mean_ns": 5131.77
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 251,
+        "clause_count": 4,
+        "clause_member_references": 7,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 4,
+        "policy_hash": "00329c6fb99f594e7620eda92bbfc2dec4376e0c98a7b1cb6cd12aeb75a1d9ab"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1831,
+        "median_ns": 2122,
+        "p95_ns": 2663,
+        "p99_ns": 2746,
+        "maximum_ns": 2996,
+        "mean_ns": 2141.39
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 365,
+        "clause_count": 6,
+        "clause_member_references": 9,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 4,
+        "policy_hash": "ee9e0147757b90a4fcc766969ef4643ad3b9a7c3b039a93f8658d2a5006f0a16"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2247,
+        "median_ns": 2372,
+        "p95_ns": 2955,
+        "p99_ns": 3038,
+        "maximum_ns": 13482,
+        "mean_ns": 2543.42
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 479,
+        "clause_count": 8,
+        "clause_member_references": 11,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 4,
+        "policy_hash": "4458a2a8a997ea2aae02f9a56bb1e26378820d3b7a5b90e4381fec3dfb6b529b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2996,
+        "median_ns": 3163,
+        "p95_ns": 3745,
+        "p99_ns": 3995,
+        "maximum_ns": 4078,
+        "mean_ns": 3203
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 707,
+        "clause_count": 12,
+        "clause_member_references": 15,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 4,
+        "policy_hash": "e3ba14fff9cdb82dee50c40f174baaba4804f5f477f2bb18baa1964a21af6ac9"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4410,
+        "median_ns": 4661,
+        "p95_ns": 5035,
+        "p99_ns": 5826,
+        "maximum_ns": 11402,
+        "mean_ns": 4771.3
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 303,
+        "clause_count": 5,
+        "clause_member_references": 8,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 4,
+        "policy_hash": "8a7f8d3ca44791c63fa7e9511d0dd0003f16c108b02348a49876c4e496c54536"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2080,
+        "median_ns": 2164,
+        "p95_ns": 2413,
+        "p99_ns": 2538,
+        "maximum_ns": 2580,
+        "mean_ns": 2206.33
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 417,
+        "clause_count": 7,
+        "clause_member_references": 10,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 4,
+        "policy_hash": "9b0d532c2c548a8ea7e8b4620c99ada86ce2b678f8e51b15299f6babb2e4e5db"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2621,
+        "median_ns": 2747,
+        "p95_ns": 2913,
+        "p99_ns": 7574,
+        "maximum_ns": 23012,
+        "mean_ns": 3016.93
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 531,
+        "clause_count": 9,
+        "clause_member_references": 12,
+        "evidence_count": 12,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 4,
+        "policy_hash": "2fc84fc861128ea1e233989f0b0a36d295d87c8ec67d18c12f2088f4c21556e8"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3370,
+        "median_ns": 3579,
+        "p95_ns": 3787,
+        "p99_ns": 3912,
+        "maximum_ns": 16770,
+        "mean_ns": 3717.29
+      }
+    },
+    {
+      "population": 4,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 759,
+        "clause_count": 13,
+        "clause_member_references": 16,
+        "evidence_count": 16,
+        "exact_clause_count": 13,
+        "maximum_clause_members": 4,
+        "policy_hash": "6d393e7447fdd95947399b3865c4b26f09211365d083303c824c7356553f498b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4494,
+        "median_ns": 4744,
+        "p95_ns": 5659,
+        "p99_ns": 6076,
+        "maximum_ns": 13191,
+        "mean_ns": 4903.33
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 873,
+        "median_ns": 957,
+        "p95_ns": 999,
+        "p99_ns": 1082,
+        "maximum_ns": 1332,
+        "mean_ns": 950.85
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1540,
+        "median_ns": 1664,
+        "p95_ns": 1707,
+        "p99_ns": 1748,
+        "maximum_ns": 10195,
+        "mean_ns": 1746.07
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2039,
+        "median_ns": 2247,
+        "p95_ns": 2538,
+        "p99_ns": 2705,
+        "maximum_ns": 2913,
+        "mean_ns": 2256.73
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "4585e0bd5f54a384bea3e6142358f8e8993823f309fc4fe798a25597ab95e4cc"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3246,
+        "median_ns": 3496,
+        "p95_ns": 3703,
+        "p99_ns": 5617,
+        "maximum_ns": 11860,
+        "mean_ns": 3612.36
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 194,
+        "clause_count": 2,
+        "clause_member_references": 6,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 5,
+        "policy_hash": "259db202f25d55c137e81c088d6115dc0ffcc19544244150123f1342da78283e"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1290,
+        "median_ns": 1414,
+        "p95_ns": 1498,
+        "p99_ns": 1582,
+        "maximum_ns": 1623,
+        "mean_ns": 1405.67
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 308,
+        "clause_count": 4,
+        "clause_member_references": 8,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 5,
+        "policy_hash": "1848d587861e9613141cd9d82acae7f7c2565788ea41eac14b16d421f5ddb468"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1914,
+        "median_ns": 1998,
+        "p95_ns": 2164,
+        "p99_ns": 2538,
+        "maximum_ns": 8239,
+        "mean_ns": 2090.64
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 422,
+        "clause_count": 6,
+        "clause_member_references": 10,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 5,
+        "policy_hash": "9f67fd6fd96d7a831a053de8de24cb6b7e0d2117d27b23f892a22f686c525b88"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2455,
+        "median_ns": 2788,
+        "p95_ns": 2996,
+        "p99_ns": 3162,
+        "maximum_ns": 3246,
+        "mean_ns": 2800.92
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 650,
+        "clause_count": 10,
+        "clause_member_references": 14,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 5,
+        "policy_hash": "fc59d4ba2f2205416eb0905b98484fb79ffd1fb18cbe72deea01c4e95c71e250"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3703,
+        "median_ns": 3911,
+        "p95_ns": 4703,
+        "p99_ns": 5035,
+        "maximum_ns": 12360,
+        "mean_ns": 4026.51
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 247,
+        "clause_count": 3,
+        "clause_member_references": 7,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 5,
+        "policy_hash": "8e891b6be4b8819f2a911e74aa682030867847c782a593fa7581a64cf44b0716"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1664,
+        "median_ns": 1748,
+        "p95_ns": 1873,
+        "p99_ns": 2123,
+        "maximum_ns": 2205,
+        "mean_ns": 1772.73
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 361,
+        "clause_count": 5,
+        "clause_member_references": 9,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 5,
+        "policy_hash": "bad8e3399723e29aa26f5354324afae659517f28a2858f5dc7e87582dc57ffe4"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2080,
+        "median_ns": 2289,
+        "p95_ns": 2539,
+        "p99_ns": 2664,
+        "maximum_ns": 2746,
+        "mean_ns": 2292.91
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 475,
+        "clause_count": 7,
+        "clause_member_references": 11,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 5,
+        "policy_hash": "6deb50d58a72ed551f93c91f09b4d369bef244c596736538afabfee5e9275023"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2705,
+        "median_ns": 2996,
+        "p95_ns": 3287,
+        "p99_ns": 3371,
+        "maximum_ns": 3454,
+        "mean_ns": 3010.66
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 703,
+        "clause_count": 11,
+        "clause_member_references": 15,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 5,
+        "policy_hash": "c4672c7c822a6adb002805e60d2a27e1da6c8c2a06112515a9f50ac000c63d37"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3912,
+        "median_ns": 4161,
+        "p95_ns": 4286,
+        "p99_ns": 4369,
+        "maximum_ns": 4411,
+        "mean_ns": 4159.15
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 274,
+        "clause_count": 4,
+        "clause_member_references": 8,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 5,
+        "policy_hash": "ec045f29d33eef75058de14e4afcc15936ae9605375373c41d973bf5f10e8b28"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1623,
+        "median_ns": 1789,
+        "p95_ns": 2289,
+        "p99_ns": 2372,
+        "maximum_ns": 2413,
+        "mean_ns": 1851.37
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 388,
+        "clause_count": 6,
+        "clause_member_references": 10,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 5,
+        "policy_hash": "cddecf85d8f3471f098a4942d5c2abdd292cfc8208ba3fb6b50036eb62cc3f4f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2247,
+        "median_ns": 2496,
+        "p95_ns": 2622,
+        "p99_ns": 2746,
+        "maximum_ns": 9779,
+        "mean_ns": 2560.92
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 502,
+        "clause_count": 8,
+        "clause_member_references": 12,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 5,
+        "policy_hash": "8ddee68f40e355997f1ad28d788ad572dfbdf06120fb0b53a88416c222a1913a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2538,
+        "median_ns": 2954,
+        "p95_ns": 3621,
+        "p99_ns": 6616,
+        "maximum_ns": 8489,
+        "mean_ns": 3011.11
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 730,
+        "clause_count": 12,
+        "clause_member_references": 16,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 5,
+        "policy_hash": "1d94358b2ca5b50b7d69f0398b6d0703890b4acd70f76a4a071fe8202bae22f3"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3662,
+        "median_ns": 3870,
+        "p95_ns": 4078,
+        "p99_ns": 5035,
+        "maximum_ns": 17936,
+        "mean_ns": 4033.5
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 326,
+        "clause_count": 5,
+        "clause_member_references": 9,
+        "evidence_count": 8,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 5,
+        "policy_hash": "a11ad89ea8cfd56a92f3c74e20854754ab3854166715d50cb2a41360c98cec75"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1747,
+        "median_ns": 1872,
+        "p95_ns": 2372,
+        "p99_ns": 2413,
+        "maximum_ns": 2414,
+        "mean_ns": 1930.84
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 440,
+        "clause_count": 7,
+        "clause_member_references": 11,
+        "evidence_count": 10,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 5,
+        "policy_hash": "29fcc7094d3f215cdef2b7726e878b991a4fa6752091a367e6b82f11072866b8"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2081,
+        "median_ns": 2372,
+        "p95_ns": 2747,
+        "p99_ns": 2829,
+        "maximum_ns": 11902,
+        "mean_ns": 2514.35
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 554,
+        "clause_count": 9,
+        "clause_member_references": 13,
+        "evidence_count": 12,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 5,
+        "policy_hash": "5b55db666301e0842537d8f473dfa49886aff41bfbb56a1067754623e3cb0956"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2955,
+        "median_ns": 3245,
+        "p95_ns": 3496,
+        "p99_ns": 3828,
+        "maximum_ns": 14481,
+        "mean_ns": 3348.6
+      }
+    },
+    {
+      "population": 5,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 782,
+        "clause_count": 13,
+        "clause_member_references": 17,
+        "evidence_count": 16,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 5,
+        "policy_hash": "c8a33becd48a760e69f426721271daec4f24a7e07143e30864c7f87381f37904"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3537,
+        "median_ns": 3704,
+        "p95_ns": 3870,
+        "p99_ns": 5826,
+        "maximum_ns": 9487,
+        "mean_ns": 3794.72
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 749,
+        "median_ns": 832,
+        "p95_ns": 957,
+        "p99_ns": 1040,
+        "maximum_ns": 1041,
+        "mean_ns": 838.08
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1331,
+        "median_ns": 1415,
+        "p95_ns": 1540,
+        "p99_ns": 1623,
+        "maximum_ns": 1665,
+        "mean_ns": 1431.92
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1914,
+        "median_ns": 2080,
+        "p95_ns": 2580,
+        "p99_ns": 2621,
+        "maximum_ns": 2622,
+        "mean_ns": 2106.03
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "e9c8f423fdce86048642f3963e3af05b2fff86f93ca5b58398b0670236b9e514"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2871,
+        "median_ns": 3038,
+        "p95_ns": 3121,
+        "p99_ns": 3745,
+        "maximum_ns": 3787,
+        "mean_ns": 3049.44
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 240,
+        "clause_count": 2,
+        "clause_member_references": 8,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 7,
+        "policy_hash": "d6afe30c7c9f53ccaef397d6d5e0f60daff89b7067ae89024fe02e2bc28ad6f7"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1206,
+        "median_ns": 1248,
+        "p95_ns": 1290,
+        "p99_ns": 1331,
+        "maximum_ns": 1332,
+        "mean_ns": 1254.62
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 354,
+        "clause_count": 4,
+        "clause_member_references": 10,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 7,
+        "policy_hash": "e907926a8c7f164219bb07b5c9be728c6b5150e945538d212218722ab1ffb0a0"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1623,
+        "median_ns": 1747,
+        "p95_ns": 1790,
+        "p99_ns": 1790,
+        "maximum_ns": 1831,
+        "mean_ns": 1729.51
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 468,
+        "clause_count": 6,
+        "clause_member_references": 12,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 7,
+        "policy_hash": "9506f8a0561c58ef635558356ebc429b6c695499145d3ac7182abcd9872f943a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2205,
+        "median_ns": 2330,
+        "p95_ns": 2414,
+        "p99_ns": 2455,
+        "maximum_ns": 2580,
+        "mean_ns": 2324.17
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 696,
+        "clause_count": 10,
+        "clause_member_references": 16,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 7,
+        "policy_hash": "01b51ea2b40bfb2b40f9a1b61d47f67b4a11466b018a75431617af862b9f856c"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3246,
+        "median_ns": 3412,
+        "p95_ns": 3620,
+        "p99_ns": 4328,
+        "maximum_ns": 4577,
+        "mean_ns": 3451.84
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 293,
+        "clause_count": 3,
+        "clause_member_references": 9,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 7,
+        "policy_hash": "8c084ab4ad6b0789b18afa3931da9248329d576fa553da3660e715d20be91502"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1498,
+        "median_ns": 1581,
+        "p95_ns": 1914,
+        "p99_ns": 2414,
+        "maximum_ns": 6409,
+        "mean_ns": 1654.09
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 407,
+        "clause_count": 5,
+        "clause_member_references": 11,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 7,
+        "policy_hash": "97e9a5ab4489224a0efbf413d69113febb0c7f39af9a41f8a2ae39d289870661"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2080,
+        "median_ns": 2330,
+        "p95_ns": 2913,
+        "p99_ns": 9321,
+        "maximum_ns": 22388,
+        "mean_ns": 2676.9
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 521,
+        "clause_count": 7,
+        "clause_member_references": 13,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 7,
+        "policy_hash": "73dfa6a084b000b451d334270f26f0c1a3675d6ee5d54bf45ba29fee67770c57"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2705,
+        "median_ns": 2830,
+        "p95_ns": 3080,
+        "p99_ns": 3329,
+        "maximum_ns": 3496,
+        "mean_ns": 2860.95
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 749,
+        "clause_count": 11,
+        "clause_member_references": 17,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 7,
+        "policy_hash": "5af16e98db6ac4c4033ce1a2831a4163776b661e5641adacb7ee245ea2694725"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3163,
+        "median_ns": 3329,
+        "p95_ns": 3911,
+        "p99_ns": 4286,
+        "maximum_ns": 4287,
+        "mean_ns": 3397.72
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 320,
+        "clause_count": 4,
+        "clause_member_references": 10,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 7,
+        "policy_hash": "5fe4e446524b28319f36ba4108b4eba39f68b7f7cb65ef08e1bc834dd92513ad"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1581,
+        "median_ns": 1706,
+        "p95_ns": 1872,
+        "p99_ns": 2164,
+        "maximum_ns": 6617,
+        "mean_ns": 1767.73
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 434,
+        "clause_count": 6,
+        "clause_member_references": 12,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 7,
+        "policy_hash": "ef206e45a792c947a89cab98eb3da42b149e58bd5e6b547031e34cf5d50b2ad7"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2081,
+        "median_ns": 2331,
+        "p95_ns": 2456,
+        "p99_ns": 2497,
+        "maximum_ns": 2497,
+        "mean_ns": 2333.34
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 548,
+        "clause_count": 8,
+        "clause_member_references": 14,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 7,
+        "policy_hash": "e87aae24459c4d156a4b2ad32b7f7dd9ca650883d981588aa788309496a0b42e"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2663,
+        "median_ns": 3038,
+        "p95_ns": 3205,
+        "p99_ns": 3288,
+        "maximum_ns": 3412,
+        "mean_ns": 3059.38
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 776,
+        "clause_count": 12,
+        "clause_member_references": 18,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 7,
+        "policy_hash": "378e0def224adda14b2b350879e1ad67aef8c68e641ed8f55fc98d28b7575636"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3162,
+        "median_ns": 3329,
+        "p95_ns": 3579,
+        "p99_ns": 3621,
+        "maximum_ns": 8489,
+        "mean_ns": 3411.4
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 372,
+        "clause_count": 5,
+        "clause_member_references": 11,
+        "evidence_count": 8,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 7,
+        "policy_hash": "ac25868aea98682a487a3414258c4a53dd6b38ae461d03c488bbdf5c8c2c69ef"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1664,
+        "median_ns": 1748,
+        "p95_ns": 1831,
+        "p99_ns": 1914,
+        "maximum_ns": 2080,
+        "mean_ns": 1765.22
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 486,
+        "clause_count": 7,
+        "clause_member_references": 13,
+        "evidence_count": 10,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 7,
+        "policy_hash": "4d719ee2fb80bf283dcfd92c5a6e012f447c8052e52f745cfd291f819fae414b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2080,
+        "median_ns": 2372,
+        "p95_ns": 2456,
+        "p99_ns": 2497,
+        "maximum_ns": 2538,
+        "mean_ns": 2360.73
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 600,
+        "clause_count": 9,
+        "clause_member_references": 15,
+        "evidence_count": 12,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 7,
+        "policy_hash": "66cfe402e77931e2d25249a6e4221dca09ffa99ac5c192b5ceb161b5c99ce3b2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2621,
+        "median_ns": 3079,
+        "p95_ns": 3287,
+        "p99_ns": 3454,
+        "maximum_ns": 7698,
+        "mean_ns": 3121.4
+      }
+    },
+    {
+      "population": 7,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 828,
+        "clause_count": 13,
+        "clause_member_references": 19,
+        "evidence_count": 16,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 7,
+        "policy_hash": "d5cdb054f2bad23cd5574c851da9ed15e589f0fc9bcfc15a47384e39a792c1af"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3495,
+        "median_ns": 3662,
+        "p95_ns": 3787,
+        "p99_ns": 3828,
+        "maximum_ns": 3829,
+        "mean_ns": 3651.88
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 874,
+        "median_ns": 915,
+        "p95_ns": 957,
+        "p99_ns": 957,
+        "maximum_ns": 957,
+        "mean_ns": 914.25
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1290,
+        "median_ns": 1415,
+        "p95_ns": 1498,
+        "p99_ns": 1831,
+        "maximum_ns": 1873,
+        "mean_ns": 1420.67
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1789,
+        "median_ns": 1873,
+        "p95_ns": 1956,
+        "p99_ns": 2122,
+        "maximum_ns": 2122,
+        "mean_ns": 1894.63
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "7e817987d5162205004e6c88dd29df1023dc6306ae7577a0bf819246eabe5c64"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2788,
+        "median_ns": 2913,
+        "p95_ns": 3080,
+        "p99_ns": 3245,
+        "maximum_ns": 8822,
+        "mean_ns": 3005.22
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 309,
+        "clause_count": 2,
+        "clause_member_references": 11,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 10,
+        "policy_hash": "d3d58baf66917c66d4b47956b6b4ccdf2b3e32950278abcbc2c3b0b6723d979b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1498,
+        "median_ns": 1540,
+        "p95_ns": 1831,
+        "p99_ns": 1914,
+        "maximum_ns": 1998,
+        "mean_ns": 1576.7
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 423,
+        "clause_count": 4,
+        "clause_member_references": 13,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 10,
+        "policy_hash": "20dc5ce2c5a3be6c898eb6a14fc38358b268915114ff2e0c64f25cb29e70b312"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1955,
+        "median_ns": 1998,
+        "p95_ns": 2080,
+        "p99_ns": 2081,
+        "maximum_ns": 2081,
+        "mean_ns": 2015.34
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 537,
+        "clause_count": 6,
+        "clause_member_references": 15,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 10,
+        "policy_hash": "d4d4b7319d9b726260e7c9de5633d6b8d435ee211f8db254126bd8461a9fd1a1"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2455,
+        "median_ns": 2539,
+        "p95_ns": 3204,
+        "p99_ns": 3246,
+        "maximum_ns": 6866,
+        "mean_ns": 2641.57
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 765,
+        "clause_count": 10,
+        "clause_member_references": 19,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 10,
+        "policy_hash": "460c796e28824fe0d60ad4793ff75a9d152c46cdd2ddc0fd124fab4cedf62905"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3246,
+        "median_ns": 3412,
+        "p95_ns": 3537,
+        "p99_ns": 4203,
+        "maximum_ns": 4494,
+        "mean_ns": 3430.06
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 362,
+        "clause_count": 3,
+        "clause_member_references": 12,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 10,
+        "policy_hash": "6fbe3340e537609692c055559c625ebf2d16a2ea5be386c347fdb655526e1178"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1581,
+        "median_ns": 1623,
+        "p95_ns": 1665,
+        "p99_ns": 1707,
+        "maximum_ns": 1831,
+        "mean_ns": 1628.72
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 476,
+        "clause_count": 5,
+        "clause_member_references": 14,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 10,
+        "policy_hash": "98d0654f014f35a413c44ca4ae8de406065623fd730b24019ef1630df9e64fac"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2039,
+        "median_ns": 2122,
+        "p95_ns": 2247,
+        "p99_ns": 2663,
+        "maximum_ns": 2705,
+        "mean_ns": 2152.22
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 590,
+        "clause_count": 7,
+        "clause_member_references": 16,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 10,
+        "policy_hash": "e3e94c3597082f3dbc7fe268b7e297edcd39bf76a86885a48c94e9e076ced0b2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2497,
+        "median_ns": 2664,
+        "p95_ns": 3412,
+        "p99_ns": 9030,
+        "maximum_ns": 18934,
+        "mean_ns": 3026.95
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 818,
+        "clause_count": 11,
+        "clause_member_references": 20,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 10,
+        "policy_hash": "e9f3ee8e621d3f7f720b56b3193200683413e11c5da4b46bb71088a978f8d2f0"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3578,
+        "median_ns": 3745,
+        "p95_ns": 4619,
+        "p99_ns": 4828,
+        "maximum_ns": 8406,
+        "mean_ns": 3842.99
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 389,
+        "clause_count": 4,
+        "clause_member_references": 13,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 10,
+        "policy_hash": "4ca19c5dbc22477310b54756047f5a21cac076e2dc0df8eaebca57dfb60885c5"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1706,
+        "median_ns": 1831,
+        "p95_ns": 1915,
+        "p99_ns": 2289,
+        "maximum_ns": 2330,
+        "mean_ns": 1841.76
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 503,
+        "clause_count": 6,
+        "clause_member_references": 15,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 10,
+        "policy_hash": "59c403a6c68c7cb8ba5a8f90d48ff29a771b027efe1d0d5345ac111484c9e232"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2039,
+        "median_ns": 2205,
+        "p95_ns": 2289,
+        "p99_ns": 2747,
+        "maximum_ns": 2829,
+        "mean_ns": 2220.88
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 617,
+        "clause_count": 8,
+        "clause_member_references": 17,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 10,
+        "policy_hash": "7526e5e6c245fa98d6dbc3883237a9b3e027d12db4f796f11d79f58d40c57b9c"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2538,
+        "median_ns": 2622,
+        "p95_ns": 3246,
+        "p99_ns": 3329,
+        "maximum_ns": 6699,
+        "mean_ns": 2710.67
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 845,
+        "clause_count": 12,
+        "clause_member_references": 21,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 10,
+        "policy_hash": "5f13fa0c23ddc1414cdd09167926bfd913cc513cd89a155c3bc080fb0a853acf"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3453,
+        "median_ns": 3621,
+        "p95_ns": 3828,
+        "p99_ns": 3870,
+        "maximum_ns": 3912,
+        "mean_ns": 3646.15
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 441,
+        "clause_count": 5,
+        "clause_member_references": 14,
+        "evidence_count": 8,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 10,
+        "policy_hash": "6075edcd7a3b1949ee0f0a238b18303619eff45f183e176598286bcd880812af"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1831,
+        "median_ns": 1914,
+        "p95_ns": 2372,
+        "p99_ns": 2414,
+        "maximum_ns": 2414,
+        "mean_ns": 1938.8
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 555,
+        "clause_count": 7,
+        "clause_member_references": 16,
+        "evidence_count": 10,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 10,
+        "policy_hash": "c540f5b974cde191d38a96896124428179f12e4e803ad6427cd66dbf85d2479e"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2289,
+        "median_ns": 2414,
+        "p95_ns": 2497,
+        "p99_ns": 2538,
+        "maximum_ns": 2538,
+        "mean_ns": 2415.19
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 669,
+        "clause_count": 9,
+        "clause_member_references": 18,
+        "evidence_count": 12,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 10,
+        "policy_hash": "0360de9169b3fcbfd0c40e0a52bd10f1d7b44bc61d7ef40cd17d5142a475c0bb"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2746,
+        "median_ns": 2912,
+        "p95_ns": 3163,
+        "p99_ns": 3745,
+        "maximum_ns": 3870,
+        "mean_ns": 2938.66
+      }
+    },
+    {
+      "population": 10,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 897,
+        "clause_count": 13,
+        "clause_member_references": 22,
+        "evidence_count": 16,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 10,
+        "policy_hash": "58046ab7bc945896f736488db18eac5ea0b6f5f54e36c8983b85be6fc2e08351"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3537,
+        "median_ns": 3745,
+        "p95_ns": 4702,
+        "p99_ns": 4952,
+        "maximum_ns": 7657,
+        "mean_ns": 3848.03
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1206,
+        "median_ns": 1248,
+        "p95_ns": 1290,
+        "p99_ns": 1332,
+        "maximum_ns": 1332,
+        "mean_ns": 1248.86
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 1623,
+        "median_ns": 1706,
+        "p95_ns": 1748,
+        "p99_ns": 1789,
+        "maximum_ns": 5659,
+        "mean_ns": 1747.28
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2122,
+        "median_ns": 2206,
+        "p95_ns": 2372,
+        "p99_ns": 2788,
+        "maximum_ns": 2788,
+        "mean_ns": 2238.75
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "7e817987d5162205004e6c88dd29df1023dc6306ae7577a0bf819246eabe5c64"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2871,
+        "median_ns": 3204,
+        "p95_ns": 3787,
+        "p99_ns": 4037,
+        "maximum_ns": 4078,
+        "mean_ns": 3214.17
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 539,
+        "clause_count": 2,
+        "clause_member_references": 21,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 20,
+        "policy_hash": "9942b5d6480e182f3bcbc0370569f34decd00782bb0e537376d73dc8ab0bf502"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2247,
+        "median_ns": 2372,
+        "p95_ns": 3246,
+        "p99_ns": 3288,
+        "maximum_ns": 7241,
+        "mean_ns": 2473.55
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 653,
+        "clause_count": 4,
+        "clause_member_references": 23,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 20,
+        "policy_hash": "46cf1e83e9d65b9e4d29596197a88b94818334472d5df9c115f9fdfe1caee5c3"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2663,
+        "median_ns": 2705,
+        "p95_ns": 3828,
+        "p99_ns": 3994,
+        "maximum_ns": 7199,
+        "mean_ns": 2899.98
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 767,
+        "clause_count": 6,
+        "clause_member_references": 25,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 20,
+        "policy_hash": "996117dd73ad2b78bdef869d7d717a3fbab5bc00aaab25e0fb2804692ec3c72a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2913,
+        "median_ns": 3079,
+        "p95_ns": 3204,
+        "p99_ns": 3246,
+        "maximum_ns": 6699,
+        "mean_ns": 3098.9
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 995,
+        "clause_count": 10,
+        "clause_member_references": 29,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 20,
+        "policy_hash": "a32a8960c884be8e213c4317023db2c1d3bcd488a8e272698087e82fb50558d8"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3745,
+        "median_ns": 4453,
+        "p95_ns": 5618,
+        "p99_ns": 5701,
+        "maximum_ns": 9072,
+        "mean_ns": 4528.75
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 592,
+        "clause_count": 3,
+        "clause_member_references": 22,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 20,
+        "policy_hash": "08cdbec5de3ee001fbff704990ff94b85ebf1457a5c01f407f6b0997b769a3cc"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2330,
+        "median_ns": 2414,
+        "p95_ns": 2705,
+        "p99_ns": 3329,
+        "maximum_ns": 3453,
+        "mean_ns": 2471
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 706,
+        "clause_count": 5,
+        "clause_member_references": 24,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 20,
+        "policy_hash": "e5becaf30ef784aed847d549d71e33b9f6f0748217febe5409024439acc9b147"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2829,
+        "median_ns": 2872,
+        "p95_ns": 3995,
+        "p99_ns": 7740,
+        "maximum_ns": 11277,
+        "mean_ns": 3079.29
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 820,
+        "clause_count": 7,
+        "clause_member_references": 26,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 20,
+        "policy_hash": "6bb04750d5b017bce1e3f13324be6bfdfb0f8c89a89b252cf07ad4f66da00130"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3121,
+        "median_ns": 3370,
+        "p95_ns": 4619,
+        "p99_ns": 4993,
+        "maximum_ns": 9863,
+        "mean_ns": 3594.53
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1048,
+        "clause_count": 11,
+        "clause_member_references": 30,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 20,
+        "policy_hash": "0dae2af91417cdc02a76dc5d8f082ef60f7c95fc2816d3f9c9f6026573a46f41"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3912,
+        "median_ns": 4162,
+        "p95_ns": 4370,
+        "p99_ns": 4452,
+        "maximum_ns": 4453,
+        "mean_ns": 4183.37
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 619,
+        "clause_count": 4,
+        "clause_member_references": 23,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 20,
+        "policy_hash": "019991da6a6d8e719f04899609205cc35669a553cd80293e99803fb56057fc9b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2455,
+        "median_ns": 2539,
+        "p95_ns": 3162,
+        "p99_ns": 3412,
+        "maximum_ns": 6949,
+        "mean_ns": 2691.94
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 733,
+        "clause_count": 6,
+        "clause_member_references": 25,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 20,
+        "policy_hash": "2de234f3067fc342a3a31d2560b34ee3c6908b1f6064c9b4dc08df1e6c4318e4"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2871,
+        "median_ns": 2997,
+        "p95_ns": 4162,
+        "p99_ns": 11860,
+        "maximum_ns": 14148,
+        "mean_ns": 3383.94
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 847,
+        "clause_count": 8,
+        "clause_member_references": 27,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 20,
+        "policy_hash": "21682f46421e21f656c63d6fe4942e4e5614d44566403114b57f11362c462721"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3204,
+        "median_ns": 3370,
+        "p95_ns": 3787,
+        "p99_ns": 3829,
+        "maximum_ns": 6908,
+        "mean_ns": 3450.13
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1075,
+        "clause_count": 12,
+        "clause_member_references": 31,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 20,
+        "policy_hash": "04fbcec3bf8e0d471cc1e61943445596f74da41768f484bbdbc35a01ae928f1c"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4286,
+        "median_ns": 4494,
+        "p95_ns": 6325,
+        "p99_ns": 15397,
+        "maximum_ns": 26133,
+        "mean_ns": 5134.25
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 671,
+        "clause_count": 5,
+        "clause_member_references": 24,
+        "evidence_count": 8,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 20,
+        "policy_hash": "536175216bb2bae573bc6a1b7591ff5cce240a4204ef77d4cb72541bcebdf660"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2704,
+        "median_ns": 2747,
+        "p95_ns": 3080,
+        "p99_ns": 3163,
+        "maximum_ns": 6408,
+        "mean_ns": 2846.27
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 785,
+        "clause_count": 7,
+        "clause_member_references": 26,
+        "evidence_count": 10,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 20,
+        "policy_hash": "2ae24bd1e61e1ae4b81d3b9d3f9b244477b351d30db7f7b4986da572437d87ea"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3121,
+        "median_ns": 3495,
+        "p95_ns": 4203,
+        "p99_ns": 4620,
+        "maximum_ns": 4660,
+        "mean_ns": 3456.02
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 899,
+        "clause_count": 9,
+        "clause_member_references": 28,
+        "evidence_count": 12,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 20,
+        "policy_hash": "56d348036e26c82ce1e1a136eba00fbf3d558ef65cc4a362b7c06e9a86b63c73"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3495,
+        "median_ns": 3704,
+        "p95_ns": 4161,
+        "p99_ns": 5327,
+        "maximum_ns": 5493,
+        "mean_ns": 3826.26
+      }
+    },
+    {
+      "population": 20,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1127,
+        "clause_count": 13,
+        "clause_member_references": 32,
+        "evidence_count": 16,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 20,
+        "policy_hash": "da97c27f5f6be47ebc8bbed5a4df95b121689c7fee9e8114e2a89f3cb4bf6618"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4328,
+        "median_ns": 4661,
+        "p95_ns": 5285,
+        "p99_ns": 6242,
+        "maximum_ns": 10278,
+        "mean_ns": 4858.65
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R0",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 58,
+        "clause_count": 1,
+        "clause_member_references": 1,
+        "evidence_count": 1,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 1,
+        "policy_hash": "421cc614713f3972e42172cc60e57fcb628de118330cbf77719fba3cdca7e230"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2580,
+        "median_ns": 2705,
+        "p95_ns": 2955,
+        "p99_ns": 2955,
+        "maximum_ns": 3662,
+        "mean_ns": 2766.83
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R0",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 172,
+        "clause_count": 3,
+        "clause_member_references": 3,
+        "evidence_count": 3,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 1,
+        "policy_hash": "04465e074c516996fbd7b328ef4bf8c837473b95bb5816b02dd202713403e1d2"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 2955,
+        "median_ns": 3080,
+        "p95_ns": 4287,
+        "p99_ns": 4411,
+        "maximum_ns": 7615,
+        "mean_ns": 3349.02
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R0",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 286,
+        "clause_count": 5,
+        "clause_member_references": 5,
+        "evidence_count": 5,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 1,
+        "policy_hash": "e947924dc042c1d253a4138fa05f45137fd50885ada6e9561d6e2a39e6b8858f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 3371,
+        "median_ns": 3537,
+        "p95_ns": 4494,
+        "p99_ns": 5035,
+        "maximum_ns": 5035,
+        "mean_ns": 3720.17
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R0",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 514,
+        "clause_count": 9,
+        "clause_member_references": 9,
+        "evidence_count": 9,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 1,
+        "policy_hash": "7e817987d5162205004e6c88dd29df1023dc6306ae7577a0bf819246eabe5c64"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4286,
+        "median_ns": 4495,
+        "p95_ns": 5201,
+        "p99_ns": 6366,
+        "maximum_ns": 6367,
+        "mean_ns": 4746.81
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R1",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 1230,
+        "clause_count": 2,
+        "clause_member_references": 51,
+        "evidence_count": 3,
+        "exact_clause_count": 1,
+        "maximum_clause_members": 50,
+        "policy_hash": "f1618c69674dec3328ad76c50102a86420664ad0b0ca40d62e523c3cd16dc504"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 4993,
+        "median_ns": 5701,
+        "p95_ns": 7407,
+        "p99_ns": 7531,
+        "maximum_ns": 18518,
+        "mean_ns": 5962.74
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R1",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 1344,
+        "clause_count": 4,
+        "clause_member_references": 53,
+        "evidence_count": 5,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 50,
+        "policy_hash": "b71061f203320edf4887d3236173c14bb2b561bcaf2ff45dc0bba072a52a5c2a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5368,
+        "median_ns": 5742,
+        "p95_ns": 7075,
+        "p99_ns": 8073,
+        "maximum_ns": 8114,
+        "mean_ns": 5954.8
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R1",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 1458,
+        "clause_count": 6,
+        "clause_member_references": 55,
+        "evidence_count": 7,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 50,
+        "policy_hash": "8aaec3feee70de59f842050fee3a4782bfe2f68fe5b943d4abb9ebd74949caaa"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5701,
+        "median_ns": 6117,
+        "p95_ns": 6783,
+        "p99_ns": 8489,
+        "maximum_ns": 11777,
+        "mean_ns": 6320.56
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R1",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1686,
+        "clause_count": 10,
+        "clause_member_references": 59,
+        "evidence_count": 11,
+        "exact_clause_count": 9,
+        "maximum_clause_members": 50,
+        "policy_hash": "a03eb08c1cd3af87754945ac40eed2e5c34e97ad30233e961aa234b69c55a270"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6575,
+        "median_ns": 6867,
+        "p95_ns": 7699,
+        "p99_ns": 7782,
+        "maximum_ns": 12318,
+        "mean_ns": 7164.1
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R2",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 1283,
+        "clause_count": 3,
+        "clause_member_references": 52,
+        "evidence_count": 4,
+        "exact_clause_count": 2,
+        "maximum_clause_members": 50,
+        "policy_hash": "9dcafdeb95bb43a57cee4a218606ab17c56b57d1cdf84c837f5aec5da425cb9b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5160,
+        "median_ns": 5451,
+        "p95_ns": 7491,
+        "p99_ns": 7657,
+        "maximum_ns": 10903,
+        "mean_ns": 5775.9
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R2",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 1397,
+        "clause_count": 5,
+        "clause_member_references": 54,
+        "evidence_count": 6,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 50,
+        "policy_hash": "28ce5d3ec4e99a77f0b018b2ba11de242d06c9e842f06df8394813a8ab629516"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5534,
+        "median_ns": 6117,
+        "p95_ns": 6658,
+        "p99_ns": 6949,
+        "maximum_ns": 11152,
+        "mean_ns": 6090.06
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R2",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 1511,
+        "clause_count": 7,
+        "clause_member_references": 56,
+        "evidence_count": 8,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 50,
+        "policy_hash": "9909258d3316afe9799a90cc4c3998f14095a36de5da22eb0546fd452328560a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5993,
+        "median_ns": 6783,
+        "p95_ns": 7449,
+        "p99_ns": 8905,
+        "maximum_ns": 11943,
+        "mean_ns": 6740.95
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R2",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1739,
+        "clause_count": 11,
+        "clause_member_references": 60,
+        "evidence_count": 12,
+        "exact_clause_count": 10,
+        "maximum_clause_members": 50,
+        "policy_hash": "cea4466245824b3c2cc1e02533543ecb4f1023a05e6173b8c9ce47f4a791297a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6991,
+        "median_ns": 7657,
+        "p95_ns": 8572,
+        "p99_ns": 10611,
+        "maximum_ns": 14980,
+        "mean_ns": 7858.94
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R3",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 1310,
+        "clause_count": 4,
+        "clause_member_references": 53,
+        "evidence_count": 6,
+        "exact_clause_count": 3,
+        "maximum_clause_members": 50,
+        "policy_hash": "6afd4d30a91421eee62d31965c50fe661a011dc1b1c269a1455ba7fbd1bc4ebf"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5244,
+        "median_ns": 5909,
+        "p95_ns": 6741,
+        "p99_ns": 7740,
+        "maximum_ns": 10195,
+        "mean_ns": 5854.97
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R3",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 1424,
+        "clause_count": 6,
+        "clause_member_references": 55,
+        "evidence_count": 8,
+        "exact_clause_count": 5,
+        "maximum_clause_members": 50,
+        "policy_hash": "44cbb953f23751a9644b075822c76e78a74a8e1dd06a442803533c2af4543b03"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5742,
+        "median_ns": 6325,
+        "p95_ns": 7116,
+        "p99_ns": 8323,
+        "maximum_ns": 8405,
+        "mean_ns": 6362.57
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R3",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 1538,
+        "clause_count": 8,
+        "clause_member_references": 57,
+        "evidence_count": 10,
+        "exact_clause_count": 7,
+        "maximum_clause_members": 50,
+        "policy_hash": "a763a57ed2b218619ffea39db18b1567f7558caa781e9fad4dc214b05f7d1670"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6159,
+        "median_ns": 6658,
+        "p95_ns": 9238,
+        "p99_ns": 15647,
+        "maximum_ns": 19100,
+        "mean_ns": 7226.96
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R3",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1766,
+        "clause_count": 12,
+        "clause_member_references": 61,
+        "evidence_count": 14,
+        "exact_clause_count": 11,
+        "maximum_clause_members": 50,
+        "policy_hash": "1658661c1625e3a3ee6b5c48e1f30303157e9931a1f97192d15ef83faccf0b2b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 7116,
+        "median_ns": 7989,
+        "p95_ns": 9571,
+        "p99_ns": 10861,
+        "maximum_ns": 11652,
+        "mean_ns": 8041.79
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "policy": {
+        "canonical_bytes": 1362,
+        "clause_count": 5,
+        "clause_member_references": 54,
+        "evidence_count": 8,
+        "exact_clause_count": 4,
+        "maximum_clause_members": 50,
+        "policy_hash": "f1042cd98e3f15a3710770b26438c80e103f85ba63ee0946e49edc232738489f"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 5617,
+        "median_ns": 5951,
+        "p95_ns": 8115,
+        "p99_ns": 8323,
+        "maximum_ns": 9613,
+        "mean_ns": 6311.49
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "policy": {
+        "canonical_bytes": 1476,
+        "clause_count": 7,
+        "clause_member_references": 56,
+        "evidence_count": 10,
+        "exact_clause_count": 6,
+        "maximum_clause_members": 50,
+        "policy_hash": "1a9dbd0481f858ee86b696b1adb5354fb339014e11dd2ef276a42a67a22926c7"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6117,
+        "median_ns": 6367,
+        "p95_ns": 8448,
+        "p99_ns": 9072,
+        "maximum_ns": 9903,
+        "mean_ns": 6739.3
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "policy": {
+        "canonical_bytes": 1590,
+        "clause_count": 9,
+        "clause_member_references": 58,
+        "evidence_count": 12,
+        "exact_clause_count": 8,
+        "maximum_clause_members": 50,
+        "policy_hash": "b729fbc486727fcd607307eeb1e82a702e40621509e4816b93fa6c70bbeaf84a"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 6408,
+        "median_ns": 7241,
+        "p95_ns": 7532,
+        "p99_ns": 7657,
+        "maximum_ns": 10320,
+        "mean_ns": 7051.69
+      }
+    },
+    {
+      "population": 50,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "policy": {
+        "canonical_bytes": 1818,
+        "clause_count": 13,
+        "clause_member_references": 62,
+        "evidence_count": 16,
+        "exact_clause_count": 12,
+        "maximum_clause_members": 50,
+        "policy_hash": "749e0a1398ccb845a192ff8f7b03d4e0237a2b6109d5cc47f8ea96710d6deb7b"
+      },
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 7158,
+        "median_ns": 8073,
+        "p95_ns": 8489,
+        "p99_ns": 8531,
+        "maximum_ns": 10986,
+        "mean_ns": 7942.3
+      }
+    }
+  ],
+  "fail_closed_configurations": [
+    {
+      "population": 3,
+      "risk_class": "R4",
+      "additional_required_roles": 0,
+      "samples": 100,
+      "errors": [
+        "insufficient organizations: required 4, available 3"
+      ],
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 458,
+        "median_ns": 499,
+        "p95_ns": 541,
+        "p99_ns": 582,
+        "maximum_ns": 915,
+        "mean_ns": 511.81
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R4",
+      "additional_required_roles": 2,
+      "samples": 100,
+      "errors": [
+        "insufficient organizations: required 4, available 3"
+      ],
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 541,
+        "median_ns": 582,
+        "p95_ns": 624,
+        "p99_ns": 625,
+        "maximum_ns": 1040,
+        "mean_ns": 580.47
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R4",
+      "additional_required_roles": 4,
+      "samples": 100,
+      "errors": [
+        "insufficient organizations: required 4, available 3"
+      ],
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 541,
+        "median_ns": 624,
+        "p95_ns": 666,
+        "p99_ns": 708,
+        "maximum_ns": 790,
+        "mean_ns": 633.81
+      }
+    },
+    {
+      "population": 3,
+      "risk_class": "R4",
+      "additional_required_roles": 8,
+      "samples": 100,
+      "errors": [
+        "insufficient organizations: required 4, available 3"
+      ],
+      "synthesis": {
+        "samples": 100,
+        "minimum_ns": 583,
+        "median_ns": 749,
+        "p95_ns": 957,
+        "p99_ns": 3537,
+        "maximum_ns": 5409,
+        "mean_ns": 813.92
+      }
+    }
+  ]
+}

@@ -12,14 +12,15 @@ use astra_authority::{
     AuthorityRequest, SignedPartialEvidence, sign_authority_request, verify_evidence,
 };
 use astra_common::{
-    Digest32, PROTOCOL_VERSION, RiskClass, SessionContext, SessionId, authorization_input,
-    hash_domain_separated,
+    Digest32, MAX_SESSION_LIFETIME_SECONDS, PROTOCOL_VERSION, RequestNonce, RiskClass,
+    SessionContext, SessionId, authorization_input, hash_domain_separated,
 };
 use astra_dprf::{ClausePolicy, DprfBackend, EvaluationRequest, lwr::LwrExactCoalitionBackend};
 use astra_governance::{
     GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
 };
 use astra_pqcrypto::PqProvider;
+use getrandom::fill;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::{BTreeMap, BTreeSet};
@@ -156,6 +157,7 @@ fn main() -> anyhow::Result<()> {
         b"ASTRA-PQ-DISTRIBUTED-INVOCATION-v1",
         &[invocation_key.public_key()],
     );
+    let coordinated_start_barrier = wait_for_benchmark_start()?;
     let backend = LwrExactCoalitionBackend;
     for run in 1..=repetitions {
         anyhow::ensure!(
@@ -167,7 +169,25 @@ fn main() -> anyhow::Result<()> {
             "cached governance checkpoint is stale"
         );
         let total_start = Instant::now();
-        let context = experiment_context(run, threshold, checkpoint, invocation_nonce);
+
+        let issued_at_unix = unix_time()?;
+        let expires_at_unix = issued_at_unix
+            .checked_add(MAX_SESSION_LIFETIME_SECONDS)
+            .context("session expiry overflow")?;
+
+        let mut request_nonce_bytes = [0_u8; 32];
+        fill(&mut request_nonce_bytes).context("generate session request nonce")?;
+        let request_nonce = RequestNonce::from_bytes(request_nonce_bytes);
+
+        let context = experiment_context(
+            run,
+            threshold,
+            checkpoint,
+            invocation_nonce,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
         let input = authorization_input(&context, &policy_hash)?;
         let request = AuthorityRequest {
             context: context.clone(),
@@ -265,6 +285,7 @@ fn main() -> anyhow::Result<()> {
             "authority_ids": authority_ids,
             "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
             "connection_mode": "persistent-preconnected-excluded-from-timing",
+            "coordinated_start_barrier": coordinated_start_barrier,
             "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
             "live_iota_claim": false,
             "gateway_request_authentication": "ML-DSA-65",
@@ -400,17 +421,47 @@ fn experiment_context(
     threshold: usize,
     checkpoint: Digest32,
     invocation_nonce: Digest32,
+    issued_at_unix: u64,
+    expires_at_unix: u64,
+    request_nonce: RequestNonce,
 ) -> SessionContext {
     let run_bytes = (run as u64).to_be_bytes();
     let threshold_bytes = (threshold as u64).to_be_bytes();
+    let issued_bytes = issued_at_unix.to_be_bytes();
+    let expires_bytes = expires_at_unix.to_be_bytes();
+
     let session_digest = hash_domain_separated(
         SESSION_LABEL,
-        &[invocation_nonce.as_bytes(), &run_bytes, &threshold_bytes],
+        &[
+            invocation_nonce.as_bytes(),
+            &run_bytes,
+            &threshold_bytes,
+            &issued_bytes,
+            &expires_bytes,
+            request_nonce.as_bytes(),
+        ],
     );
+
+    let gateway_transcript_hash = hash_domain_separated(
+        b"ASTRA-PQ-DISTRIBUTED-PREHANDSHAKE-v1",
+        &[
+            invocation_nonce.as_bytes(),
+            checkpoint.as_bytes(),
+            &run_bytes,
+            &threshold_bytes,
+            &issued_bytes,
+            &expires_bytes,
+            request_nonce.as_bytes(),
+        ],
+    );
+
     SessionContext {
         protocol_version: PROTOCOL_VERSION,
         session_id: SessionId::from_bytes(*session_digest.as_bytes()),
         epoch: EPOCH,
+        issued_at_unix,
+        expires_at_unix,
+        request_nonce,
         source_domain: "domain-a".to_owned(),
         destination_domain: "domain-b".to_owned(),
         subject: "synthetic-operator:17".to_owned(),
@@ -423,7 +474,7 @@ fn experiment_context(
         } else {
             RiskClass::R4
         },
-        gateway_transcript_hash: invocation_nonce,
+        gateway_transcript_hash,
         checkpoint_hash: checkpoint,
     }
 }
@@ -513,6 +564,44 @@ fn required_environment(name: &str) -> anyhow::Result<String> {
     let value = env::var(name).with_context(|| format!("missing {name}"))?;
     anyhow::ensure!(!value.trim().is_empty(), "{name} is empty");
     Ok(value)
+}
+
+fn wait_for_benchmark_start() -> anyhow::Result<bool> {
+    let ready_file = env::var("ASTRA_BENCHMARK_READY_FILE").ok();
+    let start_file = env::var("ASTRA_BENCHMARK_START_FILE").ok();
+    let (ready_file, start_file) = match (ready_file, start_file) {
+        (None, None) => return Ok(false),
+        (Some(ready_file), Some(start_file)) => {
+            (PathBuf::from(ready_file), PathBuf::from(start_file))
+        }
+        _ => anyhow::bail!(
+            "ASTRA_BENCHMARK_READY_FILE and ASTRA_BENCHMARK_START_FILE must be set together"
+        ),
+    };
+    let timeout_seconds = env::var("ASTRA_BENCHMARK_BARRIER_TIMEOUT_SECONDS")
+        .unwrap_or_else(|_| "30".to_owned())
+        .parse::<u64>()
+        .context("parse ASTRA_BENCHMARK_BARRIER_TIMEOUT_SECONDS")?;
+    anyhow::ensure!(
+        timeout_seconds > 0,
+        "benchmark barrier timeout must be positive"
+    );
+    anyhow::ensure!(
+        !start_file.exists(),
+        "benchmark start file already exists before readiness"
+    );
+    fs::write(&ready_file, b"ready\n")
+        .with_context(|| format!("write benchmark ready file {}", ready_file.display()))?;
+    let deadline = Instant::now() + Duration::from_secs(timeout_seconds);
+    while !start_file.exists() {
+        anyhow::ensure!(
+            Instant::now() < deadline,
+            "timed out waiting for benchmark start file {}",
+            start_file.display()
+        );
+        thread::sleep(Duration::from_millis(2));
+    }
+    Ok(true)
 }
 
 fn unix_time() -> anyhow::Result<u64> {

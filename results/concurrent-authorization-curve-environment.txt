@@ -1,0 +1,122 @@
+ASTRA-PQ coordinated concurrent authorization curve
+Captured:
+2026-08-20T10:13:31+00:00
+
+Repository:
+c075341f0414fd100a6524e33643d0cd7d0ec04d
+adaptive-session-v0.8.0-10-gc075341
+?? results/concurrent-authorization-curve-environment.txt
+?? results/concurrent-authorization-curve-levels.jsonl
+?? results/concurrent-authorization-curve-resource.txt
+?? results/concurrent-authorization-curve-stderr.txt
+?? results/concurrent-authorization-curve-stdout.txt
+?? results/concurrent-authorization-curve-summary.json
+?? results/concurrent-authorization-curve.jsonl
+?? scripts/run-concurrent-authorization-curve.sh
+
+Software:
+rustc 1.97.1 (8bab26f4f 2026-07-14)
+cargo 1.97.1 (c980f4866 2026-06-30)
+jq-1.7
+ansible [core 2.16.3]
+
+Experiment design:
+threshold=3
+selected_coalition=a1,a2,a3
+concurrency_levels=1,2,4,8,16,24,32
+execution_order=1,32,2,24,4,16,8
+target_samples_per_level=1000
+total_samples=7040
+coordinated_start_barrier=true
+persistent_connections=true
+connection_setup_in_timing=false
+maximum_authority_connections=32
+cooldown_seconds=2
+transport=bounded-json-over-tcp-isolated-lab-no-confidentiality
+
+Controller artifacts:
+eef613a429c308462de3a67097c93b04f2fc65e167343ed05da8d850fe023c2e  target/release/astra-distributed-client
+798b8b771d52a568755c6bb800f0ac1c821bc45c953a73db22585ab98d5448e4  scripts/run-concurrent-authorization-curve.sh
+
+Result artifacts:
+d9e0be2664969ae97310d94c221b9244def3814cc7110ed39394fd34e5b09254  results/concurrent-authorization-curve.jsonl
+41d3846b9e0584c68f4dbca97d2f97e80d653415dcc731b2cc0ad00da0205c0e  results/concurrent-authorization-curve-levels.jsonl
+41a4d78ae06db4d984f4c93cda0caa51b435036d2bebfe43850b1758039ce7cd  results/concurrent-authorization-curve-summary.json
+2898c669e23faaf935df920a30a579e7aed18cbce39ae32ca28876edcb07028b  results/concurrent-authorization-curve-resource.txt
+2418339a738a57e470ee0ddd469dfe3b8a64d0d07300c8511b17961a2d25dcac  results/concurrent-authorization-curve-stdout.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  results/concurrent-authorization-curve-stderr.txt
+
+Result sizes:
+    7040 10515247 results/concurrent-authorization-curve.jsonl
+       7     2341 results/concurrent-authorization-curve-levels.jsonl
+    7047 10517588 total
+
+Resource measurement:
+	Command being timed: "/home/astraadmin/astra-pq/bin/run-concurrent-authorization-curve.sh"
+	User time (seconds): 5.37
+	System time (seconds): 1.47
+	Percent of CPU this job got: 31%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:21.60
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 75136
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 143418
+	Voluntary context switches: 35348
+	Involuntary context switches: 9094
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 41216
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+astra-domain-a | CHANGED | rc=0 >>
+astra-domain-a
+Linux astra-domain-a 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.11/24 fe80::20c:29ff:fe1b:b168/64 
+enp26s0          UP             172.16.64.11/24 fe80::20c:29ff:fe1b:b172/64 
+docker0          DOWN           172.17.0.1/16 
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+0
+astra-authority-3 | CHANGED | rc=0 >>
+astra-authority-3
+Linux astra-authority-3 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.13/24 fe80::20c:29ff:fe2c:c263/64 
+enp26s0          UP             172.16.64.13/24 fe80::20c:29ff:fe2c:c26d/64 
+docker0          DOWN           172.17.0.1/16 
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+0
+astra-domain-b | CHANGED | rc=0 >>
+astra-domain-b
+Linux astra-domain-b 6.8.0-138-generic #138-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 22:20:42 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
+Architecture:                            aarch64
+CPU(s):                                  2
+Model name:                              -
+NUMA node0 CPU(s):                       0,1
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp2s0           UP             172.16.201.12/24 fe80::20c:29ff:fec2:5abe/64 
+enp26s0          UP             172.16.64.12/24 fe80::20c:29ff:fec2:5ac8/64 
+docker0          DOWN           172.17.0.1/16 
+active
+0043d655787f45f5c5fadf4f82986e01ace0c65ee8102f4adb394c8e082ca6b6  /home/astraadmin/astra-pq/bin/astra-authority-service
+0
+astra-domain-a | CHANGED | rc=0 >>
+eef613a429c308462de3a67097c93b04f2fc65e167343ed05da8d850fe023c2e  /home/astraadmin/astra-pq/bin/astra-distributed-client
+798b8b771d52a568755c6bb800f0ac1c821bc45c953a73db22585ab98d5448e4  /home/astraadmin/astra-pq/bin/run-concurrent-authorization-curve.sh

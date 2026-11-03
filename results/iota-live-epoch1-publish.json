@@ -1,0 +1,773 @@
+{
+  "digest": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+  "transaction": {
+    "data": {
+      "messageVersion": "v1",
+      "transaction": {
+        "kind": "ProgrammableTransaction",
+        "inputs": [
+          {
+            "type": "object",
+            "objectType": "immOrOwnedObject",
+            "objectId": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+            "version": "924792289",
+            "digest": "6GRyz1QTe6zX63n2zS3hmzf1nVLVvWHKEVcfdxs5b1tB"
+          },
+          {
+            "type": "object",
+            "objectType": "sharedObject",
+            "objectId": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+            "initialSharedVersion": "924792289",
+            "mutable": true
+          },
+          {
+            "type": "pure",
+            "valueType": "u64",
+            "value": "1"
+          },
+          {
+            "type": "pure",
+            "valueType": "vector<u8>",
+            "value": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "type": "pure",
+            "valueType": "vector<u8>",
+            "value": [
+              56,
+              151,
+              40,
+              17,
+              99,
+              64,
+              123,
+              232,
+              231,
+              42,
+              185,
+              163,
+              37,
+              254,
+              208,
+              192,
+              128,
+              8,
+              181,
+              246,
+              51,
+              91,
+              230,
+              195,
+              23,
+              93,
+              226,
+              48,
+              160,
+              139,
+              135,
+              63
+            ]
+          },
+          {
+            "type": "pure",
+            "valueType": "u64",
+            "value": "1788049573"
+          },
+          {
+            "type": "pure",
+            "valueType": "vector<u8>",
+            "value": [
+              104,
+              116,
+              116,
+              112,
+              115,
+              58,
+              47,
+              47,
+              114,
+              97,
+              119,
+              46,
+              103,
+              105,
+              116,
+              104,
+              117,
+              98,
+              117,
+              115,
+              101,
+              114,
+              99,
+              111,
+              110,
+              116,
+              101,
+              110,
+              116,
+              46,
+              99,
+              111,
+              109,
+              47,
+              65,
+              109,
+              97,
+              110,
+              97,
+              115,
+              114,
+              97,
+              104,
+              55,
+              56,
+              47,
+              65,
+              100,
+              97,
+              112,
+              116,
+              105,
+              118,
+              101,
+              95,
+              83,
+              112,
+              108,
+              105,
+              116,
+              95,
+              116,
+              114,
+              117,
+              115,
+              116,
+              47,
+              51,
+              54,
+              98,
+              51,
+              49,
+              101,
+              99,
+              51,
+              97,
+              102,
+              51,
+              57,
+              49,
+              56,
+              101,
+              101,
+              54,
+              53,
+              100,
+              57,
+              98,
+              99,
+              100,
+              56,
+              101,
+              49,
+              49,
+              100,
+              99,
+              49,
+              56,
+              53,
+              55,
+              101,
+              98,
+              51,
+              102,
+              48,
+              48,
+              51,
+              47,
+              114,
+              101,
+              115,
+              117,
+              108,
+              116,
+              115,
+              47,
+              105,
+              111,
+              116,
+              97,
+              45,
+              108,
+              105,
+              118,
+              101,
+              45,
+              99,
+              104,
+              101,
+              99,
+              107,
+              112,
+              111,
+              105,
+              110,
+              116,
+              45,
+              101,
+              112,
+              111,
+              99,
+              104,
+              49,
+              45,
+              112,
+              114,
+              101,
+              112,
+              97,
+              114,
+              101,
+              100,
+              46,
+              106,
+              115,
+              111,
+              110
+            ]
+          },
+          {
+            "type": "pure",
+            "valueType": "vector<u8>",
+            "value": [
+              97,
+              115,
+              116,
+              114,
+              97,
+              45,
+              103,
+              111,
+              118,
+              101,
+              114,
+              110,
+              97,
+              110,
+              99,
+              101,
+              45,
+              97,
+              99,
+              116,
+              111,
+              114,
+              115,
+              45,
+              118,
+              49
+            ]
+          }
+        ],
+        "transactions": [
+          {
+            "MoveCall": {
+              "package": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+              "module": "astra_pq_governance",
+              "function": "publish_epoch",
+              "arguments": [
+                {
+                  "Input": 0
+                },
+                {
+                  "Input": 1
+                },
+                {
+                  "Input": 2
+                },
+                {
+                  "Input": 2
+                },
+                {
+                  "Input": 3
+                },
+                {
+                  "Input": 4
+                },
+                {
+                  "Input": 5
+                },
+                {
+                  "Input": 6
+                },
+                {
+                  "Input": 7
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "sender": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+      "gasData": {
+        "payment": [
+          {
+            "objectId": "0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f",
+            "version": 924792289,
+            "digest": "FQdzuwiurxKkf424mwJ3gANJ113FJpoHudnCtrB2h3Cm"
+          }
+        ],
+        "owner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+        "price": "1000",
+        "budget": "100000000"
+      }
+    },
+    "txSignatures": [
+      "ACVqR4rRy0Tm+tJSbR0uoOhBHZSSsNlP4uwLSLyHBz0tmEr2ypiEgI2FBdglycODsmuL5pt5CYHnCiq6/Rj14w7m+C417K81/6z08Q0KSsaOfErc9zSv78Z33ysHeTaJzw=="
+    ]
+  },
+  "effects": {
+    "messageVersion": "v1",
+    "status": {
+      "status": "success"
+    },
+    "executedEpoch": "650",
+    "gasUsed": {
+      "computationCost": "1000000",
+      "computationCostBurned": "1000000",
+      "storageCost": "5958400",
+      "storageRebate": "4560000",
+      "nonRefundableStorageFee": "0"
+    },
+    "modifiedAtVersions": [
+      {
+        "objectId": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+        "sequenceNumber": "924792289"
+      },
+      {
+        "objectId": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+        "sequenceNumber": "924792289"
+      },
+      {
+        "objectId": "0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f",
+        "sequenceNumber": "924792289"
+      }
+    ],
+    "sharedObjects": [
+      {
+        "objectId": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+        "version": 924792289,
+        "digest": "CADRoADzGqdMLjD5J7VnSkYGPc89pS8frH7sU8wiWUxb"
+      }
+    ],
+    "transactionDigest": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+    "mutated": [
+      {
+        "owner": {
+          "Shared": {
+            "initial_shared_version": 924792289
+          }
+        },
+        "reference": {
+          "objectId": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+          "version": 924792290,
+          "digest": "2YystBLDYeiXe2gXXcNJn9LdAXF4GgpvEV2jE81Jutoq"
+        }
+      },
+      {
+        "owner": {
+          "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+        },
+        "reference": {
+          "objectId": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+          "version": 924792290,
+          "digest": "E1ucHdRuWvymXiCRwDDVcdRzqi35WEUFk85xzFXX3cA7"
+        }
+      },
+      {
+        "owner": {
+          "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+        },
+        "reference": {
+          "objectId": "0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f",
+          "version": 924792290,
+          "digest": "8kdsp9bhjbACxgsquigFg3nGMxFukuq3HH3YfrYJkCSV"
+        }
+      }
+    ],
+    "gasObject": {
+      "owner": {
+        "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+      },
+      "reference": {
+        "objectId": "0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f",
+        "version": 924792290,
+        "digest": "8kdsp9bhjbACxgsquigFg3nGMxFukuq3HH3YfrYJkCSV"
+      }
+    },
+    "eventsDigest": "CjVsUu1o6frK7GvFgDMGdKmAC4ahu2zkLhKKDNLx5swK",
+    "dependencies": [
+      "CQAkvGiqxfyJEuN2drLiMDTvDpYhCcZAAq1F4aFQCSDt"
+    ]
+  },
+  "events": [
+    {
+      "id": {
+        "txDigest": "81uyMMV3sgmTppXuk3cdyiSKCGmrTA613ZxAB4XEY2Dw",
+        "eventSeq": "0"
+      },
+      "packageId": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6",
+      "transactionModule": "astra_pq_governance",
+      "sender": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+      "type": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6::astra_pq_governance::EpochPublished",
+      "parsedJson": {
+        "activation_time": "1788049573",
+        "bundle_uri": [
+          104,
+          116,
+          116,
+          112,
+          115,
+          58,
+          47,
+          47,
+          114,
+          97,
+          119,
+          46,
+          103,
+          105,
+          116,
+          104,
+          117,
+          98,
+          117,
+          115,
+          101,
+          114,
+          99,
+          111,
+          110,
+          116,
+          101,
+          110,
+          116,
+          46,
+          99,
+          111,
+          109,
+          47,
+          65,
+          109,
+          97,
+          110,
+          97,
+          115,
+          114,
+          97,
+          104,
+          55,
+          56,
+          47,
+          65,
+          100,
+          97,
+          112,
+          116,
+          105,
+          118,
+          101,
+          95,
+          83,
+          112,
+          108,
+          105,
+          116,
+          95,
+          116,
+          114,
+          117,
+          115,
+          116,
+          47,
+          51,
+          54,
+          98,
+          51,
+          49,
+          101,
+          99,
+          51,
+          97,
+          102,
+          51,
+          57,
+          49,
+          56,
+          101,
+          101,
+          54,
+          53,
+          100,
+          57,
+          98,
+          99,
+          100,
+          56,
+          101,
+          49,
+          49,
+          100,
+          99,
+          49,
+          56,
+          53,
+          55,
+          101,
+          98,
+          51,
+          102,
+          48,
+          48,
+          51,
+          47,
+          114,
+          101,
+          115,
+          117,
+          108,
+          116,
+          115,
+          47,
+          105,
+          111,
+          116,
+          97,
+          45,
+          108,
+          105,
+          118,
+          101,
+          45,
+          99,
+          104,
+          101,
+          99,
+          107,
+          112,
+          111,
+          105,
+          110,
+          116,
+          45,
+          101,
+          112,
+          111,
+          99,
+          104,
+          49,
+          45,
+          112,
+          114,
+          101,
+          112,
+          97,
+          114,
+          101,
+          100,
+          46,
+          106,
+          115,
+          111,
+          110
+        ],
+        "checkpoint_hash": [
+          56,
+          151,
+          40,
+          17,
+          99,
+          64,
+          123,
+          232,
+          231,
+          42,
+          185,
+          163,
+          37,
+          254,
+          208,
+          192,
+          128,
+          8,
+          181,
+          246,
+          51,
+          91,
+          230,
+          195,
+          23,
+          93,
+          226,
+          48,
+          160,
+          139,
+          135,
+          63
+        ],
+        "epoch": "1",
+        "governance_key_set_id": [
+          97,
+          115,
+          116,
+          114,
+          97,
+          45,
+          103,
+          111,
+          118,
+          101,
+          114,
+          110,
+          97,
+          110,
+          99,
+          101,
+          45,
+          97,
+          99,
+          116,
+          111,
+          114,
+          115,
+          45,
+          118,
+          49
+        ],
+        "governance_object_id": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+        "package_version": "1",
+        "predecessor_hash": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "bcsEncoding": "base64",
+      "bcs": "YDU1TcfCM0cV0OL3c+kMpZkgrDUvrt7Tg/jnq6Dt6y4BAAAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDiXKBFjQHvo5yq5oyX+0MCACLX2M1vmwxdd4jCgi4c/pXiTagAAAACdAWh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9BbWFuYXNyYWg3OC9BZGFwdGl2ZV9TcGxpdF90cnVzdC8zNmIzMWVjM2FmMzkxOGVlNjVkOWJjZDhlMTFkYzE4NTdlYjNmMDAzL3Jlc3VsdHMvaW90YS1saXZlLWNoZWNrcG9pbnQtZXBvY2gxLXByZXBhcmVkLmpzb24aYXN0cmEtZ292ZXJuYW5jZS1hY3RvcnMtdjE="
+    }
+  ],
+  "objectChanges": [
+    {
+      "type": "mutated",
+      "sender": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+      "owner": {
+        "Shared": {
+          "initial_shared_version": 924792289
+        }
+      },
+      "objectType": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6::astra_pq_governance::AstraPQGovernance",
+      "objectId": "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e",
+      "version": "924792290",
+      "previousVersion": "924792289",
+      "digest": "2YystBLDYeiXe2gXXcNJn9LdAXF4GgpvEV2jE81Jutoq"
+    },
+    {
+      "type": "mutated",
+      "sender": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+      "owner": {
+        "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+      },
+      "objectType": "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6::astra_pq_governance::PublisherCap",
+      "objectId": "0xb777b651a94165ff318c177a431f3a8de3a06193bb7bc6a4fd96b44f22fdb49f",
+      "version": "924792290",
+      "previousVersion": "924792289",
+      "digest": "E1ucHdRuWvymXiCRwDDVcdRzqi35WEUFk85xzFXX3cA7"
+    },
+    {
+      "type": "mutated",
+      "sender": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4",
+      "owner": {
+        "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+      },
+      "objectType": "0x2::coin::Coin<0x2::iota::IOTA>",
+      "objectId": "0xe6c693a2c09bc8e16a1c7ac30d2271de322a13835e27ce9c173b1d4c05f7963f",
+      "version": "924792290",
+      "previousVersion": "924792289",
+      "digest": "8kdsp9bhjbACxgsquigFg3nGMxFukuq3HH3YfrYJkCSV"
+    }
+  ],
+  "balanceChanges": [
+    {
+      "owner": {
+        "AddressOwner": "0x560cac5484f4df42bdaed065ad522a49e391ede3b97a4d1ee5c4ff0c18f7a7d4"
+      },
+      "coinType": "0x2::iota::IOTA",
+      "amount": "-2398400"
+    }
+  ],
+  "timestampMs": "1788050290645",
+  "confirmedLocalExecution": true,
+  "checkpoint": "257904562"
+}

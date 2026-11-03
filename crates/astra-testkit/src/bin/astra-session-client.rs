@@ -6,6 +6,7 @@
 //! key confirmation without exporting the derived session key.
 
 #![forbid(unsafe_code)]
+#![recursion_limit = "256"]
 #![warn(missing_docs)]
 
 use anyhow::Context;
@@ -13,15 +14,18 @@ use astra_authority::{
     AuthorityRequest, SignedPartialEvidence, sign_authority_request, verify_evidence,
 };
 use astra_common::{
-    Digest32, PROTOCOL_VERSION, RiskClass, SessionContext, SessionId, authorization_input,
-    hash_domain_separated,
+    Digest32, MAX_SESSION_LIFETIME_SECONDS, PROTOCOL_VERSION, RequestNonce, RiskClass,
+    SessionContext, SessionId, authorization_input, hash_domain_separated,
 };
 use astra_dprf::{DprfBackend, EvaluationRequest, lwr::LwrExactCoalitionBackend};
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
-    GovernanceBundle, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
+    GovernanceBundle, GovernanceProfile, LocalGovernanceState, checkpoint_is_fresh, validate_bundle,
 };
-use astra_pqcrypto::{ConfirmationRole, PqProvider, derive_session_confirmation_tag};
+use astra_pqcrypto::{
+    ConfirmationRole, PqProvider, derive_session_confirmation_tag,
+    record::{RecordContentType, RecordDirection, RecordReceiver, RecordSender},
+};
 use astra_testkit::session_wire::{
     MAX_GATEWAY_MESSAGE_BYTES, SESSION_COMPLETION_SCHEMA, SESSION_FINISH_SCHEMA,
     SESSION_REQUEST_SCHEMA, SessionHandshakeFinish, SessionHandshakeRequest,
@@ -31,6 +35,7 @@ use astra_testkit::session_wire::{
 use astra_testkit::{
     SESSION_EPOCH, SESSION_SHARE_VERSION, adaptive_lab_authorities, adaptive_lab_synthesis,
 };
+use getrandom::fill;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::collections::{BTreeMap, BTreeSet};
@@ -51,6 +56,12 @@ const RESPONDER_ID: &str = "gateway-b";
 const SESSION_ID_LABEL: &[u8] = b"ASTRA-PQ-v1/distributed-session-id";
 const PREHANDSHAKE_LABEL: &[u8] = b"ASTRA-PQ-v1/distributed-prehandshake";
 const SIGNING_SELF_TEST_MESSAGE: &[u8] = b"ASTRA-PQ initiator signing-key self-test v1";
+const LIVE_IOTA_NETWORK_ID: &str = "2304aa97";
+const LIVE_IOTA_PACKAGE_ID: &str =
+    "0x7e3cd4ec241a0a3ac81d79bb08b6d6873e928bca41354b6f6b2c13d1e0b499f6";
+const LIVE_IOTA_OBJECT_ID: &str =
+    "0x6035354dc7c2334715d0e2f773e90ca59920ac352faeded383f8e7aba0edeb2e";
+const LIVE_IOTA_PACKAGE_VERSION: u64 = 1;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct AuthorityWireResponse {
@@ -74,6 +85,9 @@ struct NetworkEvidence {
     response_bytes: usize,
 }
 
+const PROTECTED_APPLICATION_REQUEST: &[u8] = b"ASTRA-PQ protected application request v1";
+const PROTECTED_APPLICATION_RESPONSE: &[u8] = b"ASTRA-PQ protected application response v1";
+
 fn main() -> anyhow::Result<()> {
     let repetitions = required_usize("ASTRA_SESSION_REPETITIONS")?;
     anyhow::ensure!(repetitions >= 1, "session repetitions must be positive");
@@ -84,6 +98,7 @@ fn main() -> anyhow::Result<()> {
         .map(|authority| authority.id)
         .collect::<Vec<_>>();
     let governance_path = required_path("ASTRA_GOVERNANCE_BUNDLE")?;
+    let governance_previous_state_path = required_path("ASTRA_GOVERNANCE_PREVIOUS_STATE")?;
     let initiator_secret_path = required_path("ASTRA_INITIATOR_SIGNING_KEY")?;
     let initiator_public_path = required_path("ASTRA_INITIATOR_SIGNING_PUBLIC_KEY")?;
     let responder_public_path = required_path("ASTRA_RESPONDER_SIGNING_PUBLIC_KEY")?;
@@ -106,13 +121,19 @@ fn main() -> anyhow::Result<()> {
             .with_context(|| format!("read {}", governance_path.display()))?,
     )
     .context("decode governance bundle")?;
+    let previous_governance_state: LocalGovernanceState = serde_json::from_slice(
+        &fs::read(&governance_previous_state_path)
+            .with_context(|| format!("read {}", governance_previous_state_path.display()))?,
+    )
+    .context("decode previous governance state")?;
+
     let governance_state = validate_bundle(
         &provider,
-        &LocalGovernanceState::default(),
+        &previous_governance_state,
         &governance_bundle,
         unix_time()?,
     )
-    .context("validate off-path governance bundle")?;
+    .context("validate off-path governance bundle against previous state")?;
     anyhow::ensure!(
         governance_bundle.checkpoint.epoch == SESSION_EPOCH,
         "governance epoch differs from the session-share epoch"
@@ -173,7 +194,24 @@ fn main() -> anyhow::Result<()> {
             .encapsulate(&responder_kem_public)
             .context("encapsulate to Gateway B")?;
         let kem_encapsulation_us = kem_start.elapsed().as_micros();
-        let context = experiment_context(run, checkpoint, encapsulation.ciphertext(), risk);
+        let issued_at_unix = unix_time()?;
+        let expires_at_unix = issued_at_unix
+            .checked_add(MAX_SESSION_LIFETIME_SECONDS)
+            .context("session expiry overflow")?;
+
+        let mut request_nonce_bytes = [0_u8; 32];
+        fill(&mut request_nonce_bytes).context("generate session request nonce")?;
+        let request_nonce = RequestNonce::from_bytes(request_nonce_bytes);
+
+        let context = experiment_context(
+            run,
+            checkpoint,
+            encapsulation.ciphertext(),
+            risk,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
 
         let synthesis_start = Instant::now();
         let synthesis =
@@ -289,12 +327,12 @@ fn main() -> anyhow::Result<()> {
         )?;
         let local_session_establishment_us = local_establishment_start.elapsed().as_micros();
         let expected_responder_confirmation = derive_session_confirmation_tag(
-            &established.session_key,
+            &established.secrets.responder_confirmation_key,
             &transcript,
             ConfirmationRole::Responder,
         )?;
         let initiator_confirmation = derive_session_confirmation_tag(
-            &established.session_key,
+            &established.secrets.initiator_confirmation_key,
             &transcript,
             ConfirmationRole::Initiator,
         )?;
@@ -345,6 +383,52 @@ fn main() -> anyhow::Result<()> {
         );
         let responder_handshake_us = responder_start.elapsed().as_micros();
 
+        let protected_exchange_start = Instant::now();
+
+        let mut application_sender = RecordSender::new(
+            &established.secrets.initiator_write_key,
+            &established.secrets.initiator_write_iv,
+            context.session_id,
+            RecordDirection::InitiatorToResponder,
+            transcript_hash,
+        );
+
+        let protected_request = application_sender
+            .seal(
+                RecordContentType::ApplicationData,
+                PROTECTED_APPLICATION_REQUEST,
+            )
+            .context("protect initiator application record")?;
+
+        let protected_request_bytes = write_raw_frame(&mut responder_stream, &protected_request)?;
+
+        let protected_response = read_raw_frame(&mut responder_stream)?;
+
+        let mut application_receiver = RecordReceiver::new(
+            &established.secrets.responder_write_key,
+            &established.secrets.responder_write_iv,
+            context.session_id,
+            RecordDirection::ResponderToInitiator,
+            transcript_hash,
+        );
+
+        let (response_content_type, response_plaintext) = application_receiver
+            .open(&protected_response)
+            .context("authenticate responder application record")?;
+
+        anyhow::ensure!(
+            response_content_type == RecordContentType::ApplicationData,
+            "unexpected responder protected-record content type"
+        );
+
+        anyhow::ensure!(
+            response_plaintext.as_slice() == PROTECTED_APPLICATION_RESPONSE,
+            "unexpected protected application response"
+        );
+
+        let protected_response_bytes = protected_response.len() + 4;
+        let protected_exchange_us = protected_exchange_start.elapsed().as_micros();
+
         let authority_response_bytes_total = network_results
             .iter()
             .map(|result| result.response_bytes)
@@ -374,11 +458,23 @@ fn main() -> anyhow::Result<()> {
                 "security_profile": LwrExactCoalitionBackend::security_profile(),
                 "malicious_robust": false,
                 "proactive_refresh_implemented": false,
-                "governance_validation": "off-path-signed-bundle-synthetic-iota-observations",
-                "live_iota_claim": false,
+                "governance_validation": governance_reporting(&governance_bundle.profile).0,
+                "live_iota_claim": governance_reporting(&governance_bundle.profile).1,
+                "governance_network_id": &governance_bundle.profile.network_id,
+                "governance_package_id": &governance_bundle.profile.package_id,
+                "governance_object_id": &governance_bundle.profile.object_id,
+                "governance_object_version": governance_bundle.anchor.object_version,
+                "rpc_service_observations": governance_bundle.observations.len(),
+                "rpc_service_quorum": governance_bundle.profile.rpc_quorum,
+                "rpc_administrative_independence_claim": false,
                 "transport": "bounded-json-over-tcp-isolated-lab-no-confidentiality",
                 "session_key_exported": false,
                 "bidirectional_key_confirmation": true,
+                "protected_application_data": true,
+                "record_cipher": "AES-256-GCM",
+                "protected_request_bytes": protected_request_bytes,
+                "protected_response_bytes": protected_response_bytes,
+                "protected_exchange_us": protected_exchange_us,
                 "authority_request_bytes_total": authority_request_bytes_total,
                 "authority_response_bytes_total": authority_response_bytes_total,
                 "gateway_session_request_bytes": session_request_bytes,
@@ -509,19 +605,47 @@ fn experiment_context(
     checkpoint: Digest32,
     ciphertext: &[u8],
     risk: RiskClass,
+    issued_at_unix: u64,
+    expires_at_unix: u64,
+    request_nonce: RequestNonce,
 ) -> SessionContext {
     let run_bytes = (run as u64).to_be_bytes();
     let risk_byte = [risk.wire_value()];
-    let session_digest =
-        hash_domain_separated(SESSION_ID_LABEL, &[ciphertext, &run_bytes, &risk_byte]);
+    let issued_bytes = issued_at_unix.to_be_bytes();
+    let expires_bytes = expires_at_unix.to_be_bytes();
+
+    let session_digest = hash_domain_separated(
+        SESSION_ID_LABEL,
+        &[
+            ciphertext,
+            &run_bytes,
+            &risk_byte,
+            &issued_bytes,
+            &expires_bytes,
+            request_nonce.as_bytes(),
+        ],
+    );
+
     let prehandshake_hash = hash_domain_separated(
         PREHANDSHAKE_LABEL,
-        &[ciphertext, checkpoint.as_bytes(), &run_bytes, &risk_byte],
+        &[
+            ciphertext,
+            checkpoint.as_bytes(),
+            &run_bytes,
+            &risk_byte,
+            &issued_bytes,
+            &expires_bytes,
+            request_nonce.as_bytes(),
+        ],
     );
+
     SessionContext {
         protocol_version: PROTOCOL_VERSION,
         session_id: SessionId::from_bytes(*session_digest.as_bytes()),
         epoch: SESSION_EPOCH,
+        issued_at_unix,
+        expires_at_unix,
+        request_nonce,
         source_domain: "domain-a".to_owned(),
         destination_domain: "domain-b".to_owned(),
         subject: "synthetic-operator:17".to_owned(),
@@ -653,6 +777,24 @@ fn digests_equal(left: &Digest32, right: &Digest32) -> bool {
         == 0
 }
 
+fn governance_reporting(profile: &GovernanceProfile) -> (&'static str, bool) {
+    let live = profile.network_id == LIVE_IOTA_NETWORK_ID
+        && profile.package_id == LIVE_IOTA_PACKAGE_ID
+        && profile.object_id == LIVE_IOTA_OBJECT_ID
+        && profile.package_version == LIVE_IOTA_PACKAGE_VERSION;
+
+    if live {
+        (
+            "off-path-signed-bundle-live-iota-testnet-two-service-observation",
+            true,
+        )
+    } else if profile.network_id == "iota-lab-synthetic-observations" {
+        ("off-path-signed-bundle-synthetic-iota-observations", false)
+    } else {
+        ("off-path-signed-bundle-unclassified-observations", false)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -665,10 +807,49 @@ mod tests {
     #[test]
     fn session_context_is_risk_and_ciphertext_bound() {
         let checkpoint = Digest32::from_bytes([7; 32]);
-        let first = experiment_context(1, checkpoint, &[1; 32], RiskClass::R3);
-        let repeated = experiment_context(1, checkpoint, &[1; 32], RiskClass::R3);
-        let changed = experiment_context(1, checkpoint, &[2; 32], RiskClass::R3);
-        let changed_risk = experiment_context(1, checkpoint, &[1; 32], RiskClass::R4);
+        let issued_at_unix = 100;
+        let expires_at_unix = 200;
+        let request_nonce = RequestNonce::from_bytes([4; 32]);
+
+        let first = experiment_context(
+            1,
+            checkpoint,
+            &[1; 32],
+            RiskClass::R3,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
+
+        let repeated = experiment_context(
+            1,
+            checkpoint,
+            &[1; 32],
+            RiskClass::R3,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
+
+        let changed = experiment_context(
+            1,
+            checkpoint,
+            &[2; 32],
+            RiskClass::R3,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
+
+        let changed_risk = experiment_context(
+            1,
+            checkpoint,
+            &[1; 32],
+            RiskClass::R4,
+            issued_at_unix,
+            expires_at_unix,
+            request_nonce,
+        );
         assert_eq!(first, repeated);
         assert_ne!(first.session_id, changed.session_id);
         assert_ne!(first.session_id, changed_risk.session_id);

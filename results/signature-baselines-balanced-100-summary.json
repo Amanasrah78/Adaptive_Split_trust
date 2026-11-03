@@ -1,0 +1,203 @@
+{
+  "schema": "astra-pq-signature-baseline-summary-v1",
+  "total_samples": 200,
+  "samples_per_profile": 100,
+  "design": {
+    "profiles": [
+      "centralized",
+      "static-quorum"
+    ],
+    "blocks": 10,
+    "samples_per_profile_per_block": 10,
+    "order": "alternated profile order across blocks",
+    "authority_connection_setup_in_timing": false,
+    "governance_bundle_validation_in_timing": false,
+    "baseline_security_equivalent_to_astra_pq": false
+  },
+  "profiles": [
+    {
+      "profile": "centralized",
+      "trust_model": "single destination-authority trust",
+      "samples": 100,
+      "successful_authorizations": 100,
+      "required_approvals": 1,
+      "authority_ids": [
+        "a2"
+      ],
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 882,
+        "median": 1285,
+        "p95": 2695,
+        "p99": 2980,
+        "maximum": 3121,
+        "mean": 1461.84
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 674,
+        "median": 875,
+        "p95": 2398,
+        "p99": 2720,
+        "maximum": 2829,
+        "mean": 1111.42
+      },
+      "gateway_request_signing_us": {
+        "samples": 100,
+        "minimum": 98,
+        "median": 194,
+        "p95": 583,
+        "p99": 835,
+        "maximum": 1007,
+        "mean": 258.79
+      },
+      "approval_verification_us": {
+        "samples": 100,
+        "minimum": 59,
+        "median": 69,
+        "p95": 90,
+        "p99": 96,
+        "maximum": 96,
+        "mean": 71.21
+      },
+      "slowest_authority_round_trip_us": {
+        "samples": 100,
+        "minimum": 591,
+        "median": 788,
+        "p95": 2266,
+        "p99": 2616,
+        "maximum": 2713,
+        "mean": 1022.82
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 217,
+        "median": 357,
+        "p95": 758,
+        "p99": 996,
+        "maximum": 1171,
+        "mean": 419.93
+      },
+      "request_bytes_per_authority": {
+        "samples": 100,
+        "minimum": 12238,
+        "median": 12326,
+        "p95": 12379,
+        "p99": 12393,
+        "maximum": 12400,
+        "mean": 12327.39
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 12055,
+        "median": 12121,
+        "p95": 12173,
+        "p99": 12192,
+        "maximum": 12193,
+        "mean": 12123.5
+      },
+      "preconnection_us_excluded": {
+        "samples": 100,
+        "minimum": 174,
+        "median": 614,
+        "p95": 1252,
+        "p99": 1252,
+        "maximum": 1252,
+        "mean": 652.3
+      }
+    },
+    {
+      "profile": "static-quorum",
+      "trust_model": "fixed three-authority signature quorum",
+      "samples": 100,
+      "successful_authorizations": 100,
+      "required_approvals": 3,
+      "authority_ids": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "authorization_total_us": {
+        "samples": 100,
+        "minimum": 1213,
+        "median": 1689,
+        "p95": 2490,
+        "p99": 3018,
+        "maximum": 3472,
+        "mean": 1777
+      },
+      "parallel_collection_us": {
+        "samples": 100,
+        "minimum": 822,
+        "median": 1227,
+        "p95": 1947,
+        "p99": 2055,
+        "maximum": 2071,
+        "mean": 1277.09
+      },
+      "gateway_request_signing_us": {
+        "samples": 100,
+        "minimum": 97,
+        "median": 213,
+        "p95": 776,
+        "p99": 936,
+        "maximum": 1379,
+        "mean": 276.1
+      },
+      "approval_verification_us": {
+        "samples": 100,
+        "minimum": 173,
+        "median": 201,
+        "p95": 232,
+        "p99": 256,
+        "maximum": 266,
+        "mean": 202.66
+      },
+      "slowest_authority_round_trip_us": {
+        "samples": 100,
+        "minimum": 738,
+        "median": 1054,
+        "p95": 1817,
+        "p99": 1904,
+        "maximum": 1985,
+        "mean": 1140.41
+      },
+      "slowest_authority_processing_us": {
+        "samples": 100,
+        "minimum": 261,
+        "median": 603,
+        "p95": 1125,
+        "p99": 1434,
+        "maximum": 1487,
+        "mean": 629.87
+      },
+      "request_bytes_per_authority": {
+        "samples": 100,
+        "minimum": 12233,
+        "median": 12334,
+        "p95": 12390,
+        "p99": 12410,
+        "maximum": 12430,
+        "mean": 12332.53
+      },
+      "response_bytes_total": {
+        "samples": 100,
+        "minimum": 36213,
+        "median": 36401,
+        "p95": 36484,
+        "p99": 36508,
+        "maximum": 36554,
+        "mean": 36392.94
+      },
+      "preconnection_us_excluded": {
+        "samples": 100,
+        "minimum": 313,
+        "median": 392,
+        "p95": 634,
+        "p99": 634,
+        "maximum": 634,
+        "mean": 417.2
+      }
+    }
+  ]
+}

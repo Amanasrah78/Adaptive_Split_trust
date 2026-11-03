@@ -7,6 +7,7 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+pub mod replay_store;
 pub mod session_wire;
 
 use astra_common::{RiskClass, SessionContext};
@@ -16,7 +17,7 @@ use astra_synthesizer::{
 use std::collections::BTreeSet;
 
 /// Active epoch used by the provisioned distributed-session experiment.
-pub const SESSION_EPOCH: u64 = 1;
+pub const SESSION_EPOCH: u64 = 2;
 
 /// Active LWR share version used by the distributed-session experiment.
 pub const SESSION_SHARE_VERSION: u64 = 1;
@@ -116,6 +117,9 @@ mod tests {
             protocol_version: PROTOCOL_VERSION,
             session_id: SessionId::from_bytes([1; 32]),
             epoch: SESSION_EPOCH,
+            issued_at_unix: 100,
+            expires_at_unix: 200,
+            request_nonce: astra_common::RequestNonce::from_bytes([4; 32]),
             source_domain: "domain-a".to_owned(),
             destination_domain: "domain-b".to_owned(),
             subject: "synthetic-operator:17".to_owned(),

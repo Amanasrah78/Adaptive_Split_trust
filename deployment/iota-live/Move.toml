@@ -1,0 +1,7 @@
+[package]
+name = "astra_pq_governance"
+edition = "2024.beta"
+
+[addresses]
+astra_pq_governance = "0x0"
+

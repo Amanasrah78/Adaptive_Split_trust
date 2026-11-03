@@ -1,0 +1,4 @@
+live_iota_benchmark_complete=true
+samples_per_profile=100
+total_records=400
+output=results/iota-live-governance-latency-100.jsonl

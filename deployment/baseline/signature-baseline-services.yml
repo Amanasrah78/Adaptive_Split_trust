@@ -1,0 +1,134 @@
+---
+- name: Deploy ASTRA-PQ signature baseline services
+  hosts:
+    - astra-domain-a
+    - astra-domain-b
+    - astra-authority-3
+  gather_facts: false
+  vars:
+    baseline_authorities:
+      astra-domain-a:
+        id: a1
+        bind: 172.16.64.11:7663
+      astra-domain-b:
+        id: a2
+        bind: 172.16.64.12:7663
+      astra-authority-3:
+        id: a3
+        bind: 172.16.64.13:7663
+    baseline_binary_source: /home/astraadmin/astra-pq/target/release/astra-signature-baseline-service
+    baseline_root: /home/astraadmin/astra-pq
+
+  tasks:
+    - name: Create baseline configuration directory
+      ansible.builtin.file:
+        path: "{{ baseline_root }}/config/service"
+        state: directory
+        owner: astraadmin
+        group: astraadmin
+        mode: "0755"
+
+    - name: Install signature baseline service binary
+      ansible.builtin.copy:
+        src: "{{ baseline_binary_source }}"
+        dest: "{{ baseline_root }}/bin/astra-signature-baseline-service"
+        owner: astraadmin
+        group: astraadmin
+        mode: "0755"
+      notify: Restart signature baseline service
+
+    - name: Install signature baseline environment
+      ansible.builtin.copy:
+        dest: "{{ baseline_root }}/config/service/signature-baseline.env"
+        owner: astraadmin
+        group: astraadmin
+        mode: "0600"
+        content: |
+          ASTRA_AUTHORITY_ID={{ baseline_authorities[inventory_hostname].id }}
+          ASTRA_BASELINE_BIND={{ baseline_authorities[inventory_hostname].bind }}
+          ASTRA_GOVERNANCE_BUNDLE={{ baseline_root }}/config/governance/governance-bundle.json
+          ASTRA_AUTHORITY_SIGNING_KEY={{ baseline_root }}/secrets/authority/signing.sk
+          ASTRA_AUTHORITY_PUBLIC_KEY={{ baseline_root }}/secrets/authority/signing.pk
+          ASTRA_GATEWAY_PUBLIC_KEY_ROOT={{ baseline_root }}/config/gateway-public-keys
+      notify: Restart signature baseline service
+
+    - name: Install signature baseline systemd unit
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/astra-signature-baseline.service
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=ASTRA-PQ ML-DSA signature authorization baseline
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          Type=simple
+          User=astraadmin
+          Group=astraadmin
+          EnvironmentFile={{ baseline_root }}/config/service/signature-baseline.env
+          ExecStart={{ baseline_root }}/bin/astra-signature-baseline-service
+          Restart=on-failure
+          RestartSec=1s
+          UMask=0077
+          NoNewPrivileges=true
+          PrivateTmp=true
+          ProtectSystem=strict
+          ProtectHome=read-only
+          ProtectKernelTunables=true
+          ProtectKernelModules=true
+          ProtectControlGroups=true
+          RestrictSUIDSGID=true
+          LockPersonality=true
+          RestrictRealtime=true
+          CapabilityBoundingSet=
+          AmbientCapabilities=
+          RestrictAddressFamilies=AF_INET AF_INET6
+          LimitNOFILE=1024
+          StandardOutput=journal
+          StandardError=journal
+
+          [Install]
+          WantedBy=multi-user.target
+      notify:
+        - Reload systemd
+        - Restart signature baseline service
+
+    - name: Enable and start signature baseline service
+      become: true
+      ansible.builtin.systemd_service:
+        name: astra-signature-baseline.service
+        enabled: true
+        state: started
+        daemon_reload: true
+
+  handlers:
+    - name: Reload systemd
+      become: true
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: Restart signature baseline service
+      become: true
+      ansible.builtin.systemd_service:
+        name: astra-signature-baseline.service
+        state: restarted
+
+- name: Deploy signature baseline client
+  hosts: astra-domain-a
+  gather_facts: false
+  vars:
+    baseline_client_source: /home/astraadmin/astra-pq/target/release/astra-signature-baseline-client
+    baseline_root: /home/astraadmin/astra-pq
+
+  tasks:
+    - name: Install signature baseline client binary
+      ansible.builtin.copy:
+        src: "{{ baseline_client_source }}"
+        dest: "{{ baseline_root }}/bin/astra-signature-baseline-client"
+        owner: astraadmin
+        group: astraadmin
+        mode: "0755"

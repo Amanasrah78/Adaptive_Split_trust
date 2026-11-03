@@ -46,6 +46,9 @@ fn main() -> anyhow::Result<()> {
         protocol_version: PROTOCOL_VERSION,
         session_id: SessionId::from_bytes([21; 32]),
         epoch: checkpoint.epoch,
+        issued_at_unix: 1_700_000_000,
+        expires_at_unix: 1_700_000_300,
+        request_nonce: astra_common::RequestNonce::from_bytes([4; 32]),
         source_domain: "domain-a".to_owned(),
         destination_domain: "domain-b".to_owned(),
         subject: "operator:17".to_owned(),
@@ -132,8 +135,17 @@ fn main() -> anyhow::Result<()> {
     )?;
     let responder_us = elapsed_microseconds(responder_start);
     anyhow::ensure!(
-        initiator.session_key.expose_secret() == responder.session_key.expose_secret(),
-        "gateway session keys differ"
+        initiator.secrets.initiator_write_key.expose_secret()
+            == responder.secrets.initiator_write_key.expose_secret()
+            && initiator.secrets.responder_write_key.expose_secret()
+                == responder.secrets.responder_write_key.expose_secret()
+            && initiator.secrets.initiator_write_iv == responder.secrets.initiator_write_iv
+            && initiator.secrets.responder_write_iv == responder.secrets.responder_write_iv
+            && initiator.secrets.initiator_confirmation_key.expose_secret()
+                == responder.secrets.initiator_confirmation_key.expose_secret()
+            && initiator.secrets.responder_confirmation_key.expose_secret()
+                == responder.secrets.responder_confirmation_key.expose_secret(),
+        "gateway session key schedules differ"
     );
 
     let metadata = provider.metadata();
@@ -351,16 +363,19 @@ fn issue_all_evidence(
             };
             let mut engine =
                 AuthorityEngine::new(config, backend, share, provider, signing_key.secret_key());
-            evidence.push(engine.authorize(&AuthorityRequest {
-                context: context.clone(),
-                policy_hash: synthesis.policy_hash,
-                evaluation: EvaluationRequest {
-                    clause_id: clause.id.clone(),
-                    epoch: context.epoch,
-                    share_version: SHARE_VERSION,
-                    input,
+            evidence.push(engine.authorize_at(
+                &AuthorityRequest {
+                    context: context.clone(),
+                    policy_hash: synthesis.policy_hash,
+                    evaluation: EvaluationRequest {
+                        clause_id: clause.id.clone(),
+                        epoch: context.epoch,
+                        share_version: SHARE_VERSION,
+                        input,
+                    },
                 },
-            })?);
+                150,
+            )?);
         }
     }
     Ok(evidence)
