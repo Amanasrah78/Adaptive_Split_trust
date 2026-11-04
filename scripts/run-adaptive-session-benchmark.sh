@@ -10,6 +10,7 @@ blocks="${ASTRA_ADAPTIVE_BLOCKS:-5}"
 repetitions_per_block="${ASTRA_ADAPTIVE_REPETITIONS_PER_BLOCK:-20}"
 output="${ASTRA_ADAPTIVE_OUTPUT:-/home/astraadmin/astra-pq/results/adaptive-session-balanced-${authorization_mode}-100.jsonl}"
 governance_bundle="${ASTRA_ADAPTIVE_GOVERNANCE_BUNDLE:-/home/astraadmin/astra-pq/config/governance/governance-bundle.json}"
+governance_previous_state="${ASTRA_ADAPTIVE_GOVERNANCE_PREVIOUS_STATE:-/home/astraadmin/astra-pq/results/iota-live-governance-state-epoch1.json}"
 expected_live_iota_claim="${ASTRA_ADAPTIVE_EXPECT_LIVE_IOTA_CLAIM:-false}"
 expected_network_id="${ASTRA_ADAPTIVE_EXPECT_NETWORK_ID:-}"
 
@@ -47,6 +48,7 @@ for ((block = 0; block < blocks; block++)); do
     ASTRA_AUTHORIZATION_MODE="${authorization_mode}" \
     ASTRA_SESSION_REPETITIONS="${repetitions_per_block}" \
     ASTRA_GOVERNANCE_BUNDLE="${governance_bundle}" \
+    ASTRA_GOVERNANCE_PREVIOUS_STATE="${governance_previous_state}" \
     ASTRA_INITIATOR_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk \
     ASTRA_INITIATOR_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.pk \
     ASTRA_RESPONDER_SIGNING_PUBLIC_KEY=/home/astraadmin/astra-pq/config/gateway-public-keys/gateway-b.pk \
