@@ -12,6 +12,7 @@
 use anyhow::Context;
 use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::LwrExactCoalitionBackend;
+use astra_dprf::seb::{AuthorizationMode, SignedEvidenceBindingBackend};
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
     GovernanceBundle, GovernanceProfile, LocalGovernanceState, checkpoint_hash,
@@ -25,10 +26,10 @@ use astra_testkit::adaptive_lab_synthesis;
 use astra_testkit::replay_store::ReplayStore;
 use astra_testkit::session_wire::{
     MAX_GATEWAY_MESSAGE_BYTES, SESSION_COMPLETION_SCHEMA, SESSION_FINISH_SCHEMA,
-    SESSION_RESPONSE_SCHEMA, SessionHandshakeCompletion, SessionHandshakeFinish,
-    SessionHandshakeResponse, SignedSessionHandshakeFinish, SignedSessionHandshakeRequest,
-    request_transcript_hash, sign_session_completion, sign_session_response, verify_session_finish,
-    verify_session_request,
+    SESSION_REQUEST_SCHEMA, SESSION_REQUEST_SCHEMA_SEB, SESSION_RESPONSE_SCHEMA,
+    SessionHandshakeCompletion, SessionHandshakeFinish, SessionHandshakeResponse,
+    SignedSessionHandshakeFinish, SignedSessionHandshakeRequest, request_transcript_hash,
+    sign_session_completion, sign_session_response, verify_session_finish, verify_session_request,
 };
 use serde::Serialize;
 use serde_json::json;
@@ -57,6 +58,7 @@ const LIVE_IOTA_PACKAGE_VERSION: u64 = 1;
 struct ResponderState {
     provider: PqProvider,
     backend: LwrExactCoalitionBackend,
+    authorization_mode: AuthorizationMode,
     governance_bundle: GovernanceBundle,
     governance_state: LocalGovernanceState,
     kem_secret_key: SecretBytes,
@@ -87,6 +89,9 @@ impl ResponderState {
         let authority_key_root = required_path("ASTRA_AUTHORITY_PUBLIC_KEY_ROOT")?;
         let replay_db_path = required_path("ASTRA_RESPONDER_REPLAY_DB")?;
         let provider = PqProvider::new().context("initialize post-quantum provider")?;
+        let authorization_mode = AuthorizationMode::parse(
+            &env::var("ASTRA_AUTHORIZATION_MODE").unwrap_or_else(|_| "lwr".to_owned()),
+        )?;
 
         let mut replay_store = ReplayStore::open(&replay_db_path).with_context(|| {
             format!(
@@ -230,6 +235,7 @@ impl ResponderState {
         Ok(Self {
             provider,
             backend: LwrExactCoalitionBackend,
+            authorization_mode,
             governance_bundle,
             governance_state,
             kem_secret_key,
@@ -254,6 +260,7 @@ fn main() -> anyhow::Result<()> {
         "{}",
         json!({
             "schema": "astra-pq-session-responder-start-v1",
+            "authorization_mode": state.authorization_mode.as_str(),
             "gateway_id": RESPONDER_ID,
             "bind": bind_address,
             "kem": metadata.kem_algorithm,
@@ -346,6 +353,14 @@ fn handle_connection(
         &signed_request,
     )?;
     let request_verification_us = request_verification_start.elapsed().as_micros();
+    let expected_request_schema = match state.authorization_mode {
+        AuthorizationMode::Lwr => SESSION_REQUEST_SCHEMA,
+        AuthorizationMode::Seb => SESSION_REQUEST_SCHEMA_SEB,
+    };
+    anyhow::ensure!(
+        signed_request.request.schema == expected_request_schema,
+        "authenticated authorization mechanism differs from responder configuration"
+    );
     signed_request
         .request
         .context
@@ -399,22 +414,28 @@ fn handle_connection(
         let kem_decapsulation_us = decapsulation_start.elapsed().as_micros();
 
         let establishment_start = Instant::now();
-        let established = establish_session(
-            &state.provider,
-            &state.backend,
-            SessionEstablishmentRequest {
-                context: &signed_request.request.context,
-                synthesis: &signed_request.request.synthesis,
-                share_version: signed_request.request.share_version,
-                verification_keys: &state.authority_verification_keys,
-                evidence: &signed_request.request.evidence,
-                kem_secret: &kem_secret,
-                authenticated_transcript: &transcript,
-                governance_state: &state.governance_state,
-                governance_checkpoint: &state.governance_bundle.checkpoint,
-                now: unix_time()?,
-            },
-        )?;
+        let establishment_request = SessionEstablishmentRequest {
+            context: &signed_request.request.context,
+            synthesis: &signed_request.request.synthesis,
+            share_version: signed_request.request.share_version,
+            verification_keys: &state.authority_verification_keys,
+            evidence: &signed_request.request.evidence,
+            kem_secret: &kem_secret,
+            authenticated_transcript: &transcript,
+            governance_state: &state.governance_state,
+            governance_checkpoint: &state.governance_bundle.checkpoint,
+            now: unix_time()?,
+        };
+        let established = match state.authorization_mode {
+            AuthorizationMode::Lwr => {
+                establish_session(&state.provider, &state.backend, establishment_request)
+            }
+            AuthorizationMode::Seb => establish_session(
+                &state.provider,
+                &SignedEvidenceBindingBackend,
+                establishment_request,
+            ),
+        }?;
         let session_establishment_us = establishment_start.elapsed().as_micros();
         let transcript_hash = request_transcript_hash(&transcript);
         let responder_confirmation = derive_session_confirmation_tag(

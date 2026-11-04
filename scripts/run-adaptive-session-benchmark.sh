@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+authorization_mode="${ASTRA_AUTHORIZATION_MODE:-lwr}"
+if [[ "${authorization_mode}" != "lwr" && "${authorization_mode}" != "seb" ]]; then
+  echo "ASTRA_AUTHORIZATION_MODE must be lwr or seb" >&2
+  exit 2
+fi
 blocks="${ASTRA_ADAPTIVE_BLOCKS:-5}"
 repetitions_per_block="${ASTRA_ADAPTIVE_REPETITIONS_PER_BLOCK:-20}"
-output="${ASTRA_ADAPTIVE_OUTPUT:-/home/astraadmin/astra-pq/results/adaptive-session-balanced-100.jsonl}"
+output="${ASTRA_ADAPTIVE_OUTPUT:-/home/astraadmin/astra-pq/results/adaptive-session-balanced-${authorization_mode}-100.jsonl}"
 governance_bundle="${ASTRA_ADAPTIVE_GOVERNANCE_BUNDLE:-/home/astraadmin/astra-pq/config/governance/governance-bundle.json}"
 expected_live_iota_claim="${ASTRA_ADAPTIVE_EXPECT_LIVE_IOTA_CLAIM:-false}"
 expected_network_id="${ASTRA_ADAPTIVE_EXPECT_NETWORK_ID:-}"
@@ -39,6 +44,7 @@ for ((block = 0; block < blocks; block++)); do
     risk="${risks[index]}"
 
     ASTRA_SESSION_RISK="${risk}" \
+    ASTRA_AUTHORIZATION_MODE="${authorization_mode}" \
     ASTRA_SESSION_REPETITIONS="${repetitions_per_block}" \
     ASTRA_GOVERNANCE_BUNDLE="${governance_bundle}" \
     ASTRA_INITIATOR_SIGNING_KEY=/home/astraadmin/astra-pq/secrets/gateway-request/request-signing.sk \
@@ -72,6 +78,7 @@ jq -e -s \
   --argjson expected_total "${expected_total}" \
   --argjson expected_per_risk "${expected_per_risk}" \
   --argjson expected_live_iota_claim "${expected_live_iota_claim}" \
+  --arg expected_mode "${authorization_mode}" \
   --arg expected_network_id "${expected_network_id}" \
   '
     length == $expected_total
@@ -82,6 +89,7 @@ jq -e -s \
     and ([.[] | select(.risk_class == "R4")] | length == $expected_per_risk)
     and all(.[];
       .success == true
+      and .authorization_mode == $expected_mode
       and .live_iota_claim == $expected_live_iota_claim
       and (
         $expected_network_id == ""

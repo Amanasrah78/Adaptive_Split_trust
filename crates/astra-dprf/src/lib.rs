@@ -14,6 +14,7 @@ use zeroize::Zeroize;
 
 /// LWR-based exact-coalition backend for the static semi-honest profile.
 pub mod lwr;
+pub mod seb;
 
 const MAX_PARTIAL_BYTES: usize = 65_536;
 const MAX_PROOF_BYTES: usize = 65_536;
@@ -221,6 +222,18 @@ pub trait DprfBackend {
         request: &EvaluationRequest,
         partials: &[PartialEvaluation],
     ) -> Result<Secret32, DprfError>;
+
+    /// Optional signature-gated combination. LWR ignores signature bytes
+    /// because the gateway has already verified them; SEB binds them.
+    fn combine_authenticated(
+        &self,
+        policy: &ClausePolicy,
+        request: &EvaluationRequest,
+        partials: &[PartialEvaluation],
+        _signatures: &[(&str, &[u8])],
+    ) -> Result<Secret32, DprfError> {
+        self.combine(policy, request, partials)
+    }
 }
 
 /// Optional extension implemented by backends supporting proactive refresh.
@@ -245,6 +258,12 @@ fn validate_text(field: &'static str, value: &str) -> Result<(), DprfError> {
 /// Errors produced by DPRF request, partial, and backend validation.
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum DprfError {
+    /// An authenticated participation signature is missing or duplicated.
+    #[error("missing or ambiguous verified signature for {0}")]
+    MissingAuthenticatedEvidence(String),
+    /// The SEB record is not the expected session-bound participation digest.
+    #[error("invalid SEB participation digest or proof")]
+    InvalidParticipationDigest,
     /// A bounded textual field is malformed.
     #[error("invalid DPRF field: {0}")]
     InvalidField(&'static str),

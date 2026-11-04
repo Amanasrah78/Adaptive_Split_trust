@@ -17,6 +17,7 @@ use astra_common::{
     Digest32, MAX_SESSION_LIFETIME_SECONDS, PROTOCOL_VERSION, RequestNonce, RiskClass,
     SessionContext, SessionId, authorization_input, hash_domain_separated,
 };
+use astra_dprf::seb::{AuthorizationMode, SignedEvidenceBindingBackend};
 use astra_dprf::{DprfBackend, EvaluationRequest, lwr::LwrExactCoalitionBackend};
 use astra_gateway::{AuthorityVerificationKeys, SessionEstablishmentRequest, establish_session};
 use astra_governance::{
@@ -28,9 +29,10 @@ use astra_pqcrypto::{
 };
 use astra_testkit::session_wire::{
     MAX_GATEWAY_MESSAGE_BYTES, SESSION_COMPLETION_SCHEMA, SESSION_FINISH_SCHEMA,
-    SESSION_REQUEST_SCHEMA, SessionHandshakeFinish, SessionHandshakeRequest,
-    SignedSessionHandshakeCompletion, SignedSessionHandshakeResponse, request_transcript_hash,
-    sign_session_finish, sign_session_request, verify_session_completion, verify_session_response,
+    SESSION_REQUEST_SCHEMA, SESSION_REQUEST_SCHEMA_SEB, SessionHandshakeFinish,
+    SessionHandshakeRequest, SignedSessionHandshakeCompletion, SignedSessionHandshakeResponse,
+    request_transcript_hash, sign_session_finish, sign_session_request, verify_session_completion,
+    verify_session_response,
 };
 use astra_testkit::{
     SESSION_EPOCH, SESSION_SHARE_VERSION, adaptive_lab_authorities, adaptive_lab_synthesis,
@@ -93,6 +95,9 @@ fn main() -> anyhow::Result<()> {
     anyhow::ensure!(repetitions >= 1, "session repetitions must be positive");
     let configured_risk = env::var("ASTRA_SESSION_RISK").ok();
     let risk = parse_session_risk(configured_risk.as_deref())?;
+    let authorization_mode = AuthorizationMode::parse(
+        &env::var("ASTRA_AUTHORIZATION_MODE").unwrap_or_else(|_| "lwr".to_owned()),
+    )?;
     let required_authorities = adaptive_lab_authorities(risk)
         .into_iter()
         .map(|authority| authority.id)
@@ -176,7 +181,8 @@ fn main() -> anyhow::Result<()> {
         let connection = connect_authority(authority, endpoint)?;
         connections.insert(authority.clone(), connection);
     }
-    let backend = LwrExactCoalitionBackend;
+    let lwr_backend = LwrExactCoalitionBackend;
+    let seb_backend = SignedEvidenceBindingBackend;
 
     for run in 1..=repetitions {
         anyhow::ensure!(
@@ -292,7 +298,11 @@ fn main() -> anyhow::Result<()> {
             .collect::<Vec<_>>();
 
         let session_request = SessionHandshakeRequest {
-            schema: SESSION_REQUEST_SCHEMA.to_owned(),
+            schema: match authorization_mode {
+                AuthorizationMode::Lwr => SESSION_REQUEST_SCHEMA,
+                AuthorizationMode::Seb => SESSION_REQUEST_SCHEMA_SEB,
+            }
+            .to_owned(),
             initiator_gateway: INITIATOR_ID.to_owned(),
             responder_gateway: RESPONDER_ID.to_owned(),
             context: context.clone(),
@@ -309,22 +319,26 @@ fn main() -> anyhow::Result<()> {
         let transcript_hash = request_transcript_hash(&transcript);
 
         let local_establishment_start = Instant::now();
-        let established = establish_session(
-            &provider,
-            &backend,
-            SessionEstablishmentRequest {
-                context: &signed_session_request.request.context,
-                synthesis: &signed_session_request.request.synthesis,
-                share_version: signed_session_request.request.share_version,
-                verification_keys: &authority_verification_keys,
-                evidence: &signed_session_request.request.evidence,
-                kem_secret: encapsulation.shared_secret(),
-                authenticated_transcript: &transcript,
-                governance_state: &governance_state,
-                governance_checkpoint: &governance_bundle.checkpoint,
-                now: unix_time()?,
-            },
-        )?;
+        let establishment_request = SessionEstablishmentRequest {
+            context: &signed_session_request.request.context,
+            synthesis: &signed_session_request.request.synthesis,
+            share_version: signed_session_request.request.share_version,
+            verification_keys: &authority_verification_keys,
+            evidence: &signed_session_request.request.evidence,
+            kem_secret: encapsulation.shared_secret(),
+            authenticated_transcript: &transcript,
+            governance_state: &governance_state,
+            governance_checkpoint: &governance_bundle.checkpoint,
+            now: unix_time()?,
+        };
+        let established = match authorization_mode {
+            AuthorizationMode::Lwr => {
+                establish_session(&provider, &lwr_backend, establishment_request)
+            }
+            AuthorizationMode::Seb => {
+                establish_session(&provider, &seb_backend, establishment_request)
+            }
+        }?;
         let local_session_establishment_us = local_establishment_start.elapsed().as_micros();
         let expected_responder_confirmation = derive_session_confirmation_tag(
             &established.secrets.responder_confirmation_key,
@@ -454,8 +468,15 @@ fn main() -> anyhow::Result<()> {
                 "contributors": established.contributors,
                 "kem": provider.metadata().kem_algorithm,
                 "signature": provider.metadata().signature_algorithm,
-                "dprf_backend": backend.backend_id(),
-                "security_profile": LwrExactCoalitionBackend::security_profile(),
+                "authorization_mode": authorization_mode.as_str(),
+                "dprf_backend": match authorization_mode {
+                    AuthorizationMode::Lwr => lwr_backend.backend_id(),
+                    AuthorizationMode::Seb => seb_backend.backend_id(),
+                },
+                "security_profile": match authorization_mode {
+                    AuthorizationMode::Lwr => LwrExactCoalitionBackend::security_profile(),
+                    AuthorizationMode::Seb => "public-signature-gated-evidence-binding",
+                },
                 "malicious_robust": false,
                 "proactive_refresh_implemented": false,
                 "governance_validation": governance_reporting(&governance_bundle.profile).0,

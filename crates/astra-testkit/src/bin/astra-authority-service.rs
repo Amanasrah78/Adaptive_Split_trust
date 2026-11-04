@@ -15,6 +15,7 @@ use astra_authority::{
 };
 use astra_common::{Digest32, RiskClass};
 use astra_dprf::lwr::{LwrExactCoalitionBackend, LwrExactCoalitionShare};
+use astra_dprf::seb::{AuthorizationMode, SignedEvidenceBindingBackend};
 use astra_governance::{
     GovernanceBundle, LocalGovernanceState, checkpoint_hash, checkpoint_is_fresh, validate_bundle,
 };
@@ -59,6 +60,7 @@ struct ServiceState {
     governance_state: LocalGovernanceState,
     provider: PqProvider,
     backend: LwrExactCoalitionBackend,
+    authorization_mode: AuthorizationMode,
     signing_key: SecretBytes,
     signing_public_key: Vec<u8>,
     gateway_public_keys: BTreeMap<String, Vec<u8>>,
@@ -81,8 +83,15 @@ impl ServiceState {
         let authority_id = required_environment("ASTRA_AUTHORITY_ID")?;
         validate_identifier(&authority_id, "authority identifier")?;
         let share_version = required_u64("ASTRA_SHARE_VERSION")?;
+        let authorization_mode = AuthorizationMode::parse(
+            &env::var("ASTRA_AUTHORIZATION_MODE").unwrap_or_else(|_| "lwr".to_owned()),
+        )?;
         let governance_path = PathBuf::from(required_environment("ASTRA_GOVERNANCE_BUNDLE")?);
-        let share_root = PathBuf::from(required_environment("ASTRA_LWR_SHARE_ROOT")?);
+        let share_root = if authorization_mode == AuthorizationMode::Lwr {
+            Some(PathBuf::from(required_environment("ASTRA_LWR_SHARE_ROOT")?))
+        } else {
+            None
+        };
         let signing_secret_path =
             PathBuf::from(required_environment("ASTRA_AUTHORITY_SIGNING_KEY")?);
         let signing_public_path =
@@ -212,11 +221,17 @@ impl ServiceState {
                 Ok((gateway_id.to_owned(), key))
             })
             .collect::<anyhow::Result<BTreeMap<_, _>>>()?;
-        let shares = load_shares(&share_root, &authority_id)?;
-        anyhow::ensure!(
-            !shares.is_empty(),
-            "authority has no provisioned LWR shares"
-        );
+        let shares = match share_root.as_ref() {
+            Some(root) => {
+                let loaded = load_shares(root, &authority_id)?;
+                anyhow::ensure!(
+                    !loaded.is_empty(),
+                    "authority has no provisioned LWR shares"
+                );
+                loaded
+            }
+            None => BTreeMap::new(), // SEB loads no LWR share material.
+        };
 
         Ok(Self {
             authority_id,
@@ -227,6 +242,7 @@ impl ServiceState {
             governance_state,
             provider,
             backend: LwrExactCoalitionBackend,
+            authorization_mode,
             signing_key,
             signing_public_key,
             gateway_public_keys,
@@ -255,11 +271,25 @@ impl ServiceState {
             .context("gateway request authentication failed")?;
         let request = &signed.request;
         let risk_key = risk_share_key(request.context.risk, &request.evaluation.clause_id);
-        let share = self
-            .shares
-            .get(&risk_key)
-            .or_else(|| self.shares.get(&request.evaluation.clause_id))
-            .context("authority is not provisioned for this exact coalition")?;
+        let share = match self.authorization_mode {
+            AuthorizationMode::Lwr => Some(
+                self.shares
+                    .get(&risk_key)
+                    .or_else(|| self.shares.get(&request.evaluation.clause_id))
+                    .context("authority is not provisioned for this exact coalition")?,
+            ),
+            AuthorizationMode::Seb => {
+                // The exact same laboratory risk-to-clause assignments as
+                // in provisioned LWR mode, without loading any LWR shares.
+                let (_, permitted) =
+                    parse_risk_clause(request.context.risk, &request.evaluation.clause_id)?;
+                anyhow::ensure!(
+                    permitted.contains(&self.authority_id.as_str()),
+                    "authority is not assigned to this risk-specific clause"
+                );
+                None
+            }
+        };
         let replay_scope = format!(
             "authority:{}:{}:{}",
             self.authority_id, request.evaluation.clause_id, request.evaluation.share_version
@@ -294,16 +324,31 @@ impl ServiceState {
                 approved_checkpoint: self.approved_checkpoint,
                 allowed_clauses: BTreeSet::from([request.evaluation.clause_id.clone()]),
             };
-            let mut engine = AuthorityEngine::new(
-                config,
-                &self.backend,
-                share,
-                &self.provider,
-                &self.signing_key,
-            );
-            let evidence = engine
-                .authorize_at(request, unix_time()?)
-                .context("authority request rejected")?;
+            let evidence = match self.authorization_mode {
+                AuthorizationMode::Lwr => {
+                    let mut engine = AuthorityEngine::new(
+                        config,
+                        &self.backend,
+                        share.context("missing LWR share")?,
+                        &self.provider,
+                        &self.signing_key,
+                    );
+                    engine.authorize_at(request, unix_time()?)
+                }
+                AuthorizationMode::Seb => {
+                    let backend = SignedEvidenceBindingBackend;
+                    let unused_share = [0_u8; 32]; // ABI-only; never a key share.
+                    let mut engine = AuthorityEngine::new(
+                        config,
+                        &backend,
+                        &unused_share,
+                        &self.provider,
+                        &self.signing_key,
+                    );
+                    engine.authorize_at(request, unix_time()?)
+                }
+            }
+            .context("authority request rejected")?;
             verify_evidence(
                 &self.provider,
                 &self.signing_public_key,
@@ -360,6 +405,7 @@ fn main() -> anyhow::Result<()> {
         "{}",
         json!({
             "schema": "astra-pq-authority-service-start-v1",
+            "authorization_mode": state.authorization_mode.as_str(),
             "authority_id": state.authority_id,
             "bind": bind_address,
             "provisioned_thresholds": provisioned_thresholds,

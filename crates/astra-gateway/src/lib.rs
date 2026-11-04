@@ -177,7 +177,20 @@ pub fn combine_authorization<B: DprfBackend>(
                 .map(str::to_owned)
                 .collect(),
         );
-        let output = backend.combine(&policy, &request, &partials)?;
+        // Every signature has already been checked by verify_evidence.
+        // LWR ignores these bytes; SEB binds the original verified signatures
+        // to the public clause commitment, including canonical contributors.
+        let signatures: Vec<(&str, &[u8])> = evidence
+            .iter()
+            .filter(|item| item.partial.clause_id == clause.id)
+            .map(|item| {
+                (
+                    item.partial.authority_id.as_str(),
+                    item.signature.as_slice(),
+                )
+            })
+            .collect();
+        let output = backend.combine_authenticated(&policy, &request, &partials, &signatures)?;
         clause_outputs.push((clause.id.as_str(), output));
     }
 

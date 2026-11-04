@@ -16,6 +16,8 @@ use std::collections::BTreeMap;
 
 /// Schema carried by the initiator's signed session request.
 pub const SESSION_REQUEST_SCHEMA: &str = "astra-pq-session-request-v1";
+/// Authenticated session-request variant for the signed-evidence ablation.
+pub const SESSION_REQUEST_SCHEMA_SEB: &str = "astra-pq-session-request-v1-seb";
 
 /// Schema carried by the responder's signed key-confirmation response.
 pub const SESSION_RESPONSE_SCHEMA: &str = "astra-pq-session-response-v1";
@@ -301,7 +303,7 @@ pub fn request_transcript_hash(transcript: &[u8]) -> Digest32 {
 
 fn validate_session_request(request: &SessionHandshakeRequest) -> anyhow::Result<()> {
     anyhow::ensure!(
-        request.schema == SESSION_REQUEST_SCHEMA,
+        request.schema == SESSION_REQUEST_SCHEMA || request.schema == SESSION_REQUEST_SCHEMA_SEB,
         "session request schema mismatch"
     );
     anyhow::ensure!(
