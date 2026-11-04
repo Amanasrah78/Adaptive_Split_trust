@@ -19,6 +19,7 @@ fn main() -> anyhow::Result<()> {
         scope == "authority:a1"
             || scope == "authority:a2"
             || scope == "authority:a3"
+            || scope == "authority:a4"
             || scope == "responder",
         "unsupported bootstrap scope: {scope}"
     );
