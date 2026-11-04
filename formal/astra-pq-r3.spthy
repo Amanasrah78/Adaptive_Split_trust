@@ -1,0 +1,628 @@
+theory ASTRA_PQ_R3
+
+begin
+
+builtins: hashing, signing, asymmetric-encryption
+
+/*
+ * ASTRA-PQ symbolic model, evaluated R3 profile.
+ *
+ * Required R3 evidence:
+ *   a1: source + risk-floor
+ *   a2: destination + risk-floor
+ *   a3: safety + risk-floor
+ *
+ * Cryptographic abstraction:
+ *   ML-DSA  -> symbolic signatures
+ *   ML-KEM  -> asymmetric encryption of a fresh KEM contribution
+ *   HKDF    -> domain-separated hash abstraction
+ *   DPRF Zs -> hash of the complete authenticated evidence set
+ *
+ * The authorization evidence is sent over the adversarial network.
+ * Therefore Zs is not modeled as secret. Session-key secrecy relies on
+ * the fresh KEM contribution remaining unavailable to the adversary.
+ */
+
+
+/* ------------------------------------------------------------------ */
+/* Equality tests used for signature and key-confirmation verification */
+/* ------------------------------------------------------------------ */
+
+restriction Equality:
+  "All x y #i. Eq(x,y)@i ==> x = y"
+
+restriction UniqueSetup:
+  "All #i #j. Setup()@i & Setup()@j ==> #i = #j"
+
+
+/* ------------------------------------------------------------------ */
+/* Long-term keys                                                     */
+/* ------------------------------------------------------------------ */
+
+rule Setup:
+  [ Fr(~skI),
+    Fr(~skR),
+    Fr(~skA1),
+    Fr(~skA2),
+    Fr(~skA3) ]
+  --[ Setup() ]->
+  [ !SkI(~skI),
+    !PkI(pk(~skI)),
+
+    !SkR(~skR),
+    !PkR(pk(~skR)),
+
+    !SkA1(~skA1),
+    !PkA1(pk(~skA1)),
+
+    !SkA2(~skA2),
+    !PkA2(pk(~skA2)),
+
+    !SkA3(~skA3),
+    !PkA3(pk(~skA3)),
+
+    Out(pk(~skI)),
+    Out(pk(~skR)),
+    Out(pk(~skA1)),
+    Out(pk(~skA2)),
+    Out(pk(~skA3)) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Endpoint compromise boundaries                                    */
+/* ------------------------------------------------------------------ */
+
+rule Corrupt_Initiator:
+  [ !SkI(skI) ]
+  --[ CorruptInitiator() ]->
+  [ Out(skI) ]
+
+rule Corrupt_Responder:
+  [ !SkR(skR) ]
+  --[ CorruptResponder() ]->
+  [ Out(skR) ]
+
+
+
+/* ------------------------------------------------------------------ */
+/* Initiator creates one fresh session                                */
+/* ------------------------------------------------------------------ */
+
+rule Initiator_Start:
+  let
+    areq = <'auth-request', ~sid, ~u>
+    ct   = aenc(<~sid, ~kkem>, pkR)
+  in
+  [ !SkI(skI),
+    !PkR(pkR),
+    Fr(~sid),
+    Fr(~u),
+    Fr(~kkem) ]
+  --[ InitiatorStart(~sid, ~u) ]->
+  [ St_I_Collect(~sid, ~u, ~kkem, ct),
+    ReplayPermit(~sid),
+
+    Out(ct),
+    Out(<areq, sign(areq,skI)>) ]
+
+
+/* ------------------------------------------------------------------ */
+/* R3 authorization authorities                                      */
+/* ------------------------------------------------------------------ */
+
+rule Authority_A1:
+  let
+    areq = <'auth-request', sid, u>
+
+    ev_source =
+      <'evidence','a1','source',sid,u>
+
+    ev_floor_a1 =
+      <'evidence','a1','risk-floor',sid,u>
+  in
+  [ !PkI(pkI),
+    !SkA1(skA1),
+    In(<areq,sigI>) ]
+  --[ Eq(verify(sigI,areq,pkI),true),
+      AuthorityEvidence('a1','source',sid),
+      AuthorityEvidence('a1','risk-floor',sid) ]->
+  [ Out(<ev_source,sign(ev_source,skA1)>),
+    Out(<ev_floor_a1,sign(ev_floor_a1,skA1)>) ]
+
+
+rule Authority_A2:
+  let
+    areq = <'auth-request', sid, u>
+
+    ev_destination =
+      <'evidence','a2','destination',sid,u>
+
+    ev_floor_a2 =
+      <'evidence','a2','risk-floor',sid,u>
+  in
+  [ !PkI(pkI),
+    !SkA2(skA2),
+    In(<areq,sigI>) ]
+  --[ Eq(verify(sigI,areq,pkI),true),
+      AuthorityEvidence('a2','destination',sid),
+      AuthorityEvidence('a2','risk-floor',sid) ]->
+  [ Out(<ev_destination,sign(ev_destination,skA2)>),
+    Out(<ev_floor_a2,sign(ev_floor_a2,skA2)>) ]
+
+
+rule Authority_A3:
+  let
+    areq = <'auth-request', sid, u>
+
+    ev_safety =
+      <'evidence','a3','safety',sid,u>
+
+    ev_floor_a3 =
+      <'evidence','a3','risk-floor',sid,u>
+  in
+  [ !PkI(pkI),
+    !SkA3(skA3),
+    In(<areq,sigI>) ]
+  --[ Eq(verify(sigI,areq,pkI),true),
+      AuthorityEvidence('a3','safety',sid),
+      AuthorityEvidence('a3','risk-floor',sid) ]->
+  [ Out(<ev_safety,sign(ev_safety,skA3)>),
+    Out(<ev_floor_a3,sign(ev_floor_a3,skA3)>) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Initiator collects exactly the six R3 evidence contributions       */
+/* ------------------------------------------------------------------ */
+
+rule Initiator_Send_Session_Request:
+  let
+    ev_source =
+      <'evidence','a1','source',sid,u>
+
+    ev_destination =
+      <'evidence','a2','destination',sid,u>
+
+    ev_safety =
+      <'evidence','a3','safety',sid,u>
+
+    ev_floor_a1 =
+      <'evidence','a1','risk-floor',sid,u>
+
+    ev_floor_a2 =
+      <'evidence','a2','risk-floor',sid,u>
+
+    ev_floor_a3 =
+      <'evidence','a3','risk-floor',sid,u>
+
+    evidence =
+      < <ev_source,sig_source>,
+        <ev_destination,sig_destination>,
+        <ev_safety,sig_safety>,
+        <ev_floor_a1,sig_floor_a1>,
+        <ev_floor_a2,sig_floor_a2>,
+        <ev_floor_a3,sig_floor_a3> >
+
+    z  = h(<'authorization-value',sid,u,evidence>)
+    tr = h(<'request-transcript',sid,u,ct,evidence>)
+    k  = h(<'session-key',kkem,z,u,tr>)
+
+    req = <'session-request',sid,u,ct,evidence,tr>
+  in
+  [ St_I_Collect(sid,u,kkem,ct),
+    !SkI(skI),
+
+    !PkA1(pkA1),
+    !PkA2(pkA2),
+    !PkA3(pkA3),
+
+    In(<ev_source,sig_source>),
+    In(<ev_destination,sig_destination>),
+    In(<ev_safety,sig_safety>),
+    In(<ev_floor_a1,sig_floor_a1>),
+    In(<ev_floor_a2,sig_floor_a2>),
+    In(<ev_floor_a3,sig_floor_a3>) ]
+  --[ Eq(verify(sig_source,ev_source,pkA1),true),
+      Eq(verify(sig_destination,ev_destination,pkA2),true),
+      Eq(verify(sig_safety,ev_safety,pkA3),true),
+      Eq(verify(sig_floor_a1,ev_floor_a1,pkA1),true),
+      Eq(verify(sig_floor_a2,ev_floor_a2,pkA2),true),
+      Eq(verify(sig_floor_a3,ev_floor_a3,pkA3),true),
+
+      InitiatorEvidenceVerified(sid,u),
+      InitiatorRequest(sid,u,tr,k) ]->
+  [ St_I_Wait_Response(sid,u,k,tr),
+    Out(<req,sign(req,skI)>) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Responder reconstructs R3 authorization and derives the same key   */
+/* ------------------------------------------------------------------ */
+
+rule Responder_Process_Request:
+  let
+    ev_source =
+      <'evidence','a1','source',sid,u>
+
+    ev_destination =
+      <'evidence','a2','destination',sid,u>
+
+    ev_safety =
+      <'evidence','a3','safety',sid,u>
+
+    ev_floor_a1 =
+      <'evidence','a1','risk-floor',sid,u>
+
+    ev_floor_a2 =
+      <'evidence','a2','risk-floor',sid,u>
+
+    ev_floor_a3 =
+      <'evidence','a3','risk-floor',sid,u>
+
+    evidence =
+      < <ev_source,sig_source>,
+        <ev_destination,sig_destination>,
+        <ev_safety,sig_safety>,
+        <ev_floor_a1,sig_floor_a1>,
+        <ev_floor_a2,sig_floor_a2>,
+        <ev_floor_a3,sig_floor_a3> >
+
+    ct =
+      aenc(<sid,kkem>,pk(skR))
+
+    req =
+      <'session-request',sid,u,ct,evidence,tr>
+
+    z =
+      h(<'authorization-value',sid,u,evidence>)
+
+    tr_expected =
+      h(<'request-transcript',sid,u,ct,evidence>)
+
+    k =
+      h(<'session-key',kkem,z,u,tr>)
+
+    tagR =
+      h(<'responder-confirmation',k,tr>)
+  in
+  [ !SkR(skR),
+    !PkI(pkI),
+
+    !PkA1(pkA1),
+    !PkA2(pkA2),
+    !PkA3(pkA3),
+
+    In(<req,sigI>) ]
+  --[ Eq(verify(sigI,req,pkI),true),
+
+      Eq(verify(sig_source,ev_source,pkA1),true),
+      Eq(verify(sig_destination,ev_destination,pkA2),true),
+      Eq(verify(sig_safety,ev_safety,pkA3),true),
+
+      Eq(verify(sig_floor_a1,ev_floor_a1,pkA1),true),
+      Eq(verify(sig_floor_a2,ev_floor_a2,pkA2),true),
+      Eq(verify(sig_floor_a3,ev_floor_a3,pkA3),true),
+
+      Eq(tr,tr_expected),
+
+      AuthorizationSatisfied(sid,u),
+      ResponderDerived(sid,k,tr) ]->
+  [ St_R_Wait_Finish(sid,u,k,tr),
+
+    Out(
+      < 'responder-confirmation',
+        sid,
+        tagR,
+        sign(<'responder-confirmation',sid,tagR,tr>,skR)
+      >
+    ) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Initiator verifies responder confirmation and sends its own        */
+/* ------------------------------------------------------------------ */
+
+rule Initiator_Confirm:
+  let
+    tagR =
+      h(<'responder-confirmation',k,tr>)
+
+    tagI =
+      h(<'initiator-confirmation',k,tr>)
+
+    mR =
+      <'responder-confirmation',sid,tagR,tr>
+
+    mI =
+      <'initiator-confirmation',sid,tagI,tr>
+  in
+  [ St_I_Wait_Response(sid,u,k,tr),
+    !PkR(pkR),
+    !SkI(skI),
+
+    In(<'responder-confirmation',
+        sid,
+        receivedTagR,
+        sigR>) ]
+  --[ Eq(receivedTagR,tagR),
+      Eq(verify(sigR,mR,pkR),true),
+      InitiatorConfirmed(sid,k,tr) ]->
+  [ Out(<mI,sign(mI,skI)>),
+    St_I_Confirmed(sid,u,k,tr) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Durable replay permit is consumed before responder acceptance      */
+/* ------------------------------------------------------------------ */
+
+rule Responder_Accept:
+  let
+    tagI =
+      h(<'initiator-confirmation',k,tr>)
+
+    mI =
+      <'initiator-confirmation',sid,tagI,tr>
+  in
+  [ St_R_Wait_Finish(sid,u,k,tr),
+    ReplayPermit(sid),
+
+    !PkI(pkI),
+
+    In(<mI,sigI>) ]
+  --[ Eq(verify(sigI,mI,pkI),true),
+
+      ResponderAccept(sid,u,k,tr) ]->
+  [ Accepted(sid) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Governance high-water state                                        */
+/* ------------------------------------------------------------------ */
+
+/*
+ * Governance is modeled at the point where a signed checkpoint has
+ * already been obtained from the governance plane. The signer maintains
+ * one linear publication chain, while the verifier maintains one linear
+ * local high-water state. A new checkpoint must name the digest of the
+ * verifier's currently active checkpoint as its predecessor.
+ */
+
+restriction UniqueGovernanceSetup:
+  "All #i #j.
+      GovernanceSetup() @ i
+      & GovernanceSetup() @ j
+      ==> #i = #j"
+
+
+rule Governance_Setup:
+  [ Fr(~skG),
+    Fr(~epoch0),
+    Fr(~digest0),
+    Fr(~version0) ]
+  --[ GovernanceSetup(),
+      GovernanceActivated(~epoch0,~digest0,~version0) ]->
+  [ !GovSk(~skG),
+    !GovPk(pk(~skG)),
+
+    GovSignState(~epoch0,~digest0,~version0),
+    GovVerifyState(~epoch0,~digest0,~version0),
+
+    Out(pk(~skG)) ]
+
+
+rule Governance_Issue_Next:
+  let
+    checkpoint =
+      <'checkpoint',
+       ~epochNext,
+       epochPrev,
+       digestPrev,
+       ~digestNext,
+       ~versionNext>
+  in
+  [ !GovSk(skG),
+
+    GovSignState(epochPrev,digestPrev,versionPrev),
+
+    Fr(~epochNext),
+    Fr(~digestNext),
+    Fr(~versionNext) ]
+  --[ GovernanceIssued(
+        epochPrev,digestPrev,versionPrev,
+        ~epochNext,~digestNext,~versionNext) ]->
+  [ GovSignState(~epochNext,~digestNext,~versionNext),
+
+    Out(<checkpoint,sign(checkpoint,skG)>) ]
+
+
+rule Governance_Activate_Next:
+  let
+    checkpoint =
+      <'checkpoint',
+       epochNext,
+       epochPrev,
+       digestPrev,
+       digestNext,
+       versionNext>
+  in
+  [ !GovPk(pkG),
+
+    GovVerifyState(epochPrev,digestPrev,versionPrev),
+
+    In(<checkpoint,sigG>) ]
+  --[ Eq(verify(sigG,checkpoint,pkG),true),
+
+      GovernanceTransition(
+        epochPrev,digestPrev,versionPrev,
+        epochNext,digestNext,versionNext),
+
+      GovernanceActivated(
+        epochNext,digestNext,versionNext) ]->
+  [ GovVerifyState(epochNext,digestNext,versionNext) ]
+
+
+
+/* ------------------------------------------------------------------ */
+/* Phase executability diagnostics                                    */
+/* ------------------------------------------------------------------ */
+
+lemma exec_authority:
+  exists-trace
+  "Ex sid #i.
+      AuthorityEvidence('a1','source',sid) @ i"
+
+lemma exec_initiator_request:
+  exists-trace
+  "Ex sid u tr k #i.
+      InitiatorRequest(sid,u,tr,k) @ i"
+
+lemma exec_responder_derived:
+  exists-trace
+  "Ex sid k tr #i.
+      ResponderDerived(sid,k,tr) @ i"
+
+lemma exec_initiator_confirmed:
+  exists-trace
+  "Ex sid k tr #i.
+      InitiatorConfirmed(sid,k,tr) @ i"
+
+
+/* ------------------------------------------------------------------ */
+/* Executability                                                      */
+/* ------------------------------------------------------------------ */
+
+lemma protocol_exec:
+  exists-trace
+  "Ex sid u k tr #i.
+      ResponderAccept(sid,u,k,tr) @ i"
+
+
+/* ------------------------------------------------------------------ */
+/* Authorization must precede acceptance                              */
+/* ------------------------------------------------------------------ */
+
+lemma authorization_before_acceptance:
+  "All sid u k tr #i.
+      ResponderAccept(sid,u,k,tr) @ i
+      ==>
+      Ex #j.
+        AuthorizationSatisfied(sid,u) @ j
+        & #j < #i"
+
+
+/* ------------------------------------------------------------------ */
+/* Responder acceptance agrees with one initiator run                 */
+/* ------------------------------------------------------------------ */
+
+lemma responder_injective_agreement:
+  "All sid u k tr #i.
+      ResponderAccept(sid,u,k,tr) @ i
+      &
+      not(
+        Ex #c.
+          CorruptInitiator() @ c
+          & #c < #i
+      )
+      ==>
+      (Ex #j.
+         InitiatorConfirmed(sid,k,tr) @ j
+         & #j < #i)
+      &
+      not(
+        Ex #i2.
+          ResponderAccept(sid,u,k,tr) @ i2
+          & not(#i2 = #i)
+      )"
+
+
+
+/* ------------------------------------------------------------------ */
+/* Accepted session key remains unknown                               */
+/* ------------------------------------------------------------------ */
+
+lemma session_key_secrecy:
+  "All sid u k tr #i #j.
+      ResponderAccept(sid,u,k,tr) @ i
+      &
+      K(k) @ j
+      ==>
+      (Ex #c.
+         CorruptResponder() @ c)
+      |
+      (Ex #c.
+         CorruptInitiator() @ c
+         & #c < #i)"
+
+
+
+/* ------------------------------------------------------------------ */
+/* Replay state permits at most one responder acceptance per sid      */
+/* ------------------------------------------------------------------ */
+
+lemma responder_no_double_accept:
+  "All sid u1 u2 k1 k2 tr1 tr2 #i #j.
+      ResponderAccept(sid,u1,k1,tr1) @ i
+      &
+      ResponderAccept(sid,u2,k2,tr2) @ j
+      ==>
+      #i = #j"
+
+
+
+/* ------------------------------------------------------------------ */
+/* Governance executability                                           */
+/* ------------------------------------------------------------------ */
+
+lemma governance_exec:
+  exists-trace
+  "Ex e0 h0 v0 e1 h1 v1 #i #j.
+      GovernanceActivated(e0,h0,v0) @ i
+      &
+      GovernanceActivated(e1,h1,v1) @ j
+      &
+      #i < #j"
+
+
+/* ------------------------------------------------------------------ */
+/* Activated governance state cannot roll back to its predecessor      */
+/* ------------------------------------------------------------------ */
+
+lemma governance_no_rollback:
+  "All
+      e0 h0 v0
+      e1 h1 v1
+      #t #i #j.
+
+      GovernanceTransition(
+        e0,h0,v0,
+        e1,h1,v1) @ t
+
+      &
+      GovernanceActivated(e1,h1,v1) @ i
+
+      &
+      GovernanceActivated(e0,h0,v0) @ j
+
+      ==>
+      #j < #i"
+
+
+/* ------------------------------------------------------------------ */
+/* One epoch cannot activate two conflicting checkpoints              */
+/* ------------------------------------------------------------------ */
+
+lemma governance_no_same_epoch_conflict:
+  "All
+      e h1 h2 v1 v2
+      #i #j.
+
+      GovernanceActivated(e,h1,v1) @ i
+      &
+      GovernanceActivated(e,h2,v2) @ j
+
+      ==>
+      h1 = h2
+      &
+      v1 = v2"
+
+
+end

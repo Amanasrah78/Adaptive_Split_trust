@@ -1,0 +1,110 @@
+theory ASTRA_PQ_Governance
+
+begin
+
+functions: next/1
+
+/*
+ * ASTRA-PQ governance high-water-state model.
+ *
+ * Each verifier instance has a fresh identifier vid.
+ * The model captures locally retained validated governance state.
+ * It does not model IOTA consensus or storage rollback attacks.
+ */
+
+
+/* ------------------------------------------------------------------ */
+/* Initialize one verifier instance                                   */
+/* ------------------------------------------------------------------ */
+
+rule Governance_Init:
+  [ Fr(~vid),
+    Fr(~h0),
+    Fr(~v0) ]
+  --[ GovernanceActivated(~vid,'e0',~h0,~v0) ]->
+  [ GovState(~vid,'e0',~h0,~v0) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Advance the verifier's validated high-water state                  */
+/* ------------------------------------------------------------------ */
+
+rule Governance_Advance:
+  [ GovState(vid,e,h,v),
+    Fr(~hNext),
+    Fr(~vNext) ]
+  --[ GovernanceTransition(
+        vid,
+        e,h,v,
+        next(e),~hNext,~vNext),
+
+      GovernanceActivated(
+        vid,
+        next(e),~hNext,~vNext) ]->
+  [ GovState(
+      vid,
+      next(e),~hNext,~vNext) ]
+
+
+/* ------------------------------------------------------------------ */
+/* Executability                                                      */
+/* ------------------------------------------------------------------ */
+
+lemma governance_exec:
+  exists-trace
+  "Ex vid h0 v0 h1 v1 #i #j.
+      GovernanceActivated(vid,'e0',h0,v0) @ i
+      &
+      GovernanceActivated(vid,next('e0'),h1,v1) @ j
+      &
+      #i < #j"
+
+
+/* ------------------------------------------------------------------ */
+/* Once advanced, predecessor cannot later be reactivated             */
+/* ------------------------------------------------------------------ */
+
+lemma governance_no_rollback:
+  "All vid
+       e0 h0 v0
+       e1 h1 v1
+       #t #i #j.
+
+      GovernanceTransition(
+        vid,
+        e0,h0,v0,
+        e1,h1,v1) @ t
+
+      &
+      GovernanceActivated(
+        vid,e1,h1,v1) @ i
+
+      &
+      GovernanceActivated(
+        vid,e0,h0,v0) @ j
+
+      ==>
+      #j < #i"
+
+
+/* ------------------------------------------------------------------ */
+/* One verifier cannot activate conflicting states at one epoch       */
+/* ------------------------------------------------------------------ */
+
+lemma governance_no_same_epoch_conflict:
+  "All vid e h1 h2 v1 v2 #i #j.
+
+      GovernanceActivated(
+        vid,e,h1,v1) @ i
+
+      &
+      GovernanceActivated(
+        vid,e,h2,v2) @ j
+
+      ==>
+      h1 = h2
+      &
+      v1 = v2"
+
+
+end
